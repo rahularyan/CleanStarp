@@ -915,8 +915,12 @@ $ra_page = '
 		</tbody>
 	</table>
 	</div>
-<input type="submit" class="qa-form-tall-button btn-primary" title="" value="Save Changes" name="ra_save_button">
-<input type="submit" class="qa-form-tall-button" title="" value="Reset to Default" name="ra_reset_button">
+<div class="form-button-sticky-footer">
+	<div class="form-button-holder">
+		<input type="submit" class="qa-form-tall-button btn-primary" title="" value="Save Changes" name="ra_save_button">
+		<input type="submit" class="qa-form-tall-button" title="" value="Reset to Default" name="ra_reset_button">
+	</div>
+</div>
 </form>
 ';
 			$this->content['custom'] = $ra_page;

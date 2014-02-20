@@ -2,3 +2,13 @@
 	border-bottom: 1px solid #EEEEEE;
     padding-bottom: 20px;
 }
+.form-button-sticky-footer {
+    height: 46px;
+}
+.form-button-holder{
+	background-color: #EEEEEE;
+    border-radius: 0 0 5px 5px;
+    padding: 8px;
+    text-align: right;
+	z-index: 999;
+}

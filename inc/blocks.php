@@ -767,11 +767,10 @@
 			$code = @$post['voting_form_hidden']['code'] ;
 			if (isset($post['vote_view'])) {
 				$state = @$post['vote_state'] ;
-				$this->output('<div class="'.$state.' '.(isset($this->content['q_list']) ? 'list-':'').'voting clearfix '.(($post['vote_view']=='updown') ? 'qa-voting-updown' : 'qa-voting-net').(($post['raw']['netvotes']< (0)) ? ' negative' : '').(($post['raw']['netvotes']> (0)) ? ' positive' : '').'" '.@$post['vote_tags'].'>');
+				$this->output('<div class="'.$state.' '.(isset($this->content['q_list']) ? 'list-':'').'voting clearfix '.(qa_opt('horizontal_voting_btns') ? 'voting-horizontal ':'voting-vertical ').(($post['vote_view']=='updown') ? 'qa-voting-updown' : 'qa-voting-net').(($post['raw']['netvotes']< (0)) ? ' negative' : '').(($post['raw']['netvotes']> (0)) ? ' positive' : '').'" '.@$post['vote_tags'].'>');
 				$this->voting_inner_html($post);
 				$this->output('</div>');
 			}
-			
 		}	
 
 		

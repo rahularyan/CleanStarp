@@ -401,7 +401,9 @@ $(document).ready(function(){
 	ra_favorite_click();
 	ra_tab();
 	ra_widgets();
-	ra_ask_box_autocomplete();
+	
+	if ($('.ra-ask-widget').length>0)
+		ra_ask_box_autocomplete();
 	
 	if ((typeof qa_wysiwyg_editor_config == 'object') && $('body').hasClass('qa-template-question'))
 		qa_ckeditor_a_content=CKEDITOR.replace('a_content', window.qa_wysiwyg_editor_config);

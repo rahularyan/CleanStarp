@@ -307,10 +307,15 @@ function ra_register_widget_position($widget_array){
 }
 
 function ra_position_active($name){
-	/* $widgets = unserialize(qa_opt('ra_widgets'));
+	$widgets = unserialize(qa_opt('ra_widgets'));
+	$template = qa_request(1);
 	if(is_array($widgets) && !empty($widgets[$name]) && isset($widgets[$name])){
-		return true;
-	} */
+		foreach ($widgets[$name] as $t){			
+			if(isset($t[$template]) && (bool)$t[$template])
+				return true;
+		}
+		
+	}
 	return false;
 }
 

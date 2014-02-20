@@ -380,7 +380,7 @@ function ra_ask_box_autocomplete(){
 	}).data( "uiAutocomplete" )._renderItem = function( ul, item ) {
 		return $("<li></li>")
 		.data("item.uiAutocomplete", item)
-		.append('<a href="'+item.url+'" class=""><img src="'+item.blob+'" /><span class="title">' + item.label + '</span><span class="tags icon-tags">'+item.tags+'</span><span class="category icon-chat">'+item.answers+'</span></a>')
+		.append('<a href="'+item.url+'" class="">'+item.blob+'<span class="title">' + item.label + '</span><span class="tags icon-tags">'+item.tags+'</span><span class="category icon-chat">'+item.answers+'</span></a>')
 		.appendTo(ul);
 	};
 

@@ -288,7 +288,11 @@
 					<li class="dropdown" id="menuLogin">
 						<a class="profile-link dropdown-toggle" data-toggle="dropdown" href="<?php echo qa_path_html('user/' . qa_get_logged_in_handle()); ?>">
 							<span><?php echo qa_get_logged_in_handle(); ?></span>
-							<img src="<?php echo ra_get_avatar(qa_get_logged_in_handle(), 40, false); ?>" />						
+							<?php
+							$LoggedinUserAvatar = ra_get_avatar(qa_get_logged_in_handle(), 40, false);
+							if (!empty($LoggedinUserAvatar))
+								echo '<img src="' . $LoggedinUserAvatar . '" />'; // in case there is no Avatar image and theme doesn't use a default avatar
+							?>
 						</a>
 			
 						<ul class="user-nav dropdown-menu">

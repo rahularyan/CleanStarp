@@ -1614,7 +1614,7 @@
 				$data = array();
 				foreach ($relatedquestions as $k => $q){
 					$data[$k]['title'] 		= $q['title'];
-					$data[$k]['blob'] 		= qa_path_html('image', array('qa_blobid' => $q['avatarblobid'], 'qa_size' => 30), null, QA_URL_FORMAT_PARAMS);
+					$data[$k]['blob'] 		= ra_get_avatar($q['handle'], 30, false);
 					$data[$k]['url'] 		= qa_q_path_html($q['postid'], $q['title']);
 					$data[$k]['tags'] 		= $q['tags'];
 					$data[$k]['answers'] 	= $q['acount'];

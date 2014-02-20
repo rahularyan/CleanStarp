@@ -1,0 +1,126 @@
+
+@media only screen and (min-width : 320px) and (max-width : 800px) {
+body{
+		margin-top:55px;
+	}
+	#site-header:before{
+		display:none;
+	}
+	#slide-mobile-menu{
+		display: block;
+	}
+	#site-header{
+		padding: 0 10px;
+		position: fixed;
+		top: 0;
+		width: 100%;
+		z-index: 999;
+	}
+	#site-header .site-logo{
+		display: block;
+		float: left;
+		height: 46px;
+		margin-right: 5px;
+		overflow: hidden;
+		width: 36px;
+	}
+	#site-header .site-logo  a{
+		background: url("../images/logo-small.png") no-repeat scroll left center rgba(0, 0, 0, 0);
+		height: 40px;
+		margin-top: 7px;
+	}
+	#menuLogin .profile-link {
+		display: none;
+	}
+	#site-header #nav-ask-btn{
+		float: right;
+		margin: 13px 0 0;
+	}
+	.navbar-form{
+		float: left;
+		margin: 11px 0;
+		max-width: 180px;
+	}
+	
+	.navbar-default .navbar-nav > li > a > span{
+		display:none;
+	}
+	#site-body {
+		width: 100%;
+	}
+	.left-sidebar{
+		left:-150px;
+		bottom: 0;
+		position: fixed;
+		top: 54px;
+		z-index: 999;
+	}
+	
+	.qa-q-list-item .qa-q-item-main .q-item-body{
+		display:none;
+	}
+	.qa-q-list .qa-q-list-item .qa-q-item-title {
+		font-size: 14px;
+		font-weight: 600;
+	}
+	.qa-q-list .qa-q-list-item .qa-q-item-meta .qa-q-item-who, .qa-q-list .qa-q-list-item .qa-q-item-meta .qa-q-item-what{
+		display:none;
+	}
+	
+	.qa-q-list-item .qa-voting-net{
+		display: none;
+	}
+	.qa-main .qa-nav-sub ul li a {
+		border-radius: 2px;
+		font-size: 12px;
+		line-height: 16px;
+		margin-bottom: 5px;
+		margin-right: 4px;
+		padding: 2px 6px;
+	}
+	.sidebar .qa-nav-sub-list li.qa-nav-sub-item a.qa-nav-sub-link{
+		font-size: inherit;
+		line-height: inherit;
+		padding: 5px 12px;
+	}
+	.qa-template-user .qa-main, .qa-template-user-wall .qa-main, .qa-template-account .qa-main, .qa-template-favorites .qa-main, .qa-template-user-activity .qa-main, .qa-template-user-activity .qa-main, .qa-template-user-questions .qa-main, .qa-template-user-answers .qa-main, .qa-template-admin .qa-main {
+		padding: 15px;
+	}
+	.sidebar-inner{
+		margin-bottom:20px;
+	}
+	.content-sidebar .main {
+		padding: 0;
+	}
+	#site-header .navbar-default .login-register i{
+		display:block;
+	}	
+	#site-header .navbar-default .login-register span{
+		display:none;
+	}
+	.modal-backdrop.fade.in {
+		display: none;
+	}
+}
+/* Smartphones (portrait and landscape) ----------- */
+@media only screen and (min-width : 320px) and (max-width : 480px) {
+	
+	.users-list-head td.activity, .user-list-item td.activity{
+		display:none;
+	}	
+	.users-list-head td.badge-list, .user-list-item td.badge-list{
+		display:none;
+	}	
+	.users-list-head td.user, .user-list-item td.user{
+		width:60%;
+	}
+	.qa-q-view-tag-list{
+		display:none;
+	}
+
+}
+
+/* iPads (portrait and landscape) ----------- */
+@media only screen and (min-width : 768px) and (max-width : 1024px) {
+
+}

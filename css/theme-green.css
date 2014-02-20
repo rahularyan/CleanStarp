@@ -1,0 +1,47 @@
+a{
+	color:#90BD59;
+}
+a:hover{
+	color:#7AAA40;
+}
+
+#site-header, .on-off-checkbox-container label, #ra-widgets .widget-canvas .widget-save.active{
+	background:#90BD59;
+}
+#site-header .site-logo {
+    
+}
+#site-header .navbar-form .form-control{
+	background: #6E973C;
+}
+.navbar-default .navbar-form .icon-search{
+    color: #5e7b3a;
+}
+.left-sidebar .qa-nav-main-list .qa-nav-main-item .qa-nav-main-link.qa-nav-main-selected, .left-sidebar .qa-nav-main-list .qa-nav-main-item .qa-nav-main-link:hover{
+	color:#6E973C;
+}
+
+.qa-main .qa-nav-sub ul li a.qa-nav-sub-selected, .ra-ask-widget .ui-helper-hidden-accessible {
+    background: none repeat scroll 0 0 #FDAB0C;
+}
+
+#site-header .navbar-form ::-webkit-input-placeholder { /* WebKit browsers */
+    color:    #5e7b3a;
+}
+#site-header .navbar-form :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color:    #5e7b3a;
+}
+#site-header .navbar-form ::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color:    #5e7b3a;
+}
+#site-header .navbar-form :-ms-input-placeholder { /* Internet Explorer 10+ */
+    color:    #5e7b3a;
+}
+
+.on-off-checkbox-container {
+	border-color:#90BD59;
+}
+
+.ra-ask-widget .input-group-btn button{
+    background: none repeat scroll 0 0 #E45840;
+}

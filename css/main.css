@@ -1966,6 +1966,9 @@ input[type=radio]:checked + label {
     margin-right: 8px;
     margin-top: 5px;
     padding: 1px 5px 0;
+    position: absolute;
+    right: 30px;
+    top: 9px;
 }
 #ra-widgets .widget-canvas .widget-save.active{
 	display:block;
@@ -2098,7 +2101,34 @@ input[type=radio]:checked + label {
     margin-top: 3px;
 }
 
+/* RA Tags Widget */
+.ra-tags-widget{
+	
+}
+.ra-tags-widget .widget-tag{
+    border-radius: 2px;
+    color: #FFFFFF;
+    display: block;
+    float: left;
+    font-size: 12px;
+    line-height: 16px;
+    margin: 5px 10px;
+    padding: 3px 10px;
+}
+.ra-tags-widget .widget-tag span{
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+    color: #FFFFFF;
+    display: inline-block;
+    font-size: 10px;
+    line-height: 14px;
+    margin-left: 8px;
+    margin-right: -3px;
+    padding: 0 5px;	
+}
+
 .intro-title{
     font-size: 25px;
     text-align: center;	
 }
+

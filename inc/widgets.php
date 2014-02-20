@@ -52,7 +52,7 @@ class qa_html_theme_layer extends qa_html_theme_base {
 			$saved ? 'Settings saved' : null;
 			
 			$ra_page = '
-				<div id="ra-widgets" class="row">
+				<div id="ra-widgets">
 					<div class="widget-list col-sm-4">
 						'. $this->ra_get_widgets() .'
 					</div>
@@ -101,6 +101,8 @@ class qa_html_theme_layer extends qa_html_theme_base {
 						<div class="widget-template-to icon-list"></div>					
 					</div>
 					<div class="select-template">
+					<label>
+						<input type="checkbox" name="show_title" checked> Show widget title</label>
 						<span>Select where you want to show</span>
 						<?php
 							foreach(ra_get_template_array() as $k => $t){
@@ -147,7 +149,8 @@ class qa_html_theme_layer extends qa_html_theme_base {
 												<div class="widget-template-to icon-list"></div>		
 											</div>
 											<div class="select-template">
-												<span>Select where you want to show</span>
+											<input type="checkbox" name="show_title" <?php echo (@$template['show_title'] ? 'checked' : ''); ?>> Show widget title</label><br />
+												<span>Select pages where you want to show</span>
 												<?php
 													foreach(ra_get_template_array() as $k => $t){
 														$checked = @$template[$k] ? 'checked' : '';

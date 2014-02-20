@@ -67,3 +67,4 @@
 	}
 	
 	qa_register_module('widget', '/inc/widget_ask.php', 'ra_ask_widget', 'RA Ajax Ask', Q_THEME_DIR, Q_THEME_URL);
+	qa_register_module('widget', '/inc/widget_tags.php', 'cs_tags_widget', 'RA Tags', Q_THEME_DIR, Q_THEME_URL);

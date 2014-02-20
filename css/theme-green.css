@@ -5,7 +5,7 @@ a:hover{
 	color:#7AAA40;
 }
 
-#site-header, .on-off-checkbox-container label, #ra-widgets .widget-canvas .widget-save.active{
+#site-header, .on-off-checkbox-container label, #ra-widgets .widget-canvas .widget-save.active, .ra-tags-widget .widget-tag:hover{
 	background:#90BD59;
 }
 #site-header .site-logo {
@@ -21,7 +21,7 @@ a:hover{
 	color:#6E973C;
 }
 
-.qa-main .qa-nav-sub ul li a.qa-nav-sub-selected, .ra-ask-widget .ui-helper-hidden-accessible {
+.qa-main .qa-nav-sub ul li a.qa-nav-sub-selected, .ra-ask-widget .ui-helper-hidden-accessible, .ra-tags-widget .widget-tag {
     background: none repeat scroll 0 0 #FDAB0C;
 }
 

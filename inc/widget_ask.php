@@ -3,66 +3,6 @@
 
 	class ra_ask_widget {
 		
-		function option_default($option)
-		{
-			if ($option=='tag_cloud_count_tags')
-				return 100;
-			elseif ($option=='tag_cloud_font_size')
-				return 24;
-			elseif ($option=='tag_cloud_size_popular')
-				return true;
-		}
-
-		
-		function admin_form()
-		{
-			$saved=false;
-			
-			if (qa_clicked('tag_cloud_save_button')) {
-				qa_opt('tag_cloud_count_tags', (int)qa_post_text('tag_cloud_count_tags_field'));
-				qa_opt('tag_cloud_font_size', (int)qa_post_text('tag_cloud_font_size_field'));
-				qa_opt('tag_cloud_size_popular', (int)qa_post_text('tag_cloud_size_popular_field'));
-				$saved=true;
-			}
-			
-			return array(
-				'ok' => $saved ? 'Tag cloud settings saved' : null,
-				
-				'fields' => array(
-					array(
-						'label' => 'Maximum tags to show:',
-						'type' => 'number',
-						'value' => (int)qa_opt('tag_cloud_count_tags'),
-						'suffix' => 'tags',
-						'tags' => 'name="tag_cloud_count_tags_field"',
-					),
-
-					array(
-						'label' => 'Starting font size:',
-						'suffix' => 'pixels',
-						'type' => 'number',
-						'value' => (int)qa_opt('tag_cloud_font_size'),
-						'tags' => 'name="tag_cloud_font_size_field"',
-					),
-					
-					array(
-						'label' => 'Font size represents tag popularity',
-						'type' => 'checkbox',
-						'value' => qa_opt('tag_cloud_size_popular'),
-						'tags' => 'name="tag_cloud_size_popular_field"',
-					),
-				),
-				
-				'buttons' => array(
-					array(
-						'label' => 'Save Changes',
-						'tags' => 'name="tag_cloud_save_button"',
-					),
-				),
-			);
-		}
-
-		
 		function allow_template($template)
 		{
 			$allow=false;

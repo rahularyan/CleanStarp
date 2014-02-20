@@ -1579,16 +1579,20 @@
 			if(isset($widgets[$name]) && is_array($widgets) && !empty($widgets[$name])){
 				foreach ($widgets[$name] as $widget => $template){
 					if(isset($template[$this->template]) && (bool)$template[$this->template] )
-						$this->ra_get_widget($widget);
+						$this->ra_get_widget($widget, @$template['show_title']);
 				}
 			}
 		}
 
-		function ra_get_widget($name){
+		function ra_get_widget($name, $show_title = false){
 			$module	=	qa_load_module('widget', ltrim($name));
 			if(is_object($module)){
 				ob_start();
 				echo '<div id="'.str_replace(' ', '-', strtolower($name)).'-position" class="widget">';
+				
+				if( $show_title )
+					echo '<h3 class="widget-title">'.$name.'</h3>';
+					
 				$module->output_widget('side', 'top', $this, $this->template, $this->request, $this->content);
 				echo '</div>';
 				$this->output(ob_get_clean());

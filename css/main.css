@@ -810,11 +810,23 @@ a.feed-link{
     display: block;
     text-align: center;
 }
+.voting-vertical{
+	display: inline;
+	margin: 0;
+}
+.voting-vertical .count {
+    display: inline-block;
+}
+.voting-vertical a {
+    display: inline-block;
+}
+
 .asker-avatar{
     float: left;
     margin-right: 15px;
     margin-top: 0;
     position: relative;
+	text-align: center;
 	
 }
 .asker-avatar img{

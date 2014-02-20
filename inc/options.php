@@ -101,13 +101,16 @@ class qa_html_theme_layer extends qa_html_theme_base {
 				qa_opt('ads_after_question_content', base64_encode($_REQUEST['option_ads_after_question_content']));
 
 				//general
-				qa_opt('ra_home_layout', qa_post_text('option_ra_home_layout'));				
 				qa_opt('google_analytics', qa_post_text('option_google_analytics'));	
 				qa_opt('ra_colla_comm', (bool)qa_post_text('option_ra_colla_comm'));
 				qa_opt('show_real_name', (bool)qa_post_text('option_show_real_name'));
 				qa_opt('users_table_layout', (bool)qa_post_text('option_users_table_layout'));
 				qa_opt('theme_layout', qa_post_text('option_theme_layout'));
-
+				
+				//Layout
+				qa_opt('ra_home_layout', qa_post_text('option_ra_home_layout'));				
+				qa_opt('horizontal_voting_btns', (bool)qa_post_text('option_horizontal_voting_btns'));
+				
 				//color
 				qa_opt('ra_primary_color', qa_post_text('option_ra_primary_color'));	
 				qa_opt('ra_nav_bg', qa_post_text('option_ra_nav_bg'));	
@@ -455,8 +458,23 @@ $ra_page = '
 					</th>
 					<td class="qa-form-tall-label">
 						<div class="on-off-checkbox-container">
-								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('ra_show_content') ? ' checked=""' : '') . ' id="option_ra_nav_fixed" name="option_ra_show_content">
+								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('ra_show_content') ? ' checked=""' : '') . ' id="option_ra_show_content" name="option_ra_show_content">
 								<label for="option_ra_show_content"></label>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+			<tbody>
+				<tr>
+					<th class="qa-form-tall-label">
+						Horizontal Voting Buttons
+						<span class="description">Switch between horizontal and vertical voting buttons</span>
+					</th>
+					<td class="qa-form-tall-label">
+						<div class="on-off-checkbox-container">
+								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('horizontal_voting_btns') ? ' checked=""' : '') . ' id="option_horizontal_voting_btns" name="option_horizontal_voting_btns">
+							<label for="option_horizontal_voting_btns">
+							</label>
 						</div>
 					</td>
 				</tr>

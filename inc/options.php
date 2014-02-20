@@ -69,7 +69,7 @@ class qa_html_theme_layer extends qa_html_theme_base {
 				$AdsCount = (int)qa_post_text('adv_number'); // number of advertisement items
 				$ads=array();
 				$i=0;
-				while($AdsCount>0){
+				while(($AdsCount>0) and ($i<100)){// don't create an infinite loop
 					if (null !== qa_post_text('adv_adsense_' . $i)){
 						// add adsense ads
 						$ads[$i]['adv_adsense'] = qa_post_text('adv_adsense_' . $i);
@@ -150,7 +150,33 @@ class qa_html_theme_layer extends qa_html_theme_base {
 				
 				qa_opt('footer_right', qa_post_text('option_footer_right'));
 				qa_opt('footer_left', qa_post_text('option_footer_left'));
-								
+				
+				// Advertisment
+				$SocialCount = (int)qa_post_text('social_count'); // number of advertisement items
+				$social_links=array();
+				$i=0;
+				while(($SocialCount>0) and ($i<100)){ // don't create an infinite loop
+					if (null !== qa_post_text('social_link_' . $i)){
+						$social_links[$i]['social_link'] = qa_post_text('social_link_' . $i);
+						$social_links[$i]['social_title'] = qa_post_text('social_title_' . $i);
+						$social_links[$i]['social_icon'] = qa_post_text('social_icon_' . $i);
+						if ($social_links[$i]['social_icon'] == '1'){
+							if(@getimagesize(@$_FILES['ra_social_image_' . $i]['tmp_name']) >0){
+								$url		= qa_opt('site_url').'qa-theme/'.qa_get_site_theme().'/images/';
+								$uploaddir 	= QA_THEME_DIR.qa_get_site_theme().'/images/';
+								$uploadfile = $uploaddir . basename($_FILES['ra_social_image_' . $i]['name']);
+								move_uploaded_file($_FILES['ra_social_image_' . $i]['tmp_name'], $uploadfile);
+								$social_links[$i]['social_icon_file'] = $url.$_FILES['ra_social_image_' . $i]['name'];
+							}else if(null !== qa_post_text('social_image_url_' . $i)){
+								$social_links[$i]['social_icon_file'] =  qa_post_text('social_image_url_' . $i);
+							}
+						}
+						$SocialCount--;
+					}
+					$i++;
+				}
+				qa_opt('ra_social_list',json_encode($social_links));
+				qa_opt('ra_social_enable', (bool)qa_post_text('option_ra_social_enable'));
 				$saved=true;
 			}
 $saved ? 'Settings saved' : null;
@@ -161,10 +187,17 @@ $i = 0;
 $adv_content = '';
 if(isset($advs))
 	foreach($advs as $k => $adv){
-		$list_options = '';
-	
+		if (true){ // use list to choose location of advertisement
+			$list_options = '';
+			for ($count=1; $count <= qa_opt('page_size_qs'); $count++){
+					$list_options .= '<option value="' . $count . '"'.(($count==@$adv['adv_location']) ? ' selected' : '').'>' . $count . '</option>';
+			}
+			$adv_location = '<select id="adv_location_' . $i . '" name="adv_location_' . $i . '" class="qa-form-wide-select">' . $list_options . '</select>';
+		}else{
+			$adv_location = '<input id="adv_location_' . $i . '" name="adv_location_' . $i . '" class="form-control" value="" placeholder="Position of ads in list" />';
+		}
 		if (isset($adv['adv_adsense'])){
-			$adv_content .= '<tr>
+			$adv_content .= '<tr id="adv_box_' . $i . '">
 			<th class="qa-form-tall-label">
 				Advertisment #' . ($i+1) . '
 				<span class="description">Google Adsense Code</span>
@@ -172,9 +205,7 @@ if(isset($advs))
 			<td class="qa-form-tall-data">
 				<input class="form-control" id="adv_adsense_' . $i . '" name="adv_adsense_' . $i . '" type="text" value="' . $adv['adv_adsense'] . '">
 				<span class="description">Display After this number of questions</span>
-				
-				<input id="adv_location_' . $i . '" name="adv_location_' . $i . '" class="form-control" value="" placeholder="Position of ads in list" />
-				
+				' . $adv_location .'
 				<button advid="' . $i . '" id="advremove" name="advremove" class="qa-form-tall-button pull-right btn" type="submit" onclick="return advremove(this);">Remove This Advertisement</button></td>
 			</tr>';
 		} else {
@@ -182,13 +213,13 @@ if(isset($advs))
 				$image = '<img src="' . $adv['adv_image'] . '" class="image-preview">';
 			else
 				$image = '';
-			$adv_content .= '<tr>
+			$adv_content .= '<tr id="adv_box_' . $i . '">
 			<th class="qa-form-tall-label">
-				Advertisment #' . ($i+1) . '
+				Advertisement #' . ($i+1) . '
 				<span class="description">static advertisement</span>
 			</th>
 			<td class="qa-form-tall-data">
-				<span class="description">upload advertisment image</span>
+				<span class="description">upload advertisement image</span>
 					<div class="clearfix"></div>
 					' . $image . '<input type="file" class="btn btn-success" id="ra_adv_image_' . $i . '" name="ra_adv_image_' . $i . '">
 					<span class="description">Image Title</span>
@@ -199,7 +230,7 @@ if(isset($advs))
 					<input class="form-control" id="adv_image_link_' . $i . '" name="adv_image_link_' . $i . '" type="text" value="' . @$adv['adv_image_link'] . '">
 					<span class="description">Display After this number of questions</span>
 					
-					<input id="adv_location_' . $i . '" name="adv_location_' . $i . '" class="form-control" value="'.@$adv['adv_location'].'" />
+					' . $adv_location .'
 					
 					<input type="hidden" value="' . @$adv['adv_image'] . '" id="adv_image_url_' .  $i . '" name="adv_image_url_' . $i . '">
 					
@@ -211,7 +242,46 @@ if(isset($advs))
 	}
 $adv_content .=  '<input type="hidden" value="' . $i . '" id="adv_number" name="adv_number">';
 $adv_content .=  '<input type="hidden" value="' . qa_opt('page_size_qs') . '" id="question_list_count" name="question_list_count">';
-
+// Load Advertisements
+$i = 0;
+$social_content =  '';
+$social_fields = json_decode( qa_opt('ra_social_list') , true);
+if(isset($social_fields))
+	foreach($social_fields as $k => $social_field){
+		$list_options = '<option class="icon-wrench" value="1"'.((@$social_field['social_icon']=='1') ? ' selected' : '').'>Upload Social Icon</option>';
+		for ($count=2; $count <= 10; $count++){
+			$list_options .= '<option class="icon-wrench" value="' . $count . '"'.(($count==@$social_field['social_icon']) ? ' selected' : '').'>' . $count . '</option>';
+		}
+		$social_icon_list = '<select id="social_icon_' . $i . '" name="social_icon_' . $i . '" class="qa-form-wide-select  social-select" sociallistid="' . $i . '">' . $list_options . '</select>';
+		if (isset($social_field['social_link'])){
+			if ( (!empty($social_field['social_icon_file'])) and (@$social_field['social_icon']=='1') )
+				$image = '<img src="' . $social_field['social_icon_file'] . '" class="image-preview">';
+			else
+				$image = '';
+			$social_content .= '<tr id="adv_box_' . $i . '">
+			<th class="qa-form-tall-label">
+				Social Link #' . ($i+1) . '
+				<span class="description">choose Icon and link to your social profile</span>
+			</th>
+			<td class="qa-form-tall-data">
+				<span class="description">Social Profile Link</span>
+				<input class="form-control" id="social_link_' . $i . '" name="social_link_' . $i . '" type="text" value="' . $social_field['social_link'] . '">
+				<span class="description">Link Title</span>
+				<input class="form-control" id="social_title_' . $i . '" name="social_title_' . $i . '" type="text" value="' . $social_field['social_title'] . '">
+				<span class="description">Choose Social Icon</span>
+				' . $social_icon_list .'
+				<div class="social_icon_file_' . $i . '"'.((@$social_field['social_icon']=='1') ? '' : ' style="display:none;"').'>
+					<span class="description">upload Social Icon</span>
+					<div class="clearfix"></div>
+					' . $image . '<input id="ra_social_image_' . $i . '" class="btn btn-success" type="file" name="ra_social_image_' . $i . '">
+					<input type="hidden" value="' . @$social_field['social_icon_file'] . '" id="social_image_url_' .  $i . '" name="social_image_url_' . $i . '">
+					<button id="social_remove" class="qa-form-tall-button pull-right btn" onclick="return socialremove(this);" type="submit" name="social_remove" socialid="' .  $i . '">Remove This Link</button>
+				</div>
+			</tr>';
+		}
+		$i++;
+	}
+$social_content .=  '<input type="hidden" value="' . $i . '" id="social_count" name="social_count">';
 
 $ra_page = '
 <form class="form-horizontal" enctype="multipart/form-data" method="post">
@@ -688,7 +758,36 @@ $ra_page = '
 		</table>
 	</div>
 	<div class="qa-part-form-tc-social">
-	link to social profiles, link & icon can be used in theme
+		<table class="qa-form-tall-table options-table">
+			<tbody>
+				<tr>
+					<th class="qa-form-tall-label">
+						Social Toolbar
+						<span class="description">Enable social links in your site\'s header.</span>
+					</th>
+					<td class="qa-form-tall-label">
+						<div class="on-off-checkbox-container">
+							<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('ra_social_enable') ? ' checked=""' : '') . ' id="option_ra_social_enable" name="option_ra_social_enable">
+							<label for="option_ra_social_enable"></label>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+			<tbody>
+				<tr>
+					<th class="qa-form-tall-label">
+						Add New Social Links
+						<span class="description">Add a new social link</span>
+					</th>
+					<td class="qa-form-tall-label text-center">
+						<button type="submit" id="add_social" name="add_social" class="qa-form-tall-button btn">Add Social Links</button>
+					</td>
+				</tr>
+			</tbody>
+			<tbody id="social_container">
+				' . $social_content . '	
+			</tbody>
+		</table>
 	</div>
 	<div class="qa-part-form-tc-ads">
 		<h3>Advertisment in question list</h3>

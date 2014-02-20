@@ -107,7 +107,7 @@ class qa_html_theme_layer extends qa_html_theme_base {
 								echo '												
 									<div class="checkbox">
 										<label>
-											<input type="checkbox" name="'.$k.'"> '.$t.'
+											<input type="checkbox" name="'.$k.'" checked> '.$t.'
 										</label>
 									</div>
 								';

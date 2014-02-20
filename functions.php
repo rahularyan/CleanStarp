@@ -52,20 +52,28 @@ function ra_get_avatar($handle, $size = 40, $html =true){
 	$userid = qa_handle_to_userid($handle);
 	if(defined('QA_WORDPRESS_INTEGRATE_PATH')){
 		$img_html = get_avatar( qa_get_user_email($userid), $size);
+	}else if(QA_FINAL_EXTERNAL_USERS){
+		$img_html = qa_get_external_avatar_html($userid, $size, false);
 	}else{
 		if (!isset($handle)){
-			if ( (qa_opt('avatar_allow_gravatar')||qa_opt('avatar_allow_upload')) && qa_opt('avatar_default_show') && strlen(qa_opt('avatar_default_blobid')) )
-					$img_html=qa_get_avatar_blob_html(qa_opt('avatar_default_blobid'), qa_opt('avatar_default_width'), qa_opt('avatar_default_height'), $size);
+			if ( qa_opt('avatar_allow_upload') && qa_opt('avatar_default_show') && strlen(qa_opt('avatar_default_blobid')) )
+				$img_html = qa_get_avatar_blob_html(qa_opt('avatar_default_blobid'), qa_opt('avatar_default_width'), qa_opt('avatar_default_height'), $size);
+			else if (qa_opt('avatar_allow_gravatar'))
+				$img_html = qa_get_gravatar_html(qa_get_user_email($userid), $size);
+			else
+				$img_html = ''; // *** set default avatar here
 		}else{
-			
 			$f = ra_user_data($handle);
-			$img_html = 	QA_FINAL_EXTERNAL_USERS
-				? qa_get_external_avatar_html($userid, $size, true)
-				: qa_get_user_avatar_html($f[0]['flags'], $f[0]['email'], $handle, $f[0]['avatarblobid'], $size, $size, $size, true);
-			
+			if(empty($f[0]['avatarblobid'])){
+				$img_html = ''; // *** set default avatar here
+			}
+			else
+				$img_html = qa_get_user_avatar_html($f[0]['flags'], $f[0]['email'], $handle, $f[0]['avatarblobid'], $size, $size, $size, true);
 		}
-
 	}
+	if (empty($img_html))
+		return;
+		
 	preg_match( '@src="([^"]+)"@' , $img_html , $match );
 	if($html)
 		return '<a href="'.qa_path_html('user/'.$handle).'">'.(defined('QA_WORDPRESS_INTEGRATE_PATH') ?  '<img src="'.$match[1].'" />':$img_html).'</a>';		

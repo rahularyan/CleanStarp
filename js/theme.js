@@ -329,7 +329,6 @@ function ra_save_widget($elm){
 		widget_names[$(this).data('name')] = widgets;
 	});
 	
-	console.log(widget_names);
 	$.ajax({
 		data: {
 			ra_ajax: true,
@@ -422,8 +421,10 @@ $(document).ready(function(){
 	
 	//ra_load_items();
 	
-	$(window).resize(function(){
+	/* $(window).resize(function(){
 		ra_ajax_item_resize();
 		ra_float_left()
-	});
+	}); */
+
+	
 });

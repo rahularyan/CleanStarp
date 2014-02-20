@@ -1,9 +1,10 @@
 <?php
 /* don't allow this page to be requested directly from browser */	
-if (!defined('QA_VERSION')) {
+/* if (!defined('QA_VERSION')) {
 		header('Location: /');
 		exit;
-}
+} */
+
 //class qa_html_theme extends qa_html_theme_base
 class qa_html_theme_layer extends qa_html_theme_base {
 
@@ -329,7 +330,9 @@ $ra_page = '
 					<span class="description">favicon image (32px32px).</span>
 				</th>
 				<td class="qa-form-tall-data">
-					<span class="qa-form-tall-static"><img src="'.qa_opt('ra_favicon').'" class="image-preview"><input type="file" class="btn btn-success" id="ra_favicon_field" name="ra_favicon_field"></span>
+					<span class="qa-form-tall-static">
+					<img src="'.qa_opt('ra_favicon').'" class="image-preview">
+					<input type="file" class="btn btn-success" id="ra_favicon_field" name="ra_favicon_field"></span>
 				</td>
 			</tr>
 			</tbody><tbody id="google_analytics">

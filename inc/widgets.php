@@ -102,7 +102,7 @@ class qa_html_theme_layer extends qa_html_theme_base {
 					</div>
 					<div class="select-template">
 					<label>
-						<input type="checkbox" name="show_title" checked> Show widget title</label>
+						<input type="checkbox" name="show_title" checked> Show widget title</label><br />
 						<span>Select where you want to show</span>
 						<?php
 							foreach(ra_get_template_array() as $k => $t){

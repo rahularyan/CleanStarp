@@ -1,10 +1,9 @@
 <?php
 /* don't allow this page to be requested directly from browser */	
-/* if (!defined('QA_VERSION')) {
+if (!defined('QA_VERSION')) {
 		header('Location: /');
 		exit;
-} */
-
+}
 //class qa_html_theme extends qa_html_theme_base
 class qa_html_theme_layer extends qa_html_theme_base {
 
@@ -110,7 +109,8 @@ class qa_html_theme_layer extends qa_html_theme_base {
 				//Layout
 				qa_opt('ra_home_layout', qa_post_text('option_ra_home_layout'));				
 				qa_opt('horizontal_voting_btns', (bool)qa_post_text('option_horizontal_voting_btns'));
-				qa_opt('back_to_top', (bool)qa_post_text('option_back_to_top'));
+				qa_opt('enble_back_to_top', (bool)qa_post_text('option_enble_back_to_top'));
+				qa_opt('back_to_top_location', qa_post_text('option_back_to_top_location'));
 
 				//color
 				qa_opt('ra_primary_color', qa_post_text('option_ra_primary_color'));	
@@ -334,9 +334,7 @@ $ra_page = '
 					<span class="description">favicon image (32px32px).</span>
 				</th>
 				<td class="qa-form-tall-data">
-					<span class="qa-form-tall-static">
-					<img src="'.qa_opt('ra_favicon').'" class="image-preview">
-					<input type="file" class="btn btn-success" id="ra_favicon_field" name="ra_favicon_field"></span>
+					<span class="qa-form-tall-static"><img src="'.qa_opt('ra_favicon').'" class="image-preview"><input type="file" class="btn btn-success" id="ra_favicon_field" name="ra_favicon_field"></span>
 				</td>
 			</tr>
 			</tbody><tbody id="google_analytics">
@@ -488,10 +486,22 @@ $ra_page = '
 					</th>
 					<td class="qa-form-tall-label">
 						<div class="on-off-checkbox-container">
-								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('back_to_top') ? ' checked=""' : '') . ' id="option_back_to_top" name="option_back_to_top">
-							<label for="option_back_to_top">
+								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('enble_back_to_top') ? ' checked=""' : '') . ' id="option_enble_back_to_top" name="option_enble_back_to_top">
+							<label for="option_enble_back_to_top">
 							</label>
 						</div>
+					</td>
+					</tr>
+					<tr id="back_to_top_location_container" ' . (qa_opt('enble_back_to_top') ? '' : ' style="display:none;"') . '>
+					<th class="qa-form-tall-label">
+						Back To Top\'s Position
+						<span class="description">Back To Top button\'s Position</span>
+					</th>
+					<td class="qa-form-tall-label">
+						<input class="theme-option-radio" type="radio"' . (qa_opt('back_to_top_location')=='nav' ? ' checked=""' : '') . ' id="option_back_to_top_nav" name="option_back_to_top_location" value="nav">
+						   <label for="option_back_to_top_nav">Under Navigation</label>
+						<input class="theme-option-radio" type="radio"' . (qa_opt('back_to_top_location')=='right' ? ' checked=""' : '') . ' id="option_back_to_top_right" name="option_back_to_top_location" value="right">
+						   <label for="option_back_to_top_right">Bottom Right</label> 
 					</td>
 				</tr>
 			</tbody>

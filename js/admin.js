@@ -1,4 +1,7 @@
 $(document).ready(function(){
+	$( "#option_enble_back_to_top" ).change(function() {
+		$( "#back_to_top_location_container" ).toggle(500);
+	});
 	$( "#option_enable_adv_list" ).change(function() {
 		$( "#ads_container" ).toggle(500);
 	});

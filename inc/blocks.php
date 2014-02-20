@@ -209,6 +209,8 @@
 			$this->output('<div id="ajax-blocks"></div>');							
 			$this->output('</div>');					
 			$this->body_suffix();
+			if ((qa_opt('enble_back_to_top')) && (qa_opt('back_to_top_location')=='right'))
+				$this->output('<a id="back-to-top" class="back-to-top-right" href="#"></a>');
 		}
 		function header()
 		{	
@@ -1478,7 +1480,13 @@
 			}
 			die();
 		}
-		
+		function nav($navtype, $level=null)
+		{
+			qa_html_theme_base::nav($navtype, $level);
+			if (($navtype=='main') && (qa_opt('enble_back_to_top')) && (qa_opt('back_to_top_location')=='nav')){
+				$this->output('<a id="back-to-top" class="back-to-top-nav" href="#"></a>');
+			}
+		}
 		function nav_list($navigation, $class, $level=null)
 		{
 			if($class == 'browse-cat'){

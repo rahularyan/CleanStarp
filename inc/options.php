@@ -110,7 +110,8 @@ class qa_html_theme_layer extends qa_html_theme_base {
 				//Layout
 				qa_opt('ra_home_layout', qa_post_text('option_ra_home_layout'));				
 				qa_opt('horizontal_voting_btns', (bool)qa_post_text('option_horizontal_voting_btns'));
-				
+				qa_opt('back_to_top', (bool)qa_post_text('option_back_to_top'));
+
 				//color
 				qa_opt('ra_primary_color', qa_post_text('option_ra_primary_color'));	
 				qa_opt('ra_nav_bg', qa_post_text('option_ra_nav_bg'));	
@@ -474,6 +475,21 @@ $ra_page = '
 						<div class="on-off-checkbox-container">
 								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('horizontal_voting_btns') ? ' checked=""' : '') . ' id="option_horizontal_voting_btns" name="option_horizontal_voting_btns">
 							<label for="option_horizontal_voting_btns">
+							</label>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+			<tbody>
+				<tr>
+					<th class="qa-form-tall-label">
+						Back to Top Button
+						<span class="description">Enable Back to Top</span>
+					</th>
+					<td class="qa-form-tall-label">
+						<div class="on-off-checkbox-container">
+								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('back_to_top') ? ' checked=""' : '') . ' id="option_back_to_top" name="option_back_to_top">
+							<label for="option_back_to_top">
 							</label>
 						</div>
 					</td>

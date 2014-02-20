@@ -269,6 +269,7 @@ function ra_float_left(){
 
 function ra_widgets(){
 	$('.position-toggler').click(function(){
+		$('.position-canvas').not($(this).parent().next()).hide();
 		$(this).parent().next().toggle(0);
 		$(this).toggleClass('icon-angle-up icon-angle-down');
 	});	

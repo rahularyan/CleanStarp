@@ -601,10 +601,9 @@ h1,h2,h3,h4,h5,h6, .qa-q-item-title{
     padding-bottom: 20px;
 }
 .qa-main .list-c{
-	border-right: 1px solid #DDDDDD;
+	border-right: 1px solid #F0F0F0;
 }
 .qa-main .side-c {
-    background: none repeat scroll 0 0 #F3F3F3;
     padding: 0;
 }
 .page-title{

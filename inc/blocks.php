@@ -505,20 +505,22 @@
 
 			$this->output('<div class="col-sm-'.(ra_position_active('Right') ? '8' : '12').' list-c">');
 			
-			if($this->template != 'question')	
-			$this->output(
-				'<h1 class="page-title">',
-				$this->content['title']
-			);
-			$this->feed();
-			$this->output('</h1>');	
-
+			if($this->template != 'question' && (!strlen(qa_request(1)) == 0)){
+				$this->output(
+					'<h1 class="page-title">',
+					$this->content['title']
+				);
+				$this->feed();
+				$this->output('</h1>');	
+			}
 			$this->ra_position('Content Top');
 			
 			if (isset($this->content['error']))
 				$this->error(@$this->content['error']);
 			if($this->template == 'user' && !(isset($_REQUEST['state']) && $_REQUEST['state'] == 'edit')){
 				$this->profile_page();
+			}elseif(strlen(qa_request(1)) == 0){
+				$this->home();
 			}elseif($this->template == 'user-wall'){
 				$handle = qa_request_part(1);
 				$this->output('<section id="content" class="content-sidebar">');
@@ -583,6 +585,10 @@
 			
 			if (!empty($feed))
 				$this->output('<a href="'.$feed['url'].'" title="'.@$feed['label'].'"><img src="'.$this->rooturl.'images/rss.jpg" alt="" width="16" height="16" border="0" class="qa-rss-icon"/></a>');
+		}
+		
+		function home(){
+			$this->ra_position('Left');
 		}
 		
 		function q_list_item($q_item)

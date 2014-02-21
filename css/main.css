@@ -2294,31 +2294,39 @@ input[type=radio]:checked + label {
 }
 
 /* user page */
+.user-cols {
+    display: table;
+    width: 100%;
+}
+.user-cols-right{
+    display: table-cell;
+    vertical-align: top;
+}
 .user-header{
-    background: none repeat scroll 0 0 #F8F8F8;
-    border-bottom: 1px solid #EEEEEE;
-    margin: 0 -15px;
-    padding: 20px;
+    display: table-cell;
     position: relative;
+    vertical-align: top;
+    width: 175px;
 }
 .user-name-detail{
 	overflow:hidden;
 }
 .user-name-detail h3{
-	margin-top: 0;
+    font-size: 16px;
+    margin-top: 0;
+    text-align: center;
 }
 .user-name-detail h3 small{
-    background: none repeat scroll 0 0 #EEEEEE;
     border-radius: 2px;
     color: #AAAAAA;
+    display: block;
     font-family: arial,helvetica,serif;
     font-size: 11px;
-    margin-left: 10px;
+    line-height: 20px;
     padding: 3px 5px;
-    vertical-align: middle;
 }
 .user-header .user-thumb{
-	margin-right: 20px;
+	text-align: center;
 }
 .user-name-detail .about-me{
 	font-family: 'open sans', arial,helvetica,serif;
@@ -2383,11 +2391,7 @@ input[type=radio]:checked + label {
 }
 
 .widget.user-activities{
-    background: none repeat scroll 0 0 #FAFAFA;
-    border-right: 1px solid #EEEEEE;
-    margin-left: -15px;
-    margin-top: -20px;
-    padding: 20px 15px;
+
 }
 .widget.user-activities .question-list{
 	padding:0;

@@ -1120,10 +1120,13 @@
 		function profile_page(){
 			$handle = $this->content['raw']['account']['handle'];
 			$userid = $this->content['raw']['account']['userid'];			
-
+			$this->output('<div class="user-cols">');
 			$this->ra_user_nav($handle);
+			$this->output('<div class="user-cols-right">');
 			$this->ra_user_activity_count($handle);
 			$this->ra_user_qa($handle);
+			$this->output('</div>');
+			$this->output('</div>');
 
 		}
 
@@ -1136,7 +1139,7 @@
 			$this->output('			
 			<div class="user-header">
 				<div class="user-header-inner clearfix">
-			  <div class="pull-left user-thumb">
+			  <div class="user-thumb">
 				'.@$edit. ra_get_avatar($handle, 100).'
 			  </div>
 			  <div class="user-name-detail">
@@ -1150,10 +1153,10 @@
 					$about,
 					'</div>'
 				);
-				//$this->favorite();
+				$this->favorite();
 				
 			  $this->output('</div>');
-			 // $this->nav('sub');
+			 $this->nav('sub');
 			  $this->output('</div>');
 			$this->output('</div>');
 		}

@@ -294,7 +294,7 @@
 						<a class="profile-link dropdown-toggle" data-toggle="dropdown" href="<?php echo qa_path_html('user/' . qa_get_logged_in_handle()); ?>">
 							<span><?php echo qa_get_logged_in_handle(); ?></span>
 							<?php
-							$LoggedinUserAvatar = ra_get_avatar(qa_get_logged_in_handle(), 40, false);
+							$LoggedinUserAvatar = ra_get_avatar(qa_get_logged_in_handle(), 30, false);
 							if (!empty($LoggedinUserAvatar))
 								echo '<img src="' . $LoggedinUserAvatar . '" />'; // in case there is no Avatar image and theme doesn't use a default avatar
 							?>
@@ -1403,7 +1403,13 @@
 					$this->clear_context('ranking_row');
 
 					$this->output('</div>');
-				}
+				}else
+					$this->output('
+						<div class="no-items">
+							<h3 class="icon-sad">No tags found!</h3>
+							<p>Sorry we cannot display anything, query returns nothings.</p>
+						</div>'
+					);
 			}else{
 				
 				
@@ -1429,7 +1435,13 @@
 					$this->clear_context('ranking_row');
 
 					$this->output('</table>');
-				}
+				}else
+					$this->output('
+						<div class="no-items">
+							<h3 class="icon-sad">No results found!</h3>
+							<p>Sorry we cannot display anything, query returns nothings.</p>
+						</div>'
+					);
 			}
 		}
 		function ra_tags_item($item, $class, $spacer)
@@ -1662,6 +1674,31 @@
 			}
 			
 			die();
+		}
+		function q_list($q_list)
+		{
+			if (isset($q_list['qs'])) {
+				$this->output('<div class="qa-q-list'.($this->list_vote_disabled($q_list['qs']) ? ' qa-q-list-vote-disabled' : '').'">', '');
+				$this->q_list_items($q_list['qs']);
+				$this->output('</div> <!-- END qa-q-list -->', '');
+			}else
+				$this->output('
+					<div class="no-items">
+						<h3 class="icon-sad">No users found!</h3>
+						<p>Sorry we cannot display anything, query returns nothings.</p>
+					</div>');
+		}
+		function q_list_items($q_items)
+		{
+			if (!empty($q_items)) {
+				foreach ($q_items as $q_item)
+					$this->q_list_item($q_item);
+			}else
+				$this->output('
+					<div class="no-items">
+						<h3 class="icon-sad">No questions found!</h3>
+						<p>Sorry we cannot display anything, query returns nothings.</p>
+					</div>');
 		}
 	}
 

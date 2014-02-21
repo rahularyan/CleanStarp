@@ -316,10 +316,7 @@ h1,h2,h3,h4,h5,h6, .qa-q-item-title{
 	padding:5px;
 }
 .navbar-avatar a.profile-link img{
-    border: 2px solid #FFFFFF;
-    border-radius: 50%;
-    margin-left: 5px;
-    max-width: none;
+    max-width: 30px;
 }
 .navbar-default ul.user-nav li.points{
     background: #FCB034;

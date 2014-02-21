@@ -315,11 +315,7 @@ h1,h2,h3,h4,h5,h6, .qa-q-item-title{
 .navbar-default ul.user-nav{
 	padding:5px;
 }
-.navbar-default a#profile-link{
-    float: right;
-    margin-top: 6px;
-}
-.navbar-avatar a#profile-link img{
+.navbar-avatar a.profile-link img{
     max-width: 30px;
 }
 .navbar-default ul.user-nav li.points{
@@ -1608,7 +1604,11 @@ table.page-users-list{
 }
 
 .qa-part-form{
-
+    background: #FFFFFF;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    padding: 15px;
+	border-radius:4px;
 }
 
 .qa-form-tall-table .qa-form-tall-data > *{
@@ -1681,14 +1681,37 @@ table.page-users-list{
     display: block;
     height: 100%;
     position: absolute;
-    right: -15px;
+    right: -5px;
     width: 1px;
 }
-#loginform .form-control{
-	margin-bottom: 10px;
+#qa-rememberme {
+    margin: 9px 5px 0 -10px;
+}
+#registerform:before {
+    background: none repeat scroll 0 0 #EEEEEE;
+    content: "";
+    display: block;
+    height: 100%;
+    left: 4px;
+    position: absolute;
+    width: 1px;
+}
+#loginform .form-control, #registerform .form-control,
+#loginform .btn, #registerform .btn{
+	margin: 0 0 10px 5px;
 }
 #loginform .btn{
 	border-radius: 2px;
+}
+.qa-nav-user{
+	height:auto !important;
+}
+.qa-nav-user-item {
+    display: inline-block;
+    float: left;
+}
+.open-login-button:before {
+    width: 28px !important;
 }
 .open-login-button:before {
     display: inline-block;
@@ -2291,53 +2314,4 @@ input[type=radio]:checked + label {
     color: #999999;
     font-size: 16px;
     text-align: center;
-}
-
-/* Login page */
-.qa-template-login .qa-part-form, .qa-template-forgot .qa-part-form, .qa-template-register .qa-part-form{
-    margin: 0 auto;
-    max-width: 350px;
-}
-.qa-template-login .qa-part-form .qa-form-tall-label, .qa-template-forgot .qa-part-form .qa-form-tall-label, .qa-template-register .qa-part-form .qa-form-tall-label{
-    color: #AAAAAA;
-    font-size: 11px;
-}
-.qa-template-login .qa-part-form input[type="text"], .qa-template-login .qa-part-form input[type="password"], .qa-template-register .qa-part-form input[type="text"], .qa-template-register .qa-part-form input[type="password"], .qa-template-forgot .qa-part-form input[type="text"]{
-    color: #888888;
-    font-size: 15px;
-    height: auto;
-    padding: 10px;
-}
-.qa-template-login .qa-part-form input[type="checkbox"]{
-    margin-right: 5px;
-    vertical-align: baseline;
-}
-.qa-template-login .qa-form-tall-label label, .qa-template-forgot .qa-form-tall-label label, .qa-template-register .qa-form-tall-label label{
-    display: block;
-    font-size: 12px;
-    font-weight: 300;
-    margin-bottom: 15px;
-    text-align: center;
-}
-.qa-template-login .qa-form-tall-note{
-	margin-bottom:0;
-}
-.qa-template-login .qa-form-tall-note, .qa-template-forgot .qa-form-tall-note, .qa-template-register .qa-form-tall-note{
-    display: block;
-    font-size: 12px;
-    line-height: 15px;
-    margin-bottom: 0;
-    text-align: center;
-}
-
-
-
-/* Buttons */
-.qa-form-tall-button-login, .qa-form-tall-button-send, .qa-form-tall-button-register{
-    background: none repeat scroll 0 0 #333333;
-    color: #FFFFFF;
-    display: block;
-    padding: 12px;
-    width: 100%;
-	margin-top:20px;
 }

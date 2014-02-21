@@ -104,7 +104,6 @@ h1,h2,h3,h4,h5,h6, .qa-q-item-title{
 }
 .back-to-top-right {
     bottom: 10px;
-    padding: 15px;
     position: fixed;
     right: 10px;
 }
@@ -1632,14 +1631,38 @@ table.page-users-list{
     display: block;
     height: 100%;
     position: absolute;
-    right: -15px;
+    right: -5px;
     width: 1px;
 }
-#loginform .form-control{
-	margin-bottom: 10px;
+#qa-rememberme {
+    margin: 9px 5px 0 -10px;
+}
+#registerform:before {
+    background: none repeat scroll 0 0 #EEEEEE;
+    content: "";
+    display: block;
+    height: 100%;
+    left: 4px;
+    position: absolute;
+
+    width: 1px;
+}
+#loginform .form-control, #registerform .form-control,
+#loginform .btn, #registerform .btn{
+	margin: 0 0 10px 5px;
 }
 #loginform .btn{
 	border-radius: 2px;
+}
+.qa-nav-user{
+	height:auto !important;
+}
+.qa-nav-user-item {
+    display: inline-block;
+    float: left;
+}
+.open-login-button:before {
+    width: 28px !important;
 }
 .open-login-button:before {
     display: inline-block;

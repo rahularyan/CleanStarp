@@ -516,7 +516,7 @@
 
 			$this->output('<div class="col-sm-'.(ra_position_active('Right') ? '8' : '12').' list-c">');
 			
-			if($this->template != 'question' && $this->template != 'user' && (!strlen(qa_request(1)) == 0)){
+			if($this->template != 'question' && $this->template != 'user' && (!strlen(qa_request(1)) == 0) && (!empty($this->content['title']))){
 				$this->output(
 					'<h1 class="page-title">',
 					$this->content['title']
@@ -1682,6 +1682,30 @@
 		function q_list($q_list)
 		{
 			if (isset($q_list['qs'])) {
+				if (qa_opt('ra_enable_except')) { // first check it is not an empty list and the feature is turned on
+				//	Collect the question ids of all items in the question list (so we can do this in one DB query)
+					$postids=array();
+					foreach ($q_list['qs'] as $question)
+						if (isset($question['raw']['postid']))
+							$postids[]=$question['raw']['postid'];
+					if (count($postids)) {
+					//	Retrieve the content for these questions from the database and put into an array
+						$result=qa_db_query_sub('SELECT postid, content, format FROM ^posts WHERE postid IN (#)', $postids);
+						$postinfo=qa_db_read_all_assoc($result, 'postid');
+					//	Get the regular expression fragment to use for blocked words and the maximum length of content to show
+						$blockwordspreg=qa_get_block_words_preg();
+						$maxlength=qa_opt('ra_except_len');
+					//	Now add the popup to the title for each question
+						foreach ($q_list['qs'] as $index => $question) {
+							$thispost=@$postinfo[$question['raw']['postid']];
+							if (isset($thispost)) {
+								$text=qa_viewer_text($thispost['content'], $thispost['format'], array('blockwordspreg' => $blockwordspreg));
+								$text=qa_shorten_string_line($text, $maxlength);
+								$q_list['qs'][$index]['content']='<SPAN>'.qa_html($text).'</SPAN>';
+							}
+						} 
+					}
+				}
 				$this->output('<div class="qa-q-list'.($this->list_vote_disabled($q_list['qs']) ? ' qa-q-list-vote-disabled' : '').'">', '');
 				$this->q_list_items($q_list['qs']);
 				$this->output('</div> <!-- END qa-q-list -->', '');

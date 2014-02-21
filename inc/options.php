@@ -111,6 +111,12 @@ class qa_html_theme_layer extends qa_html_theme_base {
 				qa_opt('horizontal_voting_btns', (bool)qa_post_text('option_horizontal_voting_btns'));
 				qa_opt('enble_back_to_top', (bool)qa_post_text('option_enble_back_to_top'));
 				qa_opt('back_to_top_location', qa_post_text('option_back_to_top_location'));
+				
+				// Styling
+				qa_opt('styling_duplicate_question', (bool)qa_post_text('option_styling_duplicate_question'));
+				qa_opt('styling_solved_question', (bool)qa_post_text('option_styling_solved_question'));
+				qa_opt('styling_closed_question', (bool)qa_post_text('option_styling_closed_question'));
+				qa_opt('styling_open_question', (bool)qa_post_text('option_styling_open_question'));
 
 				//color
 				qa_opt('ra_primary_color', qa_post_text('option_ra_primary_color'));	
@@ -509,6 +515,60 @@ $ra_page = '
 	<div class="qa-part-form-tc-styling">
 		<table class="qa-form-tall-table options-table">
 			<tbody>
+				<tr>
+					<th class="qa-form-tall-label">
+						Open Questions
+						<span class="description">Color Open Questions in question lists</span>
+					</th>
+					<td class="qa-form-tall-label">
+						<div class="on-off-checkbox-container">
+								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('styling_open_question') ? ' checked=""' : '') . ' id="option_styling_open_question" name="option_styling_open_question">
+							<label for="option_styling_open_question">
+							</label>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th class="qa-form-tall-label">
+						Closed Questions
+						<span class="description">Color Closed Questions in question lists</span>
+					</th>
+					<td class="qa-form-tall-label">
+						<div class="on-off-checkbox-container">
+								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('styling_closed_question') ? ' checked=""' : '') . ' id="option_styling_closed_question" name="option_styling_closed_question">
+							<label for="option_styling_closed_question">
+							</label>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th class="qa-form-tall-label">
+						Resolved Questions
+						<span class="description">Color Resolved Questions in question lists</span>
+					</th>
+					<td class="qa-form-tall-label">
+						<div class="on-off-checkbox-container">
+								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('styling_solved_question') ? ' checked=""' : '') . ' id="option_styling_solved_question" name="option_styling_solved_question">
+							<label for="option_styling_solved_question">
+							</label>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th class="qa-form-tall-label">
+						Resolved Questions
+						<span class="description">Color Duplicate Questions in question lists</span>
+					</th>
+					<td class="qa-form-tall-label">
+						<div class="on-off-checkbox-container">
+								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('styling_duplicate_question') ? ' checked=""' : '') . ' id="option_styling_duplicate_question" name="option_styling_duplicate_question">
+							<label for="option_styling_duplicate_question">
+							</label>
+						</div>
+					</td>
+				</tr>
+				</tbody>
+				<tbody>
 				<tr>
 					<th class="qa-form-tall-label">
 						Ask button background

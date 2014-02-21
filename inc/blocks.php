@@ -606,8 +606,13 @@
 		
 		function q_list_item($q_item)
 		{
-			$this->output('<div class="qa-q-list-item'.rtrim(' '.@$q_item['classes']).' clearfix" '.@$q_item['tags'].'>');
-		
+			$status = ra_get_post_status($q_item);
+			if (qa_opt('styling_' . $status . '_question'))
+				$status_class = ' qa-q-status-' . $status;
+			else
+				$status_class = '';
+			$this->output('<div class="qa-q-list-item'.rtrim(' '.@$q_item['classes']). $status_class . ' clearfix" '.@$q_item['tags'].'>');
+
 			$this->q_item_main($q_item);		
 
 			$this->output('</div> <!-- END qa-q-list-item -->', '');

@@ -102,6 +102,22 @@ function ra_post_status($item){
 	}
 	return $notice;
 }
+function ra_get_post_status($item){
+	// this will return question status whether question is open, closed, duplicate or solved
+	
+	if (@$item['answer_selected'] || @$item['raw']['selchildid']){	
+		$status =   'solved' ;
+	}elseif(@$item['raw']['closedbyid']){
+		$type = ra_post_type(@$item['raw']['closedbyid']);
+		if($type == 'Q')
+			$status =   'duplicate' ;	
+		else
+			$status =   'closed' ;	
+	}else{
+		$status =   'open' ;	
+	}
+	return $status;
+}
 
 function ra_get_excerpt($id){
 	$result = qa_db_read_one_value(qa_db_query_sub('SELECT content FROM ^posts WHERE postid=#', $id ),true);

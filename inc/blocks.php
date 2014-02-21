@@ -505,7 +505,7 @@
 
 			$this->output('<div class="col-sm-'.(ra_position_active('Right') ? '8' : '12').' list-c">');
 			
-			if($this->template != 'question' && (!strlen(qa_request(1)) == 0)){
+			if($this->template != 'question' && $this->template != 'user' && (!strlen(qa_request(1)) == 0)){
 				$this->output(
 					'<h1 class="page-title">',
 					$this->content['title']
@@ -536,9 +536,8 @@
 
 				$this->output('<section id="content" class="content-sidebar">');
 				$this->ra_user_nav($handle);
-				$this->output('<section class="main">');
 				$this->main_parts($content);
-				$this->output('</section></section>');
+				$this->output('</section>');
 			}elseif($this->template == 'account' || $this->template == 'favorites' || $this->template == 'user-activity' || $this->template == 'user-questions' || $this->template == 'user-answers'){
 				$handle=qa_request_part(1);
 				if (!strlen($handle)) {
@@ -547,9 +546,8 @@
 
 				$this->output('<section id="content" class="content-sidebar">');
 				$this->ra_user_nav($handle);
-				$this->output('<section class="main">');
 				$this->main_parts($content);
-				$this->output('</section></section>');
+				$this->output('</section>');
 			}else{
 				$this->widgets('main', 'top');			
 				$this->widgets('main', 'high');
@@ -1121,59 +1119,50 @@
 		
 		function profile_page(){
 			$handle = $this->content['raw']['account']['handle'];
-			$userid = $this->content['raw']['account']['userid'];
-			
-			$this->output('<section id="content" class="content-sidebar">');
+			$userid = $this->content['raw']['account']['userid'];			
+
 			$this->ra_user_nav($handle);
-			$this->output('<section class="main">');
-			$this->ra_user_about($handle);
 			$this->ra_user_activity_count($handle);
 			$this->ra_user_qa($handle);
-			$this->output('</section></section>');
+
 		}
 
 		function ra_user_nav($handle){
 			$user = ra_user_data($handle);
+			$about = ra_user_profile($handle, 'about');
 			if(qa_get_logged_in_level()>=QA_USER_LEVEL_ADMIN){
 				$edit =  '<a id="edit-user" class="btn btn-xs btn-success edit-profile icon-edit" href="'.qa_path_absolute('user/'.$handle,array('state'=>'edit')).'">Edit User</a>';
 			}
 			$this->output('			
-			<aside class="sidebar">
-				<div class="sidebar-inner">
-			  <div class="text-center clearfix">
-				'.@$edit. ra_get_avatar($handle, 150).'
+			<div class="user-header">
+				<div class="user-header-inner clearfix">
+			  <div class="pull-left user-thumb">
+				'.@$edit. ra_get_avatar($handle, 100).'
 			  </div>
-			  <div class="bg-light padder padder-v user-name-level">
-				<span class="h4">'.ra_name($handle).'</span>
-				<small class="block m-t-mini">'.qa_user_level_string($user[0]['level']).'</small>');
-				$this->favorite();
+			  <div class="user-name-detail">
+				<h3>'.ra_name($handle).'<small class="block m-t-mini">'.qa_user_level_string($user[0]['level']).'</small>
+				</h3>
+				
+				');
+				if(isset($about) && strlen($about))
+				$this->output(
+					'<div class="about-me">',
+					$about,
+					'</div>'
+				);
+				//$this->favorite();
 				
 			  $this->output('</div>');
-			  $this->nav('sub');
+			 // $this->nav('sub');
 			  $this->output('</div>');
-			$this->output('</aside>');
+			$this->output('</div>');
 		}
 		
-		function ra_user_about($handle){
-			$about = ra_user_profile($handle, 'about');
-			
-			if(strlen($about))
-			$this->output(
-				'<div class="about-me panel">',
-				'<div class="panel-heading">',
-				'About Me',
-				'</div>',
-				'<div class="panel-body">',
-				$about,
-				'</div>',
-				'</div>'
-			);
-		}
 		
 		function ra_user_activity_count($handle){
 			$user = ra_user_data($handle);
 			$this->output(
-				'<section class="panel user-activity-count">',
+				'<div class="user-activity-count clearfix">',
 				'<div class="points">',
 				$user[2]['points'],
 				'<span>Points</span>',
@@ -1194,40 +1183,48 @@
 				'</div>',
 				'
 				<div class="bar-chart">	
-					<div class="sparkline" data-type="bar" data-bar-color="#8e98a9" data-bar-width="20" data-height="28"><!--'.$user[2]['aposts'].','.$user[2]['qposts'].','.$user[2]['cposts'].'--></div>
+					<div class="sparkline" data-type="bar" data-bar-color="#FDAB0C" data-bar-width="20" data-height="28"><!--'.$user[2]['aposts'].','.$user[2]['qposts'].','.$user[2]['cposts'].'--></div>
                     <ul class="list-inline text-muted axis"><li>A</li><li>Q</li><li>C</li></ul>
 				</div>
 				',
-				'</section>'
+				'</div>'
 			);
 		}
 		
 		function ra_user_qa($handle){
 			ob_start();
 			?>
-			 <section class="user-qac-list panel">
-				<header class="panel-heading">
-				  <ul class="nav nav-tabs nav-justified">
-					<li class="active"><a data-toggle="tab" href="#user-questions">Questions</a></li>
-					<li class=""><a data-toggle="tab" href="#user-answers">Answers</a></li>
-					<li class=""><a data-toggle="tab" href="#user-comments">Comments</a></li>
-				  </ul>
-				</header>
-				<div class="panel-body">
-				  <div class="tab-content">
-					<div id="user-questions" class="tab-pane active">
-						<?php ra_user_post_list($handle, 'Q', 5); ?>
-					</div>
-					<div id="user-answers" class="tab-pane">
-						<?php ra_user_post_list($handle, 'A', 5); ?>
-					</div>
-					<div id="user-comments" class="tab-pane">
-						<?php ra_user_post_list($handle, 'C', 5); ?>
-					</div>
-				  </div>
+			 <div class="user-qac-list row">
+				<div class="col-md-5">
+					<?php
+						echo get_user_activity($handle);
+					?>
 				</div>
-			  </section>
+				<div class="col-md-7">
+					<header class="panel-heading">
+					  <ul class="nav nav-tabs nav-justified">
+						<li class="active"><a data-toggle="tab" href="#user-questions">Questions</a></li>
+						<li class=""><a data-toggle="tab" href="#user-answers">Answers</a></li>
+						<li class=""><a data-toggle="tab" href="#user-comments">Comments</a></li>
+					  </ul>
+					</header>
+					<div class="panel-body">
+					  <div class="tab-content">
+						<div id="user-questions" class="tab-pane active">
+							<?php ra_user_post_list($handle, 'Q', 5); ?>
+						</div>
+						<div id="user-answers" class="tab-pane">
+							<?php ra_user_post_list($handle, 'A', 5); ?>
+						</div>
+						<div id="user-comments" class="tab-pane">
+							<?php ra_user_post_list($handle, 'C', 5); ?>
+						</div>
+					  </div>
+					</div>
+				</div>
+			  </div>
 			<?php
+			//echo '<pre>'; ra_user_activity($handle); echo '</pre>';
 			$this->output(ob_get_clean());
 		}
 

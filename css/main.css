@@ -617,9 +617,7 @@ h1,h2,h3,h4,h5,h6, .qa-q-item-title{
     min-height: 420px;
     padding-bottom: 20px;
 }
-.qa-main .list-c{
-	border-right: 1px solid #F0F0F0;
-}
+
 .qa-main .side-c {
     padding: 0;
 }
@@ -1190,9 +1188,7 @@ table.page-users-list{
 .user-list-item td.badge-list .user-badge li.gold i{
     color:#ffd700;
 }
-.qa-template-user .qa-main, .qa-template-user-wall .qa-main, .qa-template-account .qa-main, .qa-template-favorites .qa-main, .qa-template-user-activity .qa-main, .qa-template-user-activity .qa-main, .qa-template-user-questions .qa-main, .qa-template-user-answers .qa-main, .qa-template-admin .qa-main{
-	padding-left:20px;
-}
+
 .sidebar ul.qa-nav-sub-list{
 	margin:0;
 }
@@ -1228,51 +1224,6 @@ table.page-users-list{
 }
 .about-me{
 
-}
-.user-activity-count{
-    display: table;
-    padding: 10px;
-    width: 100%;
-}
-.user-activity-count .points{
-    display: table-cell;
-    font-size: 25px;
-    font-weight: 600;
-    overflow: hidden;
-    text-align: center;
-    vertical-align: top;
-    width: 150px;
-}
-.user-activity-count .points span{
-    color: #AAAAAA;
-    font-size: 12px;
-    font-weight: 400;
-	display:block;
-}
-.user-activity-count .counts{
-    border-left: 1px solid rgba(0, 0, 0, 0.07);
-    padding: 12px 12px 12px 20px;
-}
-.user-activity-count .counts > div{
-    display: inline-block;
-    margin-right: 20px;
-    text-align: center;
-}
-.user-activity-count .counts > div span{
-    background: #7A68AE;
-    border-radius: 8px;
-    color: #FFFFFF;
-    margin-right: 5px;
-    padding: 0 8px;
-}
-.user-activity-count .bar-chart{
-    display: table-cell;
-    vertical-align: top;
-    width: 75px;
-}
-
-.user-qac-list{
-	padding:0;
 }
 .question-list {
     list-style: none;
@@ -2340,4 +2291,131 @@ input[type=radio]:checked + label {
     padding: 12px;
     width: 100%;
 	margin-top:20px;
+}
+
+/* user page */
+.user-header{
+    background: none repeat scroll 0 0 #F8F8F8;
+    border-bottom: 1px solid #EEEEEE;
+    margin: 0 -15px;
+    padding: 20px;
+    position: relative;
+}
+.user-name-detail{
+	overflow:hidden;
+}
+.user-name-detail h3{
+	margin-top: 0;
+}
+.user-name-detail h3 small{
+    background: none repeat scroll 0 0 #EEEEEE;
+    border-radius: 2px;
+    color: #AAAAAA;
+    font-family: arial,helvetica,serif;
+    font-size: 11px;
+    margin-left: 10px;
+    padding: 3px 5px;
+    vertical-align: middle;
+}
+.user-header .user-thumb{
+	margin-right: 20px;
+}
+.user-name-detail .about-me{
+	font-family: 'open sans', arial,helvetica,serif;
+}
+
+.user-activity-count{
+    border-bottom: 1px solid #EEEEEE;
+    margin: 0 -15px 20px;
+}
+.user-activity-count .points{
+    border-right: 1px solid #EEEEEE;
+    display: block;
+    float: left;
+    font-size: 25px;
+    font-weight: 600;
+    overflow: hidden;
+    padding: 10px;
+    text-align: center;
+    width: 150px;
+}
+.user-activity-count .points span{
+    color: #AAAAAA;
+    display: block;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 18px;
+}
+.user-activity-count .counts{
+    float: left;
+    margin-top: 6px;
+    padding: 12px 12px 12px 20px;
+}
+.user-activity-count .counts > div{
+    color: #888888;
+    display: inline-block;
+    margin-right: 20px;
+    text-align: center;
+}
+.user-activity-count .counts > div span{
+    border-radius: 1px;
+    color: #FFFFFF;
+    margin-right: 5px;
+    padding: 4px 10px;
+}
+.user-activity-count .bar-chart{
+    display: block;
+    float: right;
+    margin-top: 14px;
+    width: 75px;
+}
+.bar-chart .list-inline{
+    line-height: 12px;
+    margin: 0;
+}
+.bar-chart .list-inline li{
+    font-size: 11px;
+    line-height: 12px;
+    text-align: center;
+}
+.user-qac-list{
+	padding:0;
+}
+
+.widget.user-activities{
+    background: none repeat scroll 0 0 #FAFAFA;
+    border-right: 1px solid #EEEEEE;
+    margin-left: -15px;
+    margin-top: -20px;
+    padding: 20px 15px;
+}
+.widget.user-activities .question-list{
+	padding:0;
+}
+.widget.user-activities .question-list .activity-item{
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+.widget.user-activities .question-list .activity-item .type{
+    background: none repeat scroll 0 0 #EEEEEE;
+    font-size: 20px;
+    height: 30px;
+    margin-right: 15px;
+    margin-top: 5px;
+    text-align: center;
+    width: 30px;
+}
+.widget.user-activities .question-list .activity-item .list-right{
+    line-height: 20px;
+    overflow: hidden;
+}
+.widget.user-activities .question-list .activity-item .list-right .when{
+    display: block;
+    font-size: 13px;
+    margin-bottom: 2px;
+    text-transform: capitalize;
+}
+.widget.user-activities .question-list .activity-item .list-right .what{
+    color: #999999;
+    font-size: 13px;
 }

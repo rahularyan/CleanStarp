@@ -386,7 +386,7 @@ function ra_ask_box_autocomplete(){
     $('#ra-ask-search').off('keyup keydown keypress');
 }
 
-$(document).ready(function(){
+function back_to_top(){
 	$("#back-to-top").hide();
 	$(function () {
 		$(window).scroll(function () {
@@ -403,6 +403,10 @@ $(document).ready(function(){
 			return false;
 		});
 	});
+}
+
+$(document).ready(function(){
+
 	var win_height = $(window).height();
 	var main_height = $('#site-body').height() +60;
 	
@@ -417,7 +421,7 @@ $(document).ready(function(){
 	ra_favorite_click();
 	ra_tab();
 	ra_widgets();
-	
+	back_to_top();
 	if ($('.ra-ask-widget').length>0)
 		ra_ask_box_autocomplete();
 	

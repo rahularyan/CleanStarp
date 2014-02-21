@@ -92,14 +92,15 @@ h1,h2,h3,h4,h5,h6, .qa-q-item-title{
     width: 180px;
 }
 .back-to-top-nav, .back-to-top-right{
-	background: url("../images/back-to-top.png") no-repeat scroll center center rgba(0, 0, 0, 0);
+    border-radius: 50%;
+    color: #FFFFFF;
     display: block;
-    font-size: 12px;
-    font-weight: bold;
-    padding-bottom: 10px;
-    padding-top: 47px;
+    font-size: 24px;
+    height: 30px;
+    margin: 20px auto 0;
     text-align: center;
     text-decoration: none;
+    width: 30px;
 }
 .back-to-top-right {
     bottom: 10px;

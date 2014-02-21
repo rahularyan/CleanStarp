@@ -61,11 +61,11 @@ function ra_get_avatar($handle, $size = 40, $html =true){
 			else if (qa_opt('avatar_allow_gravatar'))
 				$img_html = qa_get_gravatar_html(qa_get_user_email($userid), $size);
 			else
-				$img_html = Q_THEME_URL.'/images/avatar.jpg';
+				$img_html = '<img src="'.Q_THEME_URL.'/images/avatar.jpg" height="'.$size.'" width="'.$size.'" />';
 		}else{
 			$f = ra_user_data($handle);
 			if(empty($f[0]['avatarblobid'])){
-				$img_html = Q_THEME_URL.'/images/avatar.jpg'; 
+				$img_html = '<img src="'.Q_THEME_URL.'/images/avatar.jpg" height="'.$size.'" width="'.$size.'" />';
 			}
 			else
 				$img_html = qa_get_user_avatar_html($f[0]['flags'], $f[0]['email'], $handle, $f[0]['avatarblobid'], $size, $size, $size, true);

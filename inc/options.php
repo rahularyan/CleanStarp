@@ -147,11 +147,8 @@ class qa_html_theme_layer extends qa_html_theme_base {
 				qa_opt('ra_nav_child_font_size', qa_post_text('option_ra_nav_child_font_size'));	
 				
 				// bootstrap							
-				qa_opt('ra_body_bg', qa_post_text('option_ra_body_bg'));				
-				qa_opt('ra_text_color', qa_post_text('option_ra_text_color'));				
-				qa_opt('font-size-base', qa_post_text('option-font-size-base'));				
-				qa_opt('ra_base_fontfamily', qa_post_text('option_ra_base_fontfamily'));				
-				qa_opt('ra_base_lineheight', qa_post_text('option_ra_base_lineheight'));
+				qa_opt('ra_ticker_data', qa_post_text('option_ra_ticker_data'));				
+
 				
 				qa_opt('footer_copyright', qa_post_text('option_footer_copyright'));
 				
@@ -298,19 +295,22 @@ $ra_page = '
 				<a href="#" data-toggle=".qa-part-form-tc-layout">Layouts</a>
 			</li>
 			<li>
-				<a href="#" data-toggle=".qa-part-form-tc-styling">Styling Options</a>
+				<a href="#" data-toggle=".qa-part-form-tc-styling">Styling</a>
 			</li>
 			<li>
 				<a href="#" data-toggle=".qa-part-form-tc-typo">Typography</a>
 			</li>
 			<li>
-				<a href="#" data-toggle=".qa-part-form-tc-social">Social Accounts</a>
+				<a href="#" data-toggle=".qa-part-form-tc-social">Social</a>
 			</li>
 			<li>
-				<a href="#" data-toggle=".qa-part-form-tc-ads">Advertisements</a>
+				<a href="#" data-toggle=".qa-part-form-tc-ads">Ads</a>
 			</li>
 			<li>
-				<a href="#" data-toggle=".qa-part-form-tc-footer">Footer Settings</a>
+				<a href="#" data-toggle=".qa-part-form-tc-footer">Footer</a>
+			</li>
+			<li>
+				<a href="#" data-toggle=".qa-part-form-tc-widget">Widget</a>
 			</li>
 		</ul>
 	</div>
@@ -900,6 +900,24 @@ $ra_page = '
 				</th>
 				<td class="qa-form-tall-label">
 					<input id="option_footer_copyright" class="form-control" type="text" name="option_footer_copyright" value="' . qa_opt('footer_copyright') . '">
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	</div>	
+	<div class="qa-part-form-tc-widget">
+	<table class="qa-form-tall-table options-table">
+		<tbody>
+			<tr>
+				<th class="qa-form-tall-label">
+					Ticker Data from
+					<span class="description">Select from where you want to get data</span>
+				</th>
+				<td class="qa-form-tall-label">
+					<select id="option_ra_ticker_data" class="form-control" name="option_ra_ticker_data">
+						<option value="tags" ' . (qa_opt('ra_ticker_data') =='tags' ? 'selected':'' ) . '>Tags</option>
+						<option value="categories" ' . (qa_opt('ra_ticker_data') =='categories' ? 'selected':'' ) . '>Categories</option>
+					</select>
 				</td>
 			</tr>
 		</tbody>

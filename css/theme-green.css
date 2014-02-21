@@ -5,7 +5,7 @@ a:hover{
 	color:#7AAA40;
 }
 
-#site-header, .on-off-checkbox-container label, #ra-widgets .widget-canvas .widget-save.active, .ra-tags-widget .widget-tag:hover, .t-bg{
+#site-header, .on-off-checkbox-container label, #ra-widgets .widget-canvas .widget-save.active, .ra-tags-widget .widget-tag:hover, .t-bg, .face.back {
 	background:#90BD59;
 }
 #site-header .site-logo {
@@ -44,4 +44,14 @@ a:hover{
 
 .ra-ask-widget .input-group-btn button{
     background: none repeat scroll 0 0 #E45840;
+}
+
+
+.t-bg-4{
+	background:#FDAB0C;
+	color:#fff;
+}
+.t-bg-4:hover{
+	background:#e6a629;
+	color:#fff;
 }

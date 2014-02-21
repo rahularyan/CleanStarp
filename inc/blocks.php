@@ -683,7 +683,7 @@
 				foreach ($links as $link){
 					$icon = ($link->social_icon != '1' ? ' '.$link->social_icon.'' : '');
 					$image = ($link->social_icon == '1' ? '<img src="'.$link->social_icon_file.'" />' : '');
-					$this->output('<li><a class="t-bg'.@$icon.'" href="'.$link->social_link .'" title="Link to '. $link->social_title.'" >'.@$image.'</a></li>');
+					$this->output('<li><a class="t-bg-4'.@$icon.'" href="'.$link->social_link .'" title="Link to '. $link->social_title.'" >'.@$image.'</a></li>');
 				}
 				$this->output('</ul>');
 			}
@@ -1330,43 +1330,52 @@
 			$rows=min($ranking['rows'], count($ranking['items']));
 			
 			if(@$ranking['type']=='users'){
-				$this->output('<table class="page-users-list">');
-					$this->output('
-						<tr class="users-list-head">
-							<td class="favourite"></td>
-							<td class="user">'._ra_lang('User').'</td>
-							<td class="activity"><span class="ra-tip" title="'._ra_lang('Questions').'">Q</span></td>
-							<td class="activity"><span class="ra-tip" title="'._ra_lang('Answers').'">A</span></td>
-							<td class="activity"><span class="ra-tip" title="'._ra_lang('Comments').'">C</span></td>
-							<td class="score">'._ra_lang('Points').'</td>');
-							if(qa_opt('badge_active'))
-								$this->output('<td class="badge-list">'._ra_lang('Badges').'</td>');
-							
-						$this->output('</tr>');
-					if($ranking['items'])
-						$columns=ceil(count($ranking['items'])/$rows);
+				$this->output('<div class="page-users-list clearfix">');
+					
+					/* if($ranking['items'])
+						$columns=ceil(count($ranking['items'])/$rows); */
 					if($ranking['items'])	
 					foreach($ranking['items'] as $user){
+						if(isset($user['raw']))
+							$handle = $user['raw']['handle'];
+						else
+							$handle = ltrim(strip_tags($user['label']));
 						
-						$handle = ltrim(strip_tags($user['label']));
-						
-						$fav = '<i title="In your favourite list" class="'.(strpos($user['label'],'qa-user-favorited') ? 'icon-star': 'icon-star-empty').'"></i>';
 						$data = ra_user_data($handle);
 						$this->output('
-							<tr class="user-list-item">
-								<td class="favourite">'.$fav.'</td>
-								<td class="user">'.ra_get_avatar($handle, 30).'<a href="'.qa_path_html('user/'.$handle).'">'.ra_name($handle).'</a></td>
-								<td class="activity q">'.$data[2]['qposts'].'</td>
-								<td class="activity a">'.$data[2]['aposts'].'</td>
-								<td class="activity c">'.$data[2]['cposts'].'</td>
-								<td class="score"><span>'.$data[0]['points'].'</span></td>');
-								if(qa_opt('badge_active'))
+							<div class="user-card">
+							<div class="user-card-inner">	
+								<div class="card-container">
+								<div class="f1_card"">
+								  <div class="front face">
+									<img class="avatar" height="150" src="'.ra_get_avatar($handle, 150, false).'" />
+								  </div>
+								  <div class="back face center">
+									<span class="activity q"><i>'.$data[2]['qposts'].'</i> Questions</span>
+									<span class="activity a"><i>'.$data[2]['aposts'].'</i> Answers</span>
+									<span class="activity c"><i>'.$data[2]['cposts'].'</i> Comments</span>
+								  </div>
+								</div>
+								</div>	
+								<div class="card-bottom">
+								<a class="user-name" href="'.qa_path_html('user/'.$handle).'">'.ra_name($handle).'</a>								
+								<span class="score">'.$data[0]['points'].' Points</span>
+								</div>');
+								if(qa_opt('badge_active') && function_exists('qa_get_badge_list'))
 									$this->output('<td class="badge-list">'.ra_user_badge($handle).'</td>');
 							
-							$this->output('</tr>');
+							$this->output('</div>');
+							$this->output('</div>');
 					}
+					else
+						$this->output('
+							<div class="no-items">
+								<h3 class="icon-sad">No users found!</h3>
+								<p>Sorry we cannot display anything, query returns nothings.</p>
+							</div>');
+					
 
-					$this->output('</table>');
+					$this->output('</div>');
 
 			}elseif(@$ranking['type']=='tags'){
 				

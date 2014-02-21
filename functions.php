@@ -102,7 +102,22 @@ function ra_post_status($item){
 	}
 	return $notice;
 }
-
+function ra_get_post_status($item){
+	// this will return question status whether question is open, closed, duplicate or solved
+	
+	if (@$item['answer_selected'] || @$item['raw']['selchildid']){	
+		$status =   'solved' ;
+	}elseif(@$item['raw']['closedbyid']){
+		$type = ra_post_type(@$item['raw']['closedbyid']);
+		if($type == 'Q')
+			$status =   'duplicate' ;	
+		else
+			$status =   'closed' ;	
+	}else{
+		$status =   'open' ;	
+	}
+	return $status;
+}
 function ra_get_excerpt($id){
 	$result = qa_db_read_one_value(qa_db_query_sub('SELECT content FROM ^posts WHERE postid=#', $id ),true);
 	return strip_tags($result);
@@ -220,6 +235,81 @@ function ra_user_post_list($handle, $type, $limit){
 	$output .= '</li>';
 	$output .= '</ul>';
 	echo $output;
+}
+// output the list of selected post type
+function ra_relative_post_list($type, $limit, $categories, $tags, $return = false){
+	require_once QA_INCLUDE_DIR.'qa-app-posts.php';
+	$post = qa_db_query_sub(
+	'SELECT * FROM ^posts WHERE ^posts.type=$
+	AND categoryid=(SELECT categoryid FROM ^categories WHERE title=$ LIMIT 1) 
+	AND qa_posts.postid IN (SELECT postid FROM qa_posttags WHERE 
+		wordid=(SELECT wordid FROM qa_words WHERE word=$ OR word=$ COLLATE utf8_bin LIMIT 1) ORDER BY postcreated DESC)
+	ORDER BY ^posts.created DESC LIMIT #',
+	$type, $categories, $tags, qa_strtolower($tags), $limit);	
+	$output = '<ul class="question-list">';
+	while($p = mysql_fetch_array($post)){
+		if($type=='Q'){
+			$what = _ra_lang('asked');
+		}elseif($type=='A'){
+			$what = _ra_lang('answered');
+		}elseif('C'){
+			$what = _ra_lang('commented');
+		}
+		$handle = qa_post_userid_to_handle($p['userid']);
+		$output .= '<li id="q-list-'.$p['postid'].'" class="question-item">';
+		$output .= '<div class="pull-left avatar" data-handle="'.$handle.'" data-id="'. qa_handle_to_userid($handle).'">'.ra_get_avatar($handle, 35).'</div>';
+		$output .= '<div class="list-right">';
+
+		
+
+		if($type=='Q'){
+
+			$output .= '<a class="title" href="'. qa_q_path_html($p['postid'], $p['title']) .'" title="'. $p['title'] .'">'.qa_html($p['title']).'</a>';
+
+		}elseif($type=='A'){
+
+			$output .= '<p><a href="'.ra_post_link($p['parentid']).'#a'.$p['postid'].'">'. substr(strip_tags($p['content']), 0, 50).'</a></p>';
+
+		}else{
+
+			$output .= '<p><a href="'.ra_post_link($p['parentid']).'#c'.$p['postid'].'">'. substr(strip_tags($p['content']), 0, 50).'</a></p>';
+
+		}
+
+		
+
+		
+
+		if ($type=='Q'){
+
+			$output .= '<div class="counts"><div class="vote-count"><span>'.$p['netvotes'].'</span></div>';
+
+			$output .= '<div class="ans-count"><span>'.$p['acount'].'</span></div></div>';
+
+		}elseif($type=='A'){
+
+			$output .= '<div class="counts"><div class="vote-count"><span>'.$p['netvotes'].'</span></div>';
+
+		}
+
+		$output .= '<h5><a href="'.qa_path_html('user/'.$handle).'">'.ra_name($handle).'</a> '.$what.'</h5>';
+
+
+
+		$output .= '</div>';	
+
+		$output .= '</li>';
+
+	}
+
+	$output .= '</ul>';
+
+	if($return)
+
+		return $output;
+
+	echo $output;
+
 }
 function ra_post_link($id){
 	$type = mysql_result(qa_db_query_sub('SELECT type FROM ^posts WHERE postid = "'.$id.'"'), 0);

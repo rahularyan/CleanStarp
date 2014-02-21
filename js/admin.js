@@ -1,4 +1,20 @@
 $(document).ready(function(){
+	$(function () {
+		$(window).scroll(function () {
+			if ($(document).height() <= $(window).scrollTop() + $(window).height() + 120) {
+				$('.form-button-holder').css({"position":"inherit"});
+				$('.form-button-holder').css({"width" : "auto"});
+			} else {
+				$('.form-button-holder').css({"position":"fixed"});
+				var width= $('.form-button-sticky-footer').css("width");
+				$('.form-button-holder').css({"width" : width});
+				$('.form-button-holder').css({"bottom":"0"});
+			}
+		});
+	});
+	$( "#option_enble_back_to_top" ).change(function() {
+		$( "#back_to_top_location_container" ).toggle(500);
+	});
 	$( "#option_enable_adv_list" ).change(function() {
 		$( "#ads_container" ).toggle(500);
 	});

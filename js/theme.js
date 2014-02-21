@@ -387,6 +387,22 @@ function ra_ask_box_autocomplete(){
 }
 
 $(document).ready(function(){
+	$("#back-to-top").hide();
+	$(function () {
+		$(window).scroll(function () {
+			if ($(this).scrollTop() > 50) {
+				$('#back-to-top').fadeIn();
+			} else {
+				$('#back-to-top').fadeOut();
+			}
+		});
+		$('#back-to-top').click(function () {
+			$('body,html').animate({
+				scrollTop: 0
+			}, 500);
+			return false;
+		});
+	});
 	var win_height = $(window).height();
 	var main_height = $('#site-body').height() +60;
 	

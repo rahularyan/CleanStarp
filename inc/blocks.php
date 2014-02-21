@@ -628,18 +628,19 @@
 		
 		function q_item_main($q_item)
 		{
-
-			$this->output('<div class="asker-avatar">');
-			$this->output(ra_get_avatar($q_item['raw']['handle'], 35));
-			//$this->voting($q_item);
-			$this->output('</div>');
-			
+			if (isset($q_item['avatar'])){
+				$this->output('<div class="asker-avatar">');
+				$this->output($q_item['avatar']);
+				$this->output('</div>');
+			}
 			$this->output('<div class="qa-q-item-main">');
 			
 			$this->output('<div class="q-item-head">');
 				$this->q_item_title($q_item);
 				$this->output(ra_post_status($q_item));	
 				$this->post_meta($q_item, 'qa-q-item');
+				$this->view_count($q_item);
+				//var_dump($q_item);
 			$this->output('</div>');
 			
 			if(qa_opt('ra_show_content')){
@@ -647,8 +648,6 @@
 				$this->output(ra_truncate(ra_get_excerpt($q_item['raw']['postid']), 180));
 				$this->output('</div>');
 			}
-			
-			$this->view_count($q_item);
 			
 			$this->q_item_content($q_item);
 
@@ -658,13 +657,7 @@
 				
 			$this->output('</div>');
 		}
-		function view_count($q_item) // prevent display of view count in the usual place
-		{	
-			if ($this->template=='question')
-				qa_html_theme_base::view_count($q_item);
-		}
 		
-
 		function attribution()
 		{
 		}

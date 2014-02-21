@@ -113,7 +113,13 @@ class qa_html_theme_layer extends qa_html_theme_base {
 				qa_opt('horizontal_voting_btns', (bool)qa_post_text('option_horizontal_voting_btns'));
 				qa_opt('enble_back_to_top', (bool)qa_post_text('option_enble_back_to_top'));
 				qa_opt('back_to_top_location', qa_post_text('option_back_to_top_location'));
-				
+				qa_opt('ra_enable_avatar_lists', (bool)qa_post_text('option_ra_enable_avatar_lists'));
+				if (qa_opt('ra_enable_avatar_lists'))
+					qa_opt('avatar_q_list_size',35);
+				else
+					qa_opt('avatar_q_list_size',0); // set avatar size to zero so Q2A won't load them
+				qa_opt('show_view_counts', (bool)qa_post_text('option_ra_enable_views_lists'));
+
 				// Styling
 				qa_opt('styling_duplicate_question', (bool)qa_post_text('option_styling_duplicate_question'));
 				qa_opt('styling_solved_question', (bool)qa_post_text('option_styling_solved_question'));
@@ -145,7 +151,6 @@ class qa_html_theme_layer extends qa_html_theme_base {
 
 				//list
 				qa_opt('ra_list_layout', qa_post_text('option_ra_list_layout'));
-				qa_opt('ra_show_ans_view', (bool)qa_post_text('option_ra_show_ans_view'));
 
 				
 				// Navigation
@@ -421,20 +426,6 @@ $ra_page = '
 			<tbody>
 				<tr>
 					<th class="qa-form-tall-label">
-						Show Answer &amp; view count
-						<span class="description">ADD DETAIL.</span>
-					</th>
-					<td class="qa-form-tall-label">
-						<div class="on-off-checkbox-container">
-								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('ra_show_ans_view') ? ' checked=""' : '') . ' id="option_ra_show_ans_view" name="option_ra_show_ans_view">
-								<label for="option_ra_show_ans_view"></label>
-						</div>
-					</td>
-				</tr>
-			</tbody>
-			<tbody>
-				<tr>
-					<th class="qa-form-tall-label">
 						Fixed Navigation
 						<span class="description">ADD DETAIL.</span>
 					</th>
@@ -457,6 +448,9 @@ $ra_page = '
 						</div>
 					</td>
 				</tr>
+			</tbody>
+			<tbody>
+				<tr><td><h3>Question Lists</h3></td></tr>
 				<tr>
 					<th class="qa-form-tall-label">
 						Question Excerpt
@@ -476,6 +470,30 @@ $ra_page = '
 					</th>
 					<td class="qa-form-tall-label">
 						<input class="qa-form-wide-number" type="text" value="' . qa_opt('ra_except_len') . '"  id="option_ra_except_len" name="option_ra_except_len">
+					</td>
+				</tr>
+				<tr>
+					<th class="qa-form-tall-label">
+						Avatars in lists
+						<span class="description">Toggle avatars in question lists.</span>
+					</th>
+					<td class="qa-form-tall-label">
+						<div class="on-off-checkbox-container">
+								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('ra_enable_avatar_lists') ? ' checked=""' : '') . ' id="option_ra_enable_avatar_lists" name="option_ra_enable_avatar_lists">
+								<label for="option_ra_enable_avatar_lists"></label>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th class="qa-form-tall-label">
+						View Count
+						<span class="description">Toggle View Count in question lists.</span>
+					</th>
+					<td class="qa-form-tall-label">
+						<div class="on-off-checkbox-container">
+								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('show_view_counts') ? ' checked=""' : '') . ' id="option_ra_enable_views_lists" name="option_ra_enable_views_lists">
+								<label for="option_ra_enable_views_lists"></label>
+						</div>
 					</td>
 				</tr>
 			</tbody>

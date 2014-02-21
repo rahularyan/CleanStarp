@@ -108,6 +108,8 @@ class qa_html_theme_layer extends qa_html_theme_base {
 				
 				//Layout
 				qa_opt('ra_home_layout', qa_post_text('option_ra_home_layout'));				
+				qa_opt('ra_enable_except', (bool)qa_post_text('option_ra_enable_except'));
+				qa_opt('ra_except_len', (int)qa_post_text('option_ra_except_len'));
 				qa_opt('horizontal_voting_btns', (bool)qa_post_text('option_horizontal_voting_btns'));
 				qa_opt('enble_back_to_top', (bool)qa_post_text('option_enble_back_to_top'));
 				qa_opt('back_to_top_location', qa_post_text('option_back_to_top_location'));
@@ -117,7 +119,7 @@ class qa_html_theme_layer extends qa_html_theme_base {
 				qa_opt('styling_solved_question', (bool)qa_post_text('option_styling_solved_question'));
 				qa_opt('styling_closed_question', (bool)qa_post_text('option_styling_closed_question'));
 				qa_opt('styling_open_question', (bool)qa_post_text('option_styling_open_question'));
-
+				
 				//color
 				qa_opt('ra_primary_color', qa_post_text('option_ra_primary_color'));	
 				qa_opt('ra_nav_bg', qa_post_text('option_ra_nav_bg'));	
@@ -457,14 +459,23 @@ $ra_page = '
 				</tr>
 				<tr>
 					<th class="qa-form-tall-label">
-						Content in list
-						<span class="description">Toggle question description in question list.</span>
+						Question Excerpt
+						<span class="description">Toggle question description in question lists.</span>
 					</th>
 					<td class="qa-form-tall-label">
 						<div class="on-off-checkbox-container">
-								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('ra_show_content') ? ' checked=""' : '') . ' id="option_ra_show_content" name="option_ra_show_content">
-								<label for="option_ra_show_content"></label>
+								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('ra_enable_except') ? ' checked=""' : '') . ' id="option_ra_enable_except" name="option_ra_enable_except">
+								<label for="option_ra_enable_except"></label>
 						</div>
+					</td>
+				</tr>
+				<tr id="ra_except_length">
+					<th class="qa-form-tall-label">
+						Excerpt Length
+						<span class="description">Length of questions description in question lists</span>
+					</th>
+					<td class="qa-form-tall-label">
+						<input class="qa-form-wide-number" type="text" value="' . qa_opt('ra_except_len') . '"  id="option_ra_except_len" name="option_ra_except_len">
 					</td>
 				</tr>
 			</tbody>
@@ -513,6 +524,7 @@ $ra_page = '
 		</table>
 	</div>
 	<div class="qa-part-form-tc-styling">
+		<h3>Background color of questions</h3>
 		<table class="qa-form-tall-table options-table">
 			<tbody>
 				<tr>

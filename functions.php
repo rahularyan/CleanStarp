@@ -118,7 +118,6 @@ function ra_get_post_status($item){
 	}
 	return $status;
 }
-
 function ra_get_excerpt($id){
 	$result = qa_db_read_one_value(qa_db_query_sub('SELECT content FROM ^posts WHERE postid=#', $id ),true);
 	return strip_tags($result);
@@ -237,6 +236,81 @@ function ra_user_post_list($handle, $type, $limit){
 	$output .= '</ul>';
 	echo $output;
 }
+// output the list of selected post type
+function ra_relative_post_list($type, $limit, $categories, $tags, $return = false){
+	require_once QA_INCLUDE_DIR.'qa-app-posts.php';
+	$post = qa_db_query_sub(
+	'SELECT * FROM ^posts WHERE ^posts.type=$
+	AND categoryid=(SELECT categoryid FROM ^categories WHERE title=$ LIMIT 1) 
+	AND qa_posts.postid IN (SELECT postid FROM qa_posttags WHERE 
+		wordid=(SELECT wordid FROM qa_words WHERE word=$ OR word=$ COLLATE utf8_bin LIMIT 1) ORDER BY postcreated DESC)
+	ORDER BY ^posts.created DESC LIMIT #',
+	$type, $categories, $tags, qa_strtolower($tags), $limit);	
+	$output = '<ul class="question-list">';
+	while($p = mysql_fetch_array($post)){
+		if($type=='Q'){
+			$what = _ra_lang('asked');
+		}elseif($type=='A'){
+			$what = _ra_lang('answered');
+		}elseif('C'){
+			$what = _ra_lang('commented');
+		}
+		$handle = qa_post_userid_to_handle($p['userid']);
+		$output .= '<li id="q-list-'.$p['postid'].'" class="question-item">';
+		$output .= '<div class="pull-left avatar" data-handle="'.$handle.'" data-id="'. qa_handle_to_userid($handle).'">'.ra_get_avatar($handle, 35).'</div>';
+		$output .= '<div class="list-right">';
+
+		
+
+		if($type=='Q'){
+
+			$output .= '<a class="title" href="'. qa_q_path_html($p['postid'], $p['title']) .'" title="'. $p['title'] .'">'.qa_html($p['title']).'</a>';
+
+		}elseif($type=='A'){
+
+			$output .= '<p><a href="'.ra_post_link($p['parentid']).'#a'.$p['postid'].'">'. substr(strip_tags($p['content']), 0, 50).'</a></p>';
+
+		}else{
+
+			$output .= '<p><a href="'.ra_post_link($p['parentid']).'#c'.$p['postid'].'">'. substr(strip_tags($p['content']), 0, 50).'</a></p>';
+
+		}
+
+		
+
+		
+
+		if ($type=='Q'){
+
+			$output .= '<div class="counts"><div class="vote-count"><span>'.$p['netvotes'].'</span></div>';
+
+			$output .= '<div class="ans-count"><span>'.$p['acount'].'</span></div></div>';
+
+		}elseif($type=='A'){
+
+			$output .= '<div class="counts"><div class="vote-count"><span>'.$p['netvotes'].'</span></div>';
+
+		}
+
+		$output .= '<h5><a href="'.qa_path_html('user/'.$handle).'">'.ra_name($handle).'</a> '.$what.'</h5>';
+
+
+
+		$output .= '</div>';	
+
+		$output .= '</li>';
+
+	}
+
+	$output .= '</ul>';
+
+	if($return)
+
+		return $output;
+
+	echo $output;
+
+}
 function ra_post_link($id){
 	$type = mysql_result(qa_db_query_sub('SELECT type FROM ^posts WHERE postid = "'.$id.'"'), 0);
 	
@@ -261,59 +335,6 @@ function ra_post_list($type, $limit, $return = false){
 	require_once QA_INCLUDE_DIR.'qa-app-posts.php';
 	$post = qa_db_query_sub('SELECT * FROM ^posts WHERE ^posts.type=$ ORDER BY ^posts.created DESC LIMIT #', $type, $limit);	
 	
-	$output = '<ul class="question-list">';
-	while($p = mysql_fetch_array($post)){
-
-		if($type=='Q'){
-			$what = _ra_lang('asked');
-		}elseif($type=='A'){
-			$what = _ra_lang('answered');
-		}elseif('C'){
-			$what = _ra_lang('commented');
-		}
-		
-		$handle = qa_post_userid_to_handle($p['userid']);
-
-		$output .= '<li id="q-list-'.$p['postid'].'" class="question-item">';
-		$output .= '<div class="pull-left avatar" data-handle="'.$handle.'" data-id="'. qa_handle_to_userid($handle).'">'.ra_get_avatar($handle, 35).'</div>';
-		$output .= '<div class="list-right">';
-		
-		if($type=='Q'){
-			$output .= '<a class="title" href="'. qa_q_path_html($p['postid'], $p['title']) .'" title="'. $p['title'] .'">'.qa_html($p['title']).'</a>';
-		}elseif($type=='A'){
-			$output .= '<p><a href="'.ra_post_link($p['parentid']).'#a'.$p['postid'].'">'. substr(strip_tags($p['content']), 0, 50).'</a></p>';
-		}else{
-			$output .= '<p><a href="'.ra_post_link($p['parentid']).'#c'.$p['postid'].'">'. substr(strip_tags($p['content']), 0, 50).'</a></p>';
-		}
-		
-		
-		if ($type=='Q'){
-			$output .= '<div class="counts"><div class="vote-count"><span>'.$p['netvotes'].'</span></div>';
-			$output .= '<div class="ans-count"><span>'.$p['acount'].'</span></div></div>';
-		}elseif($type=='A'){
-			$output .= '<div class="counts"><div class="vote-count"><span>'.$p['netvotes'].'</span></div>';
-		}
-		$output .= '<h5><a href="'.qa_path_html('user/'.$handle).'">'.ra_name($handle).'</a> '.$what.'</h5>';
-
-		$output .= '</div>';	
-		$output .= '</li>';
-	}
-	$output .= '</ul>';
-	if($return)
-		return $output;
-	echo $output;
-}
-
-// output the list of selected post type
-function ra_relative_post_list($type, $limit, $categories, $tags, $return = false){
-	require_once QA_INCLUDE_DIR.'qa-app-posts.php';
-	$post = qa_db_query_sub(
-	'SELECT * FROM ^posts WHERE ^posts.type=$
-	AND categoryid=(SELECT categoryid FROM ^categories WHERE title=$ LIMIT 1) 
-	AND qa_posts.postid IN (SELECT postid FROM qa_posttags WHERE 
-		wordid=(SELECT wordid FROM qa_words WHERE word=$ OR word=$ COLLATE utf8_bin LIMIT 1) ORDER BY postcreated DESC)
-	ORDER BY ^posts.created DESC LIMIT #',
-	$type, $categories, $tags, qa_strtolower($tags), $limit);	
 	$output = '<ul class="question-list">';
 	while($p = mysql_fetch_array($post)){
 
@@ -434,4 +455,79 @@ function ra_social_icons(){
 		'icon-twitter' => 'Twitter',
 		'icon-google' => 'Google',
 	);
+}
+
+
+function get_user_activity($handle, $limit = 10){
+	$userid = qa_handle_to_userid($handle);
+	require_once QA_INCLUDE_DIR.'qa-db-selects.php';
+	require_once QA_INCLUDE_DIR.'qa-app-format.php';
+	
+	$identifier=QA_FINAL_EXTERNAL_USERS ? $userid : $handle;
+
+	list($useraccount, $questions, $answerqs, $commentqs, $editqs)=qa_db_select_with_pending(
+		QA_FINAL_EXTERNAL_USERS ? null : qa_db_user_account_selectspec($handle, false),
+		qa_db_user_recent_qs_selectspec($userid, $identifier, $limit),
+		qa_db_user_recent_a_qs_selectspec($userid, $identifier),
+		qa_db_user_recent_c_qs_selectspec($userid, $identifier),
+		qa_db_user_recent_edit_qs_selectspec($userid, $identifier)
+	);
+	
+	if ((!QA_FINAL_EXTERNAL_USERS) && !is_array($useraccount)) // check the user exists
+		return include QA_INCLUDE_DIR.'qa-page-not-found.php';
+
+
+//	Get information on user references
+
+	$questions=qa_any_sort_and_dedupe(array_merge($questions, $answerqs, $commentqs, $editqs));
+	$questions=array_slice($questions, 0, $limit);
+	$usershtml=qa_userids_handles_html(qa_any_get_userids_handles($questions), false);
+	$htmldefaults=qa_post_html_defaults('Q');
+	$htmldefaults['whoview']=false;
+	$htmldefaults['voteview']=false;
+	$htmldefaults['avatarsize']=0;
+	
+	foreach ($questions as $question)
+		$qa_content[]=qa_any_to_q_html_fields($question, $userid, qa_cookie_get(),
+			$usershtml, null, array('voteview' => false) + qa_post_html_options($question, $htmldefaults));
+
+
+	$output = '<div class="widget user-activities">';
+	$output .= '<h3 class="widget-title">'.ra_name($handle).'\'s '._ra_lang('activities').'</h3>';
+	$output .='<ul class="question-list">';
+	if(isset($qa_content)){
+		foreach ($qa_content as $qs){
+
+			if($qs['what'] == 'answered'){
+				$icon = 'icon-chat-3 answered';
+			}elseif($qs['what'] == 'asked'){
+				$icon = 'icon-question asked';
+			}elseif($qs['what'] == 'commented'){
+				$icon = 'icon-chat-2 commented';
+			}elseif($qs['what'] == 'edited' || $qs['what'] == 'answer edited'){
+				$icon = 'icon-edit edited';
+			}elseif($qs['what'] == 'closed'){
+				$icon = 'icon-error closed';
+			}elseif($qs['what'] == 'answer selected'){
+				$icon = 'icon-checked selected';
+			}elseif($qs['what'] == 'recategorized'){
+				$icon = 'icon-folder-close recategorized';
+			}else{
+				$icon = 'icon-pin undefined';
+			}
+			
+			$output .='<li class="activity-item">';
+			$output .= '<div class="type pull-left '.$icon.'"></div>';
+			$output .= '<div class="list-right">';
+			$output .= '<strong class="when"><a href="'.@$qs['what_url'].'">'.$qs['what'].'</a> '.implode(' ', $qs['when']).'</strong>';
+			$output .= '<a class="what" href="'.$qs['url'].'">'.$qs['title'].'</a>';
+			$output .= '</div>';
+			$output .='</li>';
+		}
+	}else{
+		$output .='<li>'._ra_lang('No activity yet.').'</li>';
+	}
+	$output .= '</ul>';
+	$output .= '</div>';
+	return $output;
 }

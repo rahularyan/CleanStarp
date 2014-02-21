@@ -640,19 +640,21 @@
 				$this->output(ra_post_status($q_item));	
 				$this->post_meta($q_item, 'qa-q-item');
 				$this->view_count($q_item);
-				//var_dump($q_item);
 			$this->output('</div>');
 			
+			// I used a single query to get all excepts
+			/*
 			if(qa_opt('ra_show_content')){
 				$this->output('<div class="q-item-body">');
 				$this->output(ra_truncate(ra_get_excerpt($q_item['raw']['postid']), 180));
 				$this->output('</div>');
 			}
-			
+			*/
 			$this->q_item_content($q_item);
-
+			
 			//$this->q_item_stats($q_item);
-			//$this->post_tags($q_item, 'qa-q-item');
+			if(qa_opt('show_tags_list'))
+				$this->post_tags($q_item, 'qa-q-item');
 			$this->q_item_buttons($q_item);
 				
 			$this->output('</div>');

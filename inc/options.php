@@ -119,6 +119,7 @@ class qa_html_theme_layer extends qa_html_theme_base {
 				else
 					qa_opt('avatar_q_list_size',0); // set avatar size to zero so Q2A won't load them
 				qa_opt('show_view_counts', (bool)qa_post_text('option_ra_enable_views_lists'));
+				qa_opt('show_tags_list', (bool)qa_post_text('option_show_tags_list'));
 
 				// Styling
 				qa_opt('styling_duplicate_question', (bool)qa_post_text('option_styling_duplicate_question'));
@@ -493,6 +494,18 @@ $ra_page = '
 						<div class="on-off-checkbox-container">
 								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('show_view_counts') ? ' checked=""' : '') . ' id="option_ra_enable_views_lists" name="option_ra_enable_views_lists">
 								<label for="option_ra_enable_views_lists"></label>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th class="qa-form-tall-label">
+						Question Tags
+						<span class="description">Toggle Tags in question lists.</span>
+					</th>
+					<td class="qa-form-tall-label">
+						<div class="on-off-checkbox-container">
+								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('show_tags_list') ? ' checked=""' : '') . ' id="option_show_tags_list" name="option_show_tags_list">
+								<label for="option_show_tags_list"></label>
 						</div>
 					</td>
 				</tr>

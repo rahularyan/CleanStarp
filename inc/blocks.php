@@ -324,7 +324,14 @@
 							</form>
 							</div>
 							<div class="col-sm-6">
+							<form id="registerform" role="form" action="<?php echo $this->content['navigation']['user']['register']['url']; ?>" method="post">
+								<input type="text" class="form-control" id="qa-userid" name="handle" placeholder="<?php echo trim(qa_lang_html('users/handle_label'), ':'); ?>" />
+								<input type="password" class="form-control" id="qa-password" name="password" placeholder="<?php echo trim(qa_lang_html('users/password_label'), ':'); ?>" />
+								<input type="text" id="email" class="form-control" name="email" placeholder="<?php echo trim(qa_lang_html('users/email_label'), ':'); ?>">
+								<input type="hidden" name="code" value="<?php echo qa_html(qa_get_form_security_code('register')); ?>"/>
+								<input type="submit"  value="Register" value="<?php echo $this->content['navigation']['user']['register']['label']; ?>" id="qa-register" name="doregister" class="btn btn-primary btn-block" />
 							<?php
+								/*
 								foreach ($this->content['navigation']['user'] as $k => $custom) {
 									if (isset($custom) && (($k != 'login') && ($k != 'register'))) {
 										preg_match('/class="([^"]+)"/',  $custom['label'], $class );
@@ -334,12 +341,17 @@
 										elseif($k == 'google')
 											$icon = 'class="'.$class[1].' icon-google"';
 										elseif($k == 'twitter')
-											$icon = 'class="'.$class[1].' icon-twitter"';							
+											$icon = 'class="'.$class[1].' icon-twitter"';
 										
 										$this->output(str_replace($class[0], $icon, $custom['label']));
 									}
 								}
+								*/
+								unset($this->content['navigation']['user']['login']);
+								unset($this->content['navigation']['user']['register']);
+								qa_html_theme_base::nav('user');
 								?>
+							</form>
 							</div>
 						</div>	
 						
@@ -348,8 +360,7 @@
 				  </div>
 				</div>
 			<?php }
-			$this->output(ob_get_clean());			
-
+			$this->output(ob_get_clean());	
 		}
 		function search()
 		{

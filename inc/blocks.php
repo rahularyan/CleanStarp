@@ -207,7 +207,10 @@
 			$this->main();
 			$this->output('</div>');
 			$this->output('<div id="ajax-blocks"></div>');							
-			$this->output('</div>');					
+			$this->output('</div>');
+			
+			$this->footer();
+			
 			$this->body_suffix();
 			if ((qa_opt('enble_back_to_top')) && (qa_opt('back_to_top_location')=='right'))
 				$this->output('<a id="back-to-top" class="back-to-top-right icon-angle-up" href="#"></a>');
@@ -450,8 +453,13 @@
 				$this->nav('sub');
 			else
 				$this->nav('main');	
-				
-			$this->ra_position('Left');	
+			
+			$this->ra_position('Left');
+			
+			$this->get_social_links();
+			
+			if ((qa_opt('enble_back_to_top')) && (qa_opt('back_to_top_location')=='nav'))
+				$this->output('<a id="back-to-top" class="back-to-top-nav icon-angle-up t-bg" href="#"></a>');
 			
 			$this->output('</div>');			
 			$this->output('</div>');
@@ -574,10 +582,10 @@
 			$this->output('</div>');
 			if(ra_position_active('Right')){
 				$this->sidepanel();
-				$this->output('</div>');
 			}
+			$this->output('</div>');
 			$this->ra_position('Content Bottom');
-			$this->footer();
+			
 		}
 		function title() // add RSS feed icon after the page title
 		{
@@ -658,17 +666,29 @@
 		
 		function footer()
 		{			
-			$this->output('<footer id="site-footer" class="clearfix">');			
-			$this->attribution();
-			if ((bool)qa_opt('footer_left'))
-				$this->output('<div class="qa-attribution pull-left">' . qa_opt('footer_left') .'</div>');
-
+			$this->output('<footer id="site-footer" class="container clearfix">');			
+			//$this->attribution();	
+			
+			if ((bool)qa_opt('footer_copyright'))
+				$this->output('<div class="qa-attribution-right pull-right">' . qa_opt('footer_copyright') .'</div>');
 			$this->nav('footer');
-			if ((bool)qa_opt('footer_left'))
-				$this->output('<div class="qa-attribution-right pull-right">' . qa_opt('footer_right') .'</div>');
-
 			$this->output('</footer>');
 		}
+		
+		function get_social_links(){
+			if ((bool)qa_opt('ra_social_enable')){
+				$links = json_decode(qa_opt('ra_social_list'));
+
+				$this->output('<ul class="ra-social-links">');
+				foreach ($links as $link){
+					$icon = ($link->social_icon != '1' ? ' '.$link->social_icon.'' : '');
+					$image = ($link->social_icon == '1' ? '<img src="'.$link->social_icon_file.'" />' : '');
+					$this->output('<li><a class="t-bg'.@$icon.'" href="'.$link->social_link .'" title="Link to '. $link->social_title.'" >'.@$image.'</a></li>');
+				}
+				$this->output('</ul>');
+			}
+		}
+		
 		function nav_item($key, $navlink, $class, $level=null)
 		{
 			$suffix=strtr($key, array( // map special character in navigation key
@@ -1482,13 +1502,7 @@
 			}
 			die();
 		}
-		function nav($navtype, $level=null)
-		{
-			qa_html_theme_base::nav($navtype, $level);
-			if (($navtype=='main') && (qa_opt('enble_back_to_top')) && (qa_opt('back_to_top_location')=='nav')){
-				$this->output('<a id="back-to-top" class="back-to-top-nav icon-angle-up t-bg" href="#"></a>');
-			}
-		}
+
 		function nav_list($navigation, $class, $level=null)
 		{
 			if($class == 'browse-cat'){

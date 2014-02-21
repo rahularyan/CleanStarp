@@ -358,3 +358,11 @@ function ra_get_template_array(){
 		'admin' 		=> 'Admin'
 	);
 }
+
+function ra_social_icons(){
+	return array(
+		'icon-facebook' => 'Facebook',
+		'icon-twitter' => 'Twitter',
+		'icon-google' => 'Google',
+	);
+}

@@ -78,7 +78,6 @@ class qa_html_theme_layer extends qa_html_theme_base {
 				);
 				$this->main_parts($content);
 				$this->output('</div></div> <!-- END qa-main -->', '');
-				$this->footer();
 			}else
 				qa_html_theme_base::main();
 		}

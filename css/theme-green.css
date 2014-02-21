@@ -21,7 +21,7 @@ a:hover{
 	color:#6E973C;
 }
 
-.qa-main .qa-nav-sub ul li a.qa-nav-sub-selected, .ra-ask-widget .ui-helper-hidden-accessible, .ra-tags-widget .widget-tag {
+.qa-main .qa-nav-sub ul li a.qa-nav-sub-selected, .ra-ask-widget .ui-helper-hidden-accessible, .ra-tags-widget .widget-tag, .t-bg:hover {
     background: none repeat scroll 0 0 #FDAB0C;
 }
 

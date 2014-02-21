@@ -153,8 +153,7 @@ class qa_html_theme_layer extends qa_html_theme_base {
 				qa_opt('ra_base_fontfamily', qa_post_text('option_ra_base_fontfamily'));				
 				qa_opt('ra_base_lineheight', qa_post_text('option_ra_base_lineheight'));
 				
-				qa_opt('footer_right', qa_post_text('option_footer_right'));
-				qa_opt('footer_left', qa_post_text('option_footer_left'));
+				qa_opt('footer_copyright', qa_post_text('option_footer_copyright'));
 				
 				// Advertisment
 				$SocialCount = (int)qa_post_text('social_count'); // number of advertisement items
@@ -167,8 +166,8 @@ class qa_html_theme_layer extends qa_html_theme_base {
 						$social_links[$i]['social_icon'] = qa_post_text('social_icon_' . $i);
 						if ($social_links[$i]['social_icon'] == '1'){
 							if(@getimagesize(@$_FILES['ra_social_image_' . $i]['tmp_name']) >0){
-								$url		= qa_opt('site_url').'qa-theme/'.qa_get_site_theme().'/images/';
-								$uploaddir 	= QA_THEME_DIR.qa_get_site_theme().'/images/';
+								$url		= Q_THEME_URL.'/images/';
+								$uploaddir 	= Q_THEME_DIR.'/images/';
 								$uploadfile = $uploaddir . basename($_FILES['ra_social_image_' . $i]['name']);
 								move_uploaded_file($_FILES['ra_social_image_' . $i]['tmp_name'], $uploadfile);
 								$social_links[$i]['social_icon_file'] = $url.$_FILES['ra_social_image_' . $i]['name'];
@@ -254,8 +253,8 @@ $social_fields = json_decode( qa_opt('ra_social_list') , true);
 if(isset($social_fields))
 	foreach($social_fields as $k => $social_field){
 		$list_options = '<option class="icon-wrench" value="1"'.((@$social_field['social_icon']=='1') ? ' selected' : '').'>Upload Social Icon</option>';
-		for ($count=2; $count <= 10; $count++){
-			$list_options .= '<option class="icon-wrench" value="' . $count . '"'.(($count==@$social_field['social_icon']) ? ' selected' : '').'>' . $count . '</option>';
+		foreach(ra_social_icons() as $icon => $name){
+			$list_options .= '<option class="'.$icon.'" value="' . $icon . '"'.(($icon==@$social_field['social_icon']) ? ' selected' : '').'>' . $name . '</option>';
 		}
 		$social_icon_list = '<select id="social_icon_' . $i . '" name="social_icon_' . $i . '" class="qa-form-wide-select  social-select" sociallistid="' . $i . '">' . $list_options . '</select>';
 		if (isset($social_field['social_link'])){
@@ -900,16 +899,7 @@ $ra_page = '
 					<span class="description">you can add links or images by entering html code</span>
 				</th>
 				<td class="qa-form-tall-label">
-					<input id="option_footer_right" class="form-control" type="text" name="option_footer_right" value="' . qa_opt('footer_right') . '">
-				</td>
-			</tr>
-			<tr>
-				<th class="qa-form-tall-label">
-					Text at Left side of footer
-					<span class="description">you can add links or images by entering html code</span>
-				</th>
-				<td class="qa-form-tall-label">
-					<input id="option_footer_left" class="form-control" type="text" name="option_footer_left" value="' . qa_opt('footer_left') . '">
+					<input id="option_footer_copyright" class="form-control" type="text" name="option_footer_copyright" value="' . qa_opt('footer_copyright') . '">
 				</td>
 			</tr>
 		</tbody>
@@ -940,7 +930,6 @@ $ra_page = '
 				);
 				$this->main_parts($content);
 				$this->output('</div></div> <!-- END qa-main -->', '');
-				$this->footer();
 			}else
 				qa_html_theme_base::main();
 		}

@@ -1534,10 +1534,7 @@ table.page-users-list{
 }
 
 .qa-nav-footer .qa-nav-footer-list{
-    display: table;
-    list-style: none outside none;
-    margin: 0 auto;
-    padding: 10px 20px;
+	list-style: none outside none;
 }
 .category-list-page{
     background: #FFFFFF;
@@ -1645,13 +1642,29 @@ table.page-users-list{
 .qa-suggest-next a:hover{
 	background:#333;
 }
-
-#site-footer .qa-nav-footer{
-	float: left;
+#site-footer {
+    color: #999999;
+    font-size: 13px;
+    margin: 10px auto;
+    padding: 0;
+    text-align: right;
 }
+#site-footer .copyright, #site-footer .qa-nav-footer {
+    float: right;
+}
+#site-footer .qa-nav-footer {
+	margin-right:15px;
+}
+#site-footer .qa-nav-footer a {
+    float: right;
+}
+
 #site-footer .qa-attribution{
     float: left;
     padding: 9px;
+}
+#site-footer .ra-social-links{
+
 }
 
 #site-header .navbar-default .login-register {
@@ -2160,4 +2173,25 @@ input[type=radio]:checked + label {
 /* Ticker widget */
 .ra-ticker-widget .question-list{
 	padding: 0;
+}
+
+
+/* Social links */
+.ra-social-links{
+    display: table;
+    list-style: none outside none;
+    margin: 10px auto 0;
+    padding: 0;
+}
+.ra-social-links li{
+	display: inline-block;
+}
+.ra-social-links li a{
+    border-radius: 2px;
+    color: #FFFFFF;
+    display: block;
+    font-size: 20px;
+    height: 25px;
+    text-align: center;
+    width: 25px;
 }

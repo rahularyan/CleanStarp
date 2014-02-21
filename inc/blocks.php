@@ -289,36 +289,15 @@
 			if (qa_is_logged_in()) {
 			
 				?>
-				<ul class="nav navbar-nav navbar-avatar pull-right">
-					<li class="dropdown" id="menuLogin">
-						<a class="profile-link dropdown-toggle" data-toggle="dropdown" href="<?php echo qa_path_html('user/' . qa_get_logged_in_handle()); ?>">
-							<span><?php echo qa_get_logged_in_handle(); ?></span>
-							<?php
-							$LoggedinUserAvatar = ra_get_avatar(qa_get_logged_in_handle(), 30, false);
-							if (!empty($LoggedinUserAvatar))
-								echo '<img src="' . $LoggedinUserAvatar . '" />'; // in case there is no Avatar image and theme doesn't use a default avatar
-							?>
-						</a>
+				
+					<a id="profile-link" data-toggle="dropdown" href="<?php echo qa_path_html('user/' . qa_get_logged_in_handle()); ?>">
+						<?php
+						$LoggedinUserAvatar = ra_get_avatar(qa_get_logged_in_handle(), 30, false);
+						if (!empty($LoggedinUserAvatar))
+							echo '<img src="' . $LoggedinUserAvatar . '" />'; // in case there is no Avatar image and theme doesn't use a default avatar
+						?>
+					</a>
 			
-						<ul class="user-nav dropdown-menu">
-							<li class="points"><?php echo qa_get_logged_in_points(); ?></li>
-							<li><a class="icon-profile" href="<?php echo qa_path_html('user/' . qa_get_logged_in_handle()); ?>"><?php ra_lang('Profile'); ?></a></li>
-							<?php
-							foreach ($this->content['navigation']['user'] as $a) {
-								if (isset($a['url'])) {
-									$icon = (isset($a['icon']) ? ' class="' . $a['icon'] . '" ' : '');
-									echo '<li' . (isset($a['selected']) ? ' class="active"' : '') . '><a' . $icon . ' href="' . @$a['url'] . '" title="' . @$a['label'] . '">' . @$a['label'] . '</a></li>';
-								}
-							}
-							if (!isset($this->content['navigation']['user']['logout']['url'])) {
-								$link = qa_opt('site_url')."logout";
-								echo "<li><a class='icon-switch' href = '$link'> Logout </a></li>";
-							}
-							?>
-						</ul>
-
-					</li>
-				</ul>
 			<?php } else { ?>				
 				<a class="btn btn-success login-register"  href="#" data-toggle="modal" data-target="#login-modal" ><i class="icon-lock"></i><span>Login/Register</span></a>
 
@@ -405,20 +384,8 @@
 		function sidepanel() {
 			if(ra_position_active('Right')){
 				$this->output('<div class="col-sm-4 side-c">');
-				$this->output('<div class="qa-sidepanel">');			
-
-				//$this->ra_full_categories_list();
-				$this->ra_position('Right');
-				//$this->sidebar();
-				//$this->output_raw(@$this->content['sidepanel']);
-				
-				
-				/* $this->output('<ul class="tag-list panel">');
-				$this->output('<li class="panel-heading">Tags</li>');
-				ra_tag_list(10);
-				$this->output('</ul>');
-				
-				$this->widgets('side', 'bottom'); */
+				$this->output('<div class="qa-sidepanel">');
+					$this->ra_position('Right');
 				$this->output('</div>', '');
 
 				$this->output('</div>');
@@ -443,6 +410,29 @@
             </div>
 			</section>
 			');
+		}
+		
+		function user_sidebar(){
+			ob_start();
+			?>
+				<ul class="user-sidebar">
+					<li class="points"><?php echo qa_get_logged_in_points(); ?></li>
+					<li><a class="icon-profile" href="<?php echo qa_path_html('user/' . qa_get_logged_in_handle()); ?>"><?php ra_lang('Profile'); ?></a></li>
+					<?php
+					foreach ($this->content['navigation']['user'] as $a) {
+						if (isset($a['url'])) {
+							$icon = (isset($a['icon']) ? ' class="' . $a['icon'] . '" ' : '');
+							echo '<li' . (isset($a['selected']) ? ' class="active"' : '') . '><a' . $icon . ' href="' . @$a['url'] . '" title="' . @$a['label'] . '">' . @$a['label'] . '</a></li>';
+						}
+					}
+					if (!isset($this->content['navigation']['user']['logout']['url'])) {
+						$link = qa_opt('site_url')."logout";
+						echo "<li><a class='icon-switch' href = '$link'> Logout </a></li>";
+					}
+					?>
+				</ul>
+			<?php
+			$this->output(ob_get_clean());
 		}
 		
 		function left_sidebar(){

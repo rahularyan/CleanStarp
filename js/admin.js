@@ -1,4 +1,20 @@
 $(document).ready(function(){
+	$(function () {
+		$(window).scroll(function () {
+			if ($(document).height() <= $(window).scrollTop() + $(window).height() + 120) {
+				$('.form-button-holder').css({"position":"inherit"});
+				$('.form-button-holder').css({"width" : "auto"});
+			} else {
+				$('.form-button-holder').css({"position":"fixed"});
+				var width= $('.form-button-sticky-footer').css("width");
+				$('.form-button-holder').css({"width" : width});
+				$('.form-button-holder').css({"bottom":"0"});
+			}
+		});
+	});
+	$( "#option_enble_back_to_top" ).change(function() {
+		$( "#back_to_top_location_container" ).toggle(500);
+	});
 	$( "#option_enable_adv_list" ).change(function() {
 		$( "#ads_container" ).toggle(500);
 	});
@@ -43,9 +59,10 @@ $(document).ready(function(){
 		e.preventDefault();
 		var social_list_count =  Number($("#social_count").val()) + 1;
 		var list_options = '<option value="upload_file">Upload Social Icon</option>';
-		for(var i=1; i <= 10; i++) {
-			list_options += '<option value="' + i + '" class="icon-wrench">Icon ' + i + '</option>';
-		}
+		list_options += '<option value="icon-facebook" class="icon-facebook">Faebook</option>';
+		list_options += '<option value="icon-twitter" class="icon-twitter">Twitter</option>';
+		list_options += '<option value="icon-google" class="icon-google">Google</option>';
+		
 		$("input[name=social_count]").val(social_list_count);
 		$("#social_container").append('<tr id="social_box_' + social_list_count + '"><th class="qa-form-tall-label social_th_' + social_list_count + '">Social Link #' + social_list_count + '<span class="description">choose Icon and link to your social profile</span></th><td class="qa-form-tall-data"><span class="description">Social Profile Link</span><input class="qa-form-tall-text" id="social_link_' + social_list_count + '" name="social_link_' + social_list_count + '" type="text" value=""><span class="description">Link Title</span><input class="qa-form-tall-text" type="text" id="social_title_' + social_list_count + '" name="social_title_' + social_list_count + '" value=""><span class="description">Choose Social Icon</span><select id="social_icon_' + social_list_count + '" name="social_icon_' + social_list_count + '" fieldid="' + social_list_count + '" class="qa-form-wide-select social-select">' + list_options + '</select><div class="social_icon_file_' + social_list_count + '"><span class="description">upload Social Icon</span><div class="clearfix"></div><input type="file" class="btn btn-success" id="ra_social_image_' + social_list_count + '" name="ra_social_image_' + social_list_count + '"><button advid="' + social_list_count + '" id="social_remove" name="social_remove" class="qa-form-tall-button pull-right btn" type="submit" onclick="return advremove(this);">Remove This Link</button></td></tr>');
 		$('html, body').animate({

@@ -54,7 +54,9 @@
 					'Content Top' => 'Before questions list', 
 					'Content Bottom' => 'After questions lists', 
 					'Right' => 'Right side of content', 
-					'Bottom' => 'Below content adn before footer'
+					'Bottom' => 'Below content and before footer',
+					'Home Top' => 'Top content in home',
+					'Home Bottom' => 'Bottom content in home'
 				)
 			);
 		}
@@ -67,3 +69,5 @@
 	}
 	
 	qa_register_module('widget', '/inc/widget_ask.php', 'ra_ask_widget', 'RA Ajax Ask', Q_THEME_DIR, Q_THEME_URL);
+	qa_register_module('widget', '/inc/widget_tags.php', 'cs_tags_widget', 'RA Tags', Q_THEME_DIR, Q_THEME_URL);
+	qa_register_module('widget', '/inc/widget_ticker.php', 'cs_ticker_widget', 'RA Ticker', Q_THEME_DIR, Q_THEME_URL);

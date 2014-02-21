@@ -207,8 +207,13 @@
 			$this->main();
 			$this->output('</div>');
 			$this->output('<div id="ajax-blocks"></div>');							
-			$this->output('</div>');					
+			$this->output('</div>');
+			
+			$this->footer();
+			
 			$this->body_suffix();
+			if ((qa_opt('enble_back_to_top')) && (qa_opt('back_to_top_location')=='right'))
+				$this->output('<a id="back-to-top" class="back-to-top-right icon-angle-up" href="#"></a>');
 		}
 		function header()
 		{	
@@ -284,36 +289,15 @@
 			if (qa_is_logged_in()) {
 			
 				?>
-				<ul class="nav navbar-nav navbar-avatar pull-right">
-					<li class="dropdown" id="menuLogin">
-						<a class="profile-link dropdown-toggle" data-toggle="dropdown" href="<?php echo qa_path_html('user/' . qa_get_logged_in_handle()); ?>">
-							<span><?php echo qa_get_logged_in_handle(); ?></span>
-							<?php
-							$LoggedinUserAvatar = ra_get_avatar(qa_get_logged_in_handle(), 40, false);
-							if (!empty($LoggedinUserAvatar))
-								echo '<img src="' . $LoggedinUserAvatar . '" />'; // in case there is no Avatar image and theme doesn't use a default avatar
-							?>
-						</a>
+				
+					<a id="profile-link" data-toggle="dropdown" href="<?php echo qa_path_html('user/' . qa_get_logged_in_handle()); ?>">
+						<?php
+						$LoggedinUserAvatar = ra_get_avatar(qa_get_logged_in_handle(), 30, false);
+						if (!empty($LoggedinUserAvatar))
+							echo '<img src="' . $LoggedinUserAvatar . '" />'; // in case there is no Avatar image and theme doesn't use a default avatar
+						?>
+					</a>
 			
-						<ul class="user-nav dropdown-menu">
-							<li class="points"><?php echo qa_get_logged_in_points(); ?></li>
-							<li><a class="icon-profile" href="<?php echo qa_path_html('user/' . qa_get_logged_in_handle()); ?>"><?php ra_lang('Profile'); ?></a></li>
-							<?php
-							foreach ($this->content['navigation']['user'] as $a) {
-								if (isset($a['url'])) {
-									$icon = (isset($a['icon']) ? ' class="' . $a['icon'] . '" ' : '');
-									echo '<li' . (isset($a['selected']) ? ' class="active"' : '') . '><a' . $icon . ' href="' . @$a['url'] . '" title="' . @$a['label'] . '">' . @$a['label'] . '</a></li>';
-								}
-							}
-							if (!isset($this->content['navigation']['user']['logout']['url'])) {
-								$link = qa_opt('site_url')."logout";
-								echo "<li><a class='icon-switch' href = '$link'> Logout </a></li>";
-							}
-							?>
-						</ul>
-
-					</li>
-				</ul>
 			<?php } else { ?>				
 				<a class="btn btn-success login-register"  href="#" data-toggle="modal" data-target="#login-modal" ><i class="icon-lock"></i><span>Login/Register</span></a>
 
@@ -400,20 +384,8 @@
 		function sidepanel() {
 			if(ra_position_active('Right')){
 				$this->output('<div class="col-sm-4 side-c">');
-				$this->output('<div class="qa-sidepanel">');			
-
-				//$this->ra_full_categories_list();
-				$this->ra_position('Right');
-				//$this->sidebar();
-				//$this->output_raw(@$this->content['sidepanel']);
-				
-				
-				/* $this->output('<ul class="tag-list panel">');
-				$this->output('<li class="panel-heading">Tags</li>');
-				ra_tag_list(10);
-				$this->output('</ul>');
-				
-				$this->widgets('side', 'bottom'); */
+				$this->output('<div class="qa-sidepanel">');
+					$this->ra_position('Right');
 				$this->output('</div>', '');
 
 				$this->output('</div>');
@@ -440,6 +412,29 @@
 			');
 		}
 		
+		function user_sidebar(){
+			ob_start();
+			?>
+				<ul class="user-sidebar">
+					<li class="points"><?php echo qa_get_logged_in_points(); ?></li>
+					<li><a class="icon-profile" href="<?php echo qa_path_html('user/' . qa_get_logged_in_handle()); ?>"><?php ra_lang('Profile'); ?></a></li>
+					<?php
+					foreach ($this->content['navigation']['user'] as $a) {
+						if (isset($a['url'])) {
+							$icon = (isset($a['icon']) ? ' class="' . $a['icon'] . '" ' : '');
+							echo '<li' . (isset($a['selected']) ? ' class="active"' : '') . '><a' . $icon . ' href="' . @$a['url'] . '" title="' . @$a['label'] . '">' . @$a['label'] . '</a></li>';
+						}
+					}
+					if (!isset($this->content['navigation']['user']['logout']['url'])) {
+						$link = qa_opt('site_url')."logout";
+						echo "<li><a class='icon-switch' href = '$link'> Logout </a></li>";
+					}
+					?>
+				</ul>
+			<?php
+			$this->output(ob_get_clean());
+		}
+		
 		function left_sidebar(){
 			$this->output('<div class="left-sidebar">');
 			$this->output('<div class="float-nav">');
@@ -448,8 +443,13 @@
 				$this->nav('sub');
 			else
 				$this->nav('main');	
-				
-			$this->ra_position('Left');	
+			
+			$this->ra_position('Left');
+			
+			$this->get_social_links();
+			
+			if ((qa_opt('enble_back_to_top')) && (qa_opt('back_to_top_location')=='nav'))
+				$this->output('<a id="back-to-top" class="back-to-top-nav icon-angle-up t-bg" href="#"></a>');
 			
 			$this->output('</div>');			
 			$this->output('</div>');
@@ -505,20 +505,22 @@
 
 			$this->output('<div class="col-sm-'.(ra_position_active('Right') ? '8' : '12').' list-c">');
 			
-			if($this->template != 'question')	
-			$this->output(
-				'<h1 class="page-title">',
-				$this->content['title']
-			);
-			$this->feed();
-			$this->output('</h1>');	
-
+			if($this->template != 'question' && (!strlen(qa_request(1)) == 0)){
+				$this->output(
+					'<h1 class="page-title">',
+					$this->content['title']
+				);
+				$this->feed();
+				$this->output('</h1>');	
+			}
 			$this->ra_position('Content Top');
 			
 			if (isset($this->content['error']))
 				$this->error(@$this->content['error']);
 			if($this->template == 'user' && !(isset($_REQUEST['state']) && $_REQUEST['state'] == 'edit')){
 				$this->profile_page();
+			}elseif(strlen(qa_request(1)) == 0){
+				$this->home();
 			}elseif($this->template == 'user-wall'){
 				$handle = qa_request_part(1);
 				$this->output('<section id="content" class="content-sidebar">');
@@ -570,10 +572,10 @@
 			$this->output('</div>');
 			if(ra_position_active('Right')){
 				$this->sidepanel();
-				$this->output('</div>');
 			}
+			$this->output('</div>');
 			$this->ra_position('Content Bottom');
-			$this->footer();
+			
 		}
 		function title() // add RSS feed icon after the page title
 		{
@@ -583,6 +585,12 @@
 			
 			if (!empty($feed))
 				$this->output('<a href="'.$feed['url'].'" title="'.@$feed['label'].'"><img src="'.$this->rooturl.'images/rss.jpg" alt="" width="16" height="16" border="0" class="qa-rss-icon"/></a>');
+		}
+		
+		function home(){
+			$this->ra_position('Home Top');
+			$this->ra_position('Home Middle');
+			$this->ra_position('Home Bottom');
 		}
 		
 		function q_list_item($q_item)
@@ -648,17 +656,29 @@
 		
 		function footer()
 		{			
-			$this->output('<footer id="site-footer" class="clearfix">');			
-			$this->attribution();
-			if ((bool)qa_opt('footer_left'))
-				$this->output('<div class="qa-attribution pull-left">' . qa_opt('footer_left') .'</div>');
-
+			$this->output('<footer id="site-footer" class="container clearfix">');			
+			//$this->attribution();	
+			
+			if ((bool)qa_opt('footer_copyright'))
+				$this->output('<div class="qa-attribution-right pull-right">' . qa_opt('footer_copyright') .'</div>');
 			$this->nav('footer');
-			if ((bool)qa_opt('footer_left'))
-				$this->output('<div class="qa-attribution-right pull-right">' . qa_opt('footer_right') .'</div>');
-
 			$this->output('</footer>');
 		}
+		
+		function get_social_links(){
+			if ((bool)qa_opt('ra_social_enable')){
+				$links = json_decode(qa_opt('ra_social_list'));
+
+				$this->output('<ul class="ra-social-links">');
+				foreach ($links as $link){
+					$icon = ($link->social_icon != '1' ? ' '.$link->social_icon.'' : '');
+					$image = ($link->social_icon == '1' ? '<img src="'.$link->social_icon_file.'" />' : '');
+					$this->output('<li><a class="t-bg-4'.@$icon.'" href="'.$link->social_link .'" title="Link to '. $link->social_title.'" >'.@$image.'</a></li>');
+				}
+				$this->output('</ul>');
+			}
+		}
+		
 		function nav_item($key, $navlink, $class, $level=null)
 		{
 			$suffix=strtr($key, array( // map special character in navigation key
@@ -771,11 +791,10 @@
 			$code = @$post['voting_form_hidden']['code'] ;
 			if (isset($post['vote_view'])) {
 				$state = @$post['vote_state'] ;
-				$this->output('<div class="'.$state.' '.(isset($this->content['q_list']) ? 'list-':'').'voting clearfix '.(($post['vote_view']=='updown') ? 'qa-voting-updown' : 'qa-voting-net').(($post['raw']['netvotes']< (0)) ? ' negative' : '').(($post['raw']['netvotes']> (0)) ? ' positive' : '').'" '.@$post['vote_tags'].'>');
+				$this->output('<div class="'.$state.' '.(isset($this->content['q_list']) ? 'list-':'').'voting clearfix '.(qa_opt('horizontal_voting_btns') ? 'voting-horizontal ':'voting-vertical ').(($post['vote_view']=='updown') ? 'qa-voting-updown' : 'qa-voting-net').(($post['raw']['netvotes']< (0)) ? ' negative' : '').(($post['raw']['netvotes']> (0)) ? ' positive' : '').'" '.@$post['vote_tags'].'>');
 				$this->voting_inner_html($post);
 				$this->output('</div>');
 			}
-			
 		}	
 
 		
@@ -1301,43 +1320,52 @@
 			$rows=min($ranking['rows'], count($ranking['items']));
 			
 			if(@$ranking['type']=='users'){
-				$this->output('<table class="page-users-list">');
-					$this->output('
-						<tr class="users-list-head">
-							<td class="favourite"></td>
-							<td class="user">'._ra_lang('User').'</td>
-							<td class="activity"><span class="ra-tip" title="'._ra_lang('Questions').'">Q</span></td>
-							<td class="activity"><span class="ra-tip" title="'._ra_lang('Answers').'">A</span></td>
-							<td class="activity"><span class="ra-tip" title="'._ra_lang('Comments').'">C</span></td>
-							<td class="score">'._ra_lang('Points').'</td>');
-							if(qa_opt('badge_active'))
-								$this->output('<td class="badge-list">'._ra_lang('Badges').'</td>');
-							
-						$this->output('</tr>');
-					if($ranking['items'])
-						$columns=ceil(count($ranking['items'])/$rows);
+				$this->output('<div class="page-users-list clearfix">');
+					
+					/* if($ranking['items'])
+						$columns=ceil(count($ranking['items'])/$rows); */
 					if($ranking['items'])	
 					foreach($ranking['items'] as $user){
+						if(isset($user['raw']))
+							$handle = $user['raw']['handle'];
+						else
+							$handle = ltrim(strip_tags($user['label']));
 						
-						$handle = ltrim(strip_tags($user['label']));
-						
-						$fav = '<i title="In your favourite list" class="'.(strpos($user['label'],'qa-user-favorited') ? 'icon-star': 'icon-star-empty').'"></i>';
 						$data = ra_user_data($handle);
 						$this->output('
-							<tr class="user-list-item">
-								<td class="favourite">'.$fav.'</td>
-								<td class="user">'.ra_get_avatar($handle, 30).'<a href="'.qa_path_html('user/'.$handle).'">'.ra_name($handle).'</a></td>
-								<td class="activity q">'.$data[2]['qposts'].'</td>
-								<td class="activity a">'.$data[2]['aposts'].'</td>
-								<td class="activity c">'.$data[2]['cposts'].'</td>
-								<td class="score"><span>'.$data[0]['points'].'</span></td>');
-								if(qa_opt('badge_active'))
+							<div class="user-card">
+							<div class="user-card-inner">	
+								<div class="card-container">
+								<div class="f1_card"">
+								  <div class="front face">
+									<img class="avatar" height="150" src="'.ra_get_avatar($handle, 150, false).'" />
+								  </div>
+								  <div class="back face center">
+									<span class="activity q"><i>'.$data[2]['qposts'].'</i> Questions</span>
+									<span class="activity a"><i>'.$data[2]['aposts'].'</i> Answers</span>
+									<span class="activity c"><i>'.$data[2]['cposts'].'</i> Comments</span>
+								  </div>
+								</div>
+								</div>	
+								<div class="card-bottom">
+								<a class="user-name" href="'.qa_path_html('user/'.$handle).'">'.ra_name($handle).'</a>								
+								<span class="score">'.$data[0]['points'].' Points</span>
+								</div>');
+								if(qa_opt('badge_active') && function_exists('qa_get_badge_list'))
 									$this->output('<td class="badge-list">'.ra_user_badge($handle).'</td>');
 							
-							$this->output('</tr>');
+							$this->output('</div>');
+							$this->output('</div>');
 					}
+					else
+						$this->output('
+							<div class="no-items">
+								<h3 class="icon-sad">No users found!</h3>
+								<p>Sorry we cannot display anything, query returns nothings.</p>
+							</div>');
+					
 
-					$this->output('</table>');
+					$this->output('</div>');
 
 			}elseif(@$ranking['type']=='tags'){
 				
@@ -1365,7 +1393,13 @@
 					$this->clear_context('ranking_row');
 
 					$this->output('</div>');
-				}
+				}else
+					$this->output('
+						<div class="no-items">
+							<h3 class="icon-sad">No tags found!</h3>
+							<p>Sorry we cannot display anything, query returns nothings.</p>
+						</div>'
+					);
 			}else{
 				
 				
@@ -1391,7 +1425,13 @@
 					$this->clear_context('ranking_row');
 
 					$this->output('</table>');
-				}
+				}else
+					$this->output('
+						<div class="no-items">
+							<h3 class="icon-sad">No results found!</h3>
+							<p>Sorry we cannot display anything, query returns nothings.</p>
+						</div>'
+					);
 			}
 		}
 		function ra_tags_item($item, $class, $spacer)
@@ -1473,7 +1513,7 @@
 			}
 			die();
 		}
-		
+
 		function nav_list($navigation, $class, $level=null)
 		{
 			if($class == 'browse-cat'){
@@ -1583,16 +1623,20 @@
 			if(isset($widgets[$name]) && is_array($widgets) && !empty($widgets[$name])){
 				foreach ($widgets[$name] as $widget => $template){
 					if(isset($template[$this->template]) && (bool)$template[$this->template] )
-						$this->ra_get_widget($widget);
+						$this->ra_get_widget($widget, @$template['show_title']);
 				}
 			}
 		}
 
-		function ra_get_widget($name){
+		function ra_get_widget($name, $show_title = false){
 			$module	=	qa_load_module('widget', ltrim($name));
 			if(is_object($module)){
 				ob_start();
 				echo '<div id="'.str_replace(' ', '-', strtolower($name)).'-position" class="widget">';
+				
+				if( $show_title )
+					echo '<h3 class="widget-title">'.$name.'</h3>';
+					
 				$module->output_widget('side', 'top', $this, $this->template, $this->request, $this->content);
 				echo '</div>';
 				$this->output(ob_get_clean());
@@ -1611,7 +1655,7 @@
 				$data = array();
 				foreach ($relatedquestions as $k => $q){
 					$data[$k]['title'] 		= $q['title'];
-					$data[$k]['blob'] 		= qa_path_html('image', array('qa_blobid' => $q['avatarblobid'], 'qa_size' => 30), null, QA_URL_FORMAT_PARAMS);
+					$data[$k]['blob'] 		= ra_get_avatar($q['handle'], 30, false);
 					$data[$k]['url'] 		= qa_q_path_html($q['postid'], $q['title']);
 					$data[$k]['tags'] 		= $q['tags'];
 					$data[$k]['answers'] 	= $q['acount'];
@@ -1620,6 +1664,31 @@
 			}
 			
 			die();
+		}
+		function q_list($q_list)
+		{
+			if (isset($q_list['qs'])) {
+				$this->output('<div class="qa-q-list'.($this->list_vote_disabled($q_list['qs']) ? ' qa-q-list-vote-disabled' : '').'">', '');
+				$this->q_list_items($q_list['qs']);
+				$this->output('</div> <!-- END qa-q-list -->', '');
+			}else
+				$this->output('
+					<div class="no-items">
+						<h3 class="icon-sad">No users found!</h3>
+						<p>Sorry we cannot display anything, query returns nothings.</p>
+					</div>');
+		}
+		function q_list_items($q_items)
+		{
+			if (!empty($q_items)) {
+				foreach ($q_items as $q_item)
+					$this->q_list_item($q_item);
+			}else
+				$this->output('
+					<div class="no-items">
+						<h3 class="icon-sad">No questions found!</h3>
+						<p>Sorry we cannot display anything, query returns nothings.</p>
+					</div>');
 		}
 	}
 

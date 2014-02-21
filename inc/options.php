@@ -100,12 +100,17 @@ class qa_html_theme_layer extends qa_html_theme_base {
 				qa_opt('ads_after_question_content', base64_encode($_REQUEST['option_ads_after_question_content']));
 
 				//general
-				qa_opt('ra_home_layout', qa_post_text('option_ra_home_layout'));				
 				qa_opt('google_analytics', qa_post_text('option_google_analytics'));	
 				qa_opt('ra_colla_comm', (bool)qa_post_text('option_ra_colla_comm'));
 				qa_opt('show_real_name', (bool)qa_post_text('option_show_real_name'));
 				qa_opt('users_table_layout', (bool)qa_post_text('option_users_table_layout'));
 				qa_opt('theme_layout', qa_post_text('option_theme_layout'));
+				
+				//Layout
+				qa_opt('ra_home_layout', qa_post_text('option_ra_home_layout'));				
+				qa_opt('horizontal_voting_btns', (bool)qa_post_text('option_horizontal_voting_btns'));
+				qa_opt('enble_back_to_top', (bool)qa_post_text('option_enble_back_to_top'));
+				qa_opt('back_to_top_location', qa_post_text('option_back_to_top_location'));
 
 				//color
 				qa_opt('ra_primary_color', qa_post_text('option_ra_primary_color'));	
@@ -142,14 +147,10 @@ class qa_html_theme_layer extends qa_html_theme_base {
 				qa_opt('ra_nav_child_font_size', qa_post_text('option_ra_nav_child_font_size'));	
 				
 				// bootstrap							
-				qa_opt('ra_body_bg', qa_post_text('option_ra_body_bg'));				
-				qa_opt('ra_text_color', qa_post_text('option_ra_text_color'));				
-				qa_opt('font-size-base', qa_post_text('option-font-size-base'));				
-				qa_opt('ra_base_fontfamily', qa_post_text('option_ra_base_fontfamily'));				
-				qa_opt('ra_base_lineheight', qa_post_text('option_ra_base_lineheight'));
+				qa_opt('ra_ticker_data', qa_post_text('option_ra_ticker_data'));				
+
 				
-				qa_opt('footer_right', qa_post_text('option_footer_right'));
-				qa_opt('footer_left', qa_post_text('option_footer_left'));
+				qa_opt('footer_copyright', qa_post_text('option_footer_copyright'));
 				
 				// Advertisment
 				$SocialCount = (int)qa_post_text('social_count'); // number of advertisement items
@@ -162,8 +163,8 @@ class qa_html_theme_layer extends qa_html_theme_base {
 						$social_links[$i]['social_icon'] = qa_post_text('social_icon_' . $i);
 						if ($social_links[$i]['social_icon'] == '1'){
 							if(@getimagesize(@$_FILES['ra_social_image_' . $i]['tmp_name']) >0){
-								$url		= qa_opt('site_url').'qa-theme/'.qa_get_site_theme().'/images/';
-								$uploaddir 	= QA_THEME_DIR.qa_get_site_theme().'/images/';
+								$url		= Q_THEME_URL.'/images/';
+								$uploaddir 	= Q_THEME_DIR.'/images/';
 								$uploadfile = $uploaddir . basename($_FILES['ra_social_image_' . $i]['name']);
 								move_uploaded_file($_FILES['ra_social_image_' . $i]['tmp_name'], $uploadfile);
 								$social_links[$i]['social_icon_file'] = $url.$_FILES['ra_social_image_' . $i]['name'];
@@ -249,8 +250,8 @@ $social_fields = json_decode( qa_opt('ra_social_list') , true);
 if(isset($social_fields))
 	foreach($social_fields as $k => $social_field){
 		$list_options = '<option class="icon-wrench" value="1"'.((@$social_field['social_icon']=='1') ? ' selected' : '').'>Upload Social Icon</option>';
-		for ($count=2; $count <= 10; $count++){
-			$list_options .= '<option class="icon-wrench" value="' . $count . '"'.(($count==@$social_field['social_icon']) ? ' selected' : '').'>' . $count . '</option>';
+		foreach(ra_social_icons() as $icon => $name){
+			$list_options .= '<option class="'.$icon.'" value="' . $icon . '"'.(($icon==@$social_field['social_icon']) ? ' selected' : '').'>' . $name . '</option>';
 		}
 		$social_icon_list = '<select id="social_icon_' . $i . '" name="social_icon_' . $i . '" class="qa-form-wide-select  social-select" sociallistid="' . $i . '">' . $list_options . '</select>';
 		if (isset($social_field['social_link'])){
@@ -294,19 +295,22 @@ $ra_page = '
 				<a href="#" data-toggle=".qa-part-form-tc-layout">Layouts</a>
 			</li>
 			<li>
-				<a href="#" data-toggle=".qa-part-form-tc-styling">Styling Options</a>
+				<a href="#" data-toggle=".qa-part-form-tc-styling">Styling</a>
 			</li>
 			<li>
 				<a href="#" data-toggle=".qa-part-form-tc-typo">Typography</a>
 			</li>
 			<li>
-				<a href="#" data-toggle=".qa-part-form-tc-social">Social Accounts</a>
+				<a href="#" data-toggle=".qa-part-form-tc-social">Social</a>
 			</li>
 			<li>
-				<a href="#" data-toggle=".qa-part-form-tc-ads">Advertisements</a>
+				<a href="#" data-toggle=".qa-part-form-tc-ads">Ads</a>
 			</li>
 			<li>
-				<a href="#" data-toggle=".qa-part-form-tc-footer">Footer Settings</a>
+				<a href="#" data-toggle=".qa-part-form-tc-footer">Footer</a>
+			</li>
+			<li>
+				<a href="#" data-toggle=".qa-part-form-tc-widget">Widget</a>
 			</li>
 		</ul>
 	</div>
@@ -452,9 +456,51 @@ $ra_page = '
 					</th>
 					<td class="qa-form-tall-label">
 						<div class="on-off-checkbox-container">
-								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('ra_show_content') ? ' checked=""' : '') . ' id="option_ra_nav_fixed" name="option_ra_show_content">
+								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('ra_show_content') ? ' checked=""' : '') . ' id="option_ra_show_content" name="option_ra_show_content">
 								<label for="option_ra_show_content"></label>
 						</div>
+					</td>
+				</tr>
+			</tbody>
+			<tbody>
+				<tr>
+					<th class="qa-form-tall-label">
+						Horizontal Voting Buttons
+						<span class="description">Switch between horizontal and vertical voting buttons</span>
+					</th>
+					<td class="qa-form-tall-label">
+						<div class="on-off-checkbox-container">
+								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('horizontal_voting_btns') ? ' checked=""' : '') . ' id="option_horizontal_voting_btns" name="option_horizontal_voting_btns">
+							<label for="option_horizontal_voting_btns">
+							</label>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+			<tbody>
+				<tr>
+					<th class="qa-form-tall-label">
+						Back to Top Button
+						<span class="description">Enable Back to Top</span>
+					</th>
+					<td class="qa-form-tall-label">
+						<div class="on-off-checkbox-container">
+								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('enble_back_to_top') ? ' checked=""' : '') . ' id="option_enble_back_to_top" name="option_enble_back_to_top">
+							<label for="option_enble_back_to_top">
+							</label>
+						</div>
+					</td>
+					</tr>
+					<tr id="back_to_top_location_container" ' . (qa_opt('enble_back_to_top') ? '' : ' style="display:none;"') . '>
+					<th class="qa-form-tall-label">
+						Back To Top\'s Position
+						<span class="description">Back To Top button\'s Position</span>
+					</th>
+					<td class="qa-form-tall-label">
+						<input class="theme-option-radio" type="radio"' . (qa_opt('back_to_top_location')=='nav' ? ' checked=""' : '') . ' id="option_back_to_top_nav" name="option_back_to_top_location" value="nav">
+						   <label for="option_back_to_top_nav">Under Navigation</label>
+						<input class="theme-option-radio" type="radio"' . (qa_opt('back_to_top_location')=='right' ? ' checked=""' : '') . ' id="option_back_to_top_right" name="option_back_to_top_location" value="right">
+						   <label for="option_back_to_top_right">Bottom Right</label> 
 					</td>
 				</tr>
 			</tbody>
@@ -853,23 +899,36 @@ $ra_page = '
 					<span class="description">you can add links or images by entering html code</span>
 				</th>
 				<td class="qa-form-tall-label">
-					<input id="option_footer_right" class="form-control" type="text" name="option_footer_right" value="' . qa_opt('footer_right') . '">
+					<input id="option_footer_copyright" class="form-control" type="text" name="option_footer_copyright" value="' . qa_opt('footer_copyright') . '">
 				</td>
 			</tr>
+		</tbody>
+	</table>
+	</div>	
+	<div class="qa-part-form-tc-widget">
+	<table class="qa-form-tall-table options-table">
+		<tbody>
 			<tr>
 				<th class="qa-form-tall-label">
-					Text at Left side of footer
-					<span class="description">you can add links or images by entering html code</span>
+					Ticker Data from
+					<span class="description">Select from where you want to get data</span>
 				</th>
 				<td class="qa-form-tall-label">
-					<input id="option_footer_left" class="form-control" type="text" name="option_footer_left" value="' . qa_opt('footer_left') . '">
+					<select id="option_ra_ticker_data" class="form-control" name="option_ra_ticker_data">
+						<option value="tags" ' . (qa_opt('ra_ticker_data') =='tags' ? 'selected':'' ) . '>Tags</option>
+						<option value="categories" ' . (qa_opt('ra_ticker_data') =='categories' ? 'selected':'' ) . '>Categories</option>
+					</select>
 				</td>
 			</tr>
 		</tbody>
 	</table>
 	</div>
-<input type="submit" class="qa-form-tall-button btn-primary" title="" value="Save Changes" name="ra_save_button">
-<input type="submit" class="qa-form-tall-button" title="" value="Reset to Default" name="ra_reset_button">
+<div class="form-button-sticky-footer">
+	<div class="form-button-holder">
+		<input type="submit" class="qa-form-tall-button btn-primary" title="" value="Save Changes" name="ra_save_button">
+		<input type="submit" class="qa-form-tall-button" title="" value="Reset to Default" name="ra_reset_button">
+	</div>
+</div>
 </form>
 ';
 			$this->content['custom'] = $ra_page;
@@ -889,7 +948,6 @@ $ra_page = '
 				);
 				$this->main_parts($content);
 				$this->output('</div></div> <!-- END qa-main -->', '');
-				$this->footer();
 			}else
 				qa_html_theme_base::main();
 		}

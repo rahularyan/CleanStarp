@@ -269,6 +269,7 @@ function ra_float_left(){
 
 function ra_widgets(){
 	$('.position-toggler').click(function(){
+		$('.position-canvas').not($(this).parent().next()).hide();
 		$(this).parent().next().toggle(0);
 		$(this).toggleClass('icon-angle-up icon-angle-down');
 	});	
@@ -328,7 +329,6 @@ function ra_save_widget($elm){
 		widget_names[$(this).data('name')] = widgets;
 	});
 	
-	console.log(widget_names);
 	$.ajax({
 		data: {
 			ra_ajax: true,
@@ -379,14 +379,34 @@ function ra_ask_box_autocomplete(){
 	}).data( "uiAutocomplete" )._renderItem = function( ul, item ) {
 		return $("<li></li>")
 		.data("item.uiAutocomplete", item)
-		.append('<a href="'+item.url+'" class="">'+item.blob+'<span class="title">' + item.label + '</span><span class="tags icon-tags">'+item.tags+'</span><span class="category icon-chat">'+item.answers+'</span></a>')
+		.append('<a href="'+item.url+'" class=""><img src="'+item.blob+'" /><span class="title">' + item.label + '</span><span class="tags icon-tags">'+item.tags+'</span><span class="category icon-chat">'+item.answers+'</span></a>')
 		.appendTo(ul);
 	};
 
     $('#ra-ask-search').off('keyup keydown keypress');
 }
 
+function back_to_top(){
+	$("#back-to-top").hide();
+	$(function () {
+		$(window).scroll(function () {
+			if ($(this).scrollTop() > 50) {
+				$('#back-to-top').fadeIn();
+			} else {
+				$('#back-to-top').fadeOut();
+			}
+		});
+		$('#back-to-top').click(function () {
+			$('body,html').animate({
+				scrollTop: 0
+			}, 500);
+			return false;
+		});
+	});
+}
+
 $(document).ready(function(){
+
 	var win_height = $(window).height();
 	var main_height = $('#site-body').height() +60;
 	
@@ -401,7 +421,9 @@ $(document).ready(function(){
 	ra_favorite_click();
 	ra_tab();
 	ra_widgets();
-	ra_ask_box_autocomplete();
+	back_to_top();
+	if ($('.ra-ask-widget').length>0)
+		ra_ask_box_autocomplete();
 	
 	if ((typeof qa_wysiwyg_editor_config == 'object') && $('body').hasClass('qa-template-question'))
 		qa_ckeditor_a_content=CKEDITOR.replace('a_content', window.qa_wysiwyg_editor_config);
@@ -419,8 +441,10 @@ $(document).ready(function(){
 	
 	//ra_load_items();
 	
-	$(window).resize(function(){
+	/* $(window).resize(function(){
 		ra_ajax_item_resize();
 		ra_float_left()
-	});
+	}); */
+
+	
 });

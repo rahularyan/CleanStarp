@@ -61,11 +61,11 @@ function ra_get_avatar($handle, $size = 40, $html =true){
 			else if (qa_opt('avatar_allow_gravatar'))
 				$img_html = qa_get_gravatar_html(qa_get_user_email($userid), $size);
 			else
-				$img_html = ''; // *** set default avatar here
+				$img_html = '<img src="'.Q_THEME_URL.'/images/avatar.jpg" height="'.$size.'" width="'.$size.'" />';
 		}else{
 			$f = ra_user_data($handle);
 			if(empty($f[0]['avatarblobid'])){
-				$img_html = ''; // *** set default avatar here
+				$img_html = '<img src="'.Q_THEME_URL.'/images/avatar.jpg" height="'.$size.'" width="'.$size.'" />';
 			}
 			else
 				$img_html = qa_get_user_avatar_html($f[0]['flags'], $f[0]['email'], $handle, $f[0]['avatarblobid'], $size, $size, $size, true);
@@ -241,7 +241,7 @@ function ra_tag_list($limit = 20){
 }
 
 // output the list of selected post type
-function ra_post_list($type, $limit){
+function ra_post_list($type, $limit, $return = false){
 	require_once QA_INCLUDE_DIR.'qa-app-posts.php';
 	$post = qa_db_query_sub('SELECT * FROM ^posts WHERE ^posts.type=$ ORDER BY ^posts.created DESC LIMIT #', $type, $limit);	
 	
@@ -262,10 +262,8 @@ function ra_post_list($type, $limit){
 		$output .= '<div class="pull-left avatar" data-handle="'.$handle.'" data-id="'. qa_handle_to_userid($handle).'">'.ra_get_avatar($handle, 35).'</div>';
 		$output .= '<div class="list-right">';
 		
-		$output .= '<h5><a href="'.qa_path_html('user/'.$handle).'">'.ra_name($handle).'</a> '.$what.'</h5>';	
-
 		if($type=='Q'){
-			$output .= '<p><a href="'. qa_q_path_html($p['postid'], $p['title']) .'" title="'. $p['title'] .'">'.qa_html($p['title']).'</a></p>';
+			$output .= '<a class="title" href="'. qa_q_path_html($p['postid'], $p['title']) .'" title="'. $p['title'] .'">'.qa_html($p['title']).'</a>';
 		}elseif($type=='A'){
 			$output .= '<p><a href="'.ra_post_link($p['parentid']).'#a'.$p['postid'].'">'. substr(strip_tags($p['content']), 0, 50).'</a></p>';
 		}else{
@@ -274,16 +272,19 @@ function ra_post_list($type, $limit){
 		
 		
 		if ($type=='Q'){
-			$output .= '<div class="counts"><div class="vote-count icon-chevron-up"><span>'.$p['netvotes'].'</span></div>';
-			$output .= '<div class="ans-count icon-chat-4"><span>'.$p['acount'].'</span></div></div>';
+			$output .= '<div class="counts"><div class="vote-count"><span>'.$p['netvotes'].'</span></div>';
+			$output .= '<div class="ans-count"><span>'.$p['acount'].'</span></div></div>';
 		}elseif($type=='A'){
-			$output .= '<div class="counts"><div class="vote-count icon-chevron-up"><span>'.$p['netvotes'].'</span></div>';
+			$output .= '<div class="counts"><div class="vote-count"><span>'.$p['netvotes'].'</span></div>';
 		}
+		$output .= '<h5><a href="'.qa_path_html('user/'.$handle).'">'.ra_name($handle).'</a> '.$what.'</h5>';
 
 		$output .= '</div>';	
 		$output .= '</li>';
 	}
 	$output .= '</ul>';
+	if($return)
+		return $output;
 	echo $output;
 }
 function ra_url_grabber($str) {
@@ -317,6 +318,7 @@ function ra_register_widget_position($widget_array){
 function ra_position_active($name){
 	$widgets = unserialize(qa_opt('ra_widgets'));
 	$template = qa_request(1);
+	$template = (!empty($template) ? $template : 'home' );
 	if(is_array($widgets) && !empty($widgets[$name]) && isset($widgets[$name])){
 		foreach ($widgets[$name] as $t){			
 			if(isset($t[$template]) && (bool)$t[$template])
@@ -357,3 +359,10 @@ function ra_get_template_array(){
 	);
 }
 
+function ra_social_icons(){
+	return array(
+		'icon-facebook' => 'Facebook',
+		'icon-twitter' => 'Twitter',
+		'icon-google' => 'Google',
+	);
+}

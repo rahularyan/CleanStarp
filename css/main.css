@@ -741,9 +741,7 @@ ul.qa-nav-cat-list-4  > li.qa-nav-cat-item:first-child {
 	padding: 10px;
 }
 .widget .widget-title{
-    font-family: 'open sans',arial,helvetica,serif;
     font-size: 18px;
-    font-weight: 300;
     margin: 0 0 10px;
 }
 
@@ -2143,3 +2141,8 @@ input[type=radio]:checked + label {
     text-align: center;	
 }
 
+
+/* Ticker widget */
+.ra-ticker-widget .question-list{
+	padding: 0;
+}

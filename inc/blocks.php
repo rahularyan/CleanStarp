@@ -588,7 +588,9 @@
 		}
 		
 		function home(){
-			$this->ra_position('Left');
+			$this->ra_position('Home Top');
+			$this->ra_position('Home Middle');
+			$this->ra_position('Home Bottom');
 		}
 		
 		function q_list_item($q_item)

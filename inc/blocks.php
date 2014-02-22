@@ -6,7 +6,7 @@
 	}
 
 	class qa_html_theme extends qa_html_theme_base
-	{
+	{	
 		function doctype(){
 			if(isset($_REQUEST['ra_ajax_html'])){
 				$action = 'ra_ajax_'.$_REQUEST['action'];
@@ -72,8 +72,6 @@
 				  <script src="'.Q_THEME_URL.'/js/respond.min.js"></script>
 				<![endif]-->
 			');
-			
-
 			$this->output('<link rel="stylesheet" type="text/css" href="'.Q_THEME_URL.'/font/style.css"/>');
 			$this->output('<link rel="stylesheet" type="text/css" href="'.Q_THEME_URL.'/css/bootstrap.css"/>');
 			$this->output('<link rel="stylesheet" type="text/css" href="'.Q_THEME_URL.'/css/main.css"/>');
@@ -82,7 +80,6 @@
 			$this->output('<link rel="stylesheet" type="text/css" href="'.Q_THEME_URL.'/css/theme-green.css"/>');
 			$this->output("<link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>");
 			$this->output("<link href='http://fonts.googleapis.com/css?family=Open+Sans:300,600,700' rel='stylesheet' type='text/css'>");
-			$this->output( '<style>' . qa_opt('ra_custom_style') . '</style>');
 		}
 		function body()
 		{

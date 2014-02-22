@@ -91,7 +91,8 @@
 		{
 			$themeobject->output('<div class="ra-ticker-widget">');
 			
-			$themeobject->output(ra_relative_post_list('Q', 10,'wordpress','ipsum', true));
+			//$themeobject->output(ra_relative_post_list('Q', 10,'','ipsum', true));
+			$themeobject->output(ra_relative_post_list('Q', 10,'wordpress','', true));
 			$themeobject->output('</div>');
 		}
 	

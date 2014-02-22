@@ -278,13 +278,17 @@ function ra_widgets(){
 		$(this).closest('.draggable-widget').remove();
 		$parent.find('.widget-save').addClass('active');	
 	});		
-	$('#ra-widgets').delegate('.select-template input', 'click', function(){
+	$('#ra-widgets').delegate('.draggable-widget select, .draggable-widget input, .draggable-widget textarea', 'click', function(){
 		var $parent = $(this).closest('.widget-canvas');
 		$parent.find('.widget-save').addClass('active');	
 	});	
 	$('#ra-widgets').delegate('.widget-template-to', 'click', function(){
 		var $parent = $(this).closest('.position-canvas');
 		$(this).closest('.draggable-widget').find('.select-template').slideToggle(200);
+	});	
+	$('#ra-widgets').delegate('.widget-options', 'click', function(){
+		var $parent = $(this).closest('.position-canvas');
+		$(this).closest('.draggable-widget').find('.widget-option').slideToggle(200);
 	});	
 
 	
@@ -319,22 +323,34 @@ function ra_widgets(){
 	}
 }
 function ra_save_widget($elm){
-	var widget_names ={}
+	var widget ={};
+	var	locations = {};
+	var	options = {};
+		
 	$elm.find('.draggable-widget').each(function(){		
-		var widgets ={};
+		var name = $(this).data('name');
+		
+		widget[name] = {'locations':'', 'options':''};
+		
 		$(this).find('.select-template input').each(function(){
-			widgets[$(this).attr('name')] = $(this).is(':checked') ? true : false;
+			locations[$(this).attr('name')] = $(this).is(':checked') ? true : false;
+		});
+		$(this).find('.widget-option input, .widget-option select, .widget-option textarea').each(function(){
+			options[$(this).attr('name')] = $(this).val();
 		});
 		
-		widget_names[$(this).data('name')] = widgets;
+		widget[name]['locations'] = locations;
+		widget[name]['options'] = options;
+		
 	});
 	
-	$.ajax({
+
+	 $.ajax({
 		data: {
 			ra_ajax: true,
 			ra_ajax_html: true,
 			position: $elm.data('name'),
-			widget_names: JSON.stringify(widget_names),
+			widget_names: JSON.stringify(widget),
 			action: 'save_widget_position',
 		},
 		dataType: 'html',

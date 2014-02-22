@@ -597,9 +597,19 @@
 		}
 		
 		function home(){
-			$this->ra_position('Home Top');
+			$this->output('<div class="row">');
+			$this->output('<div class="col-md-4">');
+				$this->ra_position('Home Top');
+			$this->output('</div>');
+			
+			$this->output('<div class="col-md-4">');
 			$this->ra_position('Home Middle');
+			$this->output('</div>');
+			
+			$this->output('<div class="col-md-4">');
 			$this->ra_position('Home Bottom');
+			$this->output('</div>');
+			$this->output('</div>');
 		}
 		
 		function q_list_item($q_item)
@@ -1521,7 +1531,6 @@
 				}
 					
 				qa_opt('ra_widgets', serialize($w));
-				print_r($w);
 			}
 			die();
 		}
@@ -1630,21 +1639,24 @@
 		}
 		
 		function ra_position($name){
-
+			
 			$widgets = unserialize(qa_opt('ra_widgets'));
 			if(isset($widgets[$name]) && is_array($widgets) && !empty($widgets[$name])){
 				foreach ($widgets[$name] as $widget => $template){
-					if(isset($template[$this->template]) && (bool)$template[$this->template] )
-						$this->ra_get_widget($widget, @$template['show_title']);
+					if(isset($template['locations'][$this->template]) && (bool)$template['locations'][$this->template] ){
+						$this->current_widget = $widgets[$name];
+						$this->ra_get_widget($widget, @$template['locations']['show_title'], $name);
+					}
 				}
 			}
 		}
-
-		function ra_get_widget($name, $show_title = false){
+		
+		function ra_get_widget($name, $show_title = false, $position){			
+			
 			$module	=	qa_load_module('widget', ltrim($name));
 			if(is_object($module)){
 				ob_start();
-				echo '<div id="'.str_replace(' ', '-', strtolower($name)).'-position" class="widget">';
+				echo '<div id="'.str_replace(' ', '-', strtolower($position)).'-position" class="widget">';
 				
 				if( $show_title )
 					echo '<h3 class="widget-title">'.$name.'</h3>';
@@ -1655,6 +1667,7 @@
 			}
 			return;
 		}
+		
 		
 		function ra_ajax_get_question_suggestion(){
 			$query = strip_tags($_REQUEST['start_with']);

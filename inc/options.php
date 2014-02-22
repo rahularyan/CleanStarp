@@ -126,7 +126,21 @@ class qa_html_theme_layer extends qa_html_theme_base {
 				qa_opt('styling_solved_question', (bool)qa_post_text('option_styling_solved_question'));
 				qa_opt('styling_closed_question', (bool)qa_post_text('option_styling_closed_question'));
 				qa_opt('styling_open_question', (bool)qa_post_text('option_styling_open_question'));
-				
+				qa_opt('bg_select', qa_post_text('option_bg_select'));
+				qa_opt('bg_color', qa_post_text('option_bg_color'));
+				qa_opt('text_color', qa_post_text('option_text_color'));
+				qa_opt('border_color', qa_post_text('option_border_color'));
+				qa_opt('q_link_color', qa_post_text('option_q_link_color'));
+				qa_opt('q_link_hover_color', qa_post_text('option_q_link_hover_color'));
+				qa_opt('nav_link_color', qa_post_text('option_nav_link_color'));
+				qa_opt('nav_link_color_hover', qa_post_text('option_nav_link_color_hover'));
+				qa_opt('subnav_link_color', qa_post_text('option_subnav_link_color'));
+				qa_opt('subnav_link_color_hover', qa_post_text('option_subnav_link_color_hover'));
+				qa_opt('link_color', qa_post_text('option_link_color'));
+				qa_opt('link_hover_color', qa_post_text('option_link_hover_color'));
+				qa_opt('highlight_color', qa_post_text('option_highlight_color'));
+				qa_opt('highlight_bg_color', qa_post_text('option_highlight_bg_color'));
+				require_once($this->theme_directory . '/inc/styles.php'); // Generate customized CSS styling				
 				//color
 				qa_opt('ra_primary_color', qa_post_text('option_ra_primary_color'));	
 				qa_opt('ra_nav_bg', qa_post_text('option_ra_nav_bg'));	
@@ -297,6 +311,22 @@ if(isset($social_fields))
 		$i++;
 	}
 $social_content .=  '<input type="hidden" value="' . $i . '" id="social_count" name="social_count">';
+// Background list
+// List of Backgrounds
+	$p_path = $this->theme_directory . '/images/patterns';
+	$bg_images=array();
+	$list_options = '';
+	$files = scandir($p_path, 1);
+	$list_options .= '<option class="icon-wrench" value="bg_default"'.((qa_opt('bg_select')=='bg_default') ? ' selected' : '').'>Default Background</option>';
+	$list_options .= '<option class="icon-wrench" value="bg_color"'.((qa_opt('bg_select')=='bg_color') ? ' selected' : '').'>only use Background Color</option>';
+	 //@$bg_images[qa_opt('qat_bg_image_index')
+	foreach ($files as $file) 
+		if (!((empty($file)) or($file=='.') or ($file=='..'))){
+			$image = preg_replace("/\\.[^.]*$/", "", $file);
+			$bg_images[] = $image;
+			$list_options .= '<option value="' . $image . '">' . $image . '</option>';
+			}
+	$bg_select = '<select id="option_bg_select" name="option_bg_select" class="qa-form-wide-select"'.((qa_opt('bg_select')==$image) ? ' selected' : '').'>' . $list_options . '</select>';
 
 $ra_page = '
 <form class="form-horizontal" enctype="multipart/form-data" method="post">
@@ -555,6 +585,97 @@ $ra_page = '
 		</table>
 	</div>
 	<div class="qa-part-form-tc-styling">
+		<h3>Colors</h3>
+		<table class="qa-form-tall-table options-table">
+			<tbody>
+				<tr>
+					<th class="qa-form-tall-label">
+						Body background
+					</th>
+					<td class="qa-form-tall-label">
+						' . $bg_select . '
+					</td>
+				</tr>
+				<tr id="bg-color-container"'. ((qa_opt('bg_select')=='bg_color') ? '' : ' style="display:none;"') . '>
+					<th class="qa-form-tall-label">
+						Body Font Color
+					</th>
+					<td class="qa-form-tall-label">
+						<input type="color" class="form-control" value="' . qa_opt('bg_color') . '" id="option_bg_color" name="option_bg_color">
+					</td>
+				</tr>
+			</tbody>
+			<tbody>
+				<tr>
+					<th class="qa-form-tall-label">
+						Text color
+					</th>
+					<td class="qa-form-tall-label">
+						<input type="color" class="form-control" value="' . qa_opt('text_color') . '" id="option_text_color" name="option_text_color">
+					</td>
+				</tr>
+				<tr>
+					<th class="qa-form-tall-label">
+						Border color
+					</th>
+					<td class="qa-form-tall-label">
+						<input type="color" class="form-control" value="' . qa_opt('border_color') . '" id="option_border_color" name="option_border_color">
+					</td>
+				</tr>
+				<tr>
+					<th class="qa-form-tall-label">
+						Link color
+					</th>
+					<td class="qa-form-tall-label">
+						Link Color<input type="color" class="form-control" value="' . qa_opt('link_color') . '" id="option_link_color" name="option_link_color">
+						Hover Color<input type="color" class="form-control" value="' . qa_opt('link_hover_color') . '" id="option_link_hover_color" name="option_link_hover_color">
+					</td>
+				</tr>
+				<tr>
+					<th class="qa-form-tall-label">
+						Question Link color
+					</th>
+					<td class="qa-form-tall-label">
+						Link Color<input type="color" class="form-control" value="' . qa_opt('q_link_color') . '" id="option_q_link_color" name="option_q_link_color">
+						Hover Color<input type="color" class="form-control" value="' . qa_opt('q_link_hover_color') . '" id="option_q_link_hover_color" name="option_q_link_hover_color">
+					</td>
+				</tr>
+				<tr>
+					<th class="qa-form-tall-label">
+						Navigation Link color
+					</th>
+					<td class="qa-form-tall-label">
+						Text Color<input type="color" class="form-control" value="' . qa_opt('nav_link_color') . '" id="option_nav_link_color" name="option_nav_link_color">
+						Hover Color<input type="color" class="form-control" value="' . qa_opt('nav_link_color_hover') . '" id="option_nav_link_color_hover" name="option_nav_link_color_hover">
+					</td>
+				</tr>
+				<tr>
+					<th class="qa-form-tall-label">
+						Sub Navigation Link color
+					</th>
+					<td class="qa-form-tall-label">
+						Text Color<input type="color" class="form-control" value="' . qa_opt('subnav_link_color') . '" id="option_subnav_link_color" name="option_subnav_link_color">
+						Hover Color<input type="color" class="form-control" value="' . qa_opt('subnav_link_color_hover') . '" id="option_subnav_link_color_hover" name="option_subnav_link_color_hover">
+					</td>
+				</tr>
+				<tr>
+					<th class="qa-form-tall-label">
+						Highlight Text color
+					</th>
+					<td class="qa-form-tall-label">
+						<input type="color" class="form-control" value="' . qa_opt('highlight_color') . '" id="option_highlight_color" name="option_highlight_color">
+					</td>
+				</tr>
+				<tr>
+					<th class="qa-form-tall-label">
+						Highlight background color
+					</th>
+					<td class="qa-form-tall-label">
+						<input type="color" class="form-control" value="' . qa_opt('highlight_bg_color') . '" id="option_highlight_bg_color" name="option_highlight_bg_color">
+					</td>
+				</tr>
+			</tbody>
+		</table>
 		<h3>Background color of questions</h3>
 		<table class="qa-form-tall-table options-table">
 			<tbody>
@@ -856,18 +977,6 @@ $ra_page = '
 					</th>
 				</tr>
 			</tbody>
-			<tbody id="ra_text_color">
-				<tr>
-					<th class="qa-form-tall-label">
-						Body text color
-					</th>
-				</tr>
-				<tr>
-					<th class="qa-form-tall-data">
-						<input type="text" class="form-control" value="' . qa_opt('ra_text_color') . '" name="option_ra_text_color">
-					</th>
-				</tr>
-			</tbody>
 			<tbody id="font-size-base">
 				<tr>
 					<th class="qa-form-tall-label">
@@ -1145,12 +1254,14 @@ $ra_page = '
 			qa_html_theme_base::head_script();
 			if($this->request == 'themeoptions'){
 				$this->output('<script type="text/javascript" src="'.$this->rooturl.'/js/admin.js"></script>');
+				$this->output('<script type="text/javascript" src="'.$this->rooturl.'/js/spectrum.js"></script>'); // color picker
 			}
 		}
 		function head_css()
 		{
 			if($this->request == 'themeoptions'){
 				$this->output('<link rel="stylesheet" type="text/css" href="'.$this->rooturl.'css/admin.css"/>');
+				$this->output('<link rel="stylesheet" type="text/css" href="'.$this->rooturl.'css/spectrum.css"/>'); // color picker
 			}
 			qa_html_theme_base::head_css();
 		}

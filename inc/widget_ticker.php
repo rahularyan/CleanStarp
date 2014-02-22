@@ -18,15 +18,22 @@
 						'label' => 'Questions to show',
 						'type' => 'number',
 						'tags' => 'name="ra_ticker_count"',
+						'value' => '10',
 					),
 					'ra_ticker_data' => array(
 						'label' => 'Data from',
 						'type' => 'select',
 						'tags' => 'name="ra_ticker_data"',
+						'value' => 'Category',
 						'options' => array(
 							'Category' => 'Category',
 							'Tags' => 'Tags',
 						)
+					),
+					'ra_ticker_slug' => array(
+						'label' => 'Enter slug',
+						'type' => 'text',
+						'tags' => 'name="ra_ticker_slug"',
 					),
 	
 				),
@@ -83,10 +90,17 @@
 
 		function output_widget($region, $place, $themeobject, $template, $request, $qa_content)
 		{
+			$widget_opt = $themeobject->current_widget['RA Ticker']['options'];
+
+			$count = (isset($widget_opt['ra_ticker_count']) && !empty($widget_opt['ra_ticker_count'])) ? $widget_opt['ra_ticker_count'] : 10;
+			
+			$category = (isset($widget_opt['ra_ticker_data']) && $widget_opt['ra_ticker_data'] == 'Category') ? $widget_opt['ra_ticker_slug'] : '';
+			
+			$tag = (isset($widget_opt['ra_ticker_data']) && $widget_opt['ra_ticker_data'] == 'Tags') ? $widget_opt['ra_ticker_slug'] : '';
+			
 			$themeobject->output('<div class="ra-ticker-widget">');
 			
-			//$themeobject->output(ra_relative_post_list('Q', 10,'','ipsum', true));
-			$themeobject->output(ra_relative_post_list('A', 10,'','dolor', true));
+			$themeobject->output(ra_relative_post_list('Q', $count, $category, $tag, true));
 			$themeobject->output('</div>');
 		}
 	

@@ -147,11 +147,11 @@ class qa_html_theme_layer extends qa_html_theme_base {
 												<div class="widget-options icon-wrench"></div>		
 											</div>
 											<div class="select-template">
-											<input type="checkbox" name="show_title" <?php echo (@$template['location']['show_title'] ? 'checked' : ''); ?>> Show widget title</label><br />
+											<input type="checkbox" name="show_title" <?php echo (@$template['locations']['show_title'] ? 'checked' : ''); ?>> Show widget title</label><br />
 												<span>Select pages where you want to show</span>
 												<?php
 													foreach(ra_get_template_array() as $k => $t){
-														$checked = @$template['location'][$k] ? 'checked' : '';
+														$checked = @$template['locations'][$k] ? 'checked' : '';
 														echo '												
 															<div class="checkbox">
 																<label>

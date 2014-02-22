@@ -97,30 +97,27 @@ class qa_html_theme_layer extends qa_html_theme_base {
 					<div class="widget-title"><?php echo $k; ?> 
 						<div class="drag-handle icon-move"></div>
 						<div class="widget-delete icon-trash"></div>
-						<div class="widget-template-to icon-list"></div>					
+						<div class="widget-template-to icon-list"></div>
+						<div class="widget-options icon-wrench"></div>
 					</div>
 					<div class="select-template">
-					<label>
+						<label>
 						<input type="checkbox" name="show_title" checked> Show widget title</label><br />
 						<span>Select where you want to show</span>
 						<?php
-							foreach(ra_get_template_array() as $k => $t){
-								echo '												
-									<div class="checkbox">
-										<label>
-											<input type="checkbox" name="'.$k.'" checked> '.$t.'
-										</label>
-									</div>
-								';
-							}
+							$this->get_widget_template_checkbox();
 						?>
+					</div>
+					<div class="widget-option">
+						<?php $this->get_widget_form($k); ?>
 					</div>
 				</div>
 				<?php
 			}
 			return ob_get_clean();
-		}		
-		
+		}	
+
+
 		function ra_get_widgets_positions(){
 			$widget_positions = unserialize(qa_opt('ra_widgets_positions'));
 			
@@ -139,6 +136,7 @@ class qa_html_theme_layer extends qa_html_theme_base {
 						</div>
 						<div class="position-canvas" data-name="<?php echo $name; ?>">
 							<?php
+
 								if(isset($widgets[$name]) && !empty($widgets[$name]))
 									foreach($widgets[$name] as $name => $template){ ?>
 										<div class="draggable-widget" data-name="<?php echo $name; ?>">	
@@ -146,13 +144,14 @@ class qa_html_theme_layer extends qa_html_theme_base {
 												<div class="drag-handle icon-move"></div>
 												<div class="widget-delete icon-trash"></div>
 												<div class="widget-template-to icon-list"></div>		
+												<div class="widget-options icon-wrench"></div>		
 											</div>
 											<div class="select-template">
-											<input type="checkbox" name="show_title" <?php echo (@$template['show_title'] ? 'checked' : ''); ?>> Show widget title</label><br />
+											<input type="checkbox" name="show_title" <?php echo (@$template['location']['show_title'] ? 'checked' : ''); ?>> Show widget title</label><br />
 												<span>Select pages where you want to show</span>
 												<?php
 													foreach(ra_get_template_array() as $k => $t){
-														$checked = @$template[$k] ? 'checked' : '';
+														$checked = @$template['location'][$k] ? 'checked' : '';
 														echo '												
 															<div class="checkbox">
 																<label>
@@ -162,6 +161,9 @@ class qa_html_theme_layer extends qa_html_theme_base {
 														';
 													}
 												?>
+											</div>
+											<div class="widget-option">
+												<?php $this->get_widget_form($name, $template['options']); ?>
 											</div>
 										</div>									
 									<?php
@@ -174,6 +176,31 @@ class qa_html_theme_layer extends qa_html_theme_base {
 				}
 			}
 			return ob_get_clean();
+		}
+		
+		function get_widget_template_checkbox(){
+			foreach(ra_get_template_array() as $t_name => $t)
+				$this->output( '												
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" name="'.$t_name.'" checked> '.$t.'
+						</label>
+					</div>
+				');
+
+		}
+		function get_widget_form($name, $options = false){
+			$module	=	qa_load_module('widget', $name);							
+			if(is_object($module) && method_exists($module, 'ra_widget_form')){
+				$fields = $module->ra_widget_form();
+				
+				if($options){
+					foreach($options as $k => $opt){
+						$fields['fields'][$k]['value'] = $opt;
+					}
+				}
+				$this->form($fields); 
+			}
 		}
 		
 }

@@ -8,35 +8,29 @@
 		}
 
 		
-		function admin_form()
+		function ra_widget_form()
 		{
-			$saved=false;
-			
-			if (qa_clicked('tag_cloud_save_button')) {
-				qa_opt('ra_tag_cloud_count', (int)qa_post_text('ra_tag_cloud_count'));
-				$saved=true;
-			}
 			
 			return array(
-				'ok' => $saved ? 'Tag cloud settings saved' : null,
-				
+				'style' => 'wide',
 				'fields' => array(
-					array(
-						'label' => 'Maximum tags to show',
+					'ra_ticker_count' => array(
+						'label' => 'Questions to show',
 						'type' => 'number',
-						'value' => (int)qa_opt('ra_tag_cloud_count'),
-						'suffix' => 'tags',
-						'tags' => 'name="ra_tag_cloud_count"',
+						'tags' => 'name="ra_ticker_count"',
+					),
+					'ra_ticker_data' => array(
+						'label' => 'Data from',
+						'type' => 'select',
+						'tags' => 'name="ra_ticker_data"',
+						'options' => array(
+							'Category' => 'Category',
+							'Tags' => 'Tags',
+						)
 					),
 	
 				),
-				
-				'buttons' => array(
-					array(
-						'label' => 'Save Changes',
-						'tags' => 'name="tag_cloud_save_button"',
-					),
-				),
+
 			);
 		}
 
@@ -91,7 +85,8 @@
 		{
 			$themeobject->output('<div class="ra-ticker-widget">');
 			
-			$themeobject->output(ra_relative_post_list('Q', 10,'themes','porta', true));
+			//$themeobject->output(ra_relative_post_list('Q', 10,'','ipsum', true));
+			$themeobject->output(ra_relative_post_list('A', 10,'','dolor', true));
 			$themeobject->output('</div>');
 		}
 	

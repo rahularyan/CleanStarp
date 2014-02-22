@@ -239,13 +239,22 @@ function ra_user_post_list($handle, $type, $limit){
 // output the list of selected post type
 function ra_relative_post_list($type, $limit, $categories, $tags, $return = false){
 	require_once QA_INCLUDE_DIR.'qa-app-posts.php';
-	$post = qa_db_query_sub(
-	'SELECT * FROM ^posts WHERE ^posts.type=$
-	AND categoryid=(SELECT categoryid FROM ^categories WHERE title=$ LIMIT 1) 
-	AND qa_posts.postid IN (SELECT postid FROM qa_posttags WHERE 
-		wordid=(SELECT wordid FROM qa_words WHERE word=$ OR word=$ COLLATE utf8_bin LIMIT 1) ORDER BY postcreated DESC)
-	ORDER BY ^posts.created DESC LIMIT #',
-	$type, $categories, $tags, qa_strtolower($tags), $limit);	
+	if(!empty($categories)){
+		$post = qa_db_query_sub(
+		'SELECT * FROM ^posts WHERE ^posts.type=$
+		AND categoryid=(SELECT categoryid FROM ^categories WHERE ^categories.title=$ LIMIT 1) 
+		ORDER BY ^posts.created DESC LIMIT #',
+		$type, $categories, $limit);	
+	}elseif(!empty($tags)){
+		$post = qa_db_query_sub(
+		'SELECT * FROM ^posts WHERE ^posts.type=$
+		AND qa_posts.postid IN (SELECT postid FROM qa_posttags WHERE 
+			wordid=(SELECT wordid FROM qa_words WHERE word=$ OR word=$ COLLATE utf8_bin LIMIT 1) ORDER BY postcreated DESC)
+		ORDER BY ^posts.created DESC LIMIT #',
+		$type, $tags, qa_strtolower($tags), $limit);
+	}
+	else
+		return;
 	$output = '<ul class="question-list">';
 	while($p = mysql_fetch_array($post)){
 		if($type=='Q'){
@@ -411,7 +420,7 @@ function ra_position_active($name){
 	$template = (!empty($template) ? $template : 'home' );
 	if(is_array($widgets) && !empty($widgets[$name]) && isset($widgets[$name])){
 		foreach ($widgets[$name] as $t){			
-			if(isset($t[$template]) && (bool)$t[$template])
+			if(isset($t['location'][$template]) && (bool)$t['location'][$template])
 				return true;
 		}
 		

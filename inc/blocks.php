@@ -1521,7 +1521,6 @@
 				}
 					
 				qa_opt('ra_widgets', serialize($w));
-				print_r($w);
 			}
 			die();
 		}
@@ -1634,12 +1633,12 @@
 			$widgets = unserialize(qa_opt('ra_widgets'));
 			if(isset($widgets[$name]) && is_array($widgets) && !empty($widgets[$name])){
 				foreach ($widgets[$name] as $widget => $template){
-					if(isset($template[$this->template]) && (bool)$template[$this->template] )
-						$this->ra_get_widget($widget, @$template['show_title']);
+					if(isset($template['location'][$this->template]) && (bool)$template['location'][$this->template] )
+						$this->ra_get_widget($widget, @$template['location']['show_title'], );
 				}
 			}
 		}
-
+		
 		function ra_get_widget($name, $show_title = false){
 			$module	=	qa_load_module('widget', ltrim($name));
 			if(is_object($module)){
@@ -1655,6 +1654,7 @@
 			}
 			return;
 		}
+		
 		
 		function ra_ajax_get_question_suggestion(){
 			$query = strip_tags($_REQUEST['start_with']);

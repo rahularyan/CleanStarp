@@ -107,7 +107,10 @@
 			$this->output('<script type="text/javascript" src="'.Q_THEME_URL.'/js/jquery.sparkline.min.js"></script>');
 			
 			$this->output('<script type="text/javascript" src="'.Q_THEME_URL.'/js/jquery-ui.min.js"></script>');
-			
+
+			if( ($this->template=='question') && (qa_get_logged_in_level()>=QA_USER_LEVEL_ADMIN) )
+				$this->output('<script type="text/javascript" src="'.Q_THEME_URL.'/js/jquery.uploadfile.min.js"></script>');			
+				
 			$this->output('<script type="text/javascript" src="'.Q_THEME_URL.'/js/theme.js"></script>');			
 		}
 
@@ -1735,9 +1738,14 @@
 			$postid = @$this->content["q_view"]["raw"]["postid"];
 			if ( ($this->template=='question') && (qa_get_logged_in_level()>=QA_USER_LEVEL_ADMIN) && (!empty($postid)) ){
 				require_once QA_INCLUDE_DIR.'qa-db-metas.php';
-				$featured_image = qa_db_postmeta_get($postid, 'featured_question_image');
+				$featured_image = qa_db_postmeta_get($postid, 'featured_image');
+				if (empty($featured_image)){
+					$featured_image = Q_THEME_URL . '/images/featured-preview.jpg';
+				}else{
+					$featured_image = Q_THEME_URL . '/uploads/' . $featured_image;
+				}
 				$this->output('
-					<div class="question-meta">
+					<div class="question-meta" id="question-meta">
 						<table class="qa-form-tall-table">
 						<tbody>
 							<tr>
@@ -1751,15 +1759,34 @@
 							<tr>
 								<td class="qa-form-tall-label">
 									<label>Featured Image</label>
-									' . ($featured_image ? '<img class="image-preview" src="' . $featured_image . '">' : '') . '
-									<input id="ra_featured_img" class="btn btn-success" type="file" name="ra_featured_img">
+									<img id="image-preview" class="image-preview img-thumbnail" src="' . $featured_image . '" >
+									<div id="fileuploader">Upload</div>
 								</td>
 							</tr>
 						</tbody>
 						</table>
+						<div id="question-meta-input"></div>
 						<hr>
 						<btn id="q_meta_save" class="qa-form-light-button qa-form-light-button-features" value="answer" title="Answer this question" type="submit" name="q_meta_save" onclick="qa_show_waiting_after(this, false);">Save</btn>
 					</div>
+					<script>
+						$(document).ready(function(){
+							$("#fileuploader").uploadFile({
+								url:"' . Q_THEME_URL . '/inc/upload.php",
+								allowedTypes:"png,gif,jpg,jpeg",
+								fileName:"myfile",
+								showDone:false,
+								maxFileCount:1,
+								multiple:false,
+								showDelete: true,
+								onSuccess:function(files,data,xhr)
+								{
+									$("#question-meta-input").html(\'<input type="hidden" value="\' + data +\'" name="featured_image" id="featured_image">\');
+									$("#image-preview").attr("src","' . Q_THEME_URL .'/uploads/"+data);
+								},
+							});
+						});
+					</script>
 				');
 			}
 		}

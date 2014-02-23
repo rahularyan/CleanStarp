@@ -5,15 +5,17 @@ function ra_question_meta(){
 			data: {
 				ra_ajax: true,
 				ra_ajax_html: true,
-				featured_image: '',
+				featured_image: $("#featured_image").val(),
 				featured_question: $('#option_featured_question').attr('checked'),
 				action: 'save_q_meta',
 			},
 			dataType: 'html',
 			success: function (response) {
 			},
-		});		
+		});	
 		qa_hide_waiting(this);
+		$('#question-meta').append('<span class="bg-success btn" id="q-meta-notice">Settings are saved.</span>');
+		setTimeout(function() {$('#q-meta-notice').fadeOut(1000);}, 1000);
 	});
 }
 

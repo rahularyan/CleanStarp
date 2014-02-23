@@ -1660,9 +1660,6 @@
 			if(is_object($module)){
 				ob_start();
 				echo '<div id="'.str_replace(' ', '-', strtolower($position)).'-position" class="widget">';
-				
-				if( $show_title )
-					echo '<h3 class="widget-title">'.$name.'</h3>';
 					
 				$module->output_widget('side', 'top', $this, $this->template, $this->request, $this->content);
 				echo '</div>';

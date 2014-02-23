@@ -56,6 +56,7 @@
 					'Right' => 'Right side of content', 
 					'Bottom' => 'Below content and before footer',
 					'Home Top' => 'Top content in home',
+					'Home Middle' => 'Middle content in home',
 					'Home Bottom' => 'Bottom content in home'
 				)
 			);
@@ -66,8 +67,9 @@
 		
 		if (qa_get_logged_in_level()>=QA_USER_LEVEL_ADMIN)
 			qa_register_layer('/inc/widgets.php', 'Theme Widgets', Q_THEME_DIR , Q_THEME_URL );
+			
+		qa_register_module('widget', '/inc/widget_ask.php', 'ra_ask_widget', 'RA Ajax Ask', Q_THEME_DIR, Q_THEME_URL);
+		qa_register_module('widget', '/inc/widget_tags.php', 'cs_tags_widget', 'RA Tags', Q_THEME_DIR, Q_THEME_URL);
+		qa_register_module('widget', '/inc/widget_ticker.php', 'cs_ticker_widget', 'RA Ticker', Q_THEME_DIR, Q_THEME_URL);
+		qa_register_module('widget', '/inc/widget_top_users.php', 'cs_top_users_widget', 'Top Contributors', Q_THEME_DIR, Q_THEME_URL);			
 	}
-	
-	qa_register_module('widget', '/inc/widget_ask.php', 'ra_ask_widget', 'RA Ajax Ask', Q_THEME_DIR, Q_THEME_URL);
-	qa_register_module('widget', '/inc/widget_tags.php', 'cs_tags_widget', 'RA Tags', Q_THEME_DIR, Q_THEME_URL);
-	qa_register_module('widget', '/inc/widget_ticker.php', 'cs_ticker_widget', 'RA Ticker', Q_THEME_DIR, Q_THEME_URL);

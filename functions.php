@@ -240,12 +240,16 @@ function ra_user_post_list($handle, $type, $limit){
 function ra_relative_post_list($type, $limit, $categories, $tags, $return = false){
 	require_once QA_INCLUDE_DIR.'qa-app-posts.php';
 	if(!empty($categories)){
+		
+		$title = 'Questions in '.$categories;
+		
 		$post = qa_db_query_sub(
 		'SELECT * FROM ^posts WHERE ^posts.type=$
 		AND categoryid=(SELECT categoryid FROM ^categories WHERE ^categories.title=$ LIMIT 1) 
 		ORDER BY ^posts.created DESC LIMIT #',
 		$type, $categories, $limit);	
 	}elseif(!empty($tags)){
+		$title = 'Questions in '.$categories;
 		$post = qa_db_query_sub(
 		'SELECT * FROM ^posts WHERE ^posts.type=$
 		AND qa_posts.postid IN (SELECT postid FROM qa_posttags WHERE 
@@ -255,7 +259,10 @@ function ra_relative_post_list($type, $limit, $categories, $tags, $return = fals
 	}
 	else
 		return;
-	$output = '<ul class="question-list">';
+	
+	$output = '<h3 class="widget-title">'.$title.'</h3>';
+	
+	$output .= '<ul class="question-list">';
 	while($p = mysql_fetch_array($post)){
 		if($type=='Q'){
 			$what = _ra_lang('asked');
@@ -266,10 +273,8 @@ function ra_relative_post_list($type, $limit, $categories, $tags, $return = fals
 		}
 		$handle = qa_post_userid_to_handle($p['userid']);
 		$output .= '<li id="q-list-'.$p['postid'].'" class="question-item">';
-		$output .= '<div class="pull-left avatar" data-handle="'.$handle.'" data-id="'. qa_handle_to_userid($handle).'">'.ra_get_avatar($handle, 35).'</div>';
+		$output .= '<div class="pull-left avatar" data-handle="'.$handle.'" data-id="'. qa_handle_to_userid($handle).'"><img src="'.ra_get_avatar($handle, 35, false).'" /></div>';
 		$output .= '<div class="list-right">';
-
-		
 
 		if($type=='Q'){
 
@@ -284,31 +289,19 @@ function ra_relative_post_list($type, $limit, $categories, $tags, $return = fals
 			$output .= '<p><a href="'.ra_post_link($p['parentid']).'#c'.$p['postid'].'">'. substr(strip_tags($p['content']), 0, 50).'</a></p>';
 
 		}
-
-		
-
-		
-
+		$output .= '<div class="meta"><a href="'.qa_path_html('user/'.$handle).'">'.ra_name($handle).'</a> '.$what;
 		if ($type=='Q'){
 
-			$output .= '<div class="counts"><div class="vote-count"><span>'.$p['netvotes'].'</span></div>';
+			$output .= ' <span class="vote-count">'.$p['netvotes'].' votes</span>';
 
-			$output .= '<div class="ans-count"><span>'.$p['acount'].'</span></div></div>';
+			$output .= ' <span class="ans-count">'.$p['acount'].' ans</span>';
 
 		}elseif($type=='A'){
-
-			$output .= '<div class="counts"><div class="vote-count"><span>'.$p['netvotes'].'</span></div>';
-
+			$output .= ' <span class="vote-count">'.$p['netvotes'].' votes</span>';
 		}
-
-		$output .= '<h5><a href="'.qa_path_html('user/'.$handle).'">'.ra_name($handle).'</a> '.$what.'</h5>';
-
-
-
-		$output .= '</div>';	
+		$output .= '</div></div>';	
 
 		$output .= '</li>';
-
 	}
 
 	$output .= '</ul>';

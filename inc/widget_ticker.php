@@ -1,13 +1,6 @@
 <?php
 	class cs_ticker_widget {
 		
-		function option_default($option)
-		{
-			if ($option=='ra_tag_cloud_count')
-				return 20;
-		}
-
-		
 		function ra_widget_form()
 		{
 			
@@ -92,7 +85,7 @@
 		{
 			$widget_opt = $themeobject->current_widget['RA Ticker']['options'];
 
-			$count = (isset($widget_opt['ra_ticker_count']) && !empty($widget_opt['ra_ticker_count'])) ? $widget_opt['ra_ticker_count'] : 10;
+			$count = (isset($widget_opt['ra_ticker_count']) && !empty($widget_opt['ra_ticker_count'])) ?(int)$widget_opt['ra_ticker_count'] : 10;
 			
 			$category = (isset($widget_opt['ra_ticker_data']) && $widget_opt['ra_ticker_data'] == 'Category') ? $widget_opt['ra_ticker_slug'] : '';
 			

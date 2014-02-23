@@ -756,7 +756,7 @@ ul.qa-nav-cat-list-4  > li.qa-nav-cat-item:first-child {
 }
 .widget .widget-title{
     font-size: 18px;
-    margin: 0 0 10px;
+    margin: 0 0 15px;
 }
 
 
@@ -1231,9 +1231,9 @@ table.page-users-list{
 }
 
 .question-list .question-item {
-    border-bottom: 1px solid #eee;
-    margin-bottom: 15px;
-    padding-bottom: 12px;
+    border-bottom: 1px solid #EEEEEE;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
     position: relative;
 }
 
@@ -1247,9 +1247,6 @@ table.page-users-list{
     margin-right: 10px;
 }
 
-.question-list .question-item .avatar img {
-    border-radius: 50%;
-}
 
 .question-list .question-item .big-ans-count {
     background: #7A68AE;
@@ -1278,6 +1275,7 @@ table.page-users-list{
 }
 
 .question-list .question-item .list-right {
+    line-height: 20px;
     overflow: hidden;
 }
 
@@ -1309,19 +1307,6 @@ table.page-users-list{
     opacity: 80;
     filter: alpha(opacity=8000);
 }
-
-.question-list .question-item .list-right .vote-count:before,.question-list .question-item .list-right .ans-count:before {
-    margin-right: 10px;
-    font-size: 15px;
-}
-
-.question-list .question-item .list-right .vote-count,.question-list .question-item .list-right .ans-count {
-    display: block;
-    float: left;
-    margin-left: 10px;
-}
-
-
 
 .question-list .question-item .list-right .vote-count span,.question-list .question-item .list-right .ans-count span {
     background:#7a68ae;
@@ -1775,7 +1760,7 @@ table.page-users-list{
 	padding: 0;
 }
 .options-table > tbody {
-    border-bottom: 1px solid #DDDDDD;
+    border-bottom: 1px solid #eee;
     display: inline-block;
     padding: 0 0 25px 0;
     width: 100%;
@@ -1857,20 +1842,20 @@ input[type=checkbox].on-off-checkbox{
 }
 /* Radio Box in theme options */
 
-input[type=radio] {
+.theme-options input[type=radio] {
     display:none;
     margin:10px;
 }
-input[type=radio] + label {
-    display:inline-block;
-    margin:-2px;
-    padding: 4px 12px;
-    background-color: #e7e7e7;
-    border-color: #ddd;
+.theme-options input[type=radio] + label {
+    background-color: #E7E7E7;
+    border-color: #DDDDDD;
+    display: inline-block;
+    font-size: 12px;
+    margin: -2px;
+    padding: 0 6px;
 }
-input[type=radio]:checked + label {
-   background-image: none;
-    background-color:#d0d0d0;
+.theme-options input[type=radio]:checked + label {
+	color: #FFFFFF;
 }
 
 
@@ -2168,7 +2153,7 @@ input[type=radio]:checked + label {
 
 /* Ticker widget */
 .ra-ticker-widget .question-list{
-	padding: 0;
+	padding: 0 3px;
 }
 
 
@@ -2474,4 +2459,72 @@ input[type=radio]:checked + label {
 .widget.user-activities .question-list .activity-item .list-right .what{
     color: #999999;
     font-size: 13px;
+}
+
+#home-top-position, #home-bottom-position, #home-middle-position{
+	padding:15px 0;
+}
+
+.ra-ticker-widget .list-right .title{
+    color: #777777;
+    font-size: 13px;
+    font-weight: bold;
+}
+.ra-ticker-widget .question-item .avatar {
+    margin-right: 10px;
+    margin-top: 6px;
+}
+.ra-ticker-widget .question-item .meta{
+    color: #AAAAAA;
+    font-size: 11px;
+}
+
+.top-users-list{
+	padding:0;
+	margin:0;
+	list-style:none;
+}
+.top-users-list .top-user {
+    border-bottom: 1px solid #EEEEEE;
+    padding: 10px 0;
+}
+.top-users-list .top-user:last-child{
+	border-bottom: none;
+}
+.top-users-list .avatar {
+    margin-right: 10px;
+    margin-top: 3px;
+}
+.top-users-list .top-user-data{
+    line-height: 20px;
+    overflow: hidden;
+}
+.top-users-list .top-user-data .name{
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 20px;
+    margin-bottom: 5px;
+}
+.top-users-list .top-user-data .points{
+    border-radius: 2px;
+    color: #FFFFFF;
+    float: right;
+    font-size: 11px;
+    line-height: 16px;
+    padding: 0 5px;
+}
+.top-users-list .top-user-data .user-about{
+    color: #888888;
+    font-size: 11px;
+    line-height: 17px;
+}
+.top-users-list .top-user-data .counts{
+    color: #AAAAAA;
+    font-size: 12px;
+    line-height: 100%;
+    margin: 0;
+}
+.top-users-list .top-user-data .counts span:last-child{
+	padding-left:5px;
 }

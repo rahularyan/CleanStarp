@@ -601,6 +601,16 @@
 		
 		function home(){
 			$this->output('<div class="row">');
+			$this->output('<div class="col-md-7">');
+				$this->ra_position('Home Top 1');
+			$this->output('</div>');
+			
+			$this->output('<div class="col-md-5">');
+			$this->ra_position('Home Top 2');
+			$this->output('</div>');
+			$this->output('</div>');
+			
+			$this->output('<div class="row">');
 			$this->output('<div class="col-md-4">');
 				$this->ra_position('Home Top');
 			$this->output('</div>');
@@ -1351,6 +1361,7 @@
 						$columns=ceil(count($ranking['items'])/$rows); */
 					if($ranking['items'])	
 					foreach($ranking['items'] as $user){
+					
 						if(isset($user['raw']))
 							$handle = $user['raw']['handle'];
 						else

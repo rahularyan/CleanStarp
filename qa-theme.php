@@ -55,6 +55,8 @@
 					'Content Bottom' => 'After questions lists', 
 					'Right' => 'Right side of content', 
 					'Bottom' => 'Below content and before footer',
+					'Home Top 1' => 'Top Left',
+					'Home Top 2' => 'Top Right',
 					'Home Top' => 'Top content in home',
 					'Home Middle' => 'Middle content in home',
 					'Home Bottom' => 'Bottom content in home'
@@ -72,4 +74,5 @@
 		qa_register_module('widget', '/inc/widget_tags.php', 'cs_tags_widget', 'RA Tags', Q_THEME_DIR, Q_THEME_URL);
 		qa_register_module('widget', '/inc/widget_ticker.php', 'cs_ticker_widget', 'RA Ticker', Q_THEME_DIR, Q_THEME_URL);
 		qa_register_module('widget', '/inc/widget_top_users.php', 'cs_top_users_widget', 'Top Contributors', Q_THEME_DIR, Q_THEME_URL);			
+		qa_register_module('widget', '/inc/widget_activity.php', 'cs_activity_widget', 'Activity', Q_THEME_DIR, Q_THEME_URL);			
 	}

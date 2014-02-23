@@ -2461,7 +2461,7 @@ input[type=checkbox].on-off-checkbox{
     font-size: 13px;
 }
 
-#home-top-position, #home-bottom-position, #home-middle-position{
+#home-top-position, #home-bottom-position, #home-middle-position, #home-top-1-position, #home-top-2-position{
 	padding:15px 0;
 }
 
@@ -2534,4 +2534,31 @@ input[type=checkbox].on-off-checkbox{
 .top-users-list .top-user-data .counts span:last-child{
 	padding-left:5px;
 	border-left: 1px solid #f1f1f1;
+}
+
+.ra-activity{
+    list-style: none outside none;
+    padding: 0;
+}
+.ra-activity .event-item{
+    font-size: 12px;
+    line-height: 20px;
+    padding: 10px 0;
+}
+.ra-activity .event-content strong{
+
+}
+.ra-activity .event-icon {
+    background: none repeat scroll 0 0 #EEEEEE;
+    border-radius: 50%;
+    display: block;
+    font-size: 25px;
+    height: 35px;
+    line-height: 40px;
+    margin-right: 10px;
+    text-align: center;
+    width: 35px;
+}
+.ra-activity .event-inner{
+	overflow:hidden;
 }

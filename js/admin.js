@@ -1,4 +1,63 @@
 $(document).ready(function(){
+	// Typography
+	$(".font-family").chosen({width: "370px",allow_single_deselect: true ,no_results_text: "There is no font with this name!"});
+	$(".font-style").chosen({width: "200px",allow_single_deselect: true});
+	$(".font-family-backup").chosen({width: "260px",allow_single_deselect: true});
+	$( ".font-family, .font-style, .font-family-backup" ).on('change keyup paste',function(){
+		var font=$(this).parent().children('#typo_option_family').val();
+		var font_backup=$(this).parent().children('#typo_option_backup').val();
+		if((font == '') || (font_backup=='')){var connector = '';}else{var connector = ', ';}
+		$(this).parent().children('span').css('font-family', font + connector + font_backup);
+		$(this).parent().children('span').children().css('font-family', font + connector + font_backup);
+		
+		$(this).parent().children('span').css('font-style', 'normal');
+		$(this).parent().children('span').children().css('font-style', 'normal');
+		var font_style = $(this).parent().children('#typo_option_style').val();
+		if (font_style.indexOf("italic") !== -1) {
+			$(this).parent().children('span').css('font-style', 'italic');
+			$(this).parent().children('span').children().css('font-style', 'italic');
+			font_style = font_style.replace('italic', '');
+		}
+		
+		$(this).parent().children('span').css('font-weight', font_style);
+		$(this).parent().children('span').children().css('font-weight', font_style);
+		
+		font_option = $(this).find('option:selected')
+		if(font_option.attr("font-data-type")=='googlefont'){
+			// update styling variants
+			var details = jQuery.parseJSON(font_option.attr('font-data-detail'));
+			var options = '<option value=""></option>';
+			var selected = "";alert(details);
+			$.each(details, function(index) {
+				// I was working on this section
+				// this loop should create a list of styles based on "details" variable and load it to #typo_option_style
+			});
+			// show backup fonts
+			$(this).parent().children('#typo_option_backup_chosen').fadeIn('fast');
+		} else {
+			$(this).parent().children('#typo_option_backup_chosen').fadeOut('fast');
+		}
+
+	});
+	$( ".font-size" ).on('change keyup paste',function(){
+		var font_size = $(this).parent().children('#typo_option_size').val();
+		if (font_size.match('^(0|[1-9][0-9]*)$')){
+			$(this).parent().parent().children('span').css('font-size', font_size + 'px');
+			$(this).parent().parent().children('span').children().css('font-size', font_size + 'px');
+		}
+	});
+	$( ".font-size, .font-linehight" ).on('change keyup paste',function(){
+		var font_height = $(this).parent().children('#typo_option_lineheight').val();
+		if (font_height.match('^(0|[1-9][0-9]*)$')){
+			$(this).parent().parent().children('span').css('line-height', font_height + 'px');
+			$(this).parent().parent().children('span').children().css('line-height', font_height + 'px');
+		}else{
+			$(this).parent().parent().children('span').css('line-height', 'inherit');
+			$(this).parent().parent().children('span').children().css('line-height', 'inherit');
+		}
+	});
+	
+	// Scroll
 	$(function () {
 		$(window).scroll(function () {
 			if ($(document).height() <= $(window).scrollTop() + $(window).height() + 120) {
@@ -12,12 +71,22 @@ $(document).ready(function(){
 			}
 		});
 	});
+	
+	// Styling
+	$( "#option_bg_select" ).change(function() {
+		if ($( "#option_bg_select" ).val()=='bg_color')
+			$( "#bg-color-container" ).show(500);
+		else
+			$( "#bg-color-container" ).hide(500);
+	});
 	$( "#option_enble_back_to_top" ).change(function() {
 		$( "#back_to_top_location_container" ).toggle(500);
 	});
 	$( "#option_enable_adv_list" ).change(function() {
 		$( "#ads_container" ).toggle(500);
 	});
+	
+	// Advertisment
 	$('#add_adv').on('click', function(e){
 		e.preventDefault();
 		var ads_list_count =  Number($("#adv_number").val()) + 1;
@@ -55,6 +124,7 @@ $(document).ready(function(){
 		$("#ads_container").append('');
 	};
 	
+	// Social
 	$('#add_social').on('click', function(e){
 		e.preventDefault();
 		var social_list_count =  Number($("#social_count").val()) + 1;

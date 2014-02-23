@@ -7,6 +7,7 @@
 
 	class qa_html_theme extends qa_html_theme_base
 	{
+		var $postid;
 		function doctype(){
 			if(isset($_REQUEST['ra_ajax_html'])){
 				$action = 'ra_ajax_'.$_REQUEST['action'];
@@ -26,7 +27,6 @@
 				
 				unset($this->content['navigation']['main']['ask']);
 			}
-
 		}
 		function html(){
 			if(isset($_REQUEST['ra_ajax_html'])){
@@ -107,7 +107,10 @@
 			$this->output('<script type="text/javascript" src="'.Q_THEME_URL.'/js/jquery.sparkline.min.js"></script>');
 			
 			$this->output('<script type="text/javascript" src="'.Q_THEME_URL.'/js/jquery-ui.min.js"></script>');
-			
+
+			if( ($this->template=='question') && (qa_get_logged_in_level()>=QA_USER_LEVEL_ADMIN) )
+				$this->output('<script type="text/javascript" src="'.Q_THEME_URL.'/js/jquery.uploadfile.min.js"></script>');			
+				
 			$this->output('<script type="text/javascript" src="'.Q_THEME_URL.'/js/theme.js"></script>');			
 		}
 
@@ -983,6 +986,7 @@
 			
 			$this->c_form(@$q_view['c_form']);
 			$this->output('</div>');
+			$this->question_meta_form();
 			$this->output(base64_decode( qa_opt('ads_after_question_content') ));
 			$this->output('</div> <!-- END qa-q-view-main -->');
 		}
@@ -1738,6 +1742,82 @@
 						<h3 class="icon-sad">No questions found!</h3>
 						<p>Sorry we cannot display anything, query returns nothings.</p>
 					</div>');
+		}
+		
+		function question_meta_form(){
+			//echo "<pre>";
+			//var_dump($this->content["q_view"]["raw"]["postid"]);
+			//echo "</pre>";
+			$postid = @$this->content["q_view"]["raw"]["postid"];
+			if ( ($this->template=='question') && (qa_get_logged_in_level()>=QA_USER_LEVEL_ADMIN) && (!empty($postid)) ){
+				require_once QA_INCLUDE_DIR.'qa-db-metas.php';
+				$featured_image = qa_db_postmeta_get($postid, 'featured_image');
+				if (empty($featured_image)){
+					$featured_image = Q_THEME_URL . '/images/featured-preview.jpg';
+				}else{
+					$featured_image = Q_THEME_URL . '/uploads/' . $featured_image;
+				}
+				$this->output('
+					<div class="question-meta" id="question-meta">
+						<table class="qa-form-tall-table">
+						<tbody>
+							<tr>
+								<td class="qa-form-tall-label">
+									<label>
+										<input' . (qa_db_postmeta_get($postid, 'featured_question') ? ' checked=""' : '') . ' id="option_featured_question" class="qa-form-tall-checkbox" type="checkbox" value="1" name="option_featured_question">
+										Make this a Featured Question!
+									</label>
+								</td>
+							</tr>
+							<tr>
+								<td class="qa-form-tall-label">
+									<label>Featured Image</label>
+									<img id="image-preview" class="image-preview img-thumbnail" src="' . $featured_image . '" >
+									<div id="fileuploader">Upload</div>
+								</td>
+							</tr>
+						</tbody>
+						</table>
+						<div id="question-meta-input"></div>
+						<hr>
+						<btn id="q_meta_save" class="qa-form-light-button qa-form-light-button-features" value="answer" title="Answer this question" type="submit" name="q_meta_save" onclick="qa_show_waiting_after(this, false);">Save</btn>
+					</div>
+					<script>
+						$(document).ready(function(){
+							$("#fileuploader").uploadFile({
+								url:"' . Q_THEME_URL . '/inc/upload.php",
+								allowedTypes:"png,gif,jpg,jpeg",
+								fileName:"myfile",
+								showDone:false,
+								maxFileCount:1,
+								multiple:false,
+								showDelete: true,
+								onSuccess:function(files,data,xhr)
+								{
+									$("#question-meta-input").html(\'<input type="hidden" value="\' + data +\'" name="featured_image" id="featured_image">\');
+									$("#image-preview").attr("src","' . Q_THEME_URL .'/uploads/"+data);
+								},
+							});
+						});
+					</script>
+				');
+			}
+		}
+		function ra_ajax_save_q_meta(){
+			require_once QA_INCLUDE_DIR.'qa-db-metas.php';
+			$postid = @$this->content["q_view"]["raw"]["postid"];
+			@$featured_image = $_REQUEST['featured_image'];
+			@$featured_question = $_REQUEST['featured_question'];
+			
+			if( ($this->template=='question') && (qa_get_logged_in_level()>=QA_USER_LEVEL_ADMIN) ){
+				if(!empty($featured_image)){
+					qa_db_postmeta_set($postid, 'featured_image', $featured_image);
+				}
+				if(isset($featured_question))
+					qa_db_postmeta_set($postid, 'featured_question', true);
+				else
+					qa_db_postmeta_set($postid, 'featured_question', false);
+			}
 		}
 	}
 

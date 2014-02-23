@@ -1,11 +1,5 @@
 <?php
 	class cs_tags_widget {
-		
-		function option_default($option)
-		{
-			if ($option=='ra_tag_cloud_count')
-				return 20;
-		}
 
 		
 		function admin_form()

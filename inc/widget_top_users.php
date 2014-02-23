@@ -1,21 +1,24 @@
 <?php
 	class cs_top_users_widget {
 
-		
-		function admin_form()
+		function ra_widget_form()
 		{
 			
 			return array(
-				
+				'style' => 'wide',
 				'fields' => array(
-					array(
-						'label' => 'Maximum tags to show',
+					'ra_tc_count' => array(
+						'label' => 'Numbers of user',
 						'type' => 'number',
-						'value' => (int)qa_opt('ra_tag_cloud_count'),
-						'suffix' => 'tags',
-						'tags' => 'name="ra_tag_cloud_count"',
+						'tags' => 'name="ra_tc_count"',
+						'value' => '10',
 					),
-	
+					'ra_tc_avatar' => array(
+						'label' => 'Avatar Size',
+						'type' => 'number',
+						'tags' => 'name="ra_tc_avatar"',
+						'value' => '30',
+					)	
 				),
 
 			);
@@ -98,13 +101,13 @@
 
 		function output_widget($region, $place, $themeobject, $template, $request, $qa_content)
 		{
-			$widget_opt = $themeobject->current_widget['RA Ticker']['options'];
+			$widget_opt = $themeobject->current_widget['Top Contributors']['options'];
 
-			if(@$themeobject->current_widget['RA Ticker']['locations']['show_title'])
+			if(@$themeobject->current_widget['Top Contributors']['locations']['show_title'])
 				$themeobject->output('<h3 class="widget-title">Top Contributors</h3>');
 				
 			$themeobject->output('<div class="ra-tags-widget">');
-			$themeobject->output($this->ra_top_users(5, 30));
+			$themeobject->output($this->ra_top_users((int)@$widget_opt['ra_tc_count'], (int)@$widget_opt['ra_tc_avatar']));
 			$themeobject->output('</div>');
 		}
 	

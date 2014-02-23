@@ -627,7 +627,7 @@ h1,h2,h3,h4,h5,h6, .qa-q-item-title{
     font-weight: 400;
     margin-bottom: 25px;
     margin-top: 0;
-    padding: 20px 15px;
+    padding: 20px 0;
 }
 
 
@@ -2486,14 +2486,17 @@ input[type=checkbox].on-off-checkbox{
 }
 .top-users-list .top-user {
     border-bottom: 1px solid #EEEEEE;
-    padding: 10px 0;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
 }
 .top-users-list .top-user:last-child{
 	border-bottom: none;
+	margin-bottom: 0;
+    padding-bottom: 0;
 }
 .top-users-list .avatar {
     margin-right: 10px;
-    margin-top: 3px;
+    margin-top: 1px;
 }
 .top-users-list .top-user-data{
     line-height: 20px;
@@ -2501,9 +2504,9 @@ input[type=checkbox].on-off-checkbox{
 }
 .top-users-list .top-user-data .name{
     display: block;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: bold;
-    line-height: 20px;
+    line-height: 16px;
     margin-bottom: 5px;
 }
 .top-users-list .top-user-data .points{
@@ -2520,11 +2523,15 @@ input[type=checkbox].on-off-checkbox{
     line-height: 17px;
 }
 .top-users-list .top-user-data .counts{
-    color: #AAAAAA;
-    font-size: 12px;
+    color: #999999;
+    font-size: 11px;
     line-height: 100%;
     margin: 0;
 }
+.top-users-list .top-user-data .counts span:first-child{
+	margin-right:4px;
+}
 .top-users-list .top-user-data .counts span:last-child{
 	padding-left:5px;
+	border-left: 1px solid #f1f1f1;
 }

@@ -188,23 +188,20 @@
 						continue;
 					}
 
-					$qTitleShort = mb_substr($qTitle,0,22,'utf-8'); // shorten question title to 22 chars
-					$qTitleShort2 = (strlen($qTitle)>50) ? htmlspecialchars(mb_substr($qTitle,0,50,'utf-8')) .'&hellip;' : htmlspecialchars($qTitle); // shorten question title			
-
 					$o .= '<li class="event-item">';
-					$o .= '<div class="event-icon pull-left '.$event_icon.'"></div>';
 					$o .= '<div class="event-inner">';	
 					
-					$o .= '<div class="avatar pull-left" data-handle="'.@$row['handle'].'" data-id="'. qa_handle_to_userid($row['handle']).'"><img src="'.ra_get_avatar(@$row['handle'], 15, false).'" /></div>';
+					$o .= '<div class="avatar pull-left" data-handle="'.@$row['handle'].'" data-id="'. qa_handle_to_userid($row['handle']).'"><img src="'.ra_get_avatar(@$row['handle'], 35, false).'" /><div class="event-icon pull-left '.$event_icon.'"></div></div>';
 						
 					$o .= '<div class="event-content">';			
-					$o .= '<strong>'.$usernameLink.' '.$eventName.' '.$time.'</strong>';			
+					$o .= '<p class="title"><strong>'.$usernameLink.'</strong> <span class="what">'.$eventName.'</span></p>';			
 					
 					if($row['event']=="badge_awarded")
-						$o .= '<strong class="event-title">'.$qTitleShort2.'</strong>';						
+						$o .= '<strong class="event-title">'.ra_truncate($qTitle,50).'</strong>';						
 					else
-						$o .= '<a class="event-title" href="'.$linkToPost.'">'.$qTitleShort2.'</a>';
+						$o .= '<a class="event-title" href="'.$linkToPost.'">'.ra_truncate($qTitle,50).'</a>';
 					
+					$o .= $time;	
 					$o .= '</div>';	
 					$o .= '</div>';	
 					$o .= '</li>';

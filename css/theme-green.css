@@ -21,8 +21,8 @@ a:hover{
 	color:#6E973C;
 }
 
-.qa-main .qa-nav-sub ul li a.qa-nav-sub-selected, .ra-ask-widget .ui-helper-hidden-accessible, .ra-tags-widget .widget-tag, .t-bg:hover, .top-users-list .top-user-data .points {
-    background: none repeat scroll 0 0 #FDAB0C;
+.qa-main .qa-nav-sub ul li a.qa-nav-sub-selected, .ra-ask-widget .ui-helper-hidden-accessible, .ra-tags-widget .widget-tag, .t-bg:hover, .top-users-list .top-user-data .points, .ra-activity .event-icon {
+    background: none repeat scroll 0 0 #f38955;
 }
 
 #site-header .navbar-form ::-webkit-input-placeholder { /* WebKit browsers */

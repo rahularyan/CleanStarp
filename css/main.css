@@ -1,7 +1,7 @@
 html body{
 	background:#F4F4F4;	
 	color:#656565;
-	font-size:16px;
+	font-size:13px;
 }
 
 *, *:before, *:after {
@@ -55,11 +55,12 @@ textarea:focus, input[type="text"]:focus , input[type="password"]:focus, select:
 
 body{
 	color:#666;
-	line-height: 30px;
+	line-height: 22px;
 }
 
 h1,h2,h3,h4,h5,h6, .qa-q-item-title{
-	font-family: 'Montserrat',Helvetica,Arial,sans-serif;
+    font-family: 'Open Sans',Helvetica,Arial,sans-serif;
+    font-weight: 700;
 }
 #site-header .container{
 	padding:0;
@@ -312,7 +313,10 @@ h1,h2,h3,h4,h5,h6, .qa-q-item-title{
   transition: all 0.5s ease 0s;
 }
 .navbar-default ul.user-nav{
-	padding:5px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    margin-top: 5px;
+    padding: 5px;
 }
 .navbar-default a#profile-link{
     float: right;
@@ -332,8 +336,14 @@ h1,h2,h3,h4,h5,h6, .qa-q-item-title{
     padding: 7px;
     text-align: center;
 }
-#menuLogin .profile-link.dropdown-toggle {
-    padding: 0;
+#menuLogin #profile-link {
+    background: rgba(0, 0, 0, 0.1);
+    padding: 2px;
+}
+.user-nav li a {
+    color: #999999;
+    font-size: 12px;
+    padding: 3px;
 }
 .nav-userbox .dropdown-menu.login-form {
   min-width: 180px;
@@ -755,7 +765,7 @@ ul.qa-nav-cat-list-4  > li.qa-nav-cat-item:first-child {
 
 }
 .widget .widget-title{
-    font-size: 18px;
+    font-size: 15px;
     margin: 0 0 15px;
 }
 
@@ -870,17 +880,22 @@ a.feed-link{
 	margin-bottom: 5px;
 }
 .qa-q-view{
-	padding:15px;
+
 }
 .question-title{
+    font-size: 25px;
+    font-weight: 600;
     line-height: 45px;
-    margin: 0 0 20px;
+    margin: 10px 0;
 }
 .qa-q-view .qa-q-view-wrap{
 	overflow:hidden;
 }
 .qa-q-view-inner{
-
+    color: #777777;
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 26px;
 }
 
 .qa-q-view-inner .qa-q-view-head {
@@ -1623,7 +1638,7 @@ table.page-users-list{
     margin: 9px 5px 0 -10px;
 }
 #registerform:before {
-    background: none repeat scroll 0 0 #EEEEEE;
+    background: #EEEEEE;
     content: "";
     display: block;
     height: 100%;
@@ -2252,7 +2267,7 @@ input[type=checkbox].on-off-checkbox{
     text-align: left;
 }
 .page-users-list .user-card-inner .activity i{
-    background: none repeat scroll 0 0 #FFFFFF;
+    background: #FFFFFF;
     border-radius: 2px;
     color: #777777;
     display: inline-block;
@@ -2322,7 +2337,7 @@ input[type=checkbox].on-off-checkbox{
 
 /* Buttons */
 .qa-form-tall-button-login, .qa-form-tall-button-send, .qa-form-tall-button-register{
-    background: none repeat scroll 0 0 #333333;
+    background: #333333;
     color: #FFFFFF;
     display: block;
     padding: 12px;
@@ -2438,7 +2453,7 @@ input[type=checkbox].on-off-checkbox{
     margin-bottom: 15px;
 }
 .widget.user-activities .question-list .activity-item .type{
-    background: none repeat scroll 0 0 #EEEEEE;
+    background: #EEEEEE;
     font-size: 20px;
     height: 30px;
     margin-right: 15px;
@@ -2543,22 +2558,54 @@ input[type=checkbox].on-off-checkbox{
 .ra-activity .event-item{
     font-size: 12px;
     line-height: 20px;
-    padding: 10px 0;
+    padding: 5px 0;
+    position: relative;
 }
-.ra-activity .event-content strong{
-
+.ra-activity .event-content .title{
+	color: #777777;
+    display: block;
+    font-family: 'open sans';
+    font-size: 13px;
+    font-weight: 400;
+    margin-bottom: 0;
 }
 .ra-activity .event-icon {
-    background: none repeat scroll 0 0 #EEEEEE;
-    border-radius: 50%;
+    border-radius: 3px;
+    color: rgba(0, 0, 0, 0.4);
     display: block;
-    font-size: 25px;
-    height: 35px;
-    line-height: 40px;
-    margin-right: 10px;
+    font-size: 15px;
+    height: 20px;
+    line-height: 24px;
+    position: absolute;
+    right: -8px;
     text-align: center;
-    width: 35px;
+    top: 25px;
+    width: 20px;
 }
 .ra-activity .event-inner{
+    border-bottom: 1px dotted #EEEEEE;
+    overflow: hidden;
+    padding-bottom: 10px;
+}
+.ra-activity .event-content{
 	overflow:hidden;
+}
+.ra-activity .avatar{
+    margin-right: 20px;
+    margin-top: 4px;
+    position: relative;
+}
+.ra-activity .event-title{
+    color: #999999;
+    font-size: 11px;
+}
+.ra-activity .time{
+    background: none repeat scroll 0 0 #EEEEEE;
+    border-radius: 2px;
+    color: #777777;
+    display: table;
+    font-size: 10px;
+    line-height: 15px;
+    margin-top: 5px;
+    padding: 0 7px;
 }

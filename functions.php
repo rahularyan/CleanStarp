@@ -407,20 +407,6 @@ function ra_register_widget_position($widget_array){
 	return;
 }
 
-function ra_position_active($name){
-	$widgets = unserialize(qa_opt('ra_widgets'));
-	$template = qa_request(1);
-	$template = (!empty($template) ? $template : 'home' );
-	if(is_array($widgets) && !empty($widgets[$name]) && isset($widgets[$name])){
-		foreach ($widgets[$name] as $t){			
-			if(isset($t['location'][$template]) && (bool)$t['location'][$template])
-				return true;
-		}
-		
-	}
-	return false;
-}
-
 function ra_get_template_array(){
 	return array(
 		'qa' 			=> 'QA',

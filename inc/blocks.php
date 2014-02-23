@@ -80,8 +80,7 @@
 			$this->output('<link rel="stylesheet" type="text/css" href="'.Q_THEME_URL.'/css/wide.css"/>');
 			$this->output('<link rel="stylesheet" type="text/css" href="'.Q_THEME_URL.'/css/responsive.css"/>');
 			$this->output('<link rel="stylesheet" type="text/css" href="'.Q_THEME_URL.'/css/theme-green.css"/>');
-			$this->output("<link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>");
-			$this->output("<link href='http://fonts.googleapis.com/css?family=Open+Sans:300,600,700' rel='stylesheet' type='text/css'>");
+
 			$this->output( '<style>' . qa_opt('ra_custom_style') . '</style>');
 		}
 		function body()
@@ -174,29 +173,29 @@
 			$this->notices();
 			$this->header();
 			
-			if(ra_position_active('Header Left') && ra_position_active('Header') && ra_position_active('Header Right'))
+			if($this->ra_position_active('Header Left') && $this->ra_position_active('Header') && $this->ra_position_active('Header Right'))
 				$class= 4;
-			elseif(ra_position_active('Header') && (ra_position_active('Header Left') || ra_position_active('Header Right'))){
+			elseif($this->ra_position_active('Header') && ($this->ra_position_active('Header Left') || $this->ra_position_active('Header Right'))){
 				$class= 5;
 			}
 			
-			if(ra_position_active('Header')){
+			if($this->ra_position_active('Header')){
 				$this->output('<div class="header-position-c container">');	
 				
 				$this->output('<h1 class="intro-title">Do you have questions ? We got the answers!</h1>');
 				
-				if(ra_position_active('Header Left')){
+				if($this->ra_position_active('Header Left')){
 					$this->output('<div class="col-md-'.$class.'">');	
 					$this->ra_position('Header Left');
 					$this->output('</div>');	
 				}
 				
-				if(ra_position_active('Header')){
+				if($this->ra_position_active('Header')){
 					$this->output('<div class="col-md-'.(12-@$class).'">');
 					$this->ra_position('Header');
 					$this->output('</div>');
 				}				
-				if(ra_position_active('Header Right')){
+				if($this->ra_position_active('Header Right')){
 					$this->output('<div class="col-md-'.$class.'">');	
 					$this->ra_position('Header Right');
 					$this->output('</div>');
@@ -292,14 +291,33 @@
 			if (qa_is_logged_in()) {
 			
 				?>
-				
-					<a id="profile-link" data-toggle="dropdown" href="<?php echo qa_path_html('user/' . qa_get_logged_in_handle()); ?>">
-						<?php
-						$LoggedinUserAvatar = ra_get_avatar(qa_get_logged_in_handle(), 30, false);
-						if (!empty($LoggedinUserAvatar))
-							echo '<img src="' . $LoggedinUserAvatar . '" />'; // in case there is no Avatar image and theme doesn't use a default avatar
-						?>
-					</a>
+				<ul class="nav navbar-nav navbar-avatar pull-right">
+					<li class="dropdown pull-right" id="menuLogin">
+						<a id="profile-link" data-toggle="dropdown" href="<?php echo qa_path_html('user/' . qa_get_logged_in_handle()); ?>">
+							<?php
+							$LoggedinUserAvatar = ra_get_avatar(qa_get_logged_in_handle(), 30, false);
+							if (!empty($LoggedinUserAvatar))
+								echo '<img src="' . $LoggedinUserAvatar . '" />'; // in case there is no Avatar image and theme doesn't use a default avatar
+							?>
+						</a>
+						<ul class="user-nav dropdown-menu">
+							<li class="points"><?php echo qa_get_logged_in_points(); ?></li>
+							<li><a class="icon-profile" href="<?php echo qa_path_html('user/' . qa_get_logged_in_handle()); ?>"><?php ra_lang('Profile'); ?></a></li>
+							<?php
+							foreach ($this->content['navigation']['user'] as $a) {
+								if (isset($a['url'])) {
+									$icon = (isset($a['icon']) ? ' class="' . $a['icon'] . '" ' : '');
+									echo '<li' . (isset($a['selected']) ? ' class="active"' : '') . '><a' . $icon . ' href="' . @$a['url'] . '" title="' . @$a['label'] . '">' . @$a['label'] . '</a></li>';
+								}
+							}
+							if (!isset($this->content['navigation']['user']['logout']['url'])) {
+								$link = qa_opt('site_url')."logout";
+								echo "<li><a class='icon-switch' href = '$link'> Logout </a></li>";
+							}
+							?>
+						</ul>
+					</li>
+				</ul>
 			
 			<?php } else { ?>				
 				<a class="btn btn-success login-register"  href="#" data-toggle="modal" data-target="#login-modal" ><i class="icon-lock"></i><span>Login/Register</span></a>
@@ -396,7 +414,7 @@
 		}
 		
 		function sidepanel() {
-			if(ra_position_active('Right')){
+			if($this->ra_position_active('Right')){
 				$this->output('<div class="col-sm-4 side-c">');
 				$this->output('<div class="qa-sidepanel">');
 					$this->ra_position('Right');
@@ -517,7 +535,7 @@
 			
 			$this->output('<div class="clearfix qa-main'.(@$this->content['hidden'] ? ' qa-main-hidden' : '').'">');
 
-			$this->output('<div class="col-sm-'.(ra_position_active('Right') ? '8' : '12').' list-c">');
+			$this->output('<div class="col-sm-'.($this->ra_position_active('Right') ? '8' : '12').' list-c">');
 			
 			if($this->template != 'question' && $this->template != 'user' && (!strlen(qa_request(1)) == 0) && (!empty($this->content['title']))){
 				$this->output(
@@ -568,21 +586,17 @@
 				
 				if($this->template != 'admin')
 					$this->nav('sub');	
-				$this->main_parts($content);
-					
-				$this->widgets('main', 'low');
+				$this->main_parts($content);					
 				
 				if($this->template != 'question')
 					$this->page_links();
 					
 				$this->suggest_next();
-				
-				$this->widgets('main', 'bottom');	
 			}
 			$this->ra_position('Content Bottom');
 			
 			$this->output('</div>');
-			if(ra_position_active('Right')){
+			if($this->ra_position_active('Right')){
 				$this->sidepanel();
 			}
 			$this->output('</div>');
@@ -601,11 +615,11 @@
 		
 		function home(){
 			$this->output('<div class="row">');
-			$this->output('<div class="col-md-7">');
+			$this->output('<div class="col-md-8">');
 				$this->ra_position('Home Top 1');
 			$this->output('</div>');
 			
-			$this->output('<div class="col-md-5">');
+			$this->output('<div class="col-md-4">');
 			$this->ra_position('Home Top 2');
 			$this->output('</div>');
 			$this->output('</div>');
@@ -1743,12 +1757,27 @@
 			if (!empty($q_items)) {
 				foreach ($q_items as $q_item)
 					$this->q_list_item($q_item);
-			}else
+			}/* else
 				$this->output('
 					<div class="no-items">
 						<h3 class="icon-sad">No questions found!</h3>
 						<p>Sorry we cannot display anything, query returns nothings.</p>
-					</div>');
+					</div>'); */
+		}
+		
+		function ra_position_active($name){
+			$widgets = unserialize(qa_opt('ra_widgets'));
+			$template = $this->template;
+			$template = (!empty($template) ? $template : 'home' );
+			
+			if(is_array($widgets) && !empty($widgets[$name]) && isset($widgets[$name])){
+				foreach ($widgets[$name] as $t){
+					if(isset($t['locations'][$template]) && (bool)$t['locations'][$template])
+						return true;
+				}
+				
+			}
+			return false;
 		}
 	}
 

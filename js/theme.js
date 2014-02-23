@@ -1,4 +1,22 @@
 // Tab for option page
+function ra_question_meta(){
+	$('#q_meta_save').click(function(e){
+		$.ajax({
+			data: {
+				ra_ajax: true,
+				ra_ajax_html: true,
+				featured_image: '',
+				featured_question: $('#option_featured_question').attr('checked'),
+				action: 'save_q_meta',
+			},
+			dataType: 'html',
+			success: function (response) {
+			},
+		});		
+		qa_hide_waiting(this);
+	});
+}
+
 function ra_tab(){
 	jQuery('.ra-option-tabs li a').click(function(e){
 		e.preventDefault();
@@ -422,6 +440,8 @@ $(document).ready(function(){
 	ra_tab();
 	ra_widgets();
 	back_to_top();
+	ra_question_meta();
+	
 	if ($('.ra-ask-widget').length>0)
 		ra_ask_box_autocomplete();
 	

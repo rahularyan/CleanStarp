@@ -1023,6 +1023,11 @@ a.feed-link{
     background: #0077C0;
     color: #FFFFFF;
 }
+.qa-form-light-button-features {
+    background: none repeat scroll 0 0 #0077C0;
+    color: #FFFFFF;
+	cursor: pointer;
+}
 .qa-c-item-buttons .qa-form-light-button{
     font-size: 11px;
     padding: 1px 7px;
@@ -2403,6 +2408,12 @@ input[type=radio]:checked + label {
 }
 .user-qac-list{
 	padding:0;
+}
+.question-meta {
+    border: 1px solid #DDDDDD;
+    border-radius: 5px;
+    margin: 10px 0 2px;
+    padding: 10px;
 }
 
 .widget.user-activities{

@@ -99,7 +99,7 @@ class qa_html_theme_layer extends qa_html_theme_base {
 				}
 				qa_opt('ra_advs',json_encode($ads));
 				
-				qa_opt('enable_adv_list', (bool)qa_post_text('option_ads_below_question_title'));
+				qa_opt('enable_adv_list', (bool)qa_post_text('option_enable_adv_list'));
 				qa_opt('ads_below_question_title', base64_encode($_REQUEST['option_ads_below_question_title']));
 				qa_opt('ads_after_question_content', base64_encode($_REQUEST['option_ads_after_question_content']));
 
@@ -229,7 +229,7 @@ if(isset($advs))
 				<input class="form-control" id="adv_adsense_' . $i . '" name="adv_adsense_' . $i . '" type="text" value="' . $adv['adv_adsense'] . '">
 				<span class="description">Display After this number of questions</span>
 				' . $adv_location .'
-				<button advid="' . $i . '" id="advremove" name="advremove" class="qa-form-tall-button pull-right btn" type="submit" onclick="return advremove(this);">Remove This Advertisement</button></td>
+				<button advid="' . $i . '" id="advremove" name="advremove" class="qa-form-tall-button advremove pull-right btn" type="submit">Remove This Advertisement</button></td>
 			</tr>';
 		} else {
 			if (!empty($adv['adv_image']))
@@ -257,7 +257,7 @@ if(isset($advs))
 					
 					<input type="hidden" value="' . @$adv['adv_image'] . '" id="adv_image_url_' .  $i . '" name="adv_image_url_' . $i . '">
 					
-					<button advid="' . $i . '" id="advremove" name="advremove" class="qa-form-tall-button pull-right btn" type="submit" onclick="return advremove(this);">Remove This Advertisement</button>
+					<button advid="' . $i . '" id="advremove" name="advremove" class="qa-form-tall-button advremove pull-right btn" type="submit">Remove This Advertisement</button>
 			</td>
 			</tr>';
 		} 
@@ -281,7 +281,7 @@ if(isset($social_fields))
 				$image = '<img src="' . $social_field['social_icon_file'] . '" class="image-preview">';
 			else
 				$image = '';
-			$social_content .= '<tr id="adv_box_' . $i . '">
+			$social_content .= '<tr id="soical_box_' . $i . '">
 			<th class="qa-form-tall-label">
 				Social Link #' . ($i+1) . '
 				<span class="description">choose Icon and link to your social profile</span>
@@ -298,8 +298,8 @@ if(isset($social_fields))
 					<div class="clearfix"></div>
 					' . $image . '<input id="ra_social_image_' . $i . '" class="btn btn-success" type="file" name="ra_social_image_' . $i . '">
 					<input type="hidden" value="' . @$social_field['social_icon_file'] . '" id="social_image_url_' .  $i . '" name="social_image_url_' . $i . '">
-					<button id="social_remove" class="qa-form-tall-button pull-right btn" onclick="return socialremove(this);" type="submit" name="social_remove" socialid="' .  $i . '">Remove This Link</button>
 				</div>
+				<button id="social_remove" class="qa-form-tall-button social_remove pull-right btn" type="submit" name="social_remove" socialid="' .  $i . '">Remove This Link</button>
 			</tr>';
 		}
 		$i++;

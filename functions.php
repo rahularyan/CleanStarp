@@ -533,3 +533,75 @@ function get_user_activity($handle, $limit = 10){
 	$output .= '</div>';
 	return $output;
 }
+
+function reset_theme_options(){
+	// General
+	qa_opt('ra_custom_style','');
+	//qa_opt('logo_url', ''); // reset to default url
+	//qa_opt('favicon_url', '');
+	qa_opt('google_analytics', '');	
+	qa_opt('ra_colla_comm', false);
+	qa_opt('show_real_name', true);
+	
+	// Layout
+	qa_opt('theme_layout', 'boxed');
+	qa_opt('users_table_layout', false);
+	qa_opt('ra_nav_fixed', true);	
+	qa_opt('ra_show_icon', true);	
+	qa_opt('ra_enable_except', false);
+	qa_opt('ra_except_len', 240);
+	qa_opt('ra_enable_avatar_lists', false);
+	if ((int)qa_opt('avatar_q_list_size')>0){
+		qa_opt('avatar_q_list_size',35);
+		qa_opt('ra_enable_avatar_lists', true);
+	}else
+		qa_opt('ra_enable_avatar_lists', false);
+	qa_opt('show_view_counts', false);
+	qa_opt('show_tags_list', true);
+	qa_opt('horizontal_voting_btns', false);
+	qa_opt('enble_back_to_top', true);
+	qa_opt('back_to_top_location', 'nav');
+	// Styling
+	qa_opt('styling_duplicate_question', false);
+	qa_opt('styling_solved_question', false);
+	qa_opt('styling_closed_question', false);
+	qa_opt('styling_open_question', false);
+	qa_opt('bg_select', false);
+	qa_opt('bg_color', '#F4F4F4');
+	qa_opt('text_color', '');
+	qa_opt('border_color', '#EEEEEE');
+	qa_opt('q_link_color', '');
+	qa_opt('q_link_hover_color', '');
+	qa_opt('nav_link_color', '');
+	qa_opt('nav_link_color_hover', '');
+	qa_opt('subnav_link_color', '');
+	qa_opt('subnav_link_color_hover', '');
+	qa_opt('link_color', '');
+	qa_opt('link_hover_color', '');
+	qa_opt('highlight_color', '');
+	qa_opt('highlight_bg_color', '');
+	
+	// Typography
+	$typo = array('h1','h2','h3','h4','h5','p','span','quote');
+	foreach($typo as $k ){
+		qa_opt('typo_options_family_' . $k , '');
+		qa_opt('typo_options_style_' . $k , '');
+		qa_opt('typo_options_size_' . $k , '');
+		qa_opt('typo_options_linehight_' . $k , '');
+		qa_opt('typo_options_backup_' . $k , '');
+	}
+	
+	// Social
+	qa_opt('ra_social_list','');
+	qa_opt('ra_social_enable', false);
+	
+	// Advertisement
+	qa_opt('ra_advs','');
+	qa_opt('enable_adv_list', false);
+	qa_opt('ads_below_question_title', '');
+	qa_opt('ads_after_question_content','');
+
+	// footer							
+	qa_opt('ra_ticker_data', '');				
+	qa_opt('footer_copyright', 'Copyright © 2014');
+}

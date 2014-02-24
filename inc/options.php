@@ -49,26 +49,10 @@ class qa_html_theme_layer extends qa_html_theme_base {
 			
 			$saved=false;
 			if (qa_clicked('ra_save_button')) {	
-				if ($_FILES['ra_logo_field']['size'] > 0){
-					if(getimagesize($_FILES['ra_logo_field']['tmp_name']) >0){
-						$url		= qa_opt('site_url').'qa-theme/'.qa_get_site_theme().'/images/';
-						$uploaddir 	= QA_THEME_DIR.qa_get_site_theme().'/images/';
-						$uploadfile = $uploaddir . basename($_FILES['ra_logo_field']['name']);
-						move_uploaded_file($_FILES['ra_logo_field']['tmp_name'], $uploadfile);
-						
-						qa_opt('ra_logo', $url.$_FILES['ra_logo_field']['name']);
-					}
-				}
-				if ($_FILES['ra_favicon_field']['size'] > 0){
-					if(getimagesize($_FILES['ra_favicon_field']['tmp_name']) >0){
-						$url		= qa_opt('site_url').'qa-theme/'.qa_get_site_theme().'/images/';
-						$uploaddir 	= QA_THEME_DIR.qa_get_site_theme().'/images/';
-						$uploadfile = $uploaddir . basename($_FILES['ra_favicon_field']['name']);
-						move_uploaded_file($_FILES['ra_favicon_field']['tmp_name'], $uploadfile);
-						
-						qa_opt('ra_favicon', $url.$_FILES['ra_favicon_field']['name']);
-					}
-				}
+				// General
+				qa_opt('favicon_url', qa_post_text('ra_favicon_field'));
+				qa_opt('logo_url', qa_post_text('ra_logo_field'));
+				
 				// Advertisment
 				$AdsCount = (int)qa_post_text('adv_number'); // number of advertisement items
 				$ads=array();
@@ -362,7 +346,9 @@ $ra_page = '
 					<span class="description">Upload your own logo.</span>
 				</th>
 				<td class="qa-form-tall-data">
-					<span class="qa-form-tall-static"><img src="'.qa_opt('ra_logo').'" class="image-preview"><input type="file" class="btn btn-success" id="ra_logo_field" name="ra_logo_field"></span>
+					'. (qa_opt('logo_url')?'<img id="logo-preview" class="logo-preview img-thumbnail" src="' . qa_opt('logo_url') . '">':'<img id="logo-preview" class="logo-preview img-thumbnail" style="display:none;" src="">') .'
+					<div id="logo_uploader">Upload</div>
+					<input id="ra_logo_field" type="hidden" name="ra_logo_field" value="' . qa_opt('logo_url') . '">
 				</td>
 			</tr>
 			<tr>
@@ -371,7 +357,9 @@ $ra_page = '
 					<span class="description">favicon image (32px32px).</span>
 				</th>
 				<td class="qa-form-tall-data">
-					<span class="qa-form-tall-static"><img src="'.qa_opt('ra_favicon').'" class="image-preview"><input type="file" class="btn btn-success" id="ra_favicon_field" name="ra_favicon_field"></span>
+					'. (qa_opt('favicon_url')?'<img id="favicon-preview" class="favicon-preview img-thumbnail" src="' . qa_opt('favicon_url') . '">':'<img id="favicon-preview" class="favicon-preview img-thumbnail" style="display:none;" src="">') .'
+					<div id="favicon_uploader">Upload</div>
+					<input id="ra_favicon_field" type="hidden" name="ra_favicon_field" value="' . qa_opt('favicon_url') . '">
 				</td>
 			</tr>
 			</tbody><tbody id="google_analytics">
@@ -1115,6 +1103,54 @@ $ra_page = '
 	</div>
 </div>
 </form>
+<script>
+$(document).ready(function(){
+	$("#logo_uploader").uploadFile({
+		url:"' . Q_THEME_URL . '/inc/upload.php",
+		allowedTypes:"png,gif,jpg,jpeg",
+		fileName:"myfile",
+		maxFileCount:1,
+		multiple:false,
+		showDelete: true,
+		onSuccess:function(files,data,xhr)
+		{
+			$("#ra_logo_field").val("' . Q_THEME_URL . '/uploads/" + data);
+			$("#logo-preview").attr("src","' . Q_THEME_URL .'/uploads/"+data);
+			$("#logo-preview").show();
+		},
+		deleteCallback:function(data, pd) {
+			$.post("' . Q_THEME_URL . '/inc/upload-delete.php", {op: "delete",name: data},
+					function (resp,textStatus, jqXHR) {
+							$("#logo-preview").hide(500);
+							$("#ra_logo_field").val("");
+					});
+			pd.statusbar.hide(500); //You choice.		
+		},
+	});
+	$("#favicon_uploader").uploadFile({
+		url:"' . Q_THEME_URL . '/inc/upload.php",
+		allowedTypes:"png,gif,jpg,jpeg",
+		fileName:"myfile",
+		maxFileCount:1,
+		multiple:false,
+		showDelete: true,
+		onSuccess:function(files,data,xhr)
+		{
+			$("#ra_favicon_field").val("' . Q_THEME_URL . '/uploads/" + data);
+			$("#favicon-preview").attr("src","' . Q_THEME_URL . '/uploads/" + data);
+			$("#favicon-preview").show();
+		},
+		deleteCallback:function(data, pd) {
+			$.post("' . Q_THEME_URL . '/inc/upload-delete.php", {op: "delete",name: data},
+					function (resp,textStatus, jqXHR) {
+							$("#favicon-preview").hide(500);
+							$("#ra_favicon_field").val("");
+					});
+			pd.statusbar.hide(500); //You choice.		
+		},
+	});
+});
+</script>
 ';
 			$this->content['custom'] = $ra_page;
 		}
@@ -1229,6 +1265,7 @@ $ra_page = '
 				$this->output('<script type="text/javascript" src="'.$this->rooturl.'js/admin.js"></script>');
 				$this->output('<script type="text/javascript" src="'.$this->rooturl.'js/spectrum.js"></script>'); // color picker
 				$this->output('<script type="text/javascript" src="'.$this->rooturl.'js/chosen.jquery.min.js"></script>'); // color picker
+				$this->output('<script type="text/javascript" src="'.$this->rooturl.'js/jquery.uploadfile.min.js"></script>'); // color picker
 			}
 		}
 		function head_css()

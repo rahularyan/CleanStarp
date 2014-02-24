@@ -62,11 +62,29 @@
 			);
 		}
 		
-		if (qa_get_logged_in_level()>=QA_USER_LEVEL_ADMIN)
+		if (qa_get_logged_in_level()>=QA_USER_LEVEL_ADMIN){
+			if(!(bool)qa_opt('ra_init')){ // theme init 
+				ra_register_widget_position(
+					array(
+						'Top' => 'Before navbar', 
+						'Header' => 'After navbar', 
+						'Header left' => 'Left side of header', 
+						'Header Right' => 'Right side of header', 
+						'Left' => 'Right side below menu', 
+						'Content Top' => 'Before questions list', 
+						'Content Bottom' => 'After questions lists', 
+						'Right' => 'Right side of content', 
+						'Bottom' => 'Below content and before footer',
+						'Home Top' => 'Top content in home',
+						'Home Middle' => 'Middle content in home',
+						'Home Bottom' => 'Bottom content in home'
+					)
+				);
+				reset_theme_options();
+			}
 			qa_register_layer('/inc/options.php', 'Theme Options', Q_THEME_DIR , Q_THEME_URL );	
-		
-		if (qa_get_logged_in_level()>=QA_USER_LEVEL_ADMIN)
 			qa_register_layer('/inc/widgets.php', 'Theme Widgets', Q_THEME_DIR , Q_THEME_URL );
+		}		
 			
 		qa_register_module('widget', '/inc/widget_ask.php', 'ra_ask_widget', 'RA Ajax Ask', Q_THEME_DIR, Q_THEME_URL);
 		qa_register_module('widget', '/inc/widget_tags.php', 'cs_tags_widget', 'RA Tags', Q_THEME_DIR, Q_THEME_URL);

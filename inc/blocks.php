@@ -276,10 +276,7 @@
 		
 		function logo()
 		{
-			if (qa_opt('ra_logo')) 
-				$logo = qa_opt('ra_logo');
-			else
-				$logo = Q_THEME_URL.'/images/logo.png';
+			$logo = qa_opt('logo_url');
 			$this->output(
 				'<div class="site-logo">',
 					'<a class="navbar-brand" title="'.strip_tags($this->content['logo']).'" href="'.get_base_url().'">
@@ -1751,53 +1748,70 @@
 			$postid = @$this->content["q_view"]["raw"]["postid"];
 			if ( ($this->template=='question') && (qa_get_logged_in_level()>=QA_USER_LEVEL_ADMIN) && (!empty($postid)) ){
 				require_once QA_INCLUDE_DIR.'qa-db-metas.php';
-				$featured_image = qa_db_postmeta_get($postid, 'featured_image');
-				if (empty($featured_image)){
+				$featured_image_name = qa_db_postmeta_get($postid, 'featured_image');
+				if (empty($featured_image_name)){
 					$featured_image = Q_THEME_URL . '/images/featured-preview.jpg';
 				}else{
-					$featured_image = Q_THEME_URL . '/uploads/' . $featured_image;
+					$featured_image = Q_THEME_URL . '/uploads/' . $featured_image_name;
 				}
 				$this->output('
 					<div class="question-meta" id="question-meta">
-						<table class="qa-form-tall-table">
-						<tbody>
-							<tr>
-								<td class="qa-form-tall-label">
-									<label>
-										<input' . (qa_db_postmeta_get($postid, 'featured_question') ? ' checked=""' : '') . ' id="option_featured_question" class="qa-form-tall-checkbox" type="checkbox" value="1" name="option_featured_question">
-										Make this a Featured Question!
-									</label>
-								</td>
-							</tr>
-							<tr>
-								<td class="qa-form-tall-label">
-									<label>Featured Image</label>
-									<img id="image-preview" class="image-preview img-thumbnail" src="' . $featured_image . '" >
-									<div id="fileuploader">Upload</div>
-								</td>
-							</tr>
-						</tbody>
-						</table>
-						<div id="question-meta-input"></div>
+						<label>
+
+
+
+
+
+							<input' . (qa_db_postmeta_get($postid, 'featured_question') ? ' checked=""' : '') . ' id="option_featured_question" class="qa-form-tall-checkbox" type="checkbox" value="1" name="option_featured_question">
+							Make this a Featured Question!
+						</label>
+						<div class="clearfix"></div>
+
+
+
+
+						<label>Featured Image</label>
+						<img id="image-preview" class="image-preview img-thumbnail" src="' . $featured_image . '" >
+						<div id="fileuploader">Upload</div>
+						<btn id="q_meta_remove_featured_image" class="qa-form-light-button qa-form-light-button-features" title="Remove featured image" type="submit" name="q_meta_remove_featured_image">Remove Featured image</btn>
+
+
+
+
+
 						<hr>
-						<btn id="q_meta_save" class="qa-form-light-button qa-form-light-button-features" value="answer" title="Answer this question" type="submit" name="q_meta_save" onclick="qa_show_waiting_after(this, false);">Save</btn>
+						<input id="featured_image" type="hidden" name="featured_image" value="' . $featured_image . '">
+						<btn id="q_meta_save" class="qa-form-light-button qa-form-light-button-features" title="Save" type="submit" name="q_meta_save" onclick="qa_show_waiting_after(this, false);">Save</btn>
 					</div>
 					<script>
 						$(document).ready(function(){
+							$("#q_meta_remove_featured_image").click(function(e){
+								$("#featured_image").val("");
+								$("#image-preview").attr("src","' . Q_THEME_URL .'/images/featured-preview.jpg");
+							});
 							$("#fileuploader").uploadFile({
 								url:"' . Q_THEME_URL . '/inc/upload.php",
 								allowedTypes:"png,gif,jpg,jpeg",
 								fileName:"myfile",
-								showDone:false,
+
 								maxFileCount:1,
 								multiple:false,
 								showDelete: true,
 								onSuccess:function(files,data,xhr)
 								{
-									$("#question-meta-input").html(\'<input type="hidden" value="\' + data +\'" name="featured_image" id="featured_image">\');
+									$("#featured_image").val(data);
 									$("#image-preview").attr("src","' . Q_THEME_URL .'/uploads/"+data);
 								},
+								deleteCallback:function(data, pd) {
+									$.post("' . Q_THEME_URL . '/inc/upload-delete.php", {op: "delete",name: data},
+											function (resp,textStatus, jqXHR) {
+													$("#image-preview").attr("src","' . Q_THEME_URL .'/images/featured-preview.jpg");
+													$("#featured_image").val("");
+											});
+									pd.statusbar.hide(500); //You choice.		
+								},
 							});
+
 						});
 					</script>
 				');
@@ -1812,7 +1826,9 @@
 			if( ($this->template=='question') && (qa_get_logged_in_level()>=QA_USER_LEVEL_ADMIN) ){
 				if(!empty($featured_image)){
 					qa_db_postmeta_set($postid, 'featured_image', $featured_image);
-				}
+				}else
+					qa_db_postmeta_clear($postid, 'featured_image');
+
 				if(isset($featured_question))
 					qa_db_postmeta_set($postid, 'featured_question', true);
 				else

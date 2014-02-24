@@ -17,15 +17,6 @@ class qa_html_theme_layer extends qa_html_theme_base {
 		qa_html_theme_base::qa_html_theme_base($template, $content, $rooturl, $request);
 	}
 	
-	function option_default($option)
-	{
-		if ($option=='option_ra_home_layout'):
-			return 'modern';
-		elseif($option == 'ra_logo'):
-			return qa_opt('site_url').'qa-theme/'.qa_get_site_theme().'/images/logo.png';
-		endif;
-	}
-	
 	function doctype(){
 		// Setup Navigation
 		global $qa_request;
@@ -48,10 +39,90 @@ class qa_html_theme_layer extends qa_html_theme_base {
 			$normal_fonts = array("Arial, Helvetica, sans-serif" => "Arial, Helvetica, sans-serif","'Arial Black', Gadget, sans-serif" => "'Arial Black', Gadget, sans-serif","'Bookman Old Style', serif" => "'Bookman Old Style', serif","'Comic Sans MS', cursive" => "'Comic Sans MS', cursive","Courier, monospace" => "Courier, monospace","Garamond, serif"  => "Garamond, serif","Georgia, serif" => "Georgia, serif","Impact, Charcoal, sans-serif" => "Impact, Charcoal, sans-serif","'Lucida Console', Monaco, monospace" => "'Lucida Console', Monaco, monospace","'Lucida Sans Unicode', 'Lucida Grande', sans-serif" => "'Lucida Sans Unicode', 'Lucida Grande', sans-serif","'MS Sans Serif', Geneva, sans-serif" => "'MS Sans Serif', Geneva, sans-serif","'MS Serif', 'New York', sans-serif" => "'MS Serif', 'New York', sans-serif","'Palatino Linotype', 'Book Antiqua', Palatino, serif" => "'Palatino Linotype', 'Book Antiqua', Palatino, serif","Tahoma,Geneva, sans-serif"  => "Tahoma, Geneva, sans-serif","'Times New Roman', Times,serif" => "'Times New Roman', Times, serif","'Trebuchet MS', Helvetica, sans-serif" => "'Trebuchet MS', Helvetica, sans-serif","Verdana, Geneva, sans-serif" => "Verdana, Geneva, sans-serif",);
 			
 			$saved=false;
+			if (qa_clicked('ra_reset_button')) {	
+				reset_theme_options();
+				$saved = 'Settings saved';
+			}
 			if (qa_clicked('ra_save_button')) {	
 				// General
-				qa_opt('favicon_url', qa_post_text('ra_favicon_field'));
 				qa_opt('logo_url', qa_post_text('ra_logo_field'));
+				qa_opt('favicon_url', qa_post_text('ra_favicon_field'));
+				qa_opt('google_analytics', qa_post_text('option_google_analytics'));	
+				qa_opt('ra_colla_comm', (bool)qa_post_text('option_ra_colla_comm'));
+				qa_opt('show_real_name', (bool)qa_post_text('option_show_real_name'));
+				
+				//Layout
+				qa_opt('theme_layout', qa_post_text('option_theme_layout'));
+				qa_opt('users_table_layout', (bool)qa_post_text('option_users_table_layout'));
+				qa_opt('ra_nav_fixed', (bool)qa_post_text('option_ra_nav_fixed'));	
+				qa_opt('ra_show_icon', (bool)qa_post_text('option_ra_show_icon'));	
+				qa_opt('ra_enable_except', (bool)qa_post_text('option_ra_enable_except'));
+				qa_opt('ra_except_len', (int)qa_post_text('option_ra_except_len'));
+				qa_opt('ra_enable_avatar_lists', (bool)qa_post_text('option_ra_enable_avatar_lists'));
+				if (qa_opt('ra_enable_avatar_lists'))
+					qa_opt('avatar_q_list_size',35);
+				else
+					qa_opt('avatar_q_list_size',0); // set avatar size to zero so Q2A won't load them
+				qa_opt('show_view_counts', (bool)qa_post_text('option_ra_enable_views_lists'));
+				qa_opt('show_tags_list', (bool)qa_post_text('option_show_tags_list'));
+				qa_opt('horizontal_voting_btns', (bool)qa_post_text('option_horizontal_voting_btns'));
+				qa_opt('enble_back_to_top', (bool)qa_post_text('option_enble_back_to_top'));
+				qa_opt('back_to_top_location', qa_post_text('option_back_to_top_location'));
+
+				qa_opt('ra_home_layout', qa_post_text('option_ra_home_layout'));				
+				qa_opt('ra_list_layout', qa_post_text('option_ra_list_layout'));
+				qa_opt('ra_nav_parent_font_size', qa_post_text('option_ra_nav_parent_font_size'));	
+				qa_opt('ra_nav_child_font_size', qa_post_text('option_ra_nav_child_font_size'));	
+
+				// Styling
+				qa_opt('styling_duplicate_question', (bool)qa_post_text('option_styling_duplicate_question'));
+				qa_opt('styling_solved_question', (bool)qa_post_text('option_styling_solved_question'));
+				qa_opt('styling_closed_question', (bool)qa_post_text('option_styling_closed_question'));
+				qa_opt('styling_open_question', (bool)qa_post_text('option_styling_open_question'));
+				qa_opt('bg_select', qa_post_text('option_bg_select'));
+				qa_opt('bg_color', qa_post_text('option_bg_color'));
+				qa_opt('text_color', qa_post_text('option_text_color'));
+				qa_opt('border_color', qa_post_text('option_border_color'));
+				qa_opt('q_link_color', qa_post_text('option_q_link_color'));
+				qa_opt('q_link_hover_color', qa_post_text('option_q_link_hover_color'));
+				qa_opt('nav_link_color', qa_post_text('option_nav_link_color'));
+				qa_opt('nav_link_color_hover', qa_post_text('option_nav_link_color_hover'));
+				qa_opt('subnav_link_color', qa_post_text('option_subnav_link_color'));
+				qa_opt('subnav_link_color_hover', qa_post_text('option_subnav_link_color_hover'));
+				qa_opt('link_color', qa_post_text('option_link_color'));
+				qa_opt('link_hover_color', qa_post_text('option_link_hover_color'));
+				qa_opt('highlight_color', qa_post_text('option_highlight_color'));
+				qa_opt('highlight_bg_color', qa_post_text('option_highlight_bg_color'));
+				require_once($this->theme_directory . '/inc/styles.php'); // Generate customized CSS styling				
+				
+				// Typography
+				$typo_options = $_POST['typo_option'];
+				foreach ($typo_options as $k => $options){
+					qa_opt('typo_options_family_' . $k , $options['family']);
+					qa_opt('typo_options_style_' . $k , $options['style']);
+					qa_opt('typo_options_size_' . $k , $options['size']);
+					qa_opt('typo_options_linehight_' . $k , $options['linehight']);
+					qa_opt('typo_options_backup_' . $k , $options['backup']);
+				}
+				
+				// Social
+				$SocialCount = (int)qa_post_text('social_count'); // number of advertisement items
+				$social_links=array();
+				$i=0;
+				while(($SocialCount>0) and ($i<100)){ // don't create an infinite loop
+					if (null !== qa_post_text('social_link_' . $i)){
+						$social_links[$i]['social_link'] = qa_post_text('social_link_' . $i);
+						$social_links[$i]['social_title'] = qa_post_text('social_title_' . $i);
+						$social_links[$i]['social_icon'] = qa_post_text('social_icon_' . $i);
+						if (($social_links[$i]['social_icon'] == '1') && (null !== qa_post_text('social_image_url_' . $i))){
+							$social_links[$i]['social_icon_file'] =  qa_post_text('social_image_url_' . $i);
+						}
+						$SocialCount--;
+					}
+					$i++;
+				}
+				qa_opt('ra_social_list',json_encode($social_links));
+				qa_opt('ra_social_enable', (bool)qa_post_text('option_ra_social_enable'));
 				
 				// Advertisement
 				$AdsCount = (int)qa_post_text('adv_number'); // number of advertisement items
@@ -76,103 +147,18 @@ class qa_html_theme_layer extends qa_html_theme_base {
 					$i++;
 				}
 				qa_opt('ra_advs',json_encode($ads));
-				
 				qa_opt('enable_adv_list', (bool)qa_post_text('option_enable_adv_list'));
 				qa_opt('ads_below_question_title', base64_encode($_REQUEST['option_ads_below_question_title']));
 				qa_opt('ads_after_question_content', base64_encode($_REQUEST['option_ads_after_question_content']));
 
-				//general
-				qa_opt('google_analytics', qa_post_text('option_google_analytics'));	
-				qa_opt('ra_colla_comm', (bool)qa_post_text('option_ra_colla_comm'));
-				qa_opt('show_real_name', (bool)qa_post_text('option_show_real_name'));
-				qa_opt('users_table_layout', (bool)qa_post_text('option_users_table_layout'));
-				qa_opt('theme_layout', qa_post_text('option_theme_layout'));
-				
-				//Layout
-				qa_opt('ra_home_layout', qa_post_text('option_ra_home_layout'));				
-				qa_opt('ra_enable_except', (bool)qa_post_text('option_ra_enable_except'));
-				qa_opt('ra_except_len', (int)qa_post_text('option_ra_except_len'));
-				qa_opt('horizontal_voting_btns', (bool)qa_post_text('option_horizontal_voting_btns'));
-				qa_opt('enble_back_to_top', (bool)qa_post_text('option_enble_back_to_top'));
-				qa_opt('back_to_top_location', qa_post_text('option_back_to_top_location'));
-				qa_opt('ra_enable_avatar_lists', (bool)qa_post_text('option_ra_enable_avatar_lists'));
-				if (qa_opt('ra_enable_avatar_lists'))
-					qa_opt('avatar_q_list_size',35);
-				else
-					qa_opt('avatar_q_list_size',0); // set avatar size to zero so Q2A won't load them
-				qa_opt('show_view_counts', (bool)qa_post_text('option_ra_enable_views_lists'));
-				qa_opt('show_tags_list', (bool)qa_post_text('option_show_tags_list'));
-
-				// Styling
-				qa_opt('styling_duplicate_question', (bool)qa_post_text('option_styling_duplicate_question'));
-				qa_opt('styling_solved_question', (bool)qa_post_text('option_styling_solved_question'));
-				qa_opt('styling_closed_question', (bool)qa_post_text('option_styling_closed_question'));
-				qa_opt('styling_open_question', (bool)qa_post_text('option_styling_open_question'));
-				qa_opt('bg_select', qa_post_text('option_bg_select'));
-				qa_opt('bg_color', qa_post_text('option_bg_color'));
-				qa_opt('text_color', qa_post_text('option_text_color'));
-				qa_opt('border_color', qa_post_text('option_border_color'));
-				qa_opt('q_link_color', qa_post_text('option_q_link_color'));
-				qa_opt('q_link_hover_color', qa_post_text('option_q_link_hover_color'));
-				qa_opt('nav_link_color', qa_post_text('option_nav_link_color'));
-				qa_opt('nav_link_color_hover', qa_post_text('option_nav_link_color_hover'));
-				qa_opt('subnav_link_color', qa_post_text('option_subnav_link_color'));
-				qa_opt('subnav_link_color_hover', qa_post_text('option_subnav_link_color_hover'));
-				qa_opt('link_color', qa_post_text('option_link_color'));
-				qa_opt('link_hover_color', qa_post_text('option_link_hover_color'));
-				qa_opt('highlight_color', qa_post_text('option_highlight_color'));
-				qa_opt('highlight_bg_color', qa_post_text('option_highlight_bg_color'));
-				require_once($this->theme_directory . '/inc/styles.php'); // Generate customized CSS styling				
-				//color
-				qa_opt('ask_btn_bg', qa_post_text('option_ask_btn_bg'));	
-				
-				// Typography
-				$typo_options = $_POST['typo_option'];
-				foreach ($typo_options as $k => $options){
-					qa_opt('typo_options_family_' . $k , $options['family']);
-					qa_opt('typo_options_style_' . $k , $options['style']);
-					qa_opt('typo_options_size_' . $k , $options['size']);
-					qa_opt('typo_options_linehight_' . $k , $options['linehight']);
-					qa_opt('typo_options_backup_' . $k , $options['backup']);
-				}
-				
-				//list
-				qa_opt('ra_list_layout', qa_post_text('option_ra_list_layout'));
-
-				
-				// Navigation
-				qa_opt('ra_nav_fixed', (bool)qa_post_text('option_ra_nav_fixed'));	
-				qa_opt('ra_show_icon', (bool)qa_post_text('option_ra_show_icon'));	
-				qa_opt('ra_nav_parent_font_size', qa_post_text('option_ra_nav_parent_font_size'));	
-				qa_opt('ra_nav_child_font_size', qa_post_text('option_ra_nav_child_font_size'));	
-				
-				// bootstrap							
+				// footer							
 				qa_opt('ra_ticker_data', qa_post_text('option_ra_ticker_data'));				
+				qa_opt('footer_copyright', qa_post_text('option_footer_copyright'));
 
 				
-				qa_opt('footer_copyright', qa_post_text('option_footer_copyright'));
-				
-				// Social
-				$SocialCount = (int)qa_post_text('social_count'); // number of advertisement items
-				$social_links=array();
-				$i=0;
-				while(($SocialCount>0) and ($i<100)){ // don't create an infinite loop
-					if (null !== qa_post_text('social_link_' . $i)){
-						$social_links[$i]['social_link'] = qa_post_text('social_link_' . $i);
-						$social_links[$i]['social_title'] = qa_post_text('social_title_' . $i);
-						$social_links[$i]['social_icon'] = qa_post_text('social_icon_' . $i);
-						if (($social_links[$i]['social_icon'] == '1') && (null !== qa_post_text('social_image_url_' . $i))){
-							$social_links[$i]['social_icon_file'] =  qa_post_text('social_image_url_' . $i);
-						}
-						$SocialCount--;
-					}
-					$i++;
-				}
-				qa_opt('ra_social_list',json_encode($social_links));
-				qa_opt('ra_social_enable', (bool)qa_post_text('option_ra_social_enable'));
 				$saved=true;
+				$saved = 'Settings saved';
 			}
-$saved ? 'Settings saved' : null;
 
 // Load Advertisements
 $advs = json_decode( qa_opt('ra_advs') , true);

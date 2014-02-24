@@ -276,10 +276,7 @@
 		
 		function logo()
 		{
-			if (qa_opt('ra_logo')) 
-				$logo = qa_opt('ra_logo');
-			else
-				$logo = Q_THEME_URL.'/images/logo.png';
+			$logo = qa_opt('logo_url');
 			$this->output(
 				'<div class="site-logo">',
 					'<a class="navbar-brand" title="'.strip_tags($this->content['logo']).'" href="'.get_base_url().'">

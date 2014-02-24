@@ -17,15 +17,6 @@ class qa_html_theme_layer extends qa_html_theme_base {
 		qa_html_theme_base::qa_html_theme_base($template, $content, $rooturl, $request);
 	}
 	
-	function option_default($option)
-	{
-		if ($option=='option_ra_home_layout'):
-			return 'modern';
-		elseif($option == 'ra_logo'):
-			return qa_opt('site_url').'qa-theme/'.qa_get_site_theme().'/images/logo.png';
-		endif;
-	}
-	
 	function doctype(){
 		// Setup Navigation
 		global $qa_request;

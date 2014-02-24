@@ -537,7 +537,8 @@ function get_user_activity($handle, $limit = 10){
 function reset_theme_options(){
 	// General
 	qa_opt('ra_custom_style','');
-	//qa_opt('logo_url', ''); // reset to default url
+	qa_opt('logo_show', true);
+	qa_opt('logo_url', qa_opt('site_url').'qa-theme/'.qa_get_site_theme().'/images/logo.png');
 	//qa_opt('favicon_url', '');
 	qa_opt('google_analytics', '');	
 	qa_opt('ra_colla_comm', false);

@@ -49,27 +49,11 @@ class qa_html_theme_layer extends qa_html_theme_base {
 			
 			$saved=false;
 			if (qa_clicked('ra_save_button')) {	
-				if ($_FILES['ra_logo_field']['size'] > 0){
-					if(getimagesize($_FILES['ra_logo_field']['tmp_name']) >0){
-						$url		= qa_opt('site_url').'qa-theme/'.qa_get_site_theme().'/images/';
-						$uploaddir 	= QA_THEME_DIR.qa_get_site_theme().'/images/';
-						$uploadfile = $uploaddir . basename($_FILES['ra_logo_field']['name']);
-						move_uploaded_file($_FILES['ra_logo_field']['tmp_name'], $uploadfile);
-						
-						qa_opt('ra_logo', $url.$_FILES['ra_logo_field']['name']);
-					}
-				}
-				if ($_FILES['ra_favicon_field']['size'] > 0){
-					if(getimagesize($_FILES['ra_favicon_field']['tmp_name']) >0){
-						$url		= qa_opt('site_url').'qa-theme/'.qa_get_site_theme().'/images/';
-						$uploaddir 	= QA_THEME_DIR.qa_get_site_theme().'/images/';
-						$uploadfile = $uploaddir . basename($_FILES['ra_favicon_field']['name']);
-						move_uploaded_file($_FILES['ra_favicon_field']['tmp_name'], $uploadfile);
-						
-						qa_opt('ra_favicon', $url.$_FILES['ra_favicon_field']['name']);
-					}
-				}
-				// Advertisment
+				// General
+				qa_opt('favicon_url', qa_post_text('ra_favicon_field'));
+				qa_opt('logo_url', qa_post_text('ra_logo_field'));
+				
+				// Advertisement
 				$AdsCount = (int)qa_post_text('adv_number'); // number of advertisement items
 				$ads=array();
 				$i=0;
@@ -81,13 +65,7 @@ class qa_html_theme_layer extends qa_html_theme_base {
 						$AdsCount--;
 					}elseif ( (@getimagesize(@$_FILES['ra_adv_image_' . $i]['tmp_name']) >0) or (null !== qa_post_text('adv_image_title_' . $i)) or (null !== qa_post_text('adv_image_link_' . $i)) or (null !== qa_post_text('adv_location_' . $i)) ) {
 						// add static ads
-						if(@getimagesize(@$_FILES['ra_adv_image_' . $i]['tmp_name']) >0){
-							$url		= qa_opt('site_url').'qa-theme/'.qa_get_site_theme().'/images/';
-							$uploaddir 	= QA_THEME_DIR.qa_get_site_theme().'/images/';
-							$uploadfile = $uploaddir . basename($_FILES['ra_adv_image_' . $i]['name']);
-							move_uploaded_file($_FILES['ra_adv_image_' . $i]['tmp_name'], $uploadfile);
-							$ads[$i]['adv_image'] = $url.$_FILES['ra_adv_image_' . $i]['name'];
-						}else if(null !== qa_post_text('adv_image_url_' . $i)){
+						if(null !== qa_post_text('adv_image_url_' . $i)){
 							$ads[$i]['adv_image'] =  qa_post_text('adv_image_url_' . $i);
 						}
 						$ads[$i]['adv_image_title'] = qa_post_text('adv_image_title_' . $i);
@@ -99,7 +77,7 @@ class qa_html_theme_layer extends qa_html_theme_base {
 				}
 				qa_opt('ra_advs',json_encode($ads));
 				
-				qa_opt('enable_adv_list', (bool)qa_post_text('option_ads_below_question_title'));
+				qa_opt('enable_adv_list', (bool)qa_post_text('option_enable_adv_list'));
 				qa_opt('ads_below_question_title', base64_encode($_REQUEST['option_ads_below_question_title']));
 				qa_opt('ads_after_question_content', base64_encode($_REQUEST['option_ads_after_question_content']));
 
@@ -174,7 +152,7 @@ class qa_html_theme_layer extends qa_html_theme_base {
 				
 				qa_opt('footer_copyright', qa_post_text('option_footer_copyright'));
 				
-				// Advertisment
+				// Social
 				$SocialCount = (int)qa_post_text('social_count'); // number of advertisement items
 				$social_links=array();
 				$i=0;
@@ -183,16 +161,8 @@ class qa_html_theme_layer extends qa_html_theme_base {
 						$social_links[$i]['social_link'] = qa_post_text('social_link_' . $i);
 						$social_links[$i]['social_title'] = qa_post_text('social_title_' . $i);
 						$social_links[$i]['social_icon'] = qa_post_text('social_icon_' . $i);
-						if ($social_links[$i]['social_icon'] == '1'){
-							if(@getimagesize(@$_FILES['ra_social_image_' . $i]['tmp_name']) >0){
-								$url		= Q_THEME_URL.'/images/';
-								$uploaddir 	= Q_THEME_DIR.'/images/';
-								$uploadfile = $uploaddir . basename($_FILES['ra_social_image_' . $i]['name']);
-								move_uploaded_file($_FILES['ra_social_image_' . $i]['tmp_name'], $uploadfile);
-								$social_links[$i]['social_icon_file'] = $url.$_FILES['ra_social_image_' . $i]['name'];
-							}else if(null !== qa_post_text('social_image_url_' . $i)){
-								$social_links[$i]['social_icon_file'] =  qa_post_text('social_image_url_' . $i);
-							}
+						if (($social_links[$i]['social_icon'] == '1') && (null !== qa_post_text('social_image_url_' . $i))){
+							$social_links[$i]['social_icon_file'] =  qa_post_text('social_image_url_' . $i);
 						}
 						$SocialCount--;
 					}
@@ -229,35 +199,37 @@ if(isset($advs))
 				<input class="form-control" id="adv_adsense_' . $i . '" name="adv_adsense_' . $i . '" type="text" value="' . $adv['adv_adsense'] . '">
 				<span class="description">Display After this number of questions</span>
 				' . $adv_location .'
-				<button advid="' . $i . '" id="advremove" name="advremove" class="qa-form-tall-button pull-right btn" type="submit" onclick="return advremove(this);">Remove This Advertisement</button></td>
+				<button advid="' . $i . '" id="advremove" name="advremove" class="qa-form-tall-button advremove pull-right btn" type="submit">Remove This Advertisement</button></td>
 			</tr>';
 		} else {
 			if (!empty($adv['adv_image']))
-				$image = '<img src="' . $adv['adv_image'] . '" class="image-preview">';
+				$image = '<img id="adv_preview_' . $i . '" src="' . $adv['adv_image'] . '" class="adv-preview img-thumbnail">';
 			else
-				$image = '';
+				$image = '<img id="adv_preview_' . $i . '" src="" class="adv-preview img-thumbnail" style="display:none;">';
 			$adv_content .= '<tr id="adv_box_' . $i . '">
 			<th class="qa-form-tall-label">
 				Advertisement #' . ($i+1) . '
 				<span class="description">static advertisement</span>
 			</th>
 			<td class="qa-form-tall-data">
-				<span class="description">upload advertisement image</span>
-					<div class="clearfix"></div>
-					' . $image . '<input type="file" class="btn btn-success" id="ra_adv_image_' . $i . '" name="ra_adv_image_' . $i . '">
-					<span class="description">Image Title</span>
-					
-					<input class="form-control" type="text" id="adv_image_title_' . $i . '" name="adv_image_title_' . $i . '" value="' . @$adv['adv_image_title'] . '">
-					<span class="description">Image link</span>
-					
-					<input class="form-control" id="adv_image_link_' . $i . '" name="adv_image_link_' . $i . '" type="text" value="' . @$adv['adv_image_link'] . '">
-					<span class="description">Display After this number of questions</span>
-					
-					' . $adv_location .'
-					
-					<input type="hidden" value="' . @$adv['adv_image'] . '" id="adv_image_url_' .  $i . '" name="adv_image_url_' . $i . '">
-					
-					<button advid="' . $i . '" id="advremove" name="advremove" class="qa-form-tall-button pull-right btn" type="submit" onclick="return advremove(this);">Remove This Advertisement</button>
+				<div class="clearfix"></div>
+				' . $image . '
+				<div class="clearfix"></div>
+				<div id="adv_image_uploader_' . $i . '">Upload Icon</div>
+				<input type="hidden" value="' . @$adv['social_icon_file'] . '" id="social_image_url_' .  $i . '" name="social_image_url_' . $i . '">
+				
+				<span class="description">Image Title</span>
+				<input class="form-control" type="text" id="adv_image_title_' . $i . '" name="adv_image_title_' . $i . '" value="' . @$adv['adv_image_title'] . '">
+				<span class="description">Image link</span>
+				
+				<input class="form-control" id="adv_image_link_' . $i . '" name="adv_image_link_' . $i . '" type="text" value="' . @$adv['adv_image_link'] . '">
+				<span class="description">Display After this number of questions</span>
+				
+				' . $adv_location .'
+				
+				<input type="hidden" value="' . @$adv['adv_image'] . '" id="adv_image_url_' .  $i . '" name="adv_image_url_' . $i . '">
+				
+				<button advid="' . $i . '" id="advremove" name="advremove" class="qa-form-tall-button advremove pull-right btn" type="submit">Remove This Advertisement</button>
 			</td>
 			</tr>';
 		} 
@@ -278,10 +250,10 @@ if(isset($social_fields))
 		$social_icon_list = '<select id="social_icon_' . $i . '" name="social_icon_' . $i . '" class="qa-form-wide-select  social-select" sociallistid="' . $i . '">' . $list_options . '</select>';
 		if (isset($social_field['social_link'])){
 			if ( (!empty($social_field['social_icon_file'])) and (@$social_field['social_icon']=='1') )
-				$image = '<img src="' . $social_field['social_icon_file'] . '" class="image-preview">';
+				$image = '<img id="social_image_preview_' . $i . '" src="' . $social_field['social_icon_file'] . '" class="social-preview img-thumbnail">';
 			else
-				$image = '';
-			$social_content .= '<tr id="adv_box_' . $i . '">
+				$image = '<img id="social_image_preview_' . $i . '" src="" class="social-preview img-thumbnail" style="display:none;">';
+			$social_content .= '<tr id="soical_box_' . $i . '">
 			<th class="qa-form-tall-label">
 				Social Link #' . ($i+1) . '
 				<span class="description">choose Icon and link to your social profile</span>
@@ -295,11 +267,11 @@ if(isset($social_fields))
 				' . $social_icon_list .'
 				<div class="social_icon_file_' . $i . '"'.((@$social_field['social_icon']=='1') ? '' : ' style="display:none;"').'>
 					<span class="description">upload Social Icon</span>
-					<div class="clearfix"></div>
-					' . $image . '<input id="ra_social_image_' . $i . '" class="btn btn-success" type="file" name="ra_social_image_' . $i . '">
+					' . $image . '
+					<div id="social_image_uploader_' . $i . '">Upload Icon</div>
 					<input type="hidden" value="' . @$social_field['social_icon_file'] . '" id="social_image_url_' .  $i . '" name="social_image_url_' . $i . '">
-					<button id="social_remove" class="qa-form-tall-button pull-right btn" onclick="return socialremove(this);" type="submit" name="social_remove" socialid="' .  $i . '">Remove This Link</button>
 				</div>
+				<button id="social_remove" class="qa-form-tall-button social_remove pull-right btn" type="submit" name="social_remove" socialid="' .  $i . '">Remove This Link</button>
 			</tr>';
 		}
 		$i++;
@@ -362,7 +334,9 @@ $ra_page = '
 					<span class="description">Upload your own logo.</span>
 				</th>
 				<td class="qa-form-tall-data">
-					<span class="qa-form-tall-static"><img src="'.qa_opt('ra_logo').'" class="image-preview"><input type="file" class="btn btn-success" id="ra_logo_field" name="ra_logo_field"></span>
+					'. (qa_opt('logo_url')?'<img id="logo-preview" class="logo-preview img-thumbnail" src="' . qa_opt('logo_url') . '">':'<img id="logo-preview" class="logo-preview img-thumbnail" style="display:none;" src="">') .'
+					<div id="logo_uploader">Upload</div>
+					<input id="ra_logo_field" type="hidden" name="ra_logo_field" value="' . qa_opt('logo_url') . '">
 				</td>
 			</tr>
 			<tr>
@@ -371,7 +345,9 @@ $ra_page = '
 					<span class="description">favicon image (32px32px).</span>
 				</th>
 				<td class="qa-form-tall-data">
-					<span class="qa-form-tall-static"><img src="'.qa_opt('ra_favicon').'" class="image-preview"><input type="file" class="btn btn-success" id="ra_favicon_field" name="ra_favicon_field"></span>
+					'. (qa_opt('favicon_url')?'<img id="favicon-preview" class="favicon-preview img-thumbnail" src="' . qa_opt('favicon_url') . '">':'<img id="favicon-preview" class="favicon-preview img-thumbnail" style="display:none;" src="">') .'
+					<div id="favicon_uploader">Upload</div>
+					<input id="ra_favicon_field" type="hidden" name="ra_favicon_field" value="' . qa_opt('favicon_url') . '">
 				</td>
 			</tr>
 			</tbody><tbody id="google_analytics">
@@ -1115,6 +1091,103 @@ $ra_page = '
 	</div>
 </div>
 </form>
+<script>
+$(document).ready(function(){
+	$("#logo_uploader").uploadFile({
+		url:"' . Q_THEME_URL . '/inc/upload.php",
+		allowedTypes:"png,gif,jpg,jpeg",
+		fileName:"myfile",
+		maxFileCount:1,
+		multiple:false,
+		showDelete: true,
+		onSuccess:function(files,data,xhr)
+		{
+			$("#ra_logo_field").val("' . Q_THEME_URL . '/uploads/" + data);
+			$("#logo-preview").attr("src","' . Q_THEME_URL .'/uploads/"+data);
+			$("#logo-preview").show();
+		},
+		deleteCallback:function(data, pd) {
+			$.post("' . Q_THEME_URL . '/inc/upload-delete.php", {op: "delete",name: data},
+					function (resp,textStatus, jqXHR) {
+							$("#logo-preview").hide(500);
+							$("#ra_logo_field").val("");
+					});
+			pd.statusbar.hide(500); //You choice.		
+		},
+	});
+	$("#favicon_uploader").uploadFile({
+		url:"' . Q_THEME_URL . '/inc/upload.php",
+		allowedTypes:"png,gif,jpg,jpeg",
+		fileName:"myfile",
+		maxFileCount:1,
+		multiple:false,
+		showDelete: true,
+		onSuccess:function(files,data,xhr)
+		{
+			$("#ra_favicon_field").val("' . Q_THEME_URL . '/uploads/" + data);
+			$("#favicon-preview").attr("src","' . Q_THEME_URL . '/uploads/" + data);
+			$("#favicon-preview").show();
+		},
+	});
+});
+var advertisement_list_count =  Number($("#adv_number").val());
+for(var i=0; i<advertisement_list_count; i++) {
+	build_advertisement_uploader(i);
+}
+function build_advertisement_uploader(id){
+	$("#adv_image_uploader_" + id).uploadFile({
+		url:"' . Q_THEME_URL . '/inc/upload.php",
+		allowedTypes:"png,gif,jpg,jpeg",
+		fileName:"myfile",
+		maxFileCount:1,
+		multiple:false,
+		showDelete: true,
+		onSuccess:function(files,data,xhr)
+		{
+			$("#adv_image_url_"+id).val("' . Q_THEME_URL . '/uploads/" + data);
+			$("#adv_preview_"+id).attr("src","' . Q_THEME_URL .'/uploads/"+data);
+			$("#adv_preview_"+id).show();
+		},
+		deleteCallback:function(data, pd) {
+			$.post("' . Q_THEME_URL . '/inc/upload-delete.php", {op: "delete",name: data},
+					function (resp,textStatus, jqXHR) {
+							$("#adv_preview_"+id).hide(500);
+							$("#adv_image_url_"+id).val("");
+					});
+			pd.statusbar.hide(500); //You choice.		
+		},
+	});
+}
+	
+var social_list_count =  Number($("#social_count").val());
+for(var i=0; i<social_list_count; i++) {
+	build_social_uploader(i);
+}
+function build_social_uploader(id){
+	$("#social_image_uploader_" + id).uploadFile({
+		url:"' . Q_THEME_URL . '/inc/upload.php",
+		allowedTypes:"png,gif,jpg,jpeg",
+		fileName:"myfile",
+		maxFileCount:1,
+		multiple:false,
+		showDelete: true,
+		onSuccess:function(files,data,xhr)
+		{
+			$("#social_image_url_"+id).val("' . Q_THEME_URL . '/uploads/" + data);
+			$("#social_image_preview_"+id).attr("src","' . Q_THEME_URL .'/uploads/"+data);
+			$("#social_image_preview_"+id).show();
+		},
+		deleteCallback:function(data, pd) {
+			$.post("' . Q_THEME_URL . '/inc/upload-delete.php", {op: "delete",name: data},
+					function (resp,textStatus, jqXHR) {
+							$("#social_image_preview_"+id).hide(500);
+							$("#social_image_url_"+id).val("");
+					});
+			pd.statusbar.hide(500); //You choice.		
+		},
+	});
+}
+</script>
 ';
 			$this->content['custom'] = $ra_page;
 		}
@@ -1229,6 +1302,7 @@ $ra_page = '
 				$this->output('<script type="text/javascript" src="'.$this->rooturl.'js/admin.js"></script>');
 				$this->output('<script type="text/javascript" src="'.$this->rooturl.'js/spectrum.js"></script>'); // color picker
 				$this->output('<script type="text/javascript" src="'.$this->rooturl.'js/chosen.jquery.min.js"></script>'); // color picker
+				$this->output('<script type="text/javascript" src="'.$this->rooturl.'js/jquery.uploadfile.min.js"></script>'); // color picker
 			}
 		}
 		function head_css()

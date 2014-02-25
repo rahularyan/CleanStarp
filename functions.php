@@ -606,3 +606,8 @@ function reset_theme_options(){
 	qa_opt('ra_ticker_data', '');				
 	qa_opt('footer_copyright', 'Copyright © 2014');
 }
+
+function is_featured($postid){
+	require_once QA_INCLUDE_DIR.'qa-db-metas.php';
+	return (bool)qa_db_postmeta_get($postid, 'featured_question');
+}

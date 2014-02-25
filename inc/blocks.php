@@ -80,7 +80,7 @@
 			$this->output('<link rel="stylesheet" type="text/css" href="'.Q_THEME_URL.'/css/wide.css"/>');
 			$this->output('<link rel="stylesheet" type="text/css" href="'.Q_THEME_URL.'/css/responsive.css"/>');
 			$this->output('<link rel="stylesheet" type="text/css" href="'.Q_THEME_URL.'/css/theme-green.css"/>');
-			$this->output("<link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>");
+
 			$this->output("<link href='http://fonts.googleapis.com/css?family=Open+Sans:300,600,700' rel='stylesheet' type='text/css'>");
 			$this->output( '<style>' . qa_opt('ra_custom_style') . '</style>');
 		}
@@ -215,8 +215,6 @@
 			$this->output('<div id="ajax-blocks"></div>');							
 			$this->output('</div>');
 			
-			$this->footer();
-			
 			$this->body_suffix();
 			if ((qa_opt('enble_back_to_top')) && (qa_opt('back_to_top_location')=='right'))
 				$this->output('<a id="back-to-top" class="back-to-top-right icon-angle-up t-bg" href="#"></a>');
@@ -226,25 +224,22 @@
 			$this->ra_position('Top');
 			
 			$this->output(
-				'<header id="site-header">',
-				'<div class="container">',
+				'<header id="site-header" class="clearfix">',
 				'<div class="navbar-default" role="navigation">'
 			);	
 			$this->output('<a href="#" id="slide-mobile-menu"></a>');		
-			$this->logo();			
-			/* $this->output(
-				'<a id="nav-ask-btn" href="'.qa_path_html('ask').'" class="btn btn-sm btn-info"><i class="icon-plus"></i> Ask</a>'
-			); */
+			$this->logo();		
+			
 			//$this->nav('sub');	
 			//$this->nav('user');	
-				
-                       
-			$this->search();					
+			$this->output(
+				'<a id="nav-ask-btn" href="'.qa_path_html('ask').'" class="btn btn-sm">Ask Question</a>'
+			);
+			$this->search();
 			$this->user_drop_nav();	
                         
 			
 			$this->output(
-				'</div>', 
 				'</div>', 
 				'</header>'
 			);
@@ -587,6 +582,7 @@
 			}
 			$this->output('</div>');
 			$this->ra_position('Content Bottom');
+			$this->footer();
 			
 		}
 		function title() // add RSS feed icon after the page title
@@ -601,7 +597,7 @@
 		
 		function home(){
 			$this->output('<div class="row">');
-			$this->output('<div class="col-md-4">');
+			$this->output('<div class="col-md-5">');
 				$this->ra_position('Home Top');
 			$this->output('</div>');
 			
@@ -609,7 +605,7 @@
 			$this->ra_position('Home Middle');
 			$this->output('</div>');
 			
-			$this->output('<div class="col-md-4">');
+			$this->output('<div class="col-md-3">');
 			$this->ra_position('Home Bottom');
 			$this->output('</div>');
 			$this->output('</div>');
@@ -1533,7 +1529,7 @@
 				else{
 					$w[$position] = $widget_names;
 				}
-					
+
 				qa_opt('ra_widgets', serialize($w));
 			}
 			die();

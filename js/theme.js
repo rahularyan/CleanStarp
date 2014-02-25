@@ -275,10 +275,12 @@ function ra_float_left(){
 					$float = $this.find('.float-nav'),
 					floatH = $float.height(),
 					topFloat = 0;
-				if(st >= offset.top-topFloat && st < offset.top + h-topFloat - floatH){
+				if(st >= offset.top-topFloat){
 					$float.css({'position':'fixed', 'top':topFloat+'px'});
+				}else if(st < offset.top + h-topFloat - floatH){
+					$float.css({'position':'absolute', 'top':0});
 				}else{
-					$float.css({'position':'absolute', 'top':1});
+					$float.css({'position':'absolute', 'top':0});
 				}
 			})
 		}else{

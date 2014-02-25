@@ -191,7 +191,7 @@
 					$o .= '<li class="event-item">';
 					$o .= '<div class="event-inner">';	
 					
-					$o .= '<div class="avatar pull-left" data-handle="'.@$row['handle'].'" data-id="'. qa_handle_to_userid($row['handle']).'"><img src="'.ra_get_avatar(@$row['handle'], 35, false).'" /><div class="event-icon pull-left '.$event_icon.'"></div></div>';
+					$o .= '<div class="avatar pull-left" data-handle="'.@$row['handle'].'" data-id="'. qa_handle_to_userid($row['handle']).'"><div class="event-icon pull-left '.$event_icon.'"></div></div>';
 						
 					$o .= '<div class="event-content">';			
 					$o .= '<p class="title"><strong>'.$usernameLink.'</strong> <span class="what">'.$eventName.'</span></p>';			
@@ -228,10 +228,10 @@
 
 		function output_widget($region, $place, $themeobject, $template, $request, $qa_content)
 		{
-			$widget_opt = @$themeobject->current_widget['Activity']['options'];
+			$widget_opt = @$themeobject->current_widget['Site Activity']['options'];
 
-			if(@$themeobject->current_widget['Activity']['locations']['show_title'])
-				$themeobject->output('<h3 class="widget-title">Activity</h3>');
+			if(@$themeobject->current_widget['Site Activity']['locations']['show_title'])
+				$themeobject->output('<h3 class="widget-title">Site Activity</h3>');
 				
 			$themeobject->output('<div class="ra-tags-widget">');
 			$themeobject->output($this->ra_events(10));

@@ -27,11 +27,13 @@ $(document).ready(function(){
 			// update styling variants
 			var details = jQuery.parseJSON(font_option.attr('font-data-detail'));
 			var options = '<option value=""></option>';
-			var selected = "";alert(details);
-			$.each(details, function(index) {
-				// I was working on this section
-				// this loop should create a list of styles based on "details" variable and load it to #typo_option_style
+			var selected = "";
+			$.each(details, function(index, value) {
+				if (value.id === font_style){selected = ' selected="selected"';}else{selected = '';}
+				options += '<option value="' + value.id + '"' + selected + '>' + value.name.replace(/\+/g, " ") + '</option>';	
 			});
+
+			 $(this).parent().children('#typo_option_style').html(options).trigger('chosen:updated');
 			// show backup fonts
 			$(this).parent().children('#typo_option_backup_chosen').fadeIn('fast');
 		} else {

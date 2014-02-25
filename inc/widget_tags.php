@@ -1,39 +1,22 @@
 <?php
 	class cs_tags_widget {
 
-		
-		function admin_form()
+		function ra_widget_form()
 		{
-			$saved=false;
-			
-			if (qa_clicked('tag_cloud_save_button')) {
-				qa_opt('ra_tag_cloud_count', (int)qa_post_text('ra_tag_cloud_count'));
-				$saved=true;
-			}
 			
 			return array(
-				'ok' => $saved ? 'Tag cloud settings saved' : null,
-				
+				'style' => 'wide',
 				'fields' => array(
-					array(
-						'label' => 'Maximum tags to show',
+					'ra_tags_count' => array(
+						'label' => 'Numbers of tags',
 						'type' => 'number',
-						'value' => (int)qa_opt('ra_tag_cloud_count'),
-						'suffix' => 'tags',
-						'tags' => 'name="ra_tag_cloud_count"',
-					),
-	
+						'tags' => 'name="ra_tags_count"',
+						'value' => '10',
+					)
 				),
-				
-				'buttons' => array(
-					array(
-						'label' => 'Save Changes',
-						'tags' => 'name="tag_cloud_save_button"',
-					),
-				),
+
 			);
 		}
-
 		
 		function allow_template($template)
 		{
@@ -84,14 +67,18 @@
 		function output_widget($region, $place, $themeobject, $template, $request, $qa_content)
 		{
 			require_once QA_INCLUDE_DIR.'qa-db-selects.php';
-			
-			$to_show = (int)qa_opt('ra_tag_cloud_count');
+			$widget_opt = @$themeobject->current_widget['Tags']['options'];
+
+			if(@$themeobject->current_widget['Tags']['locations']['show_title'])
+				$themeobject->output('<h3 class="widget-title">Tags <a href="'.qa_path_html('tags').'">View All</a></h3>');
+				
+			$to_show = (int)$widget_opt['ra_tags_count'];
 			$populartags=qa_db_single_select(qa_db_popular_tags_selectspec(0, (!empty($to_show) ? $to_show : 20)));
 			
 			reset($populartags);
 			$maxcount=current($populartags);
 			
-			$themeobject->output('<div class="ra-tags-widget">');
+			$themeobject->output('<div class="ra-tags-widget clearfix">');
 	
 			$blockwordspreg=qa_get_block_words_preg();			
 			foreach ($populartags as $tag => $count) {

@@ -287,14 +287,33 @@
 			if (qa_is_logged_in()) {
 			
 				?>
-				
-					<a id="profile-link" data-toggle="dropdown" href="<?php echo qa_path_html('user/' . qa_get_logged_in_handle()); ?>">
-						<?php
-						$LoggedinUserAvatar = ra_get_avatar(qa_get_logged_in_handle(), 30, false);
-						if (!empty($LoggedinUserAvatar))
-							echo '<img src="' . $LoggedinUserAvatar . '" />'; // in case there is no Avatar image and theme doesn't use a default avatar
-						?>
-					</a>
+				<ul class="nav navbar-nav navbar-avatar pull-right">
+					<li class="dropdown pull-right" id="menuLogin">
+						<a id="profile-link" data-toggle="dropdown" href="<?php echo qa_path_html('user/' . qa_get_logged_in_handle()); ?>" class="avatar">
+							<?php
+							$LoggedinUserAvatar = ra_get_avatar(qa_get_logged_in_handle(), 30, false);
+							if (!empty($LoggedinUserAvatar))
+								echo '<img src="' . $LoggedinUserAvatar . '" />'; // in case there is no Avatar image and theme doesn't use a default avatar
+							?>
+						</a>
+						<ul class="user-nav dropdown-menu">
+							<li class="points"><?php echo qa_get_logged_in_points(); ?></li>
+							<li><a class="icon-profile" href="<?php echo qa_path_html('user/' . qa_get_logged_in_handle()); ?>"><?php ra_lang('Profile'); ?></a></li>
+							<?php
+							foreach ($this->content['navigation']['user'] as $a) {
+								if (isset($a['url'])) {
+									$icon = (isset($a['icon']) ? ' class="' . $a['icon'] . '" ' : '');
+									echo '<li' . (isset($a['selected']) ? ' class="active"' : '') . '><a' . $icon . ' href="' . @$a['url'] . '" title="' . @$a['label'] . '">' . @$a['label'] . '</a></li>';
+								}
+							}
+							if (!isset($this->content['navigation']['user']['logout']['url'])) {
+								$link = qa_opt('site_url')."logout";
+								echo "<li><a class='icon-switch' href = '$link'> Logout </a></li>";
+							}
+							?>
+						</ul>
+					</li>
+				</ul>
 			
 			<?php } else { ?>				
 				<a class="btn btn-success login-register"  href="#" data-toggle="modal" data-target="#login-modal" ><i class="icon-lock"></i><span>Login/Register</span></a>

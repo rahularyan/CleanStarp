@@ -50,6 +50,7 @@ class qa_html_theme_layer extends qa_html_theme_base {
 				qa_opt('google_analytics', qa_post_text('option_google_analytics'));	
 				qa_opt('ra_colla_comm', (bool)qa_post_text('option_ra_colla_comm'));
 				qa_opt('show_real_name', (bool)qa_post_text('option_show_real_name'));
+				qa_opt('enable_gzip', (bool)qa_post_text('option_enable_gzip'));
 				
 				//Layout
 				qa_opt('theme_layout', qa_post_text('option_theme_layout'));
@@ -371,6 +372,21 @@ $ra_page = '
 						<div class="on-off-checkbox-container">
 								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('show_real_name') ? ' checked=""' : '') . ' id="option_show_real_name" name="option_show_real_name">
 							<label for="option_show_real_name">
+							</label>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+			<tbody>
+				<tr>
+					<th class="qa-form-tall-label">
+						Compression
+						<span class="description">Use Gzip compression to increase loading speed</span>
+					</th>
+					<td class="qa-form-tall-label">
+						<div class="on-off-checkbox-container">
+								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('enable_gzip') ? ' checked=""' : '') . ' id="option_enable_gzip" name="option_enable_gzip">
+							<label for="option_enable_gzip">
 							</label>
 						</div>
 					</td>

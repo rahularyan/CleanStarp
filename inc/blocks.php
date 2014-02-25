@@ -74,12 +74,18 @@
 			');
 			
 
-			$this->output('<link rel="stylesheet" type="text/css" href="'.Q_THEME_URL.'/font/style.css"/>');
-			$this->output('<link rel="stylesheet" type="text/css" href="'.Q_THEME_URL.'/css/bootstrap.css"/>');
-			$this->output('<link rel="stylesheet" type="text/css" href="'.Q_THEME_URL.'/css/main.css"/>');
-			$this->output('<link rel="stylesheet" type="text/css" href="'.Q_THEME_URL.'/css/wide.css"/>');
-			$this->output('<link rel="stylesheet" type="text/css" href="'.Q_THEME_URL.'/css/responsive.css"/>');
-			$this->output('<link rel="stylesheet" type="text/css" href="'.Q_THEME_URL.'/css/theme-green.css"/>');
+
+			if (qa_opt('enable_gzip')) //Gzip
+				$this->output('<LINK REL="stylesheet" TYPE="text/css" HREF="'.Q_THEME_URL.'/gzip.php'.'"/>');
+			else{
+				$this->output('<link rel="stylesheet" type="text/css" href="'.Q_THEME_URL.'/font/style.css"/>');
+				$this->output('<link rel="stylesheet" type="text/css" href="'.Q_THEME_URL.'/css/bootstrap.css"/>');
+				$this->output('<link rel="stylesheet" type="text/css" href="'.Q_THEME_URL.'/css/main.css"/>');
+				$this->output('<link rel="stylesheet" type="text/css" href="'.Q_THEME_URL.'/css/wide.css"/>');
+				$this->output('<link rel="stylesheet" type="text/css" href="'.Q_THEME_URL.'/css/responsive.css"/>');
+				$this->output('<link rel="stylesheet" type="text/css" href="'.Q_THEME_URL.'/css/theme-green.css"/>');			
+			}
+
 			$this->output("<link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>");
 			$this->output("<link href='http://fonts.googleapis.com/css?family=Open+Sans:300,600,700' rel='stylesheet' type='text/css'>");
 			$this->output( '<style>' . qa_opt('ra_custom_style') . '</style>');

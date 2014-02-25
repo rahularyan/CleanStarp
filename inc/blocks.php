@@ -231,14 +231,14 @@
 			$this->logo();		
 			
 			//$this->nav('sub');	
-			//$this->nav('user');	
+			//$this->nav('user');
+					
 			$this->output(
 				'<a id="nav-ask-btn" href="'.qa_path_html('ask').'" class="btn btn-sm">Ask Question</a>'
 			);
-			$this->search();
-			$this->user_drop_nav();	
-                        
-			
+			$this->cat_drop_nav();
+			$this->user_drop_nav();
+			$this->search();            			
 			$this->output(
 				'</div>', 
 				'</header>'
@@ -280,6 +280,20 @@
 					
 				'</div>'
 			);
+		}
+		function cat_drop_nav(){
+			ob_start();
+			?>
+			<ul class="nav navbar-nav category-nav pull-left">
+				<li class="dropdown pull-left">
+					<a data-toggle="dropdown" href="#" class="category-toggle icon-folder-close-alt">Categories</a>
+					<ul class="category-list-drop dropdown-menu">
+						<?php $this->ra_full_categories_list(); ?>
+					</ul>
+				</li>
+			</ul>
+			<?php
+			$this->output(ob_get_clean());
 		}
 		function user_drop_nav()
 		{
@@ -384,7 +398,7 @@
 			$search=$this->content['search'];
 			
 			$this->output(
-				'<form '.$search['form_tags'].' class="navbar-form navbar-left form-search" role="search" >',
+				'<form '.$search['form_tags'].' class="navbar-form navbar-right form-search" role="search" >',
 				@$search['form_extra']
 			);
 			
@@ -493,9 +507,9 @@
 				$cats = qa_db_select_with_pending(qa_db_category_nav_selectspec($categoryslugs, false, false, true));
 				$navigation = qa_category_navigation($cats);
 			}
-				if(count($navigation)>1){ // if there are any categories (except 'all categories' navigation item)
-				$this->output( '<div class="qa-nav-cat">');
-				$this->output( '<ul class="qa-nav-cat-list">');
+			if(count($navigation)>1){ // if there are any categories (except 'all categories' navigation item)
+				//$this->output( '<div class="qa-nav-cat">');
+				//$this->output( '<ul class="qa-nav-cat-list">');
 				$index = 0;
 				foreach ($navigation as $key => $navlink) {
 					$this->set_context('nav_key', $key);
@@ -505,7 +519,7 @@
 				$this->clear_context('nav_key');
 				$this->clear_context('nav_index');
 
-				$this->output('</ul></div>');
+				//$this->output('</ul></div>');
 			}
 			unset($navigation);
 		}
@@ -616,12 +630,14 @@
 		
 		function home(){
 			$this->output('<div class="row">');
-			$this->output('<div class="col-md-5">');
-				$this->ra_position('Home Top');
-			$this->output('</div>');
-			
-			$this->output('<div class="col-md-4">');
-			$this->ra_position('Home Middle');
+			$this->output('<div class="col-md-9 home-left-inner">');
+				$this->output('<div class="col-md-8">');
+					$this->ra_position('Home Top');
+				$this->output('</div>');
+				
+				$this->output('<div class="col-md-4">');
+				$this->ra_position('Home Middle');
+				$this->output('</div>');
 			$this->output('</div>');
 			
 			$this->output('<div class="col-md-3">');

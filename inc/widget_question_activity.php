@@ -75,11 +75,11 @@
 			$widget_opt = @$themeobject->current_widget['Question Activity']['options'];
 
 			if(@$themeobject->current_widget['Question Activity']['locations']['show_title'])
-				$themeobject->output('<h3 class="widget-title">Recent Activity <span>View All</span></h3>');
+				$themeobject->output('<h3 class="widget-title">Recent Activity <a href="'.qa_path_html('activity').'">View All</a></h3>');
 				
 			$themeobject->output('<div class="ra-question-activity-widget">');
 			
-			$content = include QA_INCLUDE_DIR.'qa-page-activity.php';
+			$content = include_once QA_INCLUDE_DIR.'qa-page-activity.php';
 			$q_list = $content['q_list']['qs'];
 			
 			$themeobject->output('<ul class="activity-list">');

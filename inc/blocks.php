@@ -110,7 +110,7 @@
 
 			if( ($this->template=='question') && (qa_get_logged_in_level()>=QA_USER_LEVEL_ADMIN) )
 				$this->output('<script type="text/javascript" src="'.Q_THEME_URL.'/js/jquery.uploadfile.min.js"></script>');			
-				
+	
 			$this->output('<script type="text/javascript" src="'.Q_THEME_URL.'/js/theme.js"></script>');			
 		}
 
@@ -629,15 +629,34 @@
 		}
 		
 		function home(){
+
 			$this->output('<div class="row">');
 			$this->output('<div class="col-md-9 home-left-inner">');
-				$this->output('<div class="col-md-8">');
-					$this->ra_position('Home Top');
+				$this->output('<div class="row">');
+
+					$this->output('<div class="col-md-8">');
+						$this->ra_position('Home Left');
+					$this->output('</div>');
+					
+					$this->output('<div class="col-md-4">');
+					$this->ra_position('Home Left Right');
+					$this->output('</div>');
 				$this->output('</div>');
 				
-				$this->output('<div class="col-md-4">');
-				$this->ra_position('Home Middle');
+				$this->output('<div class="row">');
+					$this->output('<div class="col-md-4">');
+					$this->ra_position('Home Left Bottom 1');
+					$this->output('</div>');
+					
+					$this->output('<div class="col-md-4">');
+					$this->ra_position('Home Left Bottom 2');
+					$this->output('</div>');
+					
+					$this->output('<div class="col-md-4">');
+					$this->ra_position('Home Left Bottom 3');
+					$this->output('</div>');
 				$this->output('</div>');
+				
 			$this->output('</div>');
 			
 			$this->output('<div class="col-md-3">');
@@ -645,7 +664,7 @@
 			$this->output('</div>');
 			$this->output('</div>');
 		}
-		
+
 		function q_list_item($q_item)
 		{
 			$status = ra_get_post_status($q_item);

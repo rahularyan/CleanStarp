@@ -20,6 +20,12 @@ if(isset($_FILES["myfile"]))
 	if(!is_array($_FILES["myfile"]["name"])) //single file
 	{
  	 	$fileName = $_FILES["myfile"]["name"];
+		if (file_exists($output_dir.$fileName)) {
+			$exts = substr(strrchr($fileName,'.'),1);
+			$withoutExt = preg_replace("/\\.[^.\\s]{3,4}$/", "", $fileName);
+			for($i=2; file_exists($output_dir.$withoutExt.'-'.$i.'.'.$exts); $i++);
+			$fileName = $withoutExt.'-'.$i.'.'.$exts;
+		} 
  		move_uploaded_file($_FILES["myfile"]["tmp_name"],$output_dir.$fileName);
     	echo $fileName;
 	}
@@ -29,6 +35,12 @@ if(isset($_FILES["myfile"]))
 	  for($i=0; $i < $fileCount; $i++)
 	  {
 	  	$fileName = $_FILES["myfile"]["name"][$i];
+		if (file_exists($output_dir.$fileName)) {
+			$exts = substr(strrchr($fileName,'.'),1);
+			$withoutExt = preg_replace("/\\.[^.\\s]{3,4}$/", "", $fileName);
+			for($i=2; file_exists($output_dir.$withoutExt.'-'.$i.'.'.$exts); $i++);
+			$fileName = $withoutExt.'-'.$i.'.'.$exts;
+		} 
 		move_uploaded_file($_FILES["myfile"]["tmp_name"][$i],$output_dir.$fileName);
 	  	$ret[]= $fileName;
 	  }

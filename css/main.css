@@ -61,6 +61,11 @@ body{
 h1,h2,h3,h4,h5,h6, .qa-q-item-title{
 	font-family: 'Open Sans',Helvetica,Arial,sans-serif;
 }
+
+.avatar img{
+	border-radius:2px;
+}
+
 #site-header .container{
 	padding:0;
 }
@@ -314,11 +319,16 @@ h1,h2,h3,h4,h5,h6, .qa-q-item-title{
   transition: all 0.5s ease 0s;
 }
 .navbar-default ul.user-nav{
-	padding:5px;
+    border: medium none;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+    margin-top: 8px;
+    padding: 5px;
 }
 .navbar-default a#profile-link{
     float: right;
-    margin-top: 6px;
+    margin-right: 4px;
+    margin-top: 8px;
+    padding: 0;
 }
 .navbar-avatar a#profile-link img{
     max-width: 30px;

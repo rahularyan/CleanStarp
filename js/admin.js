@@ -1,4 +1,42 @@
 $(document).ready(function(){
+	// General
+	$("#logo_uploader").uploadFile({
+		url:theme_url + "/inc/upload.php",
+		allowedTypes:"png,gif,jpg,jpeg",
+		fileName:"myfile",
+		maxFileCount:1,
+		multiple:false,
+		showDelete: true,
+		onSuccess:function(files,data,xhr)
+		{
+			$("#ra_logo_field").val(theme_url + "/uploads/" + data);
+			$("#logo-preview").attr("src",theme_url + "/uploads/"+data);
+			$("#logo-preview").show();
+		},
+		deleteCallback:function(data, pd) {
+			$.post(theme_url + "/inc/upload-delete.php", {op: "delete",name: data},
+					function (resp,textStatus, jqXHR) {
+							$("#logo-preview").hide(500);
+							$("#ra_logo_field").val("");
+					});
+			pd.statusbar.hide(500); //You choice.		
+		},
+	});
+	$("#favicon_uploader").uploadFile({
+		url:theme_url + "/inc/upload.php",
+		allowedTypes:"png,gif,jpg,jpeg",
+		fileName:"myfile",
+		maxFileCount:1,
+		multiple:false,
+		showDelete: true,
+		onSuccess:function(files,data,xhr)
+		{
+			$("#ra_favicon_field").val(theme_url + "/uploads/" + data);
+			$("#favicon-preview").attr("src",theme_url + "/uploads/" + data);
+			$("#favicon-preview").show();
+		},
+	});
+	
 	// Typography
 	$(".font-family").chosen({width: "370px",allow_single_deselect: true ,no_results_text: "There is no font with this name!"});
 	$(".font-style").chosen({width: "200px",allow_single_deselect: true});
@@ -89,6 +127,34 @@ $(document).ready(function(){
 	});
 	
 	// Advertisement
+	var advertisement_list_count =  Number($("#adv_number").val());
+	for(var i=0; i<advertisement_list_count; i++) {
+		build_advertisement_uploader(i);
+	}
+	function build_advertisement_uploader(id){
+		$("#adv_image_uploader_" + id).uploadFile({
+			url:theme_url + "/inc/upload.php",
+			allowedTypes:"png,gif,jpg,jpeg",
+			fileName:"myfile",
+			maxFileCount:1,
+			multiple:false,
+			showDelete: true,
+			onSuccess:function(files,data,xhr)
+			{
+				$("#adv_image_url_"+id).val(theme_url + "/uploads/" + data);
+				$("#adv_preview_"+id).attr("src",theme_url + "/uploads/"+data);
+				$("#adv_preview_"+id).show();
+			},
+			deleteCallback:function(data, pd) {
+				$.post(theme_url + "/inc/upload-delete.php", {op: "delete",name: data},
+						function (resp,textStatus, jqXHR) {
+								$("#adv_preview_"+id).hide(500);
+								$("#adv_image_url_"+id).val("");
+						});
+				pd.statusbar.hide(500); //You choice.		
+			},
+		});
+	}
 	$('#add_adv').on('click', function(e){
 		e.preventDefault();
 		var ads_list_count =  Number($("#adv_number").val()) + 1;
@@ -133,6 +199,34 @@ $(document).ready(function(){
 	});
 	
 	// Social
+	var social_list_count =  Number($("#social_count").val());
+	for(var i=0; i<social_list_count; i++) {
+		build_social_uploader(i);
+	}
+	function build_social_uploader(id){
+		$("#social_image_uploader_" + id).uploadFile({
+			url:theme_url + "/inc/upload.php",
+			allowedTypes:"png,gif,jpg,jpeg",
+			fileName:"myfile",
+			maxFileCount:1,
+			multiple:false,
+			showDelete: true,
+			onSuccess:function(files,data,xhr)
+			{
+				$("#social_image_url_"+id).val(theme_url + "/uploads/" + data);
+				$("#social_image_preview_"+id).attr("src",theme_url + "/uploads/"+data);
+				$("#social_image_preview_"+id).show();
+			},
+			deleteCallback:function(data, pd) {
+				$.post(theme_url + "/inc/upload-delete.php", {op: "delete",name: data},
+						function (resp,textStatus, jqXHR) {
+								$("#social_image_preview_"+id).hide(500);
+								$("#social_image_url_"+id).val("");
+						});
+				pd.statusbar.hide(500); //You choice.		
+			},
+		});
+	}
 	$('#add_social').on('click', function(e){
 		e.preventDefault();
 		var social_list_count =  Number($("#social_count").val()) + 1;

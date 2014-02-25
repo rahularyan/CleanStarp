@@ -51,6 +51,10 @@ class qa_html_theme_layer extends qa_html_theme_base {
 				qa_opt('ra_colla_comm', (bool)qa_post_text('option_ra_colla_comm'));
 				qa_opt('show_real_name', (bool)qa_post_text('option_show_real_name'));
 				qa_opt('enable_gzip', (bool)qa_post_text('option_enable_gzip'));
+				qa_opt('featured_image_width', (int)qa_post_text('option_featured_image_width')); 
+				qa_opt('featured_image_height', (int)qa_post_text('option_featured_image_height'));
+				qa_opt('featured_thumbnail_width', (int)qa_post_text('option_featured_thumbnail_width'));
+				qa_opt('featured_thumbnail_height', (int)qa_post_text('option_featured_thumbnail_height'));
 				
 				//Layout
 				qa_opt('theme_layout', qa_post_text('option_theme_layout'));
@@ -388,6 +392,57 @@ $ra_page = '
 							<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('enable_gzip') ? ' checked=""' : '') . ' id="option_enable_gzip" name="option_enable_gzip">
 							<label for="option_enable_gzip">
 							</label>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+			<tbody>
+				<tr><td><h3>Featured Questions</h3></td></tr>
+				<tr>
+					<th class="qa-form-tall-label">
+						Featured Image Width
+						<span class="description">Question\'s Featured Image Width</span>
+					</th>
+					<td class="qa-form-tall-label">
+						<div class="input-group font-input">
+							<input id="option_featured_image_width" class="form-control featured-image-width" type="text" name="option_featured_image_width" value="' . qa_opt('featured_image_width') . '">
+							<span class="input-group-addon">px</span>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th class="qa-form-tall-label">
+						Featured Image Hight
+						<span class="description">Question\'s Featured Image Hight</span>
+					</th>
+					<td class="qa-form-tall-label">
+						<div class="input-group font-input">
+							<input id="option_featured_image_height" class="form-control featured-image-height" type="text" name="option_featured_image_height" value="' . qa_opt('featured_image_height') . '">
+							<span class="input-group-addon">px</span>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th class="qa-form-tall-label">
+						Thumbnail Width
+						<span class="description">Question\'s Featured Image Thumbnail Width</span>
+					</th>
+					<td class="qa-form-tall-label">
+						<div class="input-group font-input">
+							<input id="option_featured_thumbnail_width" class="form-control featured-thumb-width" type="text" name="option_featured_thumbnail_width" value="' . qa_opt('featured_thumbnail_width') . '">
+							<span class="input-group-addon">px</span>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th class="qa-form-tall-label">
+						Thumbnail Hight
+						<span class="description">Question\'s Featured Image Hight</span>
+					</th>
+					<td class="qa-form-tall-label">
+						<div class="input-group font-input">
+							<input id="option_featured_thumbnail_height" class="form-control featured-thumb-height" type="text" name="option_featured_thumbnail_height" value="' . qa_opt('featured_thumbnail_height') . '">
+							<span class="input-group-addon">px</span>
 						</div>
 					</td>
 				</tr>

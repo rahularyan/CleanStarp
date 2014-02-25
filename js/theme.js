@@ -475,7 +475,7 @@ $(document).ready(function(){
 	$("#fileuploader").uploadFile({
 		url:theme_url + "/inc/upload.php",
 		allowedTypes:"png,gif,jpg,jpeg",
-		fileName:"myfile",
+		fileName:"featured",
 
 		maxFileCount:1,
 		multiple:false,

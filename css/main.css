@@ -229,7 +229,6 @@ h1,h2,h3,h4,h5,h6, .qa-q-item-title{
 	position:relative;
 }
 #site-body{	
-	border-top: 1px solid #EEEEEE;
     display: table;
     padding: 0;
 }
@@ -581,16 +580,12 @@ h1,h2,h3,h4,h5,h6, .qa-q-item-title{
 	width:180px;
 }
 .left-sidebar .qa-nav-main-list, .left-sidebar .qa-nav-sub-list {
-    border-color: #DDDDDD transparent #DDDDDD #DDDDDD;
-    border-image: none;
-    border-style: solid none solid solid;
-    border-width: 1px medium 1px 1px;
     list-style: none outside none;
     margin: 0;
     padding: 0;
 }
 .left-sidebar .qa-nav-main-list .qa-nav-main-item .qa-nav-main-link, .left-sidebar .qa-nav-sub-list .qa-nav-sub-item .qa-nav-sub-link{
-    border-bottom: 1px solid #EEEEEE;
+    border-bottom: 1px solid rgba(0,0,0,0.02);
     color: #969696;
     display: block;
     font-size: 13px;
@@ -599,7 +594,7 @@ h1,h2,h3,h4,h5,h6, .qa-q-item-title{
 }
 
 .left-sidebar .qa-nav-main-list .qa-nav-main-item .qa-nav-main-link:before{
-    border-right: 1px solid #EEEEEE;
+    border-right: 1px solid rgba(0,0,0,0.02);
     display: inline-block;
     font-size: 17px;
     height: 48px;
@@ -612,7 +607,6 @@ h1,h2,h3,h4,h5,h6, .qa-q-item-title{
 }
 .qa-main {
     background: #FFFFFF;
-    border: 1px solid #DDDDDD;
     min-height: 420px;
     padding-bottom: 20px;
 }

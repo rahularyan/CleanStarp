@@ -100,7 +100,7 @@
 		}
 		function head_script()
 		{
-                      
+            $this->output('<script> theme_url = "'.Q_THEME_URL.'";</script>');
 			qa_html_theme_base::head_script();
 			$this->output('<script type="text/javascript" src="'.Q_THEME_URL.'/js/bootstrap.js"></script>');
 			
@@ -1833,37 +1833,6 @@
 						<input id="featured_image" type="hidden" name="featured_image" value="' . $featured_image . '">
 						<btn id="q_meta_save" class="qa-form-light-button qa-form-light-button-features" title="Save" type="submit" name="q_meta_save" onclick="qa_show_waiting_after(this, false);">Save</btn>
 					</div>
-					<script>
-						$(document).ready(function(){
-							$("#q_meta_remove_featured_image").click(function(e){
-								$("#featured_image").val("");
-								$("#image-preview").attr("src","' . Q_THEME_URL .'/images/featured-preview.jpg");
-							});
-							$("#fileuploader").uploadFile({
-								url:"' . Q_THEME_URL . '/inc/upload.php",
-								allowedTypes:"png,gif,jpg,jpeg",
-								fileName:"myfile",
-
-								maxFileCount:1,
-								multiple:false,
-								showDelete: true,
-								onSuccess:function(files,data,xhr)
-								{
-									$("#featured_image").val(data);
-									$("#image-preview").attr("src","' . Q_THEME_URL .'/uploads/"+data);
-								},
-								deleteCallback:function(data, pd) {
-									$.post("' . Q_THEME_URL . '/inc/upload-delete.php", {op: "delete",name: data},
-											function (resp,textStatus, jqXHR) {
-													$("#image-preview").attr("src","' . Q_THEME_URL .'/images/featured-preview.jpg");
-													$("#featured_image").val("");
-											});
-									pd.statusbar.hide(500); //You choice.		
-								},
-							});
-
-						});
-					</script>
 				');
 			}
 		}

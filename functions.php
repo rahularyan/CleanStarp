@@ -278,15 +278,15 @@ function ra_relative_post_list($type, $limit, $categories, $tags, $return = fals
 
 		if($type=='Q'){
 
-			$output .= '<a class="title" href="'. qa_q_path_html($p['postid'], $p['title']) .'" title="'. $p['title'] .'">'.qa_html($p['title']).'</a>';
+			$output .= '<a class="title" href="'. qa_q_path_html($p['postid'], $p['title']) .'" title="'. $p['title'] .'">'.ra_truncate(qa_html($p['title']), 50).'</a>';
 
 		}elseif($type=='A'){
 
-			$output .= '<p><a href="'.ra_post_link($p['parentid']).'#a'.$p['postid'].'">'. substr(strip_tags($p['content']), 0, 50).'</a></p>';
+			$output .= '<p><a href="'.ra_post_link($p['parentid']).'#a'.$p['postid'].'">'. ra_truncate(strip_tags($p['content']),50).'</a></p>';
 
 		}else{
 
-			$output .= '<p><a href="'.ra_post_link($p['parentid']).'#c'.$p['postid'].'">'. substr(strip_tags($p['content']), 0, 50).'</a></p>';
+			$output .= '<p><a href="'.ra_post_link($p['parentid']).'#c'.$p['postid'].'">'. ra_truncate(strip_tags($p['content']),50).'</a></p>';
 
 		}
 		$output .= '<div class="meta"><a href="'.qa_path_html('user/'.$handle).'">'.ra_name($handle).'</a> '.$what;

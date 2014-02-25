@@ -38,29 +38,41 @@ $(document).ready(function(){
 	});
 	
 	// Typography
+	$.each( $( ".font-family" ), function( index, elem ){
+		demo = $(elem).parent().find('.font-demo');
+		var font=demo.parent().children('#typo_option_family').val();
+		var font_backup=demo.parent().children('#typo_option_backup').val();
+		if((font == '') || (font_backup=='')){var connector = '';}else{var connector = ', ';}
+		var font_style = demo.parent().children('#typo_option_style').val();
+		style = 'normal';
+		weight='inherit';
+		if (font_style.indexOf("italic") !== -1) {
+			style = 'italic';
+			weight = font_style.replace('italic', '');
+		}		
+		var font_height = demo.parent().children().children('#typo_option_lineheight').val();
+		var font_size = demo.parent().children().children('#typo_option_size').val();
+		demo.css('font-family', font + connector + font_backup);
+		demo.children().css('font-family', font + connector + font_backup);
+		demo.css('font-style', style);
+		demo.children().css('font-style', style);
+		demo.css('font-weight', weight);
+		demo.children().css('font-weight', weight);
+		demo.css('line-height', font_height + 'px');
+		demo.children().css('line-height', font_height + 'px');
+		demo.css('font-size', font_size + 'px');
+		demo.children().css('font-size', font_size + 'px');
+	});
+	
 	$(".font-family").chosen({width: "370px",allow_single_deselect: true ,no_results_text: "There is no font with this name!"});
 	$(".font-style").chosen({width: "200px",allow_single_deselect: true});
 	$(".font-family-backup").chosen({width: "260px",allow_single_deselect: true});
 	$( ".font-family, .font-style, .font-family-backup" ).on('change keyup paste',function(){
 		var font=$(this).parent().children('#typo_option_family').val();
 		var font_backup=$(this).parent().children('#typo_option_backup').val();
-		if((font == '') || (font_backup=='')){var connector = '';}else{var connector = ', ';}
-		$(this).parent().children('span').css('font-family', font + connector + font_backup);
-		$(this).parent().children('span').children().css('font-family', font + connector + font_backup);
-		
-		$(this).parent().children('span').css('font-style', 'normal');
-		$(this).parent().children('span').children().css('font-style', 'normal');
 		var font_style = $(this).parent().children('#typo_option_style').val();
-		if (font_style.indexOf("italic") !== -1) {
-			$(this).parent().children('span').css('font-style', 'italic');
-			$(this).parent().children('span').children().css('font-style', 'italic');
-			font_style = font_style.replace('italic', '');
-		}
 		
-		$(this).parent().children('span').css('font-weight', font_style);
-		$(this).parent().children('span').children().css('font-weight', font_style);
-		
-		font_option = $(this).find('option:selected')
+		font_option = $(this).parent().find('#typo_option_family').find('option:selected')
 		if(font_option.attr("font-data-type")=='googlefont'){
 			// update styling variants
 			var details = jQuery.parseJSON(font_option.attr('font-data-detail'));
@@ -73,11 +85,31 @@ $(document).ready(function(){
 
 			 $(this).parent().children('#typo_option_style').html(options).trigger('chosen:updated');
 			// show backup fonts
+			var font_name = font.replace(/\s+/g, '+');
 			$(this).parent().children('#typo_option_backup_chosen').fadeIn('fast');
+			var link = 'http://fonts.googleapis.com/css?family=' + font_name;
+			if (font_style) {
+				link += ':' + font_style.replace(/\-/g, " ");
+			}
+			$('head').append('<link href="' + link + '" rel="stylesheet" type="text/css">');
 		} else {
 			$(this).parent().children('#typo_option_backup_chosen').fadeOut('fast');
 		}
-
+		if((font == '') || (font_backup=='')){var connector = '';}else{var connector = ', ';}
+		$(this).parent().children('span').css('font-family', font + connector + font_backup);
+		$(this).parent().children('span').children().css('font-family', font + connector + font_backup);
+		
+		$(this).parent().children('span').css('font-style', 'normal');
+		$(this).parent().children('span').children().css('font-style', 'normal');
+		
+		if (font_style.indexOf("italic") !== -1) {
+			$(this).parent().children('span').css('font-style', 'italic');
+			$(this).parent().children('span').children().css('font-style', 'italic');
+			font_style = font_style.replace('italic', '');
+		}
+		
+		$(this).parent().children('span').css('font-weight', font_style);
+		$(this).parent().children('span').children().css('font-weight', font_style);
 	});
 	$( ".font-size" ).on('change keyup paste',function(){
 		var font_size = $(this).parent().children('#typo_option_size').val();

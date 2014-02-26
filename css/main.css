@@ -1617,9 +1617,9 @@ table.page-users-list{
 }
 
 #site-header .navbar-default .login-register {
-    border-radius: 3px;
+    border-radius: 2px;
     float: right;
-    margin: 10px;
+    margin: 6px;
 }
 #site-header .navbar-default .login-register i{
 	display:none;
@@ -2978,4 +2978,28 @@ margin-right:5px;
 }
 .ra-new-users-widget .users-list li .avatar{
 	padding: 3px;
+}
+
+.modal-backdrop {
+    background-color: #FFFFFF;
+}
+.modal-backdrop.in {
+    opacity:0.95;
+}
+#login-modal .modal-content {
+    border: medium none;
+    box-shadow: none;
+	background:none;
+}
+
+#login-modal h3{
+    font-size: 35px;
+    text-align: center;
+}
+#login-modal .login-desc{
+    color: #AAAAAA;
+    font-family: 'open sans',arial;
+    font-size: 20px;
+    margin-bottom: 30px;
+    text-align: center;
 }

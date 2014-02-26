@@ -444,6 +444,22 @@ function back_to_top(){
 	});
 }
 
+function ra_load_login_register(){
+	$('#login-register').not('active').click(function(){
+		$.ajax({
+			data: {
+				ra_ajax: true,
+				ra_ajax_html: true,
+				action: 'get_login_register',
+			},
+			dataType: 'html',
+			success: function (response) {
+				$('.qa-main > .list-c').html(response);
+			},
+		});
+	});
+}
+
 $(document).ready(function(){
 
 	var win_height = $(window).height();
@@ -462,7 +478,7 @@ $(document).ready(function(){
 	ra_widgets();
 	back_to_top();
 	ra_question_meta();
-	
+	ra_load_login_register();
 	if ($('.ra-ask-widget').length>0)
 		ra_ask_box_autocomplete();
 	
@@ -473,7 +489,7 @@ $(document).ready(function(){
 		$("#featured_image").val("");
 		$("#image-preview").attr("src",theme_url + "/images/featured-preview.jpg");
 	});
-	$("#fileuploader").uploadFile({
+	/* $("#fileuploader").uploadFile({
 		url:theme_url + "/inc/upload.php",
 		allowedTypes:"png,gif,jpg,jpeg",
 		fileName:"featured",
@@ -494,7 +510,7 @@ $(document).ready(function(){
 					});
 			pd.statusbar.hide(500); //You choice.		
 		},
-	});		
+	});	 */	
 /* 	ra_ajax_sub_menu('.qa-nav-sub-recent a');
 	ra_ajax_sub_menu('.qa-nav-sub-hot a');
 	ra_ajax_sub_menu('.qa-nav-sub-votes a');

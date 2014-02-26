@@ -86,12 +86,12 @@
 
 			$this->output("<link href='http://fonts.googleapis.com/css?family=Open+Sans:300,600,700' rel='stylesheet' type='text/css'>");
 			$googlefonts = json_decode(qa_opt('typo_googlefonts'),true);
-			
-			foreach($googlefonts as $font_name){
-				$font_name = str_replace(" ","+",$font_name);
-				$link = 'http://fonts.googleapis.com/css?family=' . $font_name;
-				$this->output('<link href="' . $link . '" rel="stylesheet" type="text/css">');
-			}
+			if(isset($googlefonts) && !empty($googlefonts))
+				foreach($googlefonts as $font_name){
+					$font_name = str_replace(" ","+",$font_name);
+					$link = 'http://fonts.googleapis.com/css?family=' . $font_name;
+					$this->output('<link href="' . $link . '" rel="stylesheet" type="text/css">');
+				}
 			$this->output( '<style>' . qa_opt('ra_custom_style') . '</style>');
 		}
 		function body()
@@ -124,62 +124,6 @@
 			$this->output('<script type="text/javascript" src="'.Q_THEME_URL.'/js/theme.js"></script>');			
 		}
 
-
-		function nav_user_search() // outputs login form if user not logged in
-		{
-			if (!qa_is_logged_in()) {
-				$login=@$this->content['navigation']['user']['login'];
-				
-				if (isset($login) && !QA_FINAL_EXTERNAL_USERS) {
-					$this->output(
-						'<!--[Begin: login form]-->',				
-						'<form id="qa-loginform" action="'.$login['url'].'" method="post">',
-							'<input type="text" id="qa-userid" name="emailhandle" placeholder="'.trim(qa_lang_html(qa_opt('allow_login_email_only') ? 'users/email_label' : 'users/email_handle_label'), ':').'" />',
-							'<input type="password" id="qa-password" name="password" placeholder="'.trim(qa_lang_html('users/password_label'), ':').'" />',
-							'<div id="qa-rememberbox"><input type="checkbox" name="remember" id="qa-rememberme" value="1"/>',
-							'<label for="qa-rememberme" id="qa-remember">'.qa_lang_html('users/remember').'</label></div>',
-							'<input type="hidden" name="code" value="'.qa_html(qa_get_form_security_code('login')).'"/>',
-							'<input type="submit" value="'.$login['label'].'" id="qa-login" name="dologin" />',
-						'</form>',				
-						'<!--[End: login form]-->'
-					);
-					
-					unset($this->content['navigation']['user']['login']); // removes regular navigation link to log in page
-				}
-			}
-			
-			qa_html_theme_base::nav_user_search();
-		}
-		
-		function logged_in() 
-		{
-			if (qa_is_logged_in()) // output user avatar to login bar
-				$this->output(
-					'<div class="qa-logged-in-avatar">',
-					QA_FINAL_EXTERNAL_USERS
-					? qa_get_external_avatar_html(qa_get_logged_in_userid(), 24, true)
-					: qa_get_user_avatar_html(qa_get_logged_in_flags(), qa_get_logged_in_email(), qa_get_logged_in_handle(),
-						qa_get_logged_in_user_field('avatarblobid'), qa_get_logged_in_user_field('avatarwidth'), qa_get_logged_in_user_field('avatarheight'),
-						24, true),
-            		'</div>'
-            	);				
-			
-			qa_html_theme_base::logged_in();
-			
-			if (qa_is_logged_in()) { // adds points count after logged in username
-				$userpoints=qa_get_logged_in_points();
-				
-				$pointshtml=($userpoints==1)
-					? qa_lang_html_sub('main/1_point', '1', '1')
-					: qa_lang_html_sub('main/x_points', qa_html(number_format($userpoints)));
-						
-				$this->output(
-					'<span class="qa-logged-in-points">',
-					'('.$pointshtml.')',
-					'</span>'
-				);
-			}
-		}
     
 		function body_content()
 		{
@@ -340,7 +284,7 @@
 				</ul>
 			
 			<?php } else { ?>				
-				<a class="btn btn-success login-register"  href="#" data-toggle="modal" data-target="#login-modal" ><i class="icon-lock"></i><span>Login/Register</span></a>
+				<a class="btn login-register icon-lock"  href="#" data-toggle="modal" data-target="#login-modal" title="Login or register"></a>
 
 				
 				<!-- Modal -->
@@ -348,10 +292,11 @@
 				  <div class="modal-dialog">
 					<div class="modal-content">	
 					<div class="modal-header">
-						Login
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>	
 					  <div class="modal-body">
+						<h3>Login or Register</h3>
+						<p class="login-desc">Get access to your account and question</p>
 						<div class="row">
 							<div class="col-sm-6">
 							<form id="loginform" role="form" action="<?php echo $this->content['navigation']['user']['login']['url']; ?>" method="post">
@@ -371,26 +316,26 @@
 								<input type="text" id="email" class="form-control" name="email" placeholder="<?php echo trim(qa_lang_html('users/email_label'), ':'); ?>">
 								<input type="hidden" name="code" value="<?php echo qa_html(qa_get_form_security_code('register')); ?>"/>
 								<input type="submit"  value="Register" value="<?php echo $this->content['navigation']['user']['register']['label']; ?>" id="qa-register" name="doregister" class="btn btn-primary btn-block" />
-							<?php
-								/*
-								foreach ($this->content['navigation']['user'] as $k => $custom) {
-									if (isset($custom) && (($k != 'login') && ($k != 'register'))) {
-										preg_match('/class="([^"]+)"/',  $custom['label'], $class );
-										
-										if($k == 'facebook')
-											$icon = 'class="'.$class[1].' icon-facebook"';
-										elseif($k == 'google')
-											$icon = 'class="'.$class[1].' icon-google"';
-										elseif($k == 'twitter')
-											$icon = 'class="'.$class[1].' icon-twitter"';
-										
-										$this->output(str_replace($class[0], $icon, $custom['label']));
+								<?php
+								
+									foreach ($this->content['navigation']['user'] as $k => $custom) {
+										if (isset($custom) && (($k != 'login') && ($k != 'register'))) {
+											preg_match('/class="([^"]+)"/',  $custom['label'], $class );
+											
+											if($k == 'facebook')
+												$icon = 'class="'.$class[1].' icon-facebook"';
+											elseif($k == 'google')
+												$icon = 'class="'.$class[1].' icon-google"';
+											elseif($k == 'twitter')
+												$icon = 'class="'.$class[1].' icon-twitter"';
+											
+											$this->output(str_replace($class[0], $icon, $custom['label']));
+										}
 									}
-								}
-								*/
-								unset($this->content['navigation']['user']['login']);
-								unset($this->content['navigation']['user']['register']);
-								qa_html_theme_base::nav('user');
+									
+									unset($this->content['navigation']['user']['login']);
+									unset($this->content['navigation']['user']['register']);
+								
 								?>
 							</form>
 							</div>
@@ -530,7 +475,7 @@
 			$this->output('</div>');
 		}
 		
-		function ra_full_categories_list() {
+		function ra_full_categories_list($show_sub = false) {
 
             $level = 1;
 			$navigation = @$this->content['navigation']['cat'];
@@ -547,7 +492,7 @@
 				foreach ($navigation as $key => $navlink) {
 					$this->set_context('nav_key', $key);
 					$this->set_context('nav_index', $index++);
-					$this->ra_full_categories_list_item($key, $navlink, '', $level);
+					$this->ra_full_categories_list_item($key, $navlink, '', $level, $show_sub);
 				}
 				$this->clear_context('nav_key');
 				$this->clear_context('nav_index');
@@ -557,7 +502,7 @@
 			unset($navigation);
 		}
 
-		function ra_full_categories_list_item($key, $navlink, $class, $level = null) {
+		function ra_full_categories_list_item($key, $navlink, $class, $level = null, $show_sub) {
 			$suffix = strtr($key, array(// map special character in navigation key
 				'$' => '',
 				'/' => '-',
@@ -566,7 +511,7 @@
 			$this->output( '<li class="qa-nav-cat-item">');
 			$this->nav_link($navlink, $class);
 			$this->output( '</li>');
-			if (count(@$navlink['subnav']))
+			if (count(@$navlink['subnav']) && $show_sub)
 				$this->nav_list($navlink['subnav'], $class, 1 + $level);
 
 			$this->output('</li>');
@@ -662,7 +607,6 @@
 		}
 		
 		function home(){
-
 			$this->output('<div class="row">');
 			$this->output('<div class="col-md-9 home-left-inner">');
 				$this->output('<div class="row">');

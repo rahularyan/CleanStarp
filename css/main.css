@@ -780,7 +780,12 @@ ul.qa-nav-cat-list-4  > li.qa-nav-cat-item:first-child {
     font-weight: 300;
     text-transform: lowercase;
 }
-
+.widget .ra-ticker-widget .widget-title a{
+    float: none;
+    font-style: normal;
+    font-weight: 600;
+    text-transform: uppercase;
+}
 
 a.feed-link{
     color: #FCB034;
@@ -1612,9 +1617,9 @@ table.page-users-list{
 }
 
 #site-header .navbar-default .login-register {
-    border-radius: 3px;
+    border-radius: 2px;
     float: right;
-    margin: 10px;
+    margin: 6px;
 }
 #site-header .navbar-default .login-register i{
 	display:none;
@@ -2861,26 +2866,27 @@ margin-right:5px;
     border: medium none;
     box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
     margin-top: 10px;
-    min-width: 400px;
+    min-width: 350px;
     padding: 5px;
 }
 .navbar-default .navbar-nav.category-nav .category-list-drop li{
     float: left;
-    width: 33.33%;
+    width: 50%;
 }
 .navbar-default .navbar-nav.category-nav .category-list-drop li a{
-    color: #888888;
-    font-size: 12px;
-    padding: 5px 15px;
+    color: #999999;
+    font-family: 'open sans',arial,serif;
+    font-size: 14px;
+    padding: 8px 14px;
     white-space: normal;
 }
 .navbar-default .navbar-nav.category-nav .category-list-drop li a span{
-	color:#fff;
-    border-radius: 4px;
+    border-radius: 4px 4px 4px 4px;
+    color: #FFFFFF;
     display: block;
     float: right;
-    font-size: 10px;
-    padding: 1px 5px;
+    font-size: 12px;
+    padding: 1px 6px;
 }
 
 #home-slide-position{
@@ -2954,8 +2960,8 @@ margin-right:5px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.04);
 }
 .user-tabs .nav-tabs > li.active > a{
-	border-color: rgba(0, 0, 0, 0.04);
-	border-bottom-color: transparent;
+    border-color: rgba(0, 0, 0, 0.04) rgba(0, 0, 0, 0.08) transparent;
+    box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.03);
 }
 .user-tabs .nav-tabs > li > a {
     padding: 5px 10px;
@@ -2972,4 +2978,28 @@ margin-right:5px;
 }
 .ra-new-users-widget .users-list li .avatar{
 	padding: 3px;
+}
+
+.modal-backdrop {
+    background-color: #FFFFFF;
+}
+.modal-backdrop.in {
+    opacity:0.95;
+}
+#login-modal .modal-content {
+    border: medium none;
+    box-shadow: none;
+	background:none;
+}
+
+#login-modal h3{
+    font-size: 35px;
+    text-align: center;
+}
+#login-modal .login-desc{
+    color: #AAAAAA;
+    font-family: 'open sans',arial;
+    font-size: 20px;
+    margin-bottom: 30px;
+    text-align: center;
 }

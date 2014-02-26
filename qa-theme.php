@@ -77,6 +77,15 @@
 		qa_register_module('widget', '/inc/widget_tags.php', 'cs_tags_widget', 'Tags', Q_THEME_DIR, Q_THEME_URL);
 		
 		qa_register_module('widget', '/inc/widget_ticker.php', 'cs_ticker_widget', 'RA Ticker', Q_THEME_DIR, Q_THEME_URL);
+<<<<<<< HEAD
+		qa_register_module('widget', '/inc/widget_top_users.php', 'cs_top_users_widget', 'Top Contributors', Q_THEME_DIR, Q_THEME_URL);
+		qa_register_module('widget', '/inc/widget_activity.php', 'cs_activity_widget', 'Site Activity', Q_THEME_DIR, Q_THEME_URL);
+		qa_register_module('widget', '/inc/widget_question_activity.php', 'cs_question_activity_widget', 'Question Activity', Q_THEME_DIR, Q_THEME_URL);
+		qa_register_module('widget', '/inc/widget_featured_questions.php', 'cs_featured_questions_widget', 'Featured Questions', Q_THEME_DIR, Q_THEME_URL);
+		qa_register_module('widget', '/inc/widget_activity_count.php', 'cs_activity_count_widget', 'User Activity Count', Q_THEME_DIR, Q_THEME_URL);
+		qa_register_module('widget', '/inc/widget_twitter.php', 'cs_twitter_widget', 'CS Twitter Widget', Q_THEME_DIR, Q_THEME_URL);
+		qa_register_module('widget', '/inc/widget_feed.php', 'cs_feed_widget', 'CS Feed Widget', Q_THEME_DIR, Q_THEME_URL);
+=======
 		
 		qa_register_module('widget', '/inc/widget_top_users.php', 'cs_top_users_widget', 'Top Contributors', Q_THEME_DIR, Q_THEME_URL);			
 		
@@ -87,4 +96,5 @@
 		qa_register_module('widget', '/inc/widget_featured_questions.php', 'cs_featured_questions_widget', 'Featured Questions', Q_THEME_DIR, Q_THEME_URL);			
 		
 		qa_register_module('widget', '/inc/widget_new_users.php', 'cs_new_users_widget', 'New Users', Q_THEME_DIR, Q_THEME_URL);			
+>>>>>>> origin/master
 	}

@@ -161,6 +161,7 @@
 				$tweets = json_decode(file_get_contents( $file ),$assoc = TRUE);
 			}
 			
+			if (empty($tweets)) return;			
 			$themeobject->output('<ul class="qa-tweeter-list">');
 			foreach($tweets as $items)
 			{

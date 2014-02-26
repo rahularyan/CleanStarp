@@ -530,7 +530,7 @@
 			$this->output('</div>');
 		}
 		
-		function ra_full_categories_list() {
+		function ra_full_categories_list($show_sub = false) {
 
             $level = 1;
 			$navigation = @$this->content['navigation']['cat'];
@@ -547,7 +547,7 @@
 				foreach ($navigation as $key => $navlink) {
 					$this->set_context('nav_key', $key);
 					$this->set_context('nav_index', $index++);
-					$this->ra_full_categories_list_item($key, $navlink, '', $level);
+					$this->ra_full_categories_list_item($key, $navlink, '', $level, $show_sub);
 				}
 				$this->clear_context('nav_key');
 				$this->clear_context('nav_index');
@@ -557,7 +557,7 @@
 			unset($navigation);
 		}
 
-		function ra_full_categories_list_item($key, $navlink, $class, $level = null) {
+		function ra_full_categories_list_item($key, $navlink, $class, $level = null, $show_sub) {
 			$suffix = strtr($key, array(// map special character in navigation key
 				'$' => '',
 				'/' => '-',
@@ -566,7 +566,7 @@
 			$this->output( '<li class="qa-nav-cat-item">');
 			$this->nav_link($navlink, $class);
 			$this->output( '</li>');
-			if (count(@$navlink['subnav']))
+			if (count(@$navlink['subnav']) && $show_sub)
 				$this->nav_list($navlink['subnav'], $class, 1 + $level);
 
 			$this->output('</li>');

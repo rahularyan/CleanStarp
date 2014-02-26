@@ -50,6 +50,11 @@ class qa_html_theme_layer extends qa_html_theme_base {
 				qa_opt('google_analytics', qa_post_text('option_google_analytics'));	
 				qa_opt('ra_colla_comm', (bool)qa_post_text('option_ra_colla_comm'));
 				qa_opt('show_real_name', (bool)qa_post_text('option_show_real_name'));
+				qa_opt('enable_gzip', (bool)qa_post_text('option_enable_gzip'));
+				qa_opt('featured_image_width', (int)qa_post_text('option_featured_image_width')); 
+				qa_opt('featured_image_height', (int)qa_post_text('option_featured_image_height'));
+				qa_opt('featured_thumbnail_width', (int)qa_post_text('option_featured_thumbnail_width'));
+				qa_opt('featured_thumbnail_height', (int)qa_post_text('option_featured_thumbnail_height'));
 				
 				//Layout
 				qa_opt('theme_layout', qa_post_text('option_theme_layout'));
@@ -372,6 +377,72 @@ $ra_page = '
 								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('show_real_name') ? ' checked=""' : '') . ' id="option_show_real_name" name="option_show_real_name">
 							<label for="option_show_real_name">
 							</label>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+			<tbody>
+				<tr>
+					<th class="qa-form-tall-label">
+						Compression
+						<span class="description">Use Gzip compression to increase loading speed</span>
+					</th>
+					<td class="qa-form-tall-label">
+						<div class="on-off-checkbox-container">
+							<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('enable_gzip') ? ' checked=""' : '') . ' id="option_enable_gzip" name="option_enable_gzip">
+							<label for="option_enable_gzip">
+							</label>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+			<tbody>
+				<tr><td><h3>Featured Questions</h3></td></tr>
+				<tr>
+					<th class="qa-form-tall-label">
+						Featured Image Width
+						<span class="description">Question\'s Featured Image Width</span>
+					</th>
+					<td class="qa-form-tall-label">
+						<div class="input-group font-input">
+							<input id="option_featured_image_width" class="form-control featured-image-width" type="text" name="option_featured_image_width" value="' . qa_opt('featured_image_width') . '">
+							<span class="input-group-addon">px</span>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th class="qa-form-tall-label">
+						Featured Image Hight
+						<span class="description">Question\'s Featured Image Hight</span>
+					</th>
+					<td class="qa-form-tall-label">
+						<div class="input-group font-input">
+							<input id="option_featured_image_height" class="form-control featured-image-height" type="text" name="option_featured_image_height" value="' . qa_opt('featured_image_height') . '">
+							<span class="input-group-addon">px</span>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th class="qa-form-tall-label">
+						Thumbnail Width
+						<span class="description">Question\'s Featured Image Thumbnail Width</span>
+					</th>
+					<td class="qa-form-tall-label">
+						<div class="input-group font-input">
+							<input id="option_featured_thumbnail_width" class="form-control featured-thumb-width" type="text" name="option_featured_thumbnail_width" value="' . qa_opt('featured_thumbnail_width') . '">
+							<span class="input-group-addon">px</span>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th class="qa-form-tall-label">
+						Thumbnail Hight
+						<span class="description">Question\'s Featured Image Hight</span>
+					</th>
+					<td class="qa-form-tall-label">
+						<div class="input-group font-input">
+							<input id="option_featured_thumbnail_height" class="form-control featured-thumb-height" type="text" name="option_featured_thumbnail_height" value="' . qa_opt('featured_thumbnail_height') . '">
+							<span class="input-group-addon">px</span>
 						</div>
 					</td>
 				</tr>
@@ -1077,103 +1148,6 @@ $ra_page = '
 	</div>
 </div>
 </form>
-<script>
-$(document).ready(function(){
-	$("#logo_uploader").uploadFile({
-		url:"' . Q_THEME_URL . '/inc/upload.php",
-		allowedTypes:"png,gif,jpg,jpeg",
-		fileName:"myfile",
-		maxFileCount:1,
-		multiple:false,
-		showDelete: true,
-		onSuccess:function(files,data,xhr)
-		{
-			$("#ra_logo_field").val("' . Q_THEME_URL . '/uploads/" + data);
-			$("#logo-preview").attr("src","' . Q_THEME_URL .'/uploads/"+data);
-			$("#logo-preview").show();
-		},
-		deleteCallback:function(data, pd) {
-			$.post("' . Q_THEME_URL . '/inc/upload-delete.php", {op: "delete",name: data},
-					function (resp,textStatus, jqXHR) {
-							$("#logo-preview").hide(500);
-							$("#ra_logo_field").val("");
-					});
-			pd.statusbar.hide(500); //You choice.		
-		},
-	});
-	$("#favicon_uploader").uploadFile({
-		url:"' . Q_THEME_URL . '/inc/upload.php",
-		allowedTypes:"png,gif,jpg,jpeg",
-		fileName:"myfile",
-		maxFileCount:1,
-		multiple:false,
-		showDelete: true,
-		onSuccess:function(files,data,xhr)
-		{
-			$("#ra_favicon_field").val("' . Q_THEME_URL . '/uploads/" + data);
-			$("#favicon-preview").attr("src","' . Q_THEME_URL . '/uploads/" + data);
-			$("#favicon-preview").show();
-		},
-	});
-});
-var advertisement_list_count =  Number($("#adv_number").val());
-for(var i=0; i<advertisement_list_count; i++) {
-	build_advertisement_uploader(i);
-}
-function build_advertisement_uploader(id){
-	$("#adv_image_uploader_" + id).uploadFile({
-		url:"' . Q_THEME_URL . '/inc/upload.php",
-		allowedTypes:"png,gif,jpg,jpeg",
-		fileName:"myfile",
-		maxFileCount:1,
-		multiple:false,
-		showDelete: true,
-		onSuccess:function(files,data,xhr)
-		{
-			$("#adv_image_url_"+id).val("' . Q_THEME_URL . '/uploads/" + data);
-			$("#adv_preview_"+id).attr("src","' . Q_THEME_URL .'/uploads/"+data);
-			$("#adv_preview_"+id).show();
-		},
-		deleteCallback:function(data, pd) {
-			$.post("' . Q_THEME_URL . '/inc/upload-delete.php", {op: "delete",name: data},
-					function (resp,textStatus, jqXHR) {
-							$("#adv_preview_"+id).hide(500);
-							$("#adv_image_url_"+id).val("");
-					});
-			pd.statusbar.hide(500); //You choice.		
-		},
-	});
-}
-	
-var social_list_count =  Number($("#social_count").val());
-for(var i=0; i<social_list_count; i++) {
-	build_social_uploader(i);
-}
-function build_social_uploader(id){
-	$("#social_image_uploader_" + id).uploadFile({
-		url:"' . Q_THEME_URL . '/inc/upload.php",
-		allowedTypes:"png,gif,jpg,jpeg",
-		fileName:"myfile",
-		maxFileCount:1,
-		multiple:false,
-		showDelete: true,
-		onSuccess:function(files,data,xhr)
-		{
-			$("#social_image_url_"+id).val("' . Q_THEME_URL . '/uploads/" + data);
-			$("#social_image_preview_"+id).attr("src","' . Q_THEME_URL .'/uploads/"+data);
-			$("#social_image_preview_"+id).show();
-		},
-		deleteCallback:function(data, pd) {
-			$.post("' . Q_THEME_URL . '/inc/upload-delete.php", {op: "delete",name: data},
-					function (resp,textStatus, jqXHR) {
-							$("#social_image_preview_"+id).hide(500);
-							$("#social_image_url_"+id).val("");
-					});
-			pd.statusbar.hide(500); //You choice.		
-		},
-	});
-}
-</script>
 ';
 			$this->content['custom'] = $ra_page;
 		}

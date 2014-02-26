@@ -780,7 +780,12 @@ ul.qa-nav-cat-list-4  > li.qa-nav-cat-item:first-child {
     font-weight: 300;
     text-transform: lowercase;
 }
-
+.widget .ra-ticker-widget .widget-title a{
+    float: none;
+    font-style: normal;
+    font-weight: 600;
+    text-transform: uppercase;
+}
 
 a.feed-link{
     color: #FCB034;
@@ -2954,8 +2959,8 @@ margin-right:5px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.04);
 }
 .user-tabs .nav-tabs > li.active > a{
-	border-color: rgba(0, 0, 0, 0.04);
-	border-bottom-color: transparent;
+    border-color: rgba(0, 0, 0, 0.04) rgba(0, 0, 0, 0.08) transparent;
+    box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.03);
 }
 .user-tabs .nav-tabs > li > a {
     padding: 5px 10px;

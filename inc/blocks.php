@@ -86,12 +86,12 @@
 
 			$this->output("<link href='http://fonts.googleapis.com/css?family=Open+Sans:300,600,700' rel='stylesheet' type='text/css'>");
 			$googlefonts = json_decode(qa_opt('typo_googlefonts'),true);
-			
-			foreach($googlefonts as $font_name){
-				$font_name = str_replace(" ","+",$font_name);
-				$link = 'http://fonts.googleapis.com/css?family=' . $font_name;
-				$this->output('<link href="' . $link . '" rel="stylesheet" type="text/css">');
-			}
+			if(isset($googlefonts) && !empty($googlefonts))
+				foreach($googlefonts as $font_name){
+					$font_name = str_replace(" ","+",$font_name);
+					$link = 'http://fonts.googleapis.com/css?family=' . $font_name;
+					$this->output('<link href="' . $link . '" rel="stylesheet" type="text/css">');
+				}
 			$this->output( '<style>' . qa_opt('ra_custom_style') . '</style>');
 		}
 		function body()
@@ -662,7 +662,6 @@
 		}
 		
 		function home(){
-
 			$this->output('<div class="row">');
 			$this->output('<div class="col-md-9 home-left-inner">');
 				$this->output('<div class="row">');

@@ -611,3 +611,13 @@ function is_featured($postid){
 	require_once QA_INCLUDE_DIR.'qa-db-metas.php';
 	return (bool)qa_db_postmeta_get($postid, 'featured_question');
 }
+
+function get_featured_image($postid){
+	require_once QA_INCLUDE_DIR.'qa-db-metas.php';
+	$img =  qa_db_postmeta_get($postid, 'featured_image');
+
+	if (!empty($img))
+		return '<img src="'.Q_THEME_URL . '/uploads/' . $img.'" />';
+	
+	return false;
+}

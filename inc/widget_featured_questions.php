@@ -84,7 +84,7 @@
 		// output the list of selected post type
 		function carousel_item($type, $limit, $col_item = 1){
 			require_once QA_INCLUDE_DIR.'qa-app-posts.php';
-			$post = qa_db_query_sub('SELECT * FROM ^postmetas, ^posts  WHERE ^posts.type=$ and  ^postmetas.postid = ^posts.postid ORDER BY ^posts.created DESC LIMIT #', $type, $limit);	
+			$post = qa_db_query_sub('SELECT * FROM ^postmetas, ^posts  WHERE ^posts.type=$ and ( ^postmetas.postid = ^posts.postid and ^postmetas.title = "featured_question" ) ORDER BY ^posts.created DESC LIMIT #', $type, $limit);	
 			$output ='<div class="item"><div class="row">';
 			$i = 1;
 			while($p = mysql_fetch_array($post)){
@@ -99,25 +99,28 @@
 				$handle = qa_post_userid_to_handle($p['userid']);
 
 				$output .= '<div class="slider-item col-sm-'.(12/$col_item).'">';
+				$output .= '<div class="slider-item-inner">';
+				$output .= '<div class="featured-image">'.get_featured_image($p['postid']).'</div>';
 				if ($type=='Q'){
-					$output .= '<div class="big-ans-count pull-left">'.$p['acount'].'<span>'._ra_lang('Ans').'</span></div>';
+					$output .= '<div class="big-ans-count pull-left">'.$p['acount'].'<span> ans</span></div>';
 				}elseif($type=='A'){
 					$output .= '<div class="big-ans-count pull-left vote">'.$p['netvotes'].'<span>'._ra_lang('Vote').'</span></div>';
 				}
 
 				if($type=='Q'){
-					$output .= '<h5><a href="'. qa_q_path_html($p['postid'], $p['title']) .'" title="'. $p['title'] .'">'.qa_html($p['title']).'</a></h5>';
+					$output .= '<h5><a href="'. qa_q_path_html($p['postid'], $p['title']) .'" title="'. $p['title'] .'">'.ra_truncate(qa_html($p['title']), 50).'</a></h5>';
 				}elseif($type=='A'){
-					$output .= '<h5><a href="'.ra_post_link($p['parentid']).'#a'.$p['postid'].'">'. substr(strip_tags($p['content']), 0, 50).'</a></h5>';
+					$output .= '<h5><a href="'.ra_post_link($p['parentid']).'#a'.$p['postid'].'">'. ra_truncate(strip_tags($p['content']), 50).'</a></h5>';
 				}else{
-					$output .= '<h5><a href="'.ra_post_link($p['parentid']).'#c'.$p['postid'].'">'. substr(strip_tags($p['content']), 0, 50).'</a></h5>';
+					$output .= '<h5><a href="'.ra_post_link($p['parentid']).'#c'.$p['postid'].'">'. ra_truncate(strip_tags($p['content']), 50).'</a></h5>';
 				}
 				
-				$output .= '<img src="'.get_featured_image($p['postid']).'" />';	
+					
 				$output .= '<div class="list-date"><span class="icon-calendar-2">'.date('d M Y', strtotime($p['created'])).'</span>';	
 				$output .= '<span class="icon-chevron-up">'.$p['netvotes'].' '._ra_lang('votes').'</span></div>';	
 				
-				$output .= ' </div>';
+				$output .= '</div>';
+				$output .= '</div>';
 				if($col_item == $i){
 					$output .= '</div></div><div class="item active"><div class="row">';
 				}
@@ -147,10 +150,7 @@
                 <div class="carousel-inner">
                     '.$this->carousel_item('Q', '12', 4).'                    
                 </div>
-                <!--/carousel-inner--> <a class="left carousel-control" href="#featured-slider" data-slide="prev">‹</a>
-
-                <a
-                class="right carousel-control" href="#featured-slider" data-slide="next">›</a>
+                <a class="left carousel-control icon-angle-left" href="#featured-slider" data-slide="prev"></a><a class="right carousel-control icon-angle-right" href="#featured-slider" data-slide="next"></a>
             </div>
 
 			');

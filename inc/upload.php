@@ -31,13 +31,13 @@ if(isset($_FILES["myfile"]))
 			
 			$image = new Image($uploaddir.$temp_name_with_ext);
 			
-			$image->resize(621, 300, 'crop', 'c', 't', 99);
+			$image->resize(621, 300, 'crop', 'c', 'c', 99);
 			$image->save($file_name, $uploaddir);
 			
 			$thumb = new Image($uploaddir.$temp_name_with_ext);
-			$thumb->resize(278, 120, 'crop', 'c', 't', 99);
+			$thumb->resize(278, 120, 'crop', 'c', 'c', 99);
 			$thumb->save($file_name.'_s', $uploaddir);
-			
+			unlink ($uploaddir.$temp_name_with_ext); 
  	 	
     	echo $file_name_with_ext;
 	}

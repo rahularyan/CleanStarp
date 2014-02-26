@@ -102,13 +102,17 @@ class qa_html_theme_layer extends qa_html_theme_base {
 				
 				// Typography
 				$typo_options = $_POST['typo_option'];
+				$google_fonts= array();
 				foreach ($typo_options as $k => $options){
 					qa_opt('typo_options_family_' . $k , $options['family']);
 					qa_opt('typo_options_style_' . $k , $options['style']);
 					qa_opt('typo_options_size_' . $k , $options['size']);
 					qa_opt('typo_options_linehight_' . $k , $options['linehight']);
 					qa_opt('typo_options_backup_' . $k , $options['backup']);
+					if ( (isset($google_webfonts[$options['family']])) && (!(in_array ($options['family'],$google_fonts))) )
+						$google_fonts[]=$options['family'];
 				}
+				qa_opt('typo_googlefonts' , json_encode($google_fonts));
 				
 				// Social
 				$SocialCount = (int)qa_post_text('social_count'); // number of advertisement items
@@ -1221,48 +1225,15 @@ $ra_page = '
 			$this->output('</div></div>');
 			$this->output('<span class="ra-multitext-add icon-plus btn btn-primary btn-xs" title="Add more">Add more</span>');
 		}
-		function ra_font_name($font_url){
-			$patterns = array(
-			  //replace the path root
-			'!^http://fonts.googleapis.com/css\?!',
-			  //capture the family and avoid and any following attributes in the URI.
-			'!(family=[^&:]+).*$!',
-			  //delete the variable name
-			'!family=!',
-			  //replace the plus sign
-			'!\+!');
-			$replacements = array(
-			"",
-			'$1',
-			'',
-			' ');
-			
-			$font = preg_replace($patterns,$replacements,$font_url);
-			return $font;
 
-		}
-	
-		function ra_font_family(){
-			$fonts = array();
-			$fonts[] = '';
-			$fonts['Georgia, Times New Roman, Times, serif'] = 'Serif Family';
-			$fonts['Helvetica Neue, Helvetica, Arial, sans-serif'] = 'Sans Family';	
-			$option_fonts = qa_opt('ra_fonts');
-			if(!empty($option_fonts)){
-				foreach (explode("\n", qa_opt('ra_fonts')) as $font){				
-					$fonts[$this->ra_font_name($font).', Helvetica, Arial, sans-serif'] = $this->ra_font_name($font);
-				}
-			}
-			return $fonts;
-		}
 		function head_script()
 		{
 			qa_html_theme_base::head_script();
 			if($this->request == 'themeoptions'){
 				$this->output('<script type="text/javascript" src="'.$this->rooturl.'js/admin.js"></script>');
 				$this->output('<script type="text/javascript" src="'.$this->rooturl.'js/spectrum.js"></script>'); // color picker
-				$this->output('<script type="text/javascript" src="'.$this->rooturl.'js/chosen.jquery.min.js"></script>'); // color picker
-				$this->output('<script type="text/javascript" src="'.$this->rooturl.'js/jquery.uploadfile.min.js"></script>'); // color picker
+				$this->output('<script type="text/javascript" src="'.$this->rooturl.'js/chosen.jquery.min.js"></script>'); // Select list
+				$this->output('<script type="text/javascript" src="'.$this->rooturl.'js/jquery.uploadfile.min.js"></script>'); // File uploader
 			}
 		}
 		function head_css()

@@ -442,7 +442,7 @@
 			?>
 				<div class="user-tabs">
 					<ul class="nav nav-tabs">
-					  <li class="active"><a href="#right-new-users" data-toggle="tab">Top Users</a></li>
+					  <li class="active"><a href="#right-top-users" data-toggle="tab">Top Users</a></li>
 					  <li><a href="#right-new-user" data-toggle="tab">New Users</a></li>
 					</ul>
 

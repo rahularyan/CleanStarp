@@ -2961,3 +2961,15 @@ margin-right:5px;
     padding: 5px 10px;
 	outline: medium none;
 }
+
+.ra-new-users-widget .users-list{
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+}
+.ra-new-users-widget .users-list li{
+	float: left;
+}
+.ra-new-users-widget .users-list li .avatar{
+	padding: 3px;
+}

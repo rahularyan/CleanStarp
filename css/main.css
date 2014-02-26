@@ -1631,15 +1631,7 @@ table.page-users-list{
     font-size: 18px;
     padding: 10px 15px;
 }
-#loginform:before{
-    background: #EEEEEE;
-    content: "";
-    display: block;
-    height: 100%;
-    position: absolute;
-    right: -5px;
-    width: 1px;
-}
+
 #qa-rememberme {
     margin: 9px 5px 0 -10px;
 }
@@ -1653,10 +1645,7 @@ table.page-users-list{
 
     width: 1px;
 }
-#loginform .form-control, #registerform .form-control,
-#loginform .btn, #registerform .btn{
-	margin: 0 0 10px 5px;
-}
+
 #loginform .btn{
 	border-radius: 2px;
 }
@@ -1666,44 +1655,6 @@ table.page-users-list{
 .qa-nav-user-item {
     display: inline-block;
     float: left;
-}
-.open-login-button:before {
-    width: 28px !important;
-}
-.open-login-button:before {
-    display: inline-block;
-    margin-right: 10px;
-    text-align: center;
-    width: 20px;
-}
-.open-login-button{
-    background: #A7B2BE;
-    border-radius: 2px;
-    border-width: 0;
-    box-shadow: 0 -2px 0 rgba(0, 0, 0, 0.15) inset;
-    color: #FFFFFF;
-    display: table;
-    font-weight: 600;
-    margin: 0 auto 10px;
-    min-width: 200px;
-    padding: 7px 12px;
-    position: relative;
-    transition: background 0.3s ease-in-out 0s;
-}
-.open-login-button.facebook{
-    background: #335397;
-    margin-top: 18px;
-}
-.open-login-button.google{
-	background:#DD4A38;
-}
-.open-login-button.twitter{
-	background:#00C7F7;
-}
-.open-login-button:hover{
-    background: #FFFFFF;
-    box-shadow: 0 -2px 0 rgba(0, 0, 0, 0.15) inset, 0 0 5px rgba(0, 0, 0, 0.2);
-    color: #333333;
 }
 
 .qa-a-selection {
@@ -3002,4 +2953,79 @@ margin-right:5px;
     font-size: 20px;
     margin-bottom: 30px;
     text-align: center;
+}
+
+.social-logins {
+    display: table;
+    margin: 0 auto 30px;
+}
+.social-logins a:before {
+    width: 28px !important;
+}
+.social-logins a:before {
+    display: inline-block;
+    margin-right: 10px;
+    text-align: center;
+    width: 20px;
+}
+.social-logins a{
+    background: none repeat scroll 0 0 #A7B2BE;
+    border-radius: 2px;
+    border-width: 0;
+    color: #FFFFFF;
+    display: inline-block;
+    font-weight: 600;
+    min-width: 180px;
+    padding: 7px 12px;
+    position: relative;
+    transition: background 0.3s ease-in-out 0s;
+}
+.social-logins a.facebook{
+    background: #335397;
+}
+.social-logins a.google{
+	background:#DD4A38;
+}
+.social-logins a.twitter{
+	background:#00C7F7;
+}
+.social-logins a:hover{
+    background: #FFFFFF;
+    box-shadow: 0 -2px 0 rgba(0, 0, 0, 0.15) inset, 0 0 5px rgba(0, 0, 0, 0.2);
+    color: #333333;
+}
+.row *:first-child #loginform:before {
+    background: none repeat scroll 0 0 #EEEEEE;
+    content: "";
+    display: block;
+    height: 100%;
+    position: absolute;
+    right: -5px;
+    width: 1px;
+}
+#loginform .form-control{
+    height: auto;
+    padding: 10px;
+}
+#loginform .input-group {
+    margin-bottom: 10px;
+}
+#loginform .input-group .input-group-addon{
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.02);
+    border-color: #EEEEEE;
+    border-radius: 0;
+    border-right: medium none #EEEEEE;
+    color: #AAAAAA;
+}
+#loginform #qa-rememberme{
+	margin: 4px 10px 0 0;
+}
+#loginform .checkbox {
+    margin-bottom: 30px;
+}
+#loginform #qa-register{
+	margin-top: 15px;
+}
+#loginform .btn{
+	padding: 12px;
 }

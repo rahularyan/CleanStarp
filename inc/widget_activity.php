@@ -178,9 +178,8 @@
 					else if($row['event']=="badge_awarded") {
 						$event_icon = 'icon-badge badge-icon '.@$badge_type;
 					}
-					$date = new DateTime($row['datetime']);
 
-					$timeCode = implode('', qa_when_to_html( $date->getTimestamp(), qa_opt('show_full_date_days')));
+					$timeCode = implode('', qa_when_to_html( strtotime($row['datetime']), qa_opt('show_full_date_days')));
 					$time = '<span class="time">'.$timeCode.'</span>';
 					
 					// if question title is empty, question got possibly deleted, do not show frontend!

@@ -60,9 +60,9 @@
 						'Home Left Bottom 1' => 'Home bottom',
 						'Home Left Bottom 2' => 'Home bottom',
 						'Home Left Bottom 3' => 'Home bottom',
-						'Home Top' => 'Top content in home',
-						'Home Middle' => 'Middle content in home',
-						'Home Bottom' => 'Bottom content in home'
+						'Home Right' => 'Top content in home',
+						'Top Users' => 'Right tab',
+						'New Users' => 'Right tab'
 					)
 				);
 				reset_theme_options();

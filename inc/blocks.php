@@ -426,7 +426,7 @@
 			$this->output('<input type="submit" value="'.$search['button_label'].'" class="btn btn-default"/>');
 		}
 		
-		function sidepanel() {
+		function sidepanel() {			
 			if(ra_position_active('Right')){
 				$this->output('<div class="col-sm-4 side-c">');
 				$this->output('<div class="qa-sidepanel">');
@@ -435,6 +435,29 @@
 
 				$this->output('</div>');
 			}
+		}
+		
+		function right_tabs(){
+			ob_start();
+			?>
+				<div class="user-tabs">
+					<ul class="nav nav-tabs">
+					  <li class="active"><a href="#right-new-users" data-toggle="tab">Top Users</a></li>
+					  <li><a href="#right-new-user" data-toggle="tab">New Users</a></li>
+					</ul>
+
+					<!-- Tab panes -->
+					<div class="tab-content">
+					  <div class="tab-pane active" id="right-top-users">
+						<?php $this->ra_position('Top Users'); ?>
+					  </div>
+					  <div class="tab-pane" id="right-new-user">
+						<?php $this->ra_position('New Users'); ?>
+					  </div>
+					</div>
+				</div>
+			<?php
+			$this->output(ob_get_clean());
 		}
 		function ra_pie_stats(){
 			$this->output('
@@ -666,7 +689,8 @@
 			$this->output('</div>');
 			
 			$this->output('<div class="col-md-3">');
-			$this->ra_position('Home Bottom');
+			$this->right_tabs();
+			$this->ra_position('Home Right');
 			$this->output('</div>');
 			$this->output('</div>');
 		}

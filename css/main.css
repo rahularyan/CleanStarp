@@ -2738,6 +2738,9 @@ margin-right:5px;
     top: 18px;
     width: 2px;
 }
+.ra-activity .event-item:last-child .event-inner:before {
+	display:none;
+}
 .ra-activity .event-item:last-child .event-inner {
     border: medium none;
     padding: 0;
@@ -2939,4 +2942,22 @@ margin-right:5px;
 }
 .carousel .slider-item .meta .vote-count{
 	margin-left:10px;
+}
+
+.user-tabs{
+    background: none repeat scroll 0 0 #FFFFFF;
+    margin-bottom: 20px;
+}
+.user-tabs .nav-tabs{
+	padding: 10px 10px 0;
+    background: none repeat scroll 0 0 #F9F9F9;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+}
+.user-tabs .nav-tabs > li.active > a{
+	border-color: rgba(0, 0, 0, 0.04);
+	border-bottom-color: transparent;
+}
+.user-tabs .nav-tabs > li > a {
+    padding: 5px 10px;
+	outline: medium none;
 }

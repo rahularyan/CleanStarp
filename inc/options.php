@@ -109,7 +109,7 @@ class qa_html_theme_layer extends qa_html_theme_base {
 					qa_opt('typo_options_size_' . $k , $options['size']);
 					qa_opt('typo_options_linehight_' . $k , $options['linehight']);
 					qa_opt('typo_options_backup_' . $k , $options['backup']);
-					if (isset($google_webfonts[$options['family']]))
+					if ( (isset($google_webfonts[$options['family']])) && (!(in_array ($options['family'],$google_fonts))) )
 						$google_fonts[]=$options['family'];
 				}
 				qa_opt('typo_googlefonts' , json_encode($google_fonts));

@@ -66,9 +66,38 @@ $color = qa_opt('highlight_bg_color');
 if (!(empty($color)))
 	$css.= '::selection {background: ' . $color . ';} ::-moz-selection {background: ' . $color . ';};}';
 
-
-
+// Typography
+$typo_elements= array('body', 'h1', 'h2', 'h3', 'h4', 'h5', 'p', 'span', 'quote');
+foreach ($typo_elements as $elem){
+	$family = qa_opt('typo_options_family_' . $elem);
+	$backup = qa_opt('typo_options_backup_' . $elem);
+	$style = qa_opt('typo_options_style_' . $elem);
+	$size = qa_opt('typo_options_size_' . $elem );
+	$height = qa_opt('typo_options_linehight_' . $elem);
 	
+	if(($family == '') || ($backup=='')){$connector = '';}else{$connector = ', ';}
+	$font_family = $family . $connector . $backup;
+	
+	$insider = '';
+	if (!empty($font_family))
+		$insider.= 'font-family:' . $font_family . ';';
+	if (strpos($style, 'italic')) {
+		$font_style = 'italic';
+	}
+	$weight = str_replace('italic', '', $style);
+	if (!empty($font_style))
+		$insider.= 'font-style:' . $font_style . ';';
+	if (!empty($weight))
+		$insider.= 'font-weight:' . $weight . ';';
+	if (!empty($size))
+		$insider.= 'font-size:' . $size . 'px;';
+	if (!empty($height))
+		$insider.= 'line-height:' . $height . 'px;';
+		
+	if((!empty($insider)))
+		$css.= $elem . '{' . $insider . '}';
+}
+
 qa_opt('ra_custom_style', $css);
 
 

@@ -1,16 +1,16 @@
 <?php
 	class cs_question_activity_widget {
 
-		function ra_widget_form()
+		function cs_widget_form()
 		{
 			
 			return array(
 				'style' => 'wide',
 				'fields' => array(
-					'ra_qa_count' => array(
+					'cs_qa_count' => array(
 						'label' => 'Numbers of questions',
 						'type' => 'number',
-						'tags' => 'name="ra_qa_count"',
+						'tags' => 'name="cs_qa_count"',
 						'value' => '10',
 					)
 				),
@@ -80,7 +80,7 @@
 		//	Get lists of recent activity in all its forms, plus category information
 			
 			list($questions1, $questions2, $questions3, $questions4, $categories, $categoryid)=qa_db_select_with_pending(
-				qa_db_qs_selectspec($userid, 'created', 0, $categoryslugs, null, false, false, (int)$widget_opt['ra_qa_count']),
+				qa_db_qs_selectspec($userid, 'created', 0, $categoryslugs, null, false, false, (int)$widget_opt['cs_qa_count']),
 				qa_db_recent_a_qs_selectspec($userid, 0, $categoryslugs),
 				qa_db_recent_c_qs_selectspec($userid, 0, $categoryslugs),
 				qa_db_recent_edit_qs_selectspec($userid, 0, $categoryslugs),
@@ -106,7 +106,7 @@
 
 			$content =  qa_q_list_page_content(
 				qa_any_sort_and_dedupe(array_merge($questions1, $questions2, $questions3, $questions4)), // questions
-				$widget_opt['ra_qa_count'], // questions per page
+				$widget_opt['cs_qa_count'], // questions per page
 				0, // start offset
 				null, // total count (null to hide page links)
 				$sometitle, // title if some questions
@@ -129,7 +129,7 @@
 			
 			$themeobject->output('<ul class="activity-list">');
 			foreach ($q_list as $list){
-				$themeobject->output('<li><span class="fav-star icon-star'.(@$list['raw']['userfavoriteq'] ? ' active' : '').'"></span><a'.(is_featured($list['raw']['postid']) ? ' class="featured" ' : '').' href="'.$list['url'].'">'.ra_truncate($list['title'], 50).'<span class="time">'.implode(' ', $list['when']).'</span><span class="ans-count total-'.$list['raw']['acount'].'">'.$list['raw']['acount'].'</span></a></li>');
+				$themeobject->output('<li><span class="fav-star icon-star'.(@$list['raw']['userfavoriteq'] ? ' active' : '').'"></span><a'.(is_featured($list['raw']['postid']) ? ' class="featured" ' : '').' href="'.$list['url'].'">'.cs_truncate($list['title'], 50).'<span class="time">'.implode(' ', $list['when']).'</span><span class="ans-count total-'.$list['raw']['acount'].'">'.$list['raw']['acount'].'</span></a></li>');
 			}
 			$themeobject->output('</ul>');
 			$themeobject->output('</div>');

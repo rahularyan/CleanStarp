@@ -1,16 +1,16 @@
 <?php
 	class cs_tags_widget {
 
-		function ra_widget_form()
+		function cs_widget_form()
 		{
 			
 			return array(
 				'style' => 'wide',
 				'fields' => array(
-					'ra_tags_count' => array(
+					'cs_tags_count' => array(
 						'label' => 'Numbers of tags',
 						'type' => 'number',
-						'tags' => 'name="ra_tags_count"',
+						'tags' => 'name="cs_tags_count"',
 						'value' => '10',
 					)
 				),
@@ -72,7 +72,7 @@
 			if(@$themeobject->current_widget['Tags']['locations']['show_title'])
 				$themeobject->output('<h3 class="widget-title">Tags <a href="'.qa_path_html('tags').'">View All</a></h3>');
 				
-			$to_show = (int)$widget_opt['ra_tags_count'];
+			$to_show = (int)$widget_opt['cs_tags_count'];
 			$populartags=qa_db_single_select(qa_db_popular_tags_selectspec(0, (!empty($to_show) ? $to_show : 20)));
 			
 			reset($populartags);

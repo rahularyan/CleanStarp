@@ -16,16 +16,7 @@ class qa_html_theme_layer extends qa_html_theme_base {
 		$this->theme_url = $qa_layers['Theme Widgets']['urltoroot'];
 		qa_html_theme_base::qa_html_theme_base($template, $content, $rooturl, $request);
 	}
-	
-	function option_default($option)
-	{
-		if ($option=='option_ra_home_layout'):
-			return 'modern';
-		elseif($option == 'ra_logo'):
-			return qa_opt('site_url').'qa-theme/'.qa_get_site_theme().'/images/logo.png';
-		endif;
-	}
-	
+
 	function doctype(){
 		// Setup Navigation
 		global $qa_request;
@@ -45,23 +36,23 @@ class qa_html_theme_layer extends qa_html_theme_base {
 			//$this->content['custom']='';
 		
 			$saved=false;
-			if (qa_clicked('ra_save_button')) {	
+			if (qa_clicked('cs_save_button')) {	
 					
 				$saved=true;
 			}
 			$saved ? 'Settings saved' : null;
 			
-			$ra_page = '
+			$cs_page = '
 				<div id="ra-widgets">
 					<div class="widget-list col-sm-4">
-						'. $this->ra_get_widgets() .'
+						'. $this->cs_get_widgets() .'
 					</div>
 					<div class="widget-postions col-sm-8">
-						'.$this->ra_get_widgets_positions().'
+						'.$this->cs_get_widgets_positions().'
 					</div>
 				</div>
 			';
-			$this->content['custom'] = $ra_page;
+			$this->content['custom'] = $cs_page;
 		}
 		qa_html_theme_base::doctype();
 	}	
@@ -89,7 +80,7 @@ class qa_html_theme_layer extends qa_html_theme_base {
 				qa_html_theme_base::main_part($key, $part);
 		}
 		
-		function ra_get_widgets(){
+		function cs_get_widgets(){
 			ob_start();
 			foreach(qa_load_modules_with('widget', 'allow_template') as $k => $widget){
 				?>
@@ -118,10 +109,10 @@ class qa_html_theme_layer extends qa_html_theme_base {
 		}	
 
 
-		function ra_get_widgets_positions(){
-			$widget_positions = unserialize(qa_opt('ra_widgets_positions'));
+		function cs_get_widgets_positions(){
+			$widget_positions = unserialize(qa_opt('cs_widgets_positions'));
 			
-			$widgets = unserialize(qa_opt('ra_widgets'));
+			$widgets = unserialize(qa_opt('cs_widgets'));
 			
 			ob_start();
 			if(is_array($widget_positions)){
@@ -150,7 +141,7 @@ class qa_html_theme_layer extends qa_html_theme_base {
 											<input type="checkbox" name="show_title" <?php echo (@$template['locations']['show_title'] ? 'checked' : ''); ?>> Show widget title</label><br />
 												<span>Select pages where you want to show</span>
 												<?php
-													foreach(ra_get_template_array() as $k => $t){
+													foreach(cs_get_template_array() as $k => $t){
 														$checked = @$template['locations'][$k] ? 'checked' : '';
 														echo '												
 															<div class="checkbox">
@@ -179,7 +170,7 @@ class qa_html_theme_layer extends qa_html_theme_base {
 		}
 		
 		function get_widget_template_checkbox(){
-			foreach(ra_get_template_array() as $t_name => $t)
+			foreach(cs_get_template_array() as $t_name => $t)
 				$this->output( '												
 					<div class="checkbox">
 						<label>
@@ -191,8 +182,8 @@ class qa_html_theme_layer extends qa_html_theme_base {
 		}
 		function get_widget_form($name, $options = false){
 			$module	=	qa_load_module('widget', $name);							
-			if(is_object($module) && method_exists($module, 'ra_widget_form')){
-				$fields = $module->ra_widget_form();
+			if(is_object($module) && method_exists($module, 'cs_widget_form')){
+				$fields = $module->cs_widget_form();
 				
 				if($options){
 					foreach($options as $k => $opt){

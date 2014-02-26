@@ -4,7 +4,7 @@
 			header('Location: /');
 			exit;
 	}
-	$ra_error ='';
+	$cs_error ='';
 
 	function get_base_url()
     {
@@ -36,14 +36,14 @@
 	require Q_THEME_DIR.'/functions.php';
 	require Q_THEME_DIR.'/inc/blocks.php';
 	
-	if(isset($_REQUEST['ra_ajax']))
+	if(isset($_REQUEST['cs_ajax']))
 		require Q_THEME_DIR.'/inc/ajax.php';
 	else{
 		global $qa_request;
 		
 		if (qa_get_logged_in_level()>=QA_USER_LEVEL_ADMIN){
-			if(!(bool)qa_opt('ra_init')){ // theme init 
-				ra_register_widget_position(
+			if(!(bool)qa_opt('cs_init')){ // theme init 
+				cs_register_widget_position(
 					array(
 						'Top' => 'Before navbar', 
 						'Header' => 'After navbar', 
@@ -66,35 +66,21 @@
 					)
 				);
 				reset_theme_options();
-				qa_opt('ra_init',true);
+				qa_opt('cs_init',true);
 			}
 			qa_register_layer('/inc/options.php', 'Theme Options', Q_THEME_DIR , Q_THEME_URL );	
 			qa_register_layer('/inc/widgets.php', 'Theme Widgets', Q_THEME_DIR , Q_THEME_URL );
 		}		
 			
-		qa_register_module('widget', '/inc/widget_ask.php', 'ra_ask_widget', 'RA Ajax Ask', Q_THEME_DIR, Q_THEME_URL);
-		
-		qa_register_module('widget', '/inc/widget_tags.php', 'cs_tags_widget', 'Tags', Q_THEME_DIR, Q_THEME_URL);
-		
-		qa_register_module('widget', '/inc/widget_ticker.php', 'cs_ticker_widget', 'RA Ticker', Q_THEME_DIR, Q_THEME_URL);
-<<<<<<< HEAD
-		qa_register_module('widget', '/inc/widget_top_users.php', 'cs_top_users_widget', 'Top Contributors', Q_THEME_DIR, Q_THEME_URL);
-		qa_register_module('widget', '/inc/widget_activity.php', 'cs_activity_widget', 'Site Activity', Q_THEME_DIR, Q_THEME_URL);
-		qa_register_module('widget', '/inc/widget_question_activity.php', 'cs_question_activity_widget', 'Question Activity', Q_THEME_DIR, Q_THEME_URL);
-		qa_register_module('widget', '/inc/widget_featured_questions.php', 'cs_featured_questions_widget', 'Featured Questions', Q_THEME_DIR, Q_THEME_URL);
-		qa_register_module('widget', '/inc/widget_activity_count.php', 'cs_activity_count_widget', 'User Activity Count', Q_THEME_DIR, Q_THEME_URL);
+		qa_register_module('widget', '/inc/widget_ask.php', 'cs_ask_widget', 'CS Ajax Ask', Q_THEME_DIR, Q_THEME_URL);
+		qa_register_module('widget', '/inc/widget_tags.php', 'cs_tags_widget', 'CS Tags', Q_THEME_DIR, Q_THEME_URL);
+		qa_register_module('widget', '/inc/widget_ticker.php', 'cs_ticker_widget', 'CS Ticker', Q_THEME_DIR, Q_THEME_URL);
+		qa_register_module('widget', '/inc/widget_top_users.php', 'cs_top_users_widget', 'CS Top Contributors', Q_THEME_DIR, Q_THEME_URL);
+		qa_register_module('widget', '/inc/widget_activity.php', 'cs_activity_widget', 'CS Site Activity', Q_THEME_DIR, Q_THEME_URL);
+		qa_register_module('widget', '/inc/widget_question_activity.php', 'cs_question_activity_widget', 'CS Question Activity', Q_THEME_DIR, Q_THEME_URL);
+		qa_register_module('widget', '/inc/widget_featured_questions.php', 'cs_featured_questions_widget', 'CS Featured Questions', Q_THEME_DIR, Q_THEME_URL);
+		qa_register_module('widget', '/inc/widget_activity_count.php', 'cs_activity_count_widget', 'CS User Activity Count', Q_THEME_DIR, Q_THEME_URL);
 		qa_register_module('widget', '/inc/widget_twitter.php', 'cs_twitter_widget', 'CS Twitter Widget', Q_THEME_DIR, Q_THEME_URL);
 		qa_register_module('widget', '/inc/widget_feed.php', 'cs_feed_widget', 'CS Feed Widget', Q_THEME_DIR, Q_THEME_URL);
-=======
-		
-		qa_register_module('widget', '/inc/widget_top_users.php', 'cs_top_users_widget', 'Top Contributors', Q_THEME_DIR, Q_THEME_URL);			
-		
-		qa_register_module('widget', '/inc/widget_activity.php', 'cs_activity_widget', 'Site Activity', Q_THEME_DIR, Q_THEME_URL);			
-		
-		qa_register_module('widget', '/inc/widget_question_activity.php', 'cs_question_activity_widget', 'Question Activity', Q_THEME_DIR, Q_THEME_URL);			
-		
-		qa_register_module('widget', '/inc/widget_featured_questions.php', 'cs_featured_questions_widget', 'Featured Questions', Q_THEME_DIR, Q_THEME_URL);			
-		
-		qa_register_module('widget', '/inc/widget_new_users.php', 'cs_new_users_widget', 'New Users', Q_THEME_DIR, Q_THEME_URL);			
->>>>>>> origin/master
+		qa_register_module('widget', '/inc/widget_new_users.php', 'cs_new_users_widget', 'CS New Users', Q_THEME_DIR, Q_THEME_URL);			
 	}

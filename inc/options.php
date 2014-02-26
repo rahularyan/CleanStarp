@@ -39,65 +39,65 @@ class qa_html_theme_layer extends qa_html_theme_base {
 			$normal_fonts = array("Arial, Helvetica, sans-serif" => "Arial, Helvetica, sans-serif","'Arial Black', Gadget, sans-serif" => "'Arial Black', Gadget, sans-serif","'Bookman Old Style', serif" => "'Bookman Old Style', serif","'Comic Sans MS', cursive" => "'Comic Sans MS', cursive","Courier, monospace" => "Courier, monospace","Garamond, serif"  => "Garamond, serif","Georgia, serif" => "Georgia, serif","Impact, Charcoal, sans-serif" => "Impact, Charcoal, sans-serif","'Lucida Console', Monaco, monospace" => "'Lucida Console', Monaco, monospace","'Lucida Sans Unicode', 'Lucida Grande', sans-serif" => "'Lucida Sans Unicode', 'Lucida Grande', sans-serif","'MS Sans Serif', Geneva, sans-serif" => "'MS Sans Serif', Geneva, sans-serif","'MS Serif', 'New York', sans-serif" => "'MS Serif', 'New York', sans-serif","'Palatino Linotype', 'Book Antiqua', Palatino, serif" => "'Palatino Linotype', 'Book Antiqua', Palatino, serif","Tahoma,Geneva, sans-serif"  => "Tahoma, Geneva, sans-serif","'Times New Roman', Times,serif" => "'Times New Roman', Times, serif","'Trebuchet MS', Helvetica, sans-serif" => "'Trebuchet MS', Helvetica, sans-serif","Verdana, Geneva, sans-serif" => "Verdana, Geneva, sans-serif",);
 			
 			$saved=false;
-			if (qa_clicked('ra_reset_button')) {	
+			if (qa_clicked('cs_reset_button')) {	
 				reset_theme_options();
 				$saved = 'Settings saved';
 			}
-			if (qa_clicked('ra_save_button')) {	
+			if (qa_clicked('cs_save_button')) {	
 				// General
-				qa_opt('logo_url', qa_post_text('ra_logo_field'));
-				qa_opt('favicon_url', qa_post_text('ra_favicon_field'));
-				qa_opt('google_analytics', qa_post_text('option_google_analytics'));	
-				qa_opt('ra_colla_comm', (bool)qa_post_text('option_ra_colla_comm'));
-				qa_opt('show_real_name', (bool)qa_post_text('option_show_real_name'));
-				qa_opt('enable_gzip', (bool)qa_post_text('option_enable_gzip'));
-				qa_opt('featured_image_width', (int)qa_post_text('option_featured_image_width')); 
-				qa_opt('featured_image_height', (int)qa_post_text('option_featured_image_height'));
-				qa_opt('featured_thumbnail_width', (int)qa_post_text('option_featured_thumbnail_width'));
-				qa_opt('featured_thumbnail_height', (int)qa_post_text('option_featured_thumbnail_height'));
+				qa_opt('logo_url', qa_post_text('cs_logo_field'));
+				qa_opt('cs_favicon_url', qa_post_text('cs_favicon_field'));
+				qa_opt('cs_google_analytics', qa_post_text('cs_google_analytics'));	
+				qa_opt('cs_colla_comm', (bool)qa_post_text('cs_colla_comm'));
+				qa_opt('cs_show_real_name', (bool)qa_post_text('cs_show_real_name'));
+				qa_opt('cs_enable_gzip', (bool)qa_post_text('cs_enable_gzip'));
+				qa_opt('cs_featured_image_width', (int)qa_post_text('cs_featured_image_width')); 
+				qa_opt('cs_featured_image_height', (int)qa_post_text('cs_featured_image_height'));
+				qa_opt('cs_featured_thumbnail_width', (int)qa_post_text('cs_featured_thumbnail_width'));
+				qa_opt('cs_featured_thumbnail_height', (int)qa_post_text('cs_featured_thumbnail_height'));
 				
 				//Layout
-				qa_opt('theme_layout', qa_post_text('option_theme_layout'));
-				qa_opt('users_table_layout', (bool)qa_post_text('option_users_table_layout'));
-				qa_opt('ra_nav_fixed', (bool)qa_post_text('option_ra_nav_fixed'));	
-				qa_opt('ra_show_icon', (bool)qa_post_text('option_ra_show_icon'));	
-				qa_opt('ra_enable_except', (bool)qa_post_text('option_ra_enable_except'));
-				qa_opt('ra_except_len', (int)qa_post_text('option_ra_except_len'));
-				qa_opt('ra_enable_avatar_lists', (bool)qa_post_text('option_ra_enable_avatar_lists'));
-				if (qa_opt('ra_enable_avatar_lists'))
+				qa_opt('cs_theme_layout', qa_post_text('cs_theme_layout'));
+				qa_opt('cs_users_table_layout', (bool)qa_post_text('cs_users_table_layout'));
+				qa_opt('cs_nav_fixed', (bool)qa_post_text('cs_nav_fixed'));	
+				qa_opt('cs_show_icon', (bool)qa_post_text('cs_show_icon'));	
+				qa_opt('cs_enable_except', (bool)qa_post_text('cs_enable_except'));
+				qa_opt('cs_except_len', (int)qa_post_text('cs_except_len'));
+				qa_opt('cs_enable_avatar_lists', (bool)qa_post_text('cs_enable_avatar_lists'));
+				if (qa_opt('cs_enable_avatar_lists'))
 					qa_opt('avatar_q_list_size',35);
 				else
 					qa_opt('avatar_q_list_size',0); // set avatar size to zero so Q2A won't load them
-				qa_opt('show_view_counts', (bool)qa_post_text('option_ra_enable_views_lists'));
-				qa_opt('show_tags_list', (bool)qa_post_text('option_show_tags_list'));
-				qa_opt('horizontal_voting_btns', (bool)qa_post_text('option_horizontal_voting_btns'));
-				qa_opt('enble_back_to_top', (bool)qa_post_text('option_enble_back_to_top'));
-				qa_opt('back_to_top_location', qa_post_text('option_back_to_top_location'));
+				qa_opt('show_view_counts', (bool)qa_post_text('cs_enable_views_lists'));
+				qa_opt('cs_show_tags_list', (bool)qa_post_text('cs_show_tags_list'));
+				qa_opt('cs_horizontal_voting_btns', (bool)qa_post_text('cs_horizontal_voting_btns'));
+				qa_opt('cs_enble_back_to_top', (bool)qa_post_text('cs_enble_back_to_top'));
+				qa_opt('cs_back_to_top_location', qa_post_text('cs_back_to_top_location'));
 
-				qa_opt('ra_home_layout', qa_post_text('option_ra_home_layout'));				
-				qa_opt('ra_list_layout', qa_post_text('option_ra_list_layout'));
-				qa_opt('ra_nav_parent_font_size', qa_post_text('option_ra_nav_parent_font_size'));	
-				qa_opt('ra_nav_child_font_size', qa_post_text('option_ra_nav_child_font_size'));	
+				qa_opt('cs_home_layout', qa_post_text('cs_home_layout'));				
+				qa_opt('cs_list_layout', qa_post_text('cs_list_layout'));
+				qa_opt('cs_nav_parent_font_size', qa_post_text('cs_nav_parent_font_size'));	
+				qa_opt('cs_nav_child_font_size', qa_post_text('cs_nav_child_font_size'));	
 
 				// Styling
-				qa_opt('styling_duplicate_question', (bool)qa_post_text('option_styling_duplicate_question'));
-				qa_opt('styling_solved_question', (bool)qa_post_text('option_styling_solved_question'));
-				qa_opt('styling_closed_question', (bool)qa_post_text('option_styling_closed_question'));
-				qa_opt('styling_open_question', (bool)qa_post_text('option_styling_open_question'));
-				qa_opt('bg_select', qa_post_text('option_bg_select'));
-				qa_opt('bg_color', qa_post_text('option_bg_color'));
-				qa_opt('text_color', qa_post_text('option_text_color'));
-				qa_opt('border_color', qa_post_text('option_border_color'));
-				qa_opt('q_link_color', qa_post_text('option_q_link_color'));
-				qa_opt('q_link_hover_color', qa_post_text('option_q_link_hover_color'));
-				qa_opt('nav_link_color', qa_post_text('option_nav_link_color'));
-				qa_opt('nav_link_color_hover', qa_post_text('option_nav_link_color_hover'));
-				qa_opt('subnav_link_color', qa_post_text('option_subnav_link_color'));
-				qa_opt('subnav_link_color_hover', qa_post_text('option_subnav_link_color_hover'));
-				qa_opt('link_color', qa_post_text('option_link_color'));
-				qa_opt('link_hover_color', qa_post_text('option_link_hover_color'));
-				qa_opt('highlight_color', qa_post_text('option_highlight_color'));
-				qa_opt('highlight_bg_color', qa_post_text('option_highlight_bg_color'));
+				qa_opt('cs_styling_duplicate_question', (bool)qa_post_text('cs_styling_duplicate_question'));
+				qa_opt('cs_styling_solved_question', (bool)qa_post_text('cs_styling_solved_question'));
+				qa_opt('cs_styling_closed_question', (bool)qa_post_text('cs_styling_closed_question'));
+				qa_opt('cs_styling_open_question', (bool)qa_post_text('cs_styling_open_question'));
+				qa_opt('cs_bg_select', qa_post_text('cs_bg_select'));
+				qa_opt('cs_bg_color', qa_post_text('cs_bg_color'));
+				qa_opt('cs_text_color', qa_post_text('cs_text_color'));
+				qa_opt('cs_border_color', qa_post_text('cs_border_color'));
+				qa_opt('cs_q_link_color', qa_post_text('cs_q_link_color'));
+				qa_opt('cs_q_link_hover_color', qa_post_text('cs_q_link_hover_color'));
+				qa_opt('cs_nav_link_color', qa_post_text('cs_nav_link_color'));
+				qa_opt('cs_nav_link_color_hover', qa_post_text('cs_nav_link_color_hover'));
+				qa_opt('cs_subnav_link_color', qa_post_text('cs_subnav_link_color'));
+				qa_opt('cs_subnav_link_color_hover', qa_post_text('cs_subnav_link_color_hover'));
+				qa_opt('cs_link_color', qa_post_text('cs_link_color'));
+				qa_opt('cs_link_hover_color', qa_post_text('cs_link_hover_color'));
+				qa_opt('cs_highlight_color', qa_post_text('cs_highlight_color'));
+				qa_opt('cs_highlight_bg_color', qa_post_text('cs_highlight_bg_color'));
 				require_once($this->theme_directory . '/inc/styles.php'); // Generate customized CSS styling				
 				
 				// Typography
@@ -130,8 +130,8 @@ class qa_html_theme_layer extends qa_html_theme_base {
 					}
 					$i++;
 				}
-				qa_opt('ra_social_list',json_encode($social_links));
-				qa_opt('ra_social_enable', (bool)qa_post_text('option_ra_social_enable'));
+				qa_opt('cs_social_list',json_encode($social_links));
+				qa_opt('cs_social_enable', (bool)qa_post_text('cs_social_enable'));
 				
 				// Advertisement
 				$AdsCount = (int)qa_post_text('adv_number'); // number of advertisement items
@@ -143,7 +143,7 @@ class qa_html_theme_layer extends qa_html_theme_base {
 						$ads[$i]['adv_adsense'] = qa_post_text('adv_adsense_' . $i);
 						$ads[$i]['adv_location'] = qa_post_text('adv_location_' . $i);
 						$AdsCount--;
-					}elseif ( (@getimagesize(@$_FILES['ra_adv_image_' . $i]['tmp_name']) >0) or (null !== qa_post_text('adv_image_title_' . $i)) or (null !== qa_post_text('adv_image_link_' . $i)) or (null !== qa_post_text('adv_location_' . $i)) ) {
+					}elseif ( (@getimagesize(@$_FILES['cs_adv_image_' . $i]['tmp_name']) >0) or (null !== qa_post_text('adv_image_title_' . $i)) or (null !== qa_post_text('adv_image_link_' . $i)) or (null !== qa_post_text('adv_location_' . $i)) ) {
 						// add static ads
 						if(null !== qa_post_text('adv_image_url_' . $i)){
 							$ads[$i]['adv_image'] =  qa_post_text('adv_image_url_' . $i);
@@ -155,14 +155,14 @@ class qa_html_theme_layer extends qa_html_theme_base {
 					}
 					$i++;
 				}
-				qa_opt('ra_advs',json_encode($ads));
-				qa_opt('enable_adv_list', (bool)qa_post_text('option_enable_adv_list'));
-				qa_opt('ads_below_question_title', base64_encode($_REQUEST['option_ads_below_question_title']));
-				qa_opt('ads_after_question_content', base64_encode($_REQUEST['option_ads_after_question_content']));
+				qa_opt('cs_advs',json_encode($ads));
+				qa_opt('cs_enable_adv_list', (bool)qa_post_text('cs_enable_adv_list'));
+				qa_opt('cs_ads_below_question_title', base64_encode($_REQUEST['cs_ads_below_question_title']));
+				qa_opt('cs_ads_after_question_content', base64_encode($_REQUEST['cs_ads_after_question_content']));
 
 				// footer							
-				qa_opt('ra_ticker_data', qa_post_text('option_ra_ticker_data'));				
-				qa_opt('footer_copyright', qa_post_text('option_footer_copyright'));
+				qa_opt('cs_ticker_data', qa_post_text('cs_ticker_data'));				
+				qa_opt('cs_footer_copyright', qa_post_text('cs_footer_copyright'));
 
 				
 				$saved=true;
@@ -170,7 +170,7 @@ class qa_html_theme_layer extends qa_html_theme_base {
 			}
 
 // Load Advertisements
-$advs = json_decode( qa_opt('ra_advs') , true);
+$advs = json_decode( qa_opt('cs_advs') , true);
 $i = 0;
 $adv_content = '';
 if(isset($advs))
@@ -215,7 +215,7 @@ if(isset($advs))
 				
 				<span class="description">Image Title</span>
 				<input class="form-control" type="text" id="adv_image_title_' . $i . '" name="adv_image_title_' . $i . '" value="' . @$adv['adv_image_title'] . '">
-				<span class="description">Image link</span>
+				<span class="description">Target link</span>
 				
 				<input class="form-control" id="adv_image_link_' . $i . '" name="adv_image_link_' . $i . '" type="text" value="' . @$adv['adv_image_link'] . '">
 				<span class="description">Display After this number of questions</span>
@@ -235,11 +235,11 @@ $adv_content .=  '<input type="hidden" value="' . qa_opt('page_size_qs') . '" id
 // Load Advertisements
 $i = 0;
 $social_content =  '';
-$social_fields = json_decode( qa_opt('ra_social_list') , true);
+$social_fields = json_decode( qa_opt('cs_social_list') , true);
 if(isset($social_fields))
 	foreach($social_fields as $k => $social_field){
 		$list_options = '<option class="icon-wrench" value="1"'.((@$social_field['social_icon']=='1') ? ' selected' : '').'>Upload Social Icon</option>';
-		foreach(ra_social_icons() as $icon => $name){
+		foreach(cs_social_icons() as $icon => $name){
 			$list_options .= '<option class="'.$icon.'" value="' . $icon . '"'.(($icon==@$social_field['social_icon']) ? ' selected' : '').'>' . $name . '</option>';
 		}
 		$social_icon_list = '<select id="social_icon_' . $i . '" name="social_icon_' . $i . '" class="qa-form-wide-select  social-select" sociallistid="' . $i . '">' . $list_options . '</select>';
@@ -278,18 +278,17 @@ $social_content .=  '<input type="hidden" value="' . $i . '" id="social_count" n
 	$bg_images=array();
 	$list_options = '';
 	$files = scandir($p_path, 1);
-	$list_options .= '<option class="icon-wrench" value="bg_default"'.((qa_opt('bg_select')=='bg_default') ? ' selected' : '').'>Default Background</option>';
-	$list_options .= '<option class="icon-wrench" value="bg_color"'.((qa_opt('bg_select')=='bg_color') ? ' selected' : '').'>only use Background Color</option>';
+	$list_options .= '<option class="icon-wrench" value="bg_default"'.((qa_opt('cs_bg_select')=='bg_default') ? ' selected' : '').'>Default Background</option>';
+	$list_options .= '<option class="icon-wrench" value="bg_color"'.((qa_opt('cs_bg_select')=='bg_color') ? ' selected' : '').'>only use Background Color</option>';
 	 //@$bg_images[qa_opt('qat_bg_image_index')
 	foreach ($files as $file) 
 		if (!((empty($file)) or($file=='.') or ($file=='..'))){
 			$image = preg_replace("/\\.[^.]*$/", "", $file);
 			$bg_images[] = $image;
-			$list_options .= '<option value="' . $image . '">' . $image . '</option>';
+			$list_options .= '<option value="' . $image . '"'.((qa_opt('cs_bg_select')==$image) ? ' selected' : '').'>' . $image . '</option>';
 			}
-	$bg_select = '<select id="option_bg_select" name="option_bg_select" class="qa-form-wide-select"'.((qa_opt('bg_select')==$image) ? ' selected' : '').'>' . $list_options . '</select>';
-
-$ra_page = '
+	$bg_select = '<select id="cs_bg_select" name="cs_bg_select" class="qa-form-wide-select">' . $list_options . '</select>';
+$cs_page = '
 <form class="form-horizontal" enctype="multipart/form-data" method="post">
 	<div class="qa-part-tabs-nav">
 		<ul class="ra-option-tabs nav nav-tabs">
@@ -323,36 +322,37 @@ $ra_page = '
 		<h3>General Settings</h3>
 		<table class="qa-form-tall-table options-table">
 			<tbody>
-			<tr>
-				<th class="qa-form-tall-label">
-					Logo
-					<span class="description">Upload your own logo.</span>
-				</th>
-				<td class="qa-form-tall-data">
-					'. (qa_opt('logo_url')?'<img id="logo-preview" class="logo-preview img-thumbnail" src="' . qa_opt('logo_url') . '">':'<img id="logo-preview" class="logo-preview img-thumbnail" style="display:none;" src="">') .'
-					<div id="logo_uploader">Upload</div>
-					<input id="ra_logo_field" type="hidden" name="ra_logo_field" value="' . qa_opt('logo_url') . '">
-				</td>
-			</tr>
-			<tr>
-				<th class="qa-form-tall-label">
-					Favicon
-					<span class="description">favicon image (32px32px).</span>
-				</th>
-				<td class="qa-form-tall-data">
-					'. (qa_opt('favicon_url')?'<img id="favicon-preview" class="favicon-preview img-thumbnail" src="' . qa_opt('favicon_url') . '">':'<img id="favicon-preview" class="favicon-preview img-thumbnail" style="display:none;" src="">') .'
-					<div id="favicon_uploader">Upload</div>
-					<input id="ra_favicon_field" type="hidden" name="ra_favicon_field" value="' . qa_opt('favicon_url') . '">
-				</td>
-			</tr>
-			</tbody><tbody id="google_analytics">
+				<tr>
+					<th class="qa-form-tall-label">
+						Logo
+						<span class="description">Upload your own logo.</span>
+					</th>
+					<td class="qa-form-tall-data">
+						'. (qa_opt('logo_url')?'<img id="logo-preview" class="logo-preview img-thumbnail" src="' . qa_opt('logo_url') . '">':'<img id="logo-preview" class="logo-preview img-thumbnail" style="display:none;" src="">') .'
+						<div id="logo_uploader">Upload</div>
+						<input id="cs_logo_field" type="hidden" name="cs_logo_field" value="' . qa_opt('logo_url') . '">
+					</td>
+				</tr>
+				<tr>
+					<th class="qa-form-tall-label">
+						Favicon
+						<span class="description">favicon image (32px32px).</span>
+					</th>
+					<td class="qa-form-tall-data">
+						'. (qa_opt('cs_favicon_url')?'<img id="favicon-preview" class="favicon-preview img-thumbnail" src="' . qa_opt('cs_favicon_url') . '">':'<img id="favicon-preview" class="favicon-preview img-thumbnail" style="display:none;" src="">') .'
+						<div id="favicon_uploader">Upload</div>
+						<input id="cs_favicon_field" type="hidden" name="cs_favicon_field" value="' . qa_opt('cs_favicon_url') . '">
+					</td>
+				</tr>
+			</tbody>
+			<tbody>
 				<tr>
 					<th class="qa-form-tall-label">
 						Analytics tracking
 						<span class="description">Paste your Google Analytics or other tracking code. This will be loaded in the footer.</span>
 					</th>
 					<td class="qa-form-tall-data">
-						<textarea class="form-control" cols="40" rows="3" name="option_google_analytics">' . qa_opt('google_analytics') . '</textarea>
+						<textarea class="form-control" cols="40" rows="3" name="cs_google_analytics">' . qa_opt('cs_google_analytics') . '</textarea>
 					</td>
 				</tr>
 			</tbody>
@@ -364,13 +364,14 @@ $ra_page = '
 					</th>
 					<td class="qa-form-tall-label">
 						<div class="on-off-checkbox-container">
-								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('ra_colla_comm') ? ' checked=""' : '') . ' id="on-off-checkbox" name="option_ra_colla_comm">
+								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('cs_colla_comm') ? ' checked=""' : '') . ' id="on-off-checkbox" name="cs_colla_comm">
 							<label for="on-off-checkbox">
 							</label>
 						</div>
 					</td>
 				</tr>
-			</tbody><tbody id="show_real_name">
+			</tbody>
+			<tbody>
 				<tr>
 					<th class="qa-form-tall-label">
 						Show Real name
@@ -378,8 +379,8 @@ $ra_page = '
 					</th>
 					<td class="qa-form-tall-label">
 						<div class="on-off-checkbox-container">
-								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('show_real_name') ? ' checked=""' : '') . ' id="option_show_real_name" name="option_show_real_name">
-							<label for="option_show_real_name">
+								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('cs_show_real_name') ? ' checked=""' : '') . ' id="cs_show_real_name" name="cs_show_real_name">
+							<label for="cs_show_real_name">
 							</label>
 						</div>
 					</td>
@@ -393,8 +394,8 @@ $ra_page = '
 					</th>
 					<td class="qa-form-tall-label">
 						<div class="on-off-checkbox-container">
-							<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('enable_gzip') ? ' checked=""' : '') . ' id="option_enable_gzip" name="option_enable_gzip">
-							<label for="option_enable_gzip">
+							<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('cs_enable_gzip') ? ' checked=""' : '') . ' id="cs_enable_gzip" name="cs_enable_gzip">
+							<label for="cs_enable_gzip">
 							</label>
 						</div>
 					</td>
@@ -409,7 +410,7 @@ $ra_page = '
 					</th>
 					<td class="qa-form-tall-label">
 						<div class="input-group font-input">
-							<input id="option_featured_image_width" class="form-control featured-image-width" type="text" name="option_featured_image_width" value="' . qa_opt('featured_image_width') . '">
+							<input id="cs_featured_image_width" class="form-control featured-image-width" type="text" name="cs_featured_image_width" value="' . qa_opt('cs_featured_image_width') . '">
 							<span class="input-group-addon">px</span>
 						</div>
 					</td>
@@ -421,7 +422,7 @@ $ra_page = '
 					</th>
 					<td class="qa-form-tall-label">
 						<div class="input-group font-input">
-							<input id="option_featured_image_height" class="form-control featured-image-height" type="text" name="option_featured_image_height" value="' . qa_opt('featured_image_height') . '">
+							<input id="cs_featured_image_height" class="form-control featured-image-height" type="text" name="cs_featured_image_height" value="' . qa_opt('cs_featured_image_height') . '">
 							<span class="input-group-addon">px</span>
 						</div>
 					</td>
@@ -433,7 +434,7 @@ $ra_page = '
 					</th>
 					<td class="qa-form-tall-label">
 						<div class="input-group font-input">
-							<input id="option_featured_thumbnail_width" class="form-control featured-thumb-width" type="text" name="option_featured_thumbnail_width" value="' . qa_opt('featured_thumbnail_width') . '">
+							<input id="cs_featured_thumbnail_width" class="form-control featured-thumb-width" type="text" name="cs_featured_thumbnail_width" value="' . qa_opt('cs_featured_thumbnail_width') . '">
 							<span class="input-group-addon">px</span>
 						</div>
 					</td>
@@ -445,7 +446,7 @@ $ra_page = '
 					</th>
 					<td class="qa-form-tall-label">
 						<div class="input-group font-input">
-							<input id="option_featured_thumbnail_height" class="form-control featured-thumb-height" type="text" name="option_featured_thumbnail_height" value="' . qa_opt('featured_thumbnail_height') . '">
+							<input id="cs_featured_thumbnail_height" class="form-control featured-thumb-height" type="text" name="cs_featured_thumbnail_height" value="' . qa_opt('cs_featured_thumbnail_height') . '">
 							<span class="input-group-addon">px</span>
 						</div>
 					</td>
@@ -463,10 +464,10 @@ $ra_page = '
 						<span class="description">Select between wide or boxed site layout</span>
 					</th>
 					<td class="qa-form-tall-label">
-						<input class="theme-option-radio" type="radio"' . (qa_opt('theme_layout')=='wide' ? ' checked=""' : '') . ' id="option_theme_layout_wide" name="option_theme_layout" value="wide">
-						   <label for="option_theme_layout_wide">Wide</label>
-						<input class="theme-option-radio" type="radio"' . (qa_opt('theme_layout')=='boxed' ? ' checked=""' : '') . ' id="option_theme_layout_boxed" name="option_theme_layout" value="boxed">
-						   <label for="option_theme_layout_boxed">boxed</label> 
+						<input class="theme-option-radio" type="radio"' . (qa_opt('cs_theme_layout')=='wide' ? ' checked=""' : '') . ' id="cs_theme_layout_wide" name="cs_theme_layout" value="wide">
+						   <label for="cs_theme_layout_wide">Wide</label>
+						<input class="theme-option-radio" type="radio"' . (qa_opt('cs_theme_layout')=='boxed' ? ' checked=""' : '') . ' id="cs_theme_layout_boxed" name="cs_theme_layout" value="boxed">
+						   <label for="cs_theme_layout_boxed">boxed</label> 
 					</td>
 				</tr>
 			</tbody>
@@ -478,8 +479,8 @@ $ra_page = '
 					</th>
 					<td class="qa-form-tall-label">
 						<div class="on-off-checkbox-container">
-								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('users_table_layout') ? ' checked=""' : '') . ' id="option_users_table_layout" name="option_users_table_layout">
-							<label for="option_users_table_layout">
+								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('cs_users_table_layout') ? ' checked=""' : '') . ' id="cs_users_table_layout" name="cs_users_table_layout">
+							<label for="cs_users_table_layout">
 							</label>
 						</div>
 					</td>
@@ -493,8 +494,8 @@ $ra_page = '
 					</th>
 					<td class="qa-form-tall-label">
 						<div class="on-off-checkbox-container">
-								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('ra_nav_fixed') ? ' checked=""' : '') . ' id="option_ra_nav_fixed" name="option_ra_nav_fixed">
-								<label for="option_ra_nav_fixed"></label>
+								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('cs_nav_fixed') ? ' checked=""' : '') . ' id="cs_nav_fixed" name="cs_nav_fixed">
+								<label for="cs_nav_fixed"></label>
 						</div>
 					</td>
 				</tr>
@@ -505,8 +506,8 @@ $ra_page = '
 					</th>
 					<td class="qa-form-tall-label">
 						<div class="on-off-checkbox-container">
-								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('ra_show_icon') ? ' checked=""' : '') . ' id="option_ra_show_icon" name="option_ra_show_icon">
-								<label for="option_ra_show_icon"></label>
+								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('cs_show_icon') ? ' checked=""' : '') . ' id="cs_show_icon" name="cs_show_icon">
+								<label for="cs_show_icon"></label>
 						</div>
 					</td>
 				</tr>
@@ -520,18 +521,18 @@ $ra_page = '
 					</th>
 					<td class="qa-form-tall-label">
 						<div class="on-off-checkbox-container">
-								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('ra_enable_except') ? ' checked=""' : '') . ' id="option_ra_enable_except" name="option_ra_enable_except">
-								<label for="option_ra_enable_except"></label>
+								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('cs_enable_except') ? ' checked=""' : '') . ' id="cs_enable_except" name="cs_enable_except">
+								<label for="cs_enable_except"></label>
 						</div>
 					</td>
 				</tr>
-				<tr id="ra_except_length">
+				<tr id="cs_except_length">
 					<th class="qa-form-tall-label">
 						Excerpt Length
 						<span class="description">Length of questions description in question lists</span>
 					</th>
 					<td class="qa-form-tall-label">
-						<input class="qa-form-wide-number" type="text" value="' . qa_opt('ra_except_len') . '"  id="option_ra_except_len" name="option_ra_except_len">
+						<input class="qa-form-wide-number" type="text" value="' . qa_opt('cs_except_len') . '"  id="cs_except_len" name="cs_except_len">
 					</td>
 				</tr>
 				<tr>
@@ -541,8 +542,8 @@ $ra_page = '
 					</th>
 					<td class="qa-form-tall-label">
 						<div class="on-off-checkbox-container">
-								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('ra_enable_avatar_lists') ? ' checked=""' : '') . ' id="option_ra_enable_avatar_lists" name="option_ra_enable_avatar_lists">
-								<label for="option_ra_enable_avatar_lists"></label>
+								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('cs_enable_avatar_lists') ? ' checked=""' : '') . ' id="cs_enable_avatar_lists" name="cs_enable_avatar_lists">
+								<label for="cs_enable_avatar_lists"></label>
 						</div>
 					</td>
 				</tr>
@@ -553,8 +554,8 @@ $ra_page = '
 					</th>
 					<td class="qa-form-tall-label">
 						<div class="on-off-checkbox-container">
-								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('show_view_counts') ? ' checked=""' : '') . ' id="option_ra_enable_views_lists" name="option_ra_enable_views_lists">
-								<label for="option_ra_enable_views_lists"></label>
+								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('show_view_counts') ? ' checked=""' : '') . ' id="cs_enable_views_lists" name="cs_enable_views_lists">
+								<label for="cs_enable_views_lists"></label>
 						</div>
 					</td>
 				</tr>
@@ -565,8 +566,8 @@ $ra_page = '
 					</th>
 					<td class="qa-form-tall-label">
 						<div class="on-off-checkbox-container">
-								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('show_tags_list') ? ' checked=""' : '') . ' id="option_show_tags_list" name="option_show_tags_list">
-								<label for="option_show_tags_list"></label>
+								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('cs_show_tags_list') ? ' checked=""' : '') . ' id="cs_show_tags_list" name="cs_show_tags_list">
+								<label for="cs_show_tags_list"></label>
 						</div>
 					</td>
 				</tr>
@@ -579,8 +580,8 @@ $ra_page = '
 					</th>
 					<td class="qa-form-tall-label">
 						<div class="on-off-checkbox-container">
-								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('horizontal_voting_btns') ? ' checked=""' : '') . ' id="option_horizontal_voting_btns" name="option_horizontal_voting_btns">
-							<label for="option_horizontal_voting_btns">
+								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('cs_horizontal_voting_btns') ? ' checked=""' : '') . ' id="cs_horizontal_voting_btns" name="cs_horizontal_voting_btns">
+							<label for="cs_horizontal_voting_btns">
 							</label>
 						</div>
 					</td>
@@ -594,22 +595,22 @@ $ra_page = '
 					</th>
 					<td class="qa-form-tall-label">
 						<div class="on-off-checkbox-container">
-								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('enble_back_to_top') ? ' checked=""' : '') . ' id="option_enble_back_to_top" name="option_enble_back_to_top">
-							<label for="option_enble_back_to_top">
+								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('cs_enble_back_to_top') ? ' checked=""' : '') . ' id="cs_enble_back_to_top" name="cs_enble_back_to_top">
+							<label for="cs_enble_back_to_top">
 							</label>
 						</div>
 					</td>
 					</tr>
-					<tr id="back_to_top_location_container" ' . (qa_opt('enble_back_to_top') ? '' : ' style="display:none;"') . '>
+					<tr id="back_to_top_location_container" ' . (qa_opt('cs_enble_back_to_top') ? '' : ' style="display:none;"') . '>
 					<th class="qa-form-tall-label">
 						Back To Top\'s Position
 						<span class="description">Back To Top button\'s Position</span>
 					</th>
 					<td class="qa-form-tall-label">
-						<input class="theme-option-radio" type="radio"' . (qa_opt('back_to_top_location')=='nav' ? ' checked=""' : '') . ' id="option_back_to_top_nav" name="option_back_to_top_location" value="nav">
-						   <label for="option_back_to_top_nav">Under Navigation</label>
-						<input class="theme-option-radio" type="radio"' . (qa_opt('back_to_top_location')=='right' ? ' checked=""' : '') . ' id="option_back_to_top_right" name="option_back_to_top_location" value="right">
-						   <label for="option_back_to_top_right">Bottom Right</label> 
+						<input class="theme-option-radio" type="radio"' . (qa_opt('cs_back_to_top_location')=='nav' ? ' checked=""' : '') . ' id="cs_back_to_top_nav" name="cs_back_to_top_location" value="nav">
+						   <label for="cs_back_to_top_nav">Under Navigation</label>
+						<input class="theme-option-radio" type="radio"' . (qa_opt('cs_back_to_top_location')=='right' ? ' checked=""' : '') . ' id="cs_back_to_top_right" name="cs_back_to_top_location" value="right">
+						   <label for="cs_back_to_top_right">Bottom Right</label> 
 					</td>
 				</tr>
 			</tbody>
@@ -627,12 +628,12 @@ $ra_page = '
 						' . $bg_select . '
 					</td>
 				</tr>
-				<tr id="bg-color-container"'. ((qa_opt('bg_select')=='bg_color') ? '' : ' style="display:none;"') . '>
+				<tr id="bg-color-container"'. ((qa_opt('cs_bg_select')=='bg_color') ? '' : ' style="display:none;"') . '>
 					<th class="qa-form-tall-label">
 						Body Font Color
 					</th>
 					<td class="qa-form-tall-label">
-						<input type="color" class="form-control" value="' . qa_opt('bg_color') . '" id="option_bg_color" name="option_bg_color">
+						<input type="color" class="form-control" value="' . qa_opt('cs_bg_color') . '" id="cs_bg_color" name="cs_bg_color">
 					</td>
 				</tr>
 			</tbody>
@@ -642,7 +643,7 @@ $ra_page = '
 						Text color
 					</th>
 					<td class="qa-form-tall-label">
-						<input type="color" class="form-control" value="' . qa_opt('text_color') . '" id="option_text_color" name="option_text_color">
+						<input type="color" class="form-control" value="' . qa_opt('cs_text_color') . '" id="cs_text_color" name="cs_text_color">
 					</td>
 				</tr>
 				<tr>
@@ -650,7 +651,7 @@ $ra_page = '
 						Border color
 					</th>
 					<td class="qa-form-tall-label">
-						<input type="color" class="form-control" value="' . qa_opt('border_color') . '" id="option_border_color" name="option_border_color">
+						<input type="color" class="form-control" value="' . qa_opt('cs_border_color') . '" id="cs_border_color" name="cs_border_color">
 					</td>
 				</tr>
 				<tr>
@@ -658,8 +659,8 @@ $ra_page = '
 						Link color
 					</th>
 					<td class="qa-form-tall-label">
-						Link Color<input type="color" class="form-control" value="' . qa_opt('link_color') . '" id="option_link_color" name="option_link_color">
-						Hover Color<input type="color" class="form-control" value="' . qa_opt('link_hover_color') . '" id="option_link_hover_color" name="option_link_hover_color">
+						Link Color<input type="color" class="form-control" value="' . qa_opt('cs_link_color') . '" id="cs_link_color" name="cs_link_color">
+						Hover Color<input type="color" class="form-control" value="' . qa_opt('cs_link_hover_color') . '" id="cs_link_hover_color" name="cs_link_hover_color">
 					</td>
 				</tr>
 				<tr>
@@ -667,8 +668,8 @@ $ra_page = '
 						Question Link color
 					</th>
 					<td class="qa-form-tall-label">
-						Link Color<input type="color" class="form-control" value="' . qa_opt('q_link_color') . '" id="option_q_link_color" name="option_q_link_color">
-						Hover Color<input type="color" class="form-control" value="' . qa_opt('q_link_hover_color') . '" id="option_q_link_hover_color" name="option_q_link_hover_color">
+						Link Color<input type="color" class="form-control" value="' . qa_opt('cs_q_link_color') . '" id="cs_q_link_color" name="cs_q_link_color">
+						Hover Color<input type="color" class="form-control" value="' . qa_opt('cs_q_link_hover_color') . '" id="cs_q_link_hover_color" name="cs_q_link_hover_color">
 					</td>
 				</tr>
 				<tr>
@@ -676,8 +677,8 @@ $ra_page = '
 						Navigation Link color
 					</th>
 					<td class="qa-form-tall-label">
-						Text Color<input type="color" class="form-control" value="' . qa_opt('nav_link_color') . '" id="option_nav_link_color" name="option_nav_link_color">
-						Hover Color<input type="color" class="form-control" value="' . qa_opt('nav_link_color_hover') . '" id="option_nav_link_color_hover" name="option_nav_link_color_hover">
+						Text Color<input type="color" class="form-control" value="' . qa_opt('cs_nav_link_color') . '" id="cs_nav_link_color" name="cs_nav_link_color">
+						Hover Color<input type="color" class="form-control" value="' . qa_opt('cs_nav_link_color_hover') . '" id="cs_nav_link_color_hover" name="cs_nav_link_color_hover">
 					</td>
 				</tr>
 				<tr>
@@ -685,8 +686,8 @@ $ra_page = '
 						Sub Navigation Link color
 					</th>
 					<td class="qa-form-tall-label">
-						Text Color<input type="color" class="form-control" value="' . qa_opt('subnav_link_color') . '" id="option_subnav_link_color" name="option_subnav_link_color">
-						Hover Color<input type="color" class="form-control" value="' . qa_opt('subnav_link_color_hover') . '" id="option_subnav_link_color_hover" name="option_subnav_link_color_hover">
+						Text Color<input type="color" class="form-control" value="' . qa_opt('cs_subnav_link_color') . '" id="cs_subnav_link_color" name="cs_subnav_link_color">
+						Hover Color<input type="color" class="form-control" value="' . qa_opt('cs_subnav_link_color_hover') . '" id="cs_subnav_link_color_hover" name="cs_subnav_link_color_hover">
 					</td>
 				</tr>
 				<tr>
@@ -694,7 +695,7 @@ $ra_page = '
 						Highlight Text color
 					</th>
 					<td class="qa-form-tall-label">
-						<input type="color" class="form-control" value="' . qa_opt('highlight_color') . '" id="option_highlight_color" name="option_highlight_color">
+						<input type="color" class="form-control" value="' . qa_opt('cs_highlight_color') . '" id="cs_highlight_color" name="cs_highlight_color">
 					</td>
 				</tr>
 				<tr>
@@ -702,7 +703,7 @@ $ra_page = '
 						Highlight background color
 					</th>
 					<td class="qa-form-tall-label">
-						<input type="color" class="form-control" value="' . qa_opt('highlight_bg_color') . '" id="option_highlight_bg_color" name="option_highlight_bg_color">
+						<input type="color" class="form-control" value="' . qa_opt('cs_highlight_bg_color') . '" id="cs_highlight_bg_color" name="cs_highlight_bg_color">
 					</td>
 				</tr>
 			</tbody>
@@ -717,8 +718,8 @@ $ra_page = '
 					</th>
 					<td class="qa-form-tall-label">
 						<div class="on-off-checkbox-container">
-								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('styling_open_question') ? ' checked=""' : '') . ' id="option_styling_open_question" name="option_styling_open_question">
-							<label for="option_styling_open_question">
+								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('cs_styling_open_question') ? ' checked=""' : '') . ' id="cs_styling_open_question" name="cs_styling_open_question">
+							<label for="cs_styling_open_question">
 							</label>
 						</div>
 					</td>
@@ -730,8 +731,8 @@ $ra_page = '
 					</th>
 					<td class="qa-form-tall-label">
 						<div class="on-off-checkbox-container">
-								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('styling_closed_question') ? ' checked=""' : '') . ' id="option_styling_closed_question" name="option_styling_closed_question">
-							<label for="option_styling_closed_question">
+								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('cs_styling_closed_question') ? ' checked=""' : '') . ' id="cs_styling_closed_question" name="cs_styling_closed_question">
+							<label for="cs_styling_closed_question">
 							</label>
 						</div>
 					</td>
@@ -743,8 +744,8 @@ $ra_page = '
 					</th>
 					<td class="qa-form-tall-label">
 						<div class="on-off-checkbox-container">
-								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('styling_solved_question') ? ' checked=""' : '') . ' id="option_styling_solved_question" name="option_styling_solved_question">
-							<label for="option_styling_solved_question">
+								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('cs_styling_solved_question') ? ' checked=""' : '') . ' id="cs_styling_solved_question" name="cs_styling_solved_question">
+							<label for="cs_styling_solved_question">
 							</label>
 						</div>
 					</td>
@@ -756,21 +757,21 @@ $ra_page = '
 					</th>
 					<td class="qa-form-tall-label">
 						<div class="on-off-checkbox-container">
-								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('styling_duplicate_question') ? ' checked=""' : '') . ' id="option_styling_duplicate_question" name="option_styling_duplicate_question">
-							<label for="option_styling_duplicate_question">
+								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('cs_styling_duplicate_question') ? ' checked=""' : '') . ' id="cs_styling_duplicate_question" name="cs_styling_duplicate_question">
+							<label for="cs_styling_duplicate_question">
 							</label>
 						</div>
 					</td>
 				</tr>
-				</tbody>
-				<tbody>
+			</tbody>
+			<tbody>
 				<tr>
 					<th class="qa-form-tall-label">
 						Ask button background
 						<span class="description">ADD DETAIL.</span>
 					</th>
 					<td class="qa-form-tall-label">
-						<input type="text" class="form-control" value="' . qa_opt('ask_btn_bg') . '" id="option_ask_btn_bg" name="option_ask_btn_bg">
+						<input type="color" class="form-control" value="' . qa_opt('cs_ask_btn_bg') . '" id="cs_ask_btn_bg" name="cs_ask_btn_bg">
 					</td>
 				</tr>
 			</tbody>
@@ -784,23 +785,23 @@ $ra_page = '
 						Body
 					</th>
 					<td class="qa-form-tall-label">
-						<select data-placeholder="Choose a font" class="chosen-select font-family" data-font-option-type="body" name="typo_option[body][family]" id="typo_option_family">'.
+						<select data-placeholder="Choose a font" class="chosen-select font-family" data-font-option-type="body" name="typo_option[body][family]" id="typo_family">'.
 						$this->get_font_options(qa_opt('typo_options_family_body'))
 						.'</select>
-						<select data-placeholder="font style" id="typo_option_style" name="typo_option[body][style]" class="chosen-select font-style" data-font-option-type="body">
+						<select data-placeholder="font style" id="typo_style" name="typo_option[body][style]" class="chosen-select font-style" data-font-option-type="body">
 						' . $this->get_font_style_options(qa_opt('typo_options_family_body'),qa_opt('typo_options_style_body')) . '
 						</select>
 						<div class="input-group font-input" title="Font Size">
 							<span class="input-group-addon">Font Size</span>
-							<input value="' . qa_opt('typo_options_size_body') . '" id="typo_option_size" name="typo_option[body][size]" type="text" class="form-control font-size" data-font-option-type="body">
+							<input value="' . qa_opt('typo_options_size_body') . '" id="typo_size" name="typo_option[body][size]" type="text" class="form-control font-size" data-font-option-type="body">
 							<span class="input-group-addon">px</span>
 						</div>						
 						<div class="input-group font-input" title="Line Height" >
 							<span class="input-group-addon">Line Height</span>
-							<input value="' . qa_opt('typo_options_linehight_body') . '" id="typo_option_lineheight" name="typo_option[body][linehight]" type="text" class="form-control font-linehight" data-font-option-type="body">
+							<input value="' . qa_opt('typo_options_linehight_body') . '" id="typo_lineheight" name="typo_option[body][linehight]" type="text" class="form-control font-linehight" data-font-option-type="body">
 							<span class="input-group-addon">px</span>
 						</div>
-						<select data-placeholder="Font Backup" name="typo_option[body][backup]" id="typo_option_backup" class="chosen-select font-family-backup" data-font-option-type="body">'.
+						<select data-placeholder="Font Backup" name="typo_option[body][backup]" id="typo_backup" class="chosen-select font-family-backup" data-font-option-type="body">'.
 						$this->get_normal_font_options(qa_opt('typo_options_backup_body'))
 						.'</select>
 						<span class="font-demo">The quick brown fox jumps over the lazy dog.</span>
@@ -811,23 +812,23 @@ $ra_page = '
 						H1
 					</th>
 					<td class="qa-form-tall-label">
-						<select data-placeholder="Choose a font" class="chosen-select font-family" data-font-option-type="h1" name="typo_option[h1][family]" id="typo_option_family">'.
+						<select data-placeholder="Choose a font" class="chosen-select font-family" data-font-option-type="h1" name="typo_option[h1][family]" id="typo_family">'.
 						$this->get_font_options(qa_opt('typo_options_family_h1'))
 						.'</select>
-						<select data-placeholder="font style" id="typo_option_style" name="typo_option[h1][style]" class="chosen-select font-style" data-font-option-type="h1">
+						<select data-placeholder="font style" id="typo_style" name="typo_option[h1][style]" class="chosen-select font-style" data-font-option-type="h1">
 						' . $this->get_font_style_options(qa_opt('typo_options_family_h1'),qa_opt('typo_options_style_h1')) . '
 						</select>
 						<div class="input-group font-input" title="Font Size">
 							<span class="input-group-addon">Font Size</span>
-							<input value="' . qa_opt('typo_options_size_h1') . '" id="typo_option_size" name="typo_option[h1][size]" type="text" class="form-control font-size" data-font-option-type="h1">
+							<input value="' . qa_opt('typo_options_size_h1') . '" id="typo_size" name="typo_option[h1][size]" type="text" class="form-control font-size" data-font-option-type="h1">
 							<span class="input-group-addon">px</span>
 						</div>						
 						<div class="input-group font-input" title="Line Height" >
 							<span class="input-group-addon">Line Height</span>
-							<input value="' . qa_opt('typo_options_linehight_h1') . '" id="typo_option_lineheight" name="typo_option[h1][linehight]" type="text" class="form-control font-linehight" data-font-option-type="h1">
+							<input value="' . qa_opt('typo_options_linehight_h1') . '" id="typo_lineheight" name="typo_option[h1][linehight]" type="text" class="form-control font-linehight" data-font-option-type="h1">
 							<span class="input-group-addon">px</span>
 						</div>
-						<select data-placeholder="Font Backup" name="typo_option[h1][backup]" id="typo_option_backup" class="chosen-select font-family-backup" data-font-option-type="h1">'.
+						<select data-placeholder="Font Backup" name="typo_option[h1][backup]" id="typo_backup" class="chosen-select font-family-backup" data-font-option-type="h1">'.
 						$this->get_normal_font_options(qa_opt('typo_options_backup_h1'))
 						.'</select>
 						<span class="font-demo"><h1>The quick brown fox jumps over the lazy dog.</h1></span>
@@ -838,23 +839,23 @@ $ra_page = '
 						H2
 					</th>
 					<td class="qa-form-tall-label">
-						<select data-placeholder="Choose a font" class="chosen-select font-family" data-font-option-type="h2" name="typo_option[h2][family]" id="typo_option_family">'.
+						<select data-placeholder="Choose a font" class="chosen-select font-family" data-font-option-type="h2" name="typo_option[h2][family]" id="typo_family">'.
 						$this->get_font_options(qa_opt('typo_options_family_h2'))
 						.'</select>
-						<select data-placeholder="font style" id="typo_option_style" name="typo_option[h2][style]" class="chosen-select font-style" data-font-option-type="h2">
+						<select data-placeholder="font style" id="typo_style" name="typo_option[h2][style]" class="chosen-select font-style" data-font-option-type="h2">
 						' . $this->get_font_style_options(qa_opt('typo_options_family_h2'),qa_opt('typo_options_style_h2')) . '
 						</select>
 						<div class="input-group font-input" title="Font Size">
 							<span class="input-group-addon">Font Size</span>
-							<input value="' . qa_opt('typo_options_size_h2') . '" id="typo_option_size" name="typo_option[h2][size]" type="text" class="form-control font-size" data-font-option-type="h2">
+							<input value="' . qa_opt('typo_options_size_h2') . '" id="typo_size" name="typo_option[h2][size]" type="text" class="form-control font-size" data-font-option-type="h2">
 							<span class="input-group-addon">px</span>
 						</div>						
 						<div class="input-group font-input" title="Line Height" >
 							<span class="input-group-addon">Line Height</span>
-							<input value="' . qa_opt('typo_options_linehight_h2') . '" id="typo_option_lineheight" name="typo_option[h2][linehight]" type="text" class="form-control font-linehight" data-font-option-type="h2">
+							<input value="' . qa_opt('typo_options_linehight_h2') . '" id="typo_lineheight" name="typo_option[h2][linehight]" type="text" class="form-control font-linehight" data-font-option-type="h2">
 							<span class="input-group-addon">px</span>
 						</div>
-						<select data-placeholder="Font Backup" name="typo_option[h2][backup]" id="typo_option_backup" class="chosen-select font-family-backup" data-font-option-type="h2">'.
+						<select data-placeholder="Font Backup" name="typo_option[h2][backup]" id="typo_backup" class="chosen-select font-family-backup" data-font-option-type="h2">'.
 						$this->get_normal_font_options(qa_opt('typo_options_backup_h2'))
 						.'</select>
 						<span class="font-demo"><h2>The quick brown fox jumps over the lazy dog.</h2></span>
@@ -865,23 +866,23 @@ $ra_page = '
 						H3
 					</th>
 					<td class="qa-form-tall-label">
-						<select data-placeholder="Choose a font" class="chosen-select font-family" data-font-option-type="h3" name="typo_option[h3][family]" id="typo_option_family">'.
+						<select data-placeholder="Choose a font" class="chosen-select font-family" data-font-option-type="h3" name="typo_option[h3][family]" id="typo_family">'.
 						$this->get_font_options(qa_opt('typo_options_family_h3'))
 						.'</select>
-						<select data-placeholder="font style" id="typo_option_style" name="typo_option[h3][style]" class="chosen-select font-style" data-font-option-type="h3">
+						<select data-placeholder="font style" id="typo_style" name="typo_option[h3][style]" class="chosen-select font-style" data-font-option-type="h3">
 						' . $this->get_font_style_options(qa_opt('typo_options_family_h3'),qa_opt('typo_options_style_h3')) . '
 						</select>
 						<div class="input-group font-input" title="Font Size">
 							<span class="input-group-addon">Font Size</span>
-							<input value="' . qa_opt('typo_options_size_h3') . '" id="typo_option_size" name="typo_option[h3][size]" type="text" class="form-control font-size" data-font-option-type="h3">
+							<input value="' . qa_opt('typo_options_size_h3') . '" id="typo_size" name="typo_option[h3][size]" type="text" class="form-control font-size" data-font-option-type="h3">
 							<span class="input-group-addon">px</span>
 						</div>						
 						<div class="input-group font-input" title="Line Height" >
 							<span class="input-group-addon">Line Height</span>
-							<input value="' . qa_opt('typo_options_linehight_h3') . '" id="typo_option_lineheight" name="typo_option[h3][linehight]" type="text" class="form-control font-linehight" data-font-option-type="h3">
+							<input value="' . qa_opt('typo_options_linehight_h3') . '" id="typo_lineheight" name="typo_option[h3][linehight]" type="text" class="form-control font-linehight" data-font-option-type="h3">
 							<span class="input-group-addon">px</span>
 						</div>
-						<select data-placeholder="Font Backup" name="typo_option[h3][backup]" id="typo_option_backup" class="chosen-select font-family-backup" data-font-option-type="h3">'.
+						<select data-placeholder="Font Backup" name="typo_option[h3][backup]" id="typo_backup" class="chosen-select font-family-backup" data-font-option-type="h3">'.
 						$this->get_normal_font_options(qa_opt('typo_options_backup_h3'))
 						.'</select>
 						<span class="font-demo"><h3>The quick brown fox jumps over the lazy dog.</h3></span>
@@ -892,23 +893,23 @@ $ra_page = '
 						H4
 					</th>
 					<td class="qa-form-tall-label">
-						<select data-placeholder="Choose a font" class="chosen-select font-family" data-font-option-type="h4" name="typo_option[h4][family]" id="typo_option_family">'.
+						<select data-placeholder="Choose a font" class="chosen-select font-family" data-font-option-type="h4" name="typo_option[h4][family]" id="typo_family">'.
 						$this->get_font_options(qa_opt('typo_options_family_h4'))
 						.'</select>
-						<select data-placeholder="font style" id="typo_option_style" name="typo_option[h4][style]" class="chosen-select font-style" data-font-option-type="h4">
+						<select data-placeholder="font style" id="typo_style" name="typo_option[h4][style]" class="chosen-select font-style" data-font-option-type="h4">
 						' . $this->get_font_style_options(qa_opt('typo_options_family_h4'),qa_opt('typo_options_style_h4')) . '
 						</select>
 						<div class="input-group font-input" title="Font Size">
 							<span class="input-group-addon">Font Size</span>
-							<input value="' . qa_opt('typo_options_size_h4') . '" id="typo_option_size" name="typo_option[h4][size]" type="text" class="form-control font-size" data-font-option-type="h4">
+							<input value="' . qa_opt('typo_options_size_h4') . '" id="typo_size" name="typo_option[h4][size]" type="text" class="form-control font-size" data-font-option-type="h4">
 							<span class="input-group-addon">px</span>
 						</div>						
 						<div class="input-group font-input" title="Line Height" >
 							<span class="input-group-addon">Line Height</span>
-							<input value="' . qa_opt('typo_options_linehight_h4') . '" id="typo_option_lineheight" name="typo_option[h4][linehight]" type="text" class="form-control font-linehight" data-font-option-type="h4">
+							<input value="' . qa_opt('typo_options_linehight_h4') . '" id="typo_lineheight" name="typo_option[h4][linehight]" type="text" class="form-control font-linehight" data-font-option-type="h4">
 							<span class="input-group-addon">px</span>
 						</div>
-						<select data-placeholder="Font Backup" name="typo_option[h4][backup]" id="typo_option_backup" class="chosen-select font-family-backup" data-font-option-type="h4">'.
+						<select data-placeholder="Font Backup" name="typo_option[h4][backup]" id="typo_backup" class="chosen-select font-family-backup" data-font-option-type="h4">'.
 						$this->get_normal_font_options(qa_opt('typo_options_backup_h4'))
 						.'</select>
 						<span class="font-demo"><h4>The quick brown fox jumps over the lazy dog.</h4></span>
@@ -919,23 +920,23 @@ $ra_page = '
 						h5
 					</th>
 					<td class="qa-form-tall-label">
-						<select data-placeholder="Choose a font" class="chosen-select font-family" data-font-option-type="h5" name="typo_option[h5][family]" id="typo_option_family">'.
+						<select data-placeholder="Choose a font" class="chosen-select font-family" data-font-option-type="h5" name="typo_option[h5][family]" id="typo_family">'.
 						$this->get_font_options(qa_opt('typo_options_family_h5'))
 						.'</select>
-						<select data-placeholder="font style" id="typo_option_style" name="typo_option[h5][style]" class="chosen-select font-style" data-font-option-type="h5">
+						<select data-placeholder="font style" id="typo_style" name="typo_option[h5][style]" class="chosen-select font-style" data-font-option-type="h5">
 						' . $this->get_font_style_options(qa_opt('typo_options_family_h5'),qa_opt('typo_options_style_h5')) . '
 						</select>
 						<div class="input-group font-input" title="Font Size">
 							<span class="input-group-addon">Font Size</span>
-							<input value="' . qa_opt('typo_options_size_h5') . '" id="typo_option_size" name="typo_option[h5][size]" type="text" class="form-control font-size" data-font-option-type="h5">
+							<input value="' . qa_opt('typo_options_size_h5') . '" id="typo_size" name="typo_option[h5][size]" type="text" class="form-control font-size" data-font-option-type="h5">
 							<span class="input-group-addon">px</span>
 						</div>						
 						<div class="input-group font-input" title="Line Height" >
 							<span class="input-group-addon">Line Height</span>
-							<input value="' . qa_opt('typo_options_linehight_h5') . '" id="typo_option_lineheight" name="typo_option[h5][linehight]" type="text" class="form-control font-linehight" data-font-option-type="h5">
+							<input value="' . qa_opt('typo_options_linehight_h5') . '" id="typo_lineheight" name="typo_option[h5][linehight]" type="text" class="form-control font-linehight" data-font-option-type="h5">
 							<span class="input-group-addon">px</span>
 						</div>
-						<select data-placeholder="Font Backup" name="typo_option[h5][backup]" id="typo_option_backup" class="chosen-select font-family-backup" data-font-option-type="h5">'.
+						<select data-placeholder="Font Backup" name="typo_option[h5][backup]" id="typo_backup" class="chosen-select font-family-backup" data-font-option-type="h5">'.
 						$this->get_normal_font_options(qa_opt('typo_options_backup_h5'))
 						.'</select>
 						<span class="font-demo"><h5>The quick brown fox jumps over the lazy dog.</h5></span>
@@ -946,23 +947,23 @@ $ra_page = '
 						Paragraphs
 					</th>
 					<td class="qa-form-tall-label">
-						<select data-placeholder="Choose a font" class="chosen-select font-family" data-font-option-type="p" name="typo_option[p][family]" id="typo_option_family">'.
+						<select data-placeholder="Choose a font" class="chosen-select font-family" data-font-option-type="p" name="typo_option[p][family]" id="typo_family">'.
 						$this->get_font_options(qa_opt('typo_options_family_p'))
 						.'</select>
-						<select data-placeholder="font style" id="typo_option_style" name="typo_option[p][style]" class="chosen-select font-style" data-font-option-type="p">
+						<select data-placeholder="font style" id="typo_style" name="typo_option[p][style]" class="chosen-select font-style" data-font-option-type="p">
 						' . $this->get_font_style_options(qa_opt('typo_options_family_p'),qa_opt('typo_options_style_p')) . '
 						</select>
 						<div class="input-group font-input" title="Font Size">
 							<span class="input-group-addon">Font Size</span>
-							<input value="' . qa_opt('typo_options_size_p') . '" id="typo_option_size" name="typo_option[p][size]" type="text" class="form-control font-size" data-font-option-type="p">
+							<input value="' . qa_opt('typo_options_size_p') . '" id="typo_size" name="typo_option[p][size]" type="text" class="form-control font-size" data-font-option-type="p">
 							<span class="input-group-addon">px</span>
 						</div>						
 						<div class="input-group font-input" title="Line Height" >
 							<span class="input-group-addon">Line Height</span>
-							<input value="' . qa_opt('typo_options_linehight_p') . '" id="typo_option_lineheight" name="typo_option[p][linehight]" type="text" class="form-control font-linehight" data-font-option-type="p">
+							<input value="' . qa_opt('typo_options_linehight_p') . '" id="typo_lineheight" name="typo_option[p][linehight]" type="text" class="form-control font-linehight" data-font-option-type="p">
 							<span class="input-group-addon">px</span>
 						</div>
-						<select data-placeholder="Font Backup" name="typo_option[p][backup]" id="typo_option_backup" class="chosen-select font-family-backup" data-font-option-type="p">'.
+						<select data-placeholder="Font Backup" name="typo_option[p][backup]" id="typo_backup" class="chosen-select font-family-backup" data-font-option-type="p">'.
 						$this->get_normal_font_options(qa_opt('typo_options_backup_p'))
 						.'</select>
 						<span class="font-demo"><p>The quick brown fox jumps over the lazy dog.</p></span>
@@ -973,23 +974,23 @@ $ra_page = '
 						Span
 					</th>
 					<td class="qa-form-tall-label">
-						<select data-placeholder="Choose a font" class="chosen-select font-family" data-font-option-type="span" name="typo_option[span][family]" id="typo_option_family">'.
+						<select data-placeholder="Choose a font" class="chosen-select font-family" data-font-option-type="span" name="typo_option[span][family]" id="typo_family">'.
 						$this->get_font_options(qa_opt('typo_options_family_span'))
 						.'</select>
-						<select data-placeholder="font style" id="typo_option_style" name="typo_option[span][style]" class="chosen-select font-style" data-font-option-type="span">
+						<select data-placeholder="font style" id="typo_style" name="typo_option[span][style]" class="chosen-select font-style" data-font-option-type="span">
 						' . $this->get_font_style_options(qa_opt('typo_options_family_span'),qa_opt('typo_options_style_span')) . '
 						</select>
 						<div class="input-group font-input" title="Font Size">
 							<span class="input-group-addon">Font Size</span>
-							<input value="' . qa_opt('typo_options_size_span') . '" id="typo_option_size" name="typo_option[span][size]" type="text" class="form-control font-size" data-font-option-type="span">
+							<input value="' . qa_opt('typo_options_size_span') . '" id="typo_size" name="typo_option[span][size]" type="text" class="form-control font-size" data-font-option-type="span">
 							<span class="input-group-addon">px</span>
 						</div>						
 						<div class="input-group font-input" title="Line Height" >
 							<span class="input-group-addon">Line Height</span>
-							<input value="' . qa_opt('typo_options_linehight_span') . '" id="typo_option_lineheight" name="typo_option[span][linehight]" type="text" class="form-control font-linehight" data-font-option-type="span">
+							<input value="' . qa_opt('typo_options_linehight_span') . '" id="typo_lineheight" name="typo_option[span][linehight]" type="text" class="form-control font-linehight" data-font-option-type="span">
 							<span class="input-group-addon">px</span>
 						</div>
-						<select data-placeholder="Font Backup" name="typo_option[span][backup]" id="typo_option_backup" class="chosen-select font-family-backup" data-font-option-type="span">'.
+						<select data-placeholder="Font Backup" name="typo_option[span][backup]" id="typo_backup" class="chosen-select font-family-backup" data-font-option-type="span">'.
 						$this->get_normal_font_options(qa_opt('typo_options_backup_span'))
 						.'</select>
 						<span class="font-demo"><span>The quick brown fox jumps over the lazy dog.</span></span>
@@ -1000,23 +1001,23 @@ $ra_page = '
 						Quote
 					</th>
 					<td class="qa-form-tall-label">
-						<select data-placeholder="Choose a font" class="chosen-select font-family" data-font-option-type="quote" name="typo_option[quote][family]" id="typo_option_family">'.
+						<select data-placeholder="Choose a font" class="chosen-select font-family" data-font-option-type="quote" name="typo_option[quote][family]" id="typo_family">'.
 						$this->get_font_options(qa_opt('typo_options_family_quote'))
 						.'</select>
-						<select data-placeholder="font style" id="typo_option_style" name="typo_option[quote][style]" class="chosen-select font-style" data-font-option-type="quote">
+						<select data-placeholder="font style" id="typo_style" name="typo_option[quote][style]" class="chosen-select font-style" data-font-option-type="quote">
 						' . $this->get_font_style_options(qa_opt('typo_options_family_quote'),qa_opt('typo_options_style_quote')) . '
 						</select>
 						<div class="input-group font-input" title="Font Size">
 							<span class="input-group-addon">Font Size</span>
-							<input value="' . qa_opt('typo_options_size_quote') . '" id="typo_option_size" name="typo_option[quote][size]" type="text" class="form-control font-size" data-font-option-type="quote">
+							<input value="' . qa_opt('typo_options_size_quote') . '" id="typo_size" name="typo_option[quote][size]" type="text" class="form-control font-size" data-font-option-type="quote">
 							<span class="input-group-addon">px</span>
 						</div>						
 						<div class="input-group font-input" title="Line Height" >
 							<span class="input-group-addon">Line Height</span>
-							<input value="' . qa_opt('typo_options_linehight_quote') . '" id="typo_option_lineheight" name="typo_option[quote][linehight]" type="text" class="form-control font-linehight" data-font-option-type="quote">
+							<input value="' . qa_opt('typo_options_linehight_quote') . '" id="typo_lineheight" name="typo_option[quote][linehight]" type="text" class="form-control font-linehight" data-font-option-type="quote">
 							<span class="input-group-addon">px</span>
 						</div>
-						<select data-placeholder="Font Backup" name="typo_option[quote][backup]" id="typo_option_backup" class="chosen-select font-family-backup" data-font-option-type="quote">'.
+						<select data-placeholder="Font Backup" name="typo_option[quote][backup]" id="typo_backup" class="chosen-select font-family-backup" data-font-option-type="quote">'.
 						$this->get_normal_font_options(qa_opt('typo_options_backup_quote'))
 						.'</select>
 						<span class="font-demo"><blockquote>The quick brown fox jumps over the lazy dog.</blockquote></span>
@@ -1035,8 +1036,8 @@ $ra_page = '
 					</th>
 					<td class="qa-form-tall-label">
 						<div class="on-off-checkbox-container">
-							<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('ra_social_enable') ? ' checked=""' : '') . ' id="option_ra_social_enable" name="option_ra_social_enable">
-							<label for="option_ra_social_enable"></label>
+							<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('cs_social_enable') ? ' checked=""' : '') . ' id="cs_social_enable" name="cs_social_enable">
+							<label for="cs_social_enable"></label>
 						</div>
 					</td>
 				</tr>
@@ -1068,13 +1069,13 @@ $ra_page = '
 					</th>
 					<td class="qa-form-tall-label">
 						<div class="on-off-checkbox-container">
-							<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('enable_adv_list') ? ' checked=""' : '') . ' id="option_enable_adv_list" name="option_enable_adv_list">
-							<label for="option_enable_adv_list"></label>
+							<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('cs_enable_adv_list') ? ' checked=""' : '') . ' id="cs_enable_adv_list" name="cs_enable_adv_list">
+							<label for="cs_enable_adv_list"></label>
 						</div>
 					</td>
 				</tr>
 			</tbody>
-			<tbody id="ads_container" ' . (qa_opt('enable_adv_list') ? '' : ' style="display:none;"') . '>
+			<tbody id="ads_container" ' . (qa_opt('cs_enable_adv_list') ? '' : ' style="display:none;"') . '>
 				<tr>
 					<th class="qa-form-tall-label">
 						Add Advertisement
@@ -1097,7 +1098,7 @@ $ra_page = '
 					<span class="description">Advertisement below Question Title</span>
 				</th>
 				<td class="qa-form-tall-label">
-					<textarea class="form-control" cols="40" rows="5" name="option_ads_below_question_title">' . base64_decode( qa_opt('ads_below_question_title') ) .'</textarea>
+					<textarea class="form-control" cols="40" rows="5" name="cs_ads_below_question_title">' . base64_decode( qa_opt('cs_ads_below_question_title') ) .'</textarea>
 				</td>
 			</tr>
 			<tr>
@@ -1106,7 +1107,7 @@ $ra_page = '
 					<span class="description">this advertisement will show up between Question & Answer</span>
 				</th>
 				<td class="qa-form-tall-label">
-					<textarea class="form-control" cols="40" rows="5" name="option_ads_after_question_content">' . base64_decode( qa_opt('ads_after_question_content') ) .'</textarea>
+					<textarea class="form-control" cols="40" rows="5" name="cs_ads_after_question_content">' . base64_decode( qa_opt('cs_ads_after_question_content') ) .'</textarea>
 				</td>
 			</tr>
 			</tbody>
@@ -1121,7 +1122,7 @@ $ra_page = '
 					<span class="description">you can add links or images by entering html code</span>
 				</th>
 				<td class="qa-form-tall-label">
-					<input id="option_footer_copyright" class="form-control" type="text" name="option_footer_copyright" value="' . qa_opt('footer_copyright') . '">
+					<input id="cs_footer_copyright" class="form-control" type="text" name="cs_footer_copyright" value="' . qa_opt('cs_footer_copyright') . '">
 				</td>
 			</tr>
 		</tbody>
@@ -1136,9 +1137,9 @@ $ra_page = '
 					<span class="description">Select from where you want to get data</span>
 				</th>
 				<td class="qa-form-tall-label">
-					<select id="option_ra_ticker_data" class="form-control" name="option_ra_ticker_data">
-						<option value="tags" ' . (qa_opt('ra_ticker_data') =='tags' ? 'selected':'' ) . '>Tags</option>
-						<option value="categories" ' . (qa_opt('ra_ticker_data') =='categories' ? 'selected':'' ) . '>Categories</option>
+					<select id="cs_ticker_data" class="form-control" name="cs_ticker_data">
+						<option value="tags" ' . (qa_opt('cs_ticker_data') =='tags' ? 'selected':'' ) . '>Tags</option>
+						<option value="categories" ' . (qa_opt('cs_ticker_data') =='categories' ? 'selected':'' ) . '>Categories</option>
 					</select>
 				</td>
 			</tr>
@@ -1147,13 +1148,13 @@ $ra_page = '
 	</div>
 <div class="form-button-sticky-footer">
 	<div class="form-button-holder">
-		<input type="submit" class="qa-form-tall-button btn-primary" title="" value="Save Changes" name="ra_save_button">
-		<input type="submit" class="qa-form-tall-button" title="" value="Reset to Default" name="ra_reset_button">
+		<input type="submit" class="qa-form-tall-button btn-primary" title="" value="Save Changes" name="cs_save_button">
+		<input type="submit" class="qa-form-tall-button" title="" value="Reset to Default" name="cs_reset_button">
 	</div>
 </div>
 </form>
 ';
-			$this->content['custom'] = $ra_page;
+			$this->content['custom'] = $cs_page;
 		}
 		qa_html_theme_base::doctype();
 	}	
@@ -1183,9 +1184,9 @@ $ra_page = '
 		function form_field($field, $style)
 		{			
 			
-			if (@$field['type'] == 'ra_qaads_multi_text'){
+			if (@$field['type'] == 'cs_qaads_multi_text'){
 				$this->form_prefix($field, $style);
-				$this->ra_qaads_form_multi_text($field, $style);
+				$this->cs_qaads_form_multi_text($field, $style);
 				$this->form_suffix($field, $style);
 			
 			}else{
@@ -1193,7 +1194,7 @@ $ra_page = '
 			}			
 		}
 		
-		function ra_qaads_form_multi_text($field, $style)
+		function cs_qaads_form_multi_text($field, $style)
 		{
 			$this->output('<div class="ra-multitext"><div class="ra-multitext-append">');
 			
@@ -1246,8 +1247,8 @@ $ra_page = '
 		}
 		
 		function q_list_items($q_items){
-            if (qa_opt('enable_adv_list')) {
-				$advs = json_decode( qa_opt('ra_advs') , true);
+            if (qa_opt('cs_enable_adv_list')) {
+				$advs = json_decode( qa_opt('cs_advs') , true);
 				foreach($advs as $k => $adv){
 					$advertisments[@$adv['adv_location']][]=$adv;
 				}

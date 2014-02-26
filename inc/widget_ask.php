@@ -1,7 +1,7 @@
 <?php
 
 
-	class ra_ask_widget {
+	class cs_ask_widget {
 		
 		function allow_template($template)
 		{

@@ -1,7 +1,7 @@
 <?php
 	class cs_feed_widget {
 
-		function ra_widget_form()
+		function cs_widget_form()
 		{
 			
 			return array(

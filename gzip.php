@@ -10,7 +10,7 @@ if(extension_loaded('zlib')){
 	$expire = "expires: " . gmdate ("D, d M Y H:i:s", time() + $offset) . " GMT";
 	header ($expire);
 	// list CSS files to be included in the Gzip
-	include('font/style.css');
+	include('css/font.css');
 	include('css/bootstrap.css');
 	include('css/main.css');
 	include('css/wide.css');
@@ -25,7 +25,7 @@ if(extension_loaded('zlib')){
 	$expire = "expires: " . gmdate ("D, d M Y H:i:s", time() + $offset) . " GMT";
 	header ($expire);
 	// list CSS files to be included in the Gzip
-	include('font/style.css');
+	include('css/font.css');
 	include('css/bootstrap.css');
 	include('css/main.css');
 	include('css/wide.css');

@@ -86,12 +86,12 @@
 
 			$this->output("<link href='http://fonts.googleapis.com/css?family=Open+Sans:300,600,700' rel='stylesheet' type='text/css'>");
 			$googlefonts = json_decode(qa_opt('typo_googlefonts'),true);
-			
-			foreach($googlefonts as $font_name){
-				$font_name = str_replace(" ","+",$font_name);
-				$link = 'http://fonts.googleapis.com/css?family=' . $font_name;
-				$this->output('<link href="' . $link . '" rel="stylesheet" type="text/css">');
-			}
+			if(isset($googlefonts) && !empty($googlefonts))
+				foreach($googlefonts as $font_name){
+					$font_name = str_replace(" ","+",$font_name);
+					$link = 'http://fonts.googleapis.com/css?family=' . $font_name;
+					$this->output('<link href="' . $link . '" rel="stylesheet" type="text/css">');
+				}
 			$this->output( '<style>' . qa_opt('ra_custom_style') . '</style>');
 		}
 		function body()
@@ -124,62 +124,6 @@
 			$this->output('<script type="text/javascript" src="'.Q_THEME_URL.'/js/theme.js"></script>');			
 		}
 
-
-		function nav_user_search() // outputs login form if user not logged in
-		{
-			if (!qa_is_logged_in()) {
-				$login=@$this->content['navigation']['user']['login'];
-				
-				if (isset($login) && !QA_FINAL_EXTERNAL_USERS) {
-					$this->output(
-						'<!--[Begin: login form]-->',				
-						'<form id="qa-loginform" action="'.$login['url'].'" method="post">',
-							'<input type="text" id="qa-userid" name="emailhandle" placeholder="'.trim(qa_lang_html(qa_opt('allow_login_email_only') ? 'users/email_label' : 'users/email_handle_label'), ':').'" />',
-							'<input type="password" id="qa-password" name="password" placeholder="'.trim(qa_lang_html('users/password_label'), ':').'" />',
-							'<div id="qa-rememberbox"><input type="checkbox" name="remember" id="qa-rememberme" value="1"/>',
-							'<label for="qa-rememberme" id="qa-remember">'.qa_lang_html('users/remember').'</label></div>',
-							'<input type="hidden" name="code" value="'.qa_html(qa_get_form_security_code('login')).'"/>',
-							'<input type="submit" value="'.$login['label'].'" id="qa-login" name="dologin" />',
-						'</form>',				
-						'<!--[End: login form]-->'
-					);
-					
-					unset($this->content['navigation']['user']['login']); // removes regular navigation link to log in page
-				}
-			}
-			
-			qa_html_theme_base::nav_user_search();
-		}
-		
-		function logged_in() 
-		{
-			if (qa_is_logged_in()) // output user avatar to login bar
-				$this->output(
-					'<div class="qa-logged-in-avatar">',
-					QA_FINAL_EXTERNAL_USERS
-					? qa_get_external_avatar_html(qa_get_logged_in_userid(), 24, true)
-					: qa_get_user_avatar_html(qa_get_logged_in_flags(), qa_get_logged_in_email(), qa_get_logged_in_handle(),
-						qa_get_logged_in_user_field('avatarblobid'), qa_get_logged_in_user_field('avatarwidth'), qa_get_logged_in_user_field('avatarheight'),
-						24, true),
-            		'</div>'
-            	);				
-			
-			qa_html_theme_base::logged_in();
-			
-			if (qa_is_logged_in()) { // adds points count after logged in username
-				$userpoints=qa_get_logged_in_points();
-				
-				$pointshtml=($userpoints==1)
-					? qa_lang_html_sub('main/1_point', '1', '1')
-					: qa_lang_html_sub('main/x_points', qa_html(number_format($userpoints)));
-						
-				$this->output(
-					'<span class="qa-logged-in-points">',
-					'('.$pointshtml.')',
-					'</span>'
-				);
-			}
-		}
     
 		function body_content()
 		{
@@ -340,7 +284,7 @@
 				</ul>
 			
 			<?php } else { ?>				
-				<a class="btn btn-success login-register"  href="#" data-toggle="modal" data-target="#login-modal" ><i class="icon-lock"></i><span>Login/Register</span></a>
+				<a class="btn login-register icon-lock"  href="#" data-toggle="modal" data-target="#login-modal" title="Login or register"></a>
 
 				
 				<!-- Modal -->
@@ -348,10 +292,11 @@
 				  <div class="modal-dialog">
 					<div class="modal-content">	
 					<div class="modal-header">
-						Login
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>	
 					  <div class="modal-body">
+						<h3>Login or Register</h3>
+						<p class="login-desc">Get access to your account and question</p>
 						<div class="row">
 							<div class="col-sm-6">
 							<form id="loginform" role="form" action="<?php echo $this->content['navigation']['user']['login']['url']; ?>" method="post">
@@ -371,26 +316,26 @@
 								<input type="text" id="email" class="form-control" name="email" placeholder="<?php echo trim(qa_lang_html('users/email_label'), ':'); ?>">
 								<input type="hidden" name="code" value="<?php echo qa_html(qa_get_form_security_code('register')); ?>"/>
 								<input type="submit"  value="Register" value="<?php echo $this->content['navigation']['user']['register']['label']; ?>" id="qa-register" name="doregister" class="btn btn-primary btn-block" />
-							<?php
-								/*
-								foreach ($this->content['navigation']['user'] as $k => $custom) {
-									if (isset($custom) && (($k != 'login') && ($k != 'register'))) {
-										preg_match('/class="([^"]+)"/',  $custom['label'], $class );
-										
-										if($k == 'facebook')
-											$icon = 'class="'.$class[1].' icon-facebook"';
-										elseif($k == 'google')
-											$icon = 'class="'.$class[1].' icon-google"';
-										elseif($k == 'twitter')
-											$icon = 'class="'.$class[1].' icon-twitter"';
-										
-										$this->output(str_replace($class[0], $icon, $custom['label']));
+								<?php
+								
+									foreach ($this->content['navigation']['user'] as $k => $custom) {
+										if (isset($custom) && (($k != 'login') && ($k != 'register'))) {
+											preg_match('/class="([^"]+)"/',  $custom['label'], $class );
+											
+											if($k == 'facebook')
+												$icon = 'class="'.$class[1].' icon-facebook"';
+											elseif($k == 'google')
+												$icon = 'class="'.$class[1].' icon-google"';
+											elseif($k == 'twitter')
+												$icon = 'class="'.$class[1].' icon-twitter"';
+											
+											$this->output(str_replace($class[0], $icon, $custom['label']));
+										}
 									}
-								}
-								*/
-								unset($this->content['navigation']['user']['login']);
-								unset($this->content['navigation']['user']['register']);
-								qa_html_theme_base::nav('user');
+									
+									unset($this->content['navigation']['user']['login']);
+									unset($this->content['navigation']['user']['register']);
+								
 								?>
 							</form>
 							</div>
@@ -433,7 +378,7 @@
 			$this->output('<input type="submit" value="'.$search['button_label'].'" class="btn btn-default"/>');
 		}
 		
-		function sidepanel() {
+		function sidepanel() {			
 			if(ra_position_active('Right')){
 				$this->output('<div class="col-sm-4 side-c">');
 				$this->output('<div class="qa-sidepanel">');
@@ -442,6 +387,29 @@
 
 				$this->output('</div>');
 			}
+		}
+		
+		function right_tabs(){
+			ob_start();
+			?>
+				<div class="user-tabs">
+					<ul class="nav nav-tabs">
+					  <li class="active"><a href="#right-top-users" data-toggle="tab">Top Users</a></li>
+					  <li><a href="#right-new-user" data-toggle="tab">New Users</a></li>
+					</ul>
+
+					<!-- Tab panes -->
+					<div class="tab-content">
+					  <div class="tab-pane active" id="right-top-users">
+						<?php $this->ra_position('Top Users'); ?>
+					  </div>
+					  <div class="tab-pane" id="right-new-user">
+						<?php $this->ra_position('New Users'); ?>
+					  </div>
+					</div>
+				</div>
+			<?php
+			$this->output(ob_get_clean());
 		}
 		function ra_pie_stats(){
 			$this->output('
@@ -507,7 +475,7 @@
 			$this->output('</div>');
 		}
 		
-		function ra_full_categories_list() {
+		function ra_full_categories_list($show_sub = false) {
 
             $level = 1;
 			$navigation = @$this->content['navigation']['cat'];
@@ -524,7 +492,7 @@
 				foreach ($navigation as $key => $navlink) {
 					$this->set_context('nav_key', $key);
 					$this->set_context('nav_index', $index++);
-					$this->ra_full_categories_list_item($key, $navlink, '', $level);
+					$this->ra_full_categories_list_item($key, $navlink, '', $level, $show_sub);
 				}
 				$this->clear_context('nav_key');
 				$this->clear_context('nav_index');
@@ -534,7 +502,7 @@
 			unset($navigation);
 		}
 
-		function ra_full_categories_list_item($key, $navlink, $class, $level = null) {
+		function ra_full_categories_list_item($key, $navlink, $class, $level = null, $show_sub) {
 			$suffix = strtr($key, array(// map special character in navigation key
 				'$' => '',
 				'/' => '-',
@@ -543,7 +511,7 @@
 			$this->output( '<li class="qa-nav-cat-item">');
 			$this->nav_link($navlink, $class);
 			$this->output( '</li>');
-			if (count(@$navlink['subnav']))
+			if (count(@$navlink['subnav']) && $show_sub)
 				$this->nav_list($navlink['subnav'], $class, 1 + $level);
 
 			$this->output('</li>');
@@ -639,11 +607,13 @@
 		}
 		
 		function home(){
-
 			$this->output('<div class="row">');
 			$this->output('<div class="col-md-9 home-left-inner">');
 				$this->output('<div class="row">');
-
+					$this->output('<div class="col-md-12">');
+						$this->ra_position('Home Slide');
+					$this->output('</div>');
+					
 					$this->output('<div class="col-md-8">');
 						$this->ra_position('Home Left');
 					$this->output('</div>');
@@ -670,7 +640,8 @@
 			$this->output('</div>');
 			
 			$this->output('<div class="col-md-3">');
-			$this->ra_position('Home Bottom');
+			$this->right_tabs();
+			$this->ra_position('Home Right');
 			$this->output('</div>');
 			$this->output('</div>');
 		}
@@ -984,16 +955,15 @@
 				'</h2>'
 			);
 			
-			$this->output('<div class="clearfix">');
 
 			//$this->favorite();
 			//$this->post_tags($q_view, 'qa-q-view');
 
-			$this->favorite();
+			/* $this->favorite();
 			$this->output(base64_decode( qa_opt('ads_below_question_title') ));
-			$this->post_tags($q_view, 'qa-q-view');
+			$this->post_tags($q_view, 'qa-q-view'); */
 
-			$this->output('</div><div class="qa-q-view-main">');
+			$this->output('<div class="qa-q-view-main">');
 
 			if (isset($q_view['main_form_tags']))
 				$this->output('<form '.$q_view['main_form_tags'].'>'); // form for buttons on question	
@@ -1061,7 +1031,10 @@
 			
 			$this->output('<div class="qa-c-list-item '.$extraclass.'" '.@$c_item['tags'].'>');
 			$this->output('<div class="asker-avatar">');
-			$this->output(ra_get_avatar($c_item['raw']['handle'], 35));
+			
+			if(isset($c_item['raw']['handle']))
+				$this->output(ra_get_avatar($c_item['raw']['handle'], 35));
+				
 			$this->output('</div>');
 			$this->output('<div class="qa-c-wrap">');
 			$this->post_meta($c_item, 'qa-c-item');
@@ -1088,7 +1061,7 @@
 		function a_list($a_list)
 		{
 			if (!empty($a_list)) {
-				$this->part_title($a_list);
+				//$this->part_title($a_list);
 				
 				$this->output('<div class="qa-a-list'.($this->list_vote_disabled($a_list['as']) ? ' qa-a-list-vote-disabled' : '').'" '.@$a_list['tags'].'>', '');
 				$this->a_list_items($a_list['as']);				
@@ -1810,35 +1783,21 @@
 				require_once QA_INCLUDE_DIR.'qa-db-metas.php';
 				$featured_image_name = qa_db_postmeta_get($postid, 'featured_image');
 				if (empty($featured_image_name)){
-					$featured_image = Q_THEME_URL . '/images/featured-preview.jpg';
+					$featured_image = '';
 				}else{
 					$featured_image = Q_THEME_URL . '/uploads/' . $featured_image_name;
 				}
 				$this->output('
 					<div class="question-meta" id="question-meta">
 						<label>
-
-
-
-
-
 							<input' . (qa_db_postmeta_get($postid, 'featured_question') ? ' checked=""' : '') . ' id="option_featured_question" class="qa-form-tall-checkbox" type="checkbox" value="1" name="option_featured_question">
 							Make this a Featured Question!
 						</label>
 						<div class="clearfix"></div>
-
-
-
-
 						<label>Featured Image</label>
 						<img id="image-preview" class="image-preview img-thumbnail" src="' . $featured_image . '" >
 						<div id="fileuploader">Upload</div>
 						<btn id="q_meta_remove_featured_image" class="qa-form-light-button qa-form-light-button-features" title="Remove featured image" type="submit" name="q_meta_remove_featured_image">Remove Featured image</btn>
-
-
-
-
-
 						<hr>
 						<input id="featured_image" type="hidden" name="featured_image" value="' . $featured_image . '">
 						<btn id="q_meta_save" class="qa-form-light-button qa-form-light-button-features" title="Save" type="submit" name="q_meta_save" onclick="qa_show_waiting_after(this, false);">Save</btn>

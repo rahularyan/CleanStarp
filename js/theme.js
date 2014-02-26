@@ -20,6 +20,7 @@ function ra_question_meta(){
 }
 
 function ra_tab(){
+	jQuery('.ra-option-tabs li:first-child').addClass('active');
 	jQuery('.ra-option-tabs li a').click(function(e){
 		e.preventDefault();
 		jQuery('.ra-option-tabs li').removeClass('active');
@@ -443,6 +444,22 @@ function back_to_top(){
 	});
 }
 
+function ra_load_login_register(){
+	$('#login-register').not('active').click(function(){
+		$.ajax({
+			data: {
+				ra_ajax: true,
+				ra_ajax_html: true,
+				action: 'get_login_register',
+			},
+			dataType: 'html',
+			success: function (response) {
+				$('.qa-main > .list-c').html(response);
+			},
+		});
+	});
+}
+
 $(document).ready(function(){
 
 	var win_height = $(window).height();
@@ -461,7 +478,7 @@ $(document).ready(function(){
 	ra_widgets();
 	back_to_top();
 	ra_question_meta();
-	
+	ra_load_login_register();
 	if ($('.ra-ask-widget').length>0)
 		ra_ask_box_autocomplete();
 	
@@ -472,6 +489,7 @@ $(document).ready(function(){
 		$("#featured_image").val("");
 		$("#image-preview").attr("src",theme_url + "/images/featured-preview.jpg");
 	});
+<<<<<<< HEAD
 	if($("#fileuploader").length){
 		$("#fileuploader").uploadFile({
 			url:theme_url + "/inc/upload.php",
@@ -496,6 +514,30 @@ $(document).ready(function(){
 			},
 		});
 	}
+=======
+	/* $("#fileuploader").uploadFile({
+		url:theme_url + "/inc/upload.php",
+		allowedTypes:"png,gif,jpg,jpeg",
+		fileName:"featured",
+
+		maxFileCount:1,
+		multiple:false,
+		showDelete: true,
+		onSuccess:function(files,data,xhr)
+		{
+			$("#featured_image").val(data);
+			$("#image-preview").attr("src",theme_url + "/uploads/"+data);
+		},
+		deleteCallback:function(data, pd) {
+			$.post(theme_url + "/inc/upload-delete.php", {op: "delete",name: data},
+					function (resp,textStatus, jqXHR) {
+							$("#image-preview").attr("src",theme_url + "/images/featured-preview.jpg");
+							$("#featured_image").val("");
+					});
+			pd.statusbar.hide(500); //You choice.		
+		},
+	});	 */	
+>>>>>>> origin/master
 /* 	ra_ajax_sub_menu('.qa-nav-sub-recent a');
 	ra_ajax_sub_menu('.qa-nav-sub-hot a');
 	ra_ajax_sub_menu('.qa-nav-sub-votes a');
@@ -514,7 +556,7 @@ $(document).ready(function(){
 		ra_float_left()
 	}); */
 
-$('#myCarousel').carousel({
+$('#featured-slider').carousel({
 	interval: 10000
 	})
 });

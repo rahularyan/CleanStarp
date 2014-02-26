@@ -512,7 +512,7 @@ $(document).ready(function(){
 		ra_float_left()
 	}); */
 
-$('#myCarousel').carousel({
+$('#featured-slider').carousel({
 	interval: 10000
 	})
 });

@@ -636,7 +636,10 @@
 			$this->output('<div class="row">');
 			$this->output('<div class="col-md-9 home-left-inner">');
 				$this->output('<div class="row">');
-
+					$this->output('<div class="col-md-12">');
+						$this->ra_position('Home Slide');
+					$this->output('</div>');
+					
 					$this->output('<div class="col-md-8">');
 						$this->ra_position('Home Left');
 					$this->output('</div>');
@@ -977,16 +980,15 @@
 				'</h2>'
 			);
 			
-			$this->output('<div class="clearfix">');
 
 			//$this->favorite();
 			//$this->post_tags($q_view, 'qa-q-view');
 
-			$this->favorite();
+			/* $this->favorite();
 			$this->output(base64_decode( qa_opt('ads_below_question_title') ));
-			$this->post_tags($q_view, 'qa-q-view');
+			$this->post_tags($q_view, 'qa-q-view'); */
 
-			$this->output('</div><div class="qa-q-view-main">');
+			$this->output('<div class="qa-q-view-main">');
 
 			if (isset($q_view['main_form_tags']))
 				$this->output('<form '.$q_view['main_form_tags'].'>'); // form for buttons on question	
@@ -1054,7 +1056,10 @@
 			
 			$this->output('<div class="qa-c-list-item '.$extraclass.'" '.@$c_item['tags'].'>');
 			$this->output('<div class="asker-avatar">');
-			$this->output(ra_get_avatar($c_item['raw']['handle'], 35));
+			
+			if(isset($c_item['raw']['handle']))
+				$this->output(ra_get_avatar($c_item['raw']['handle'], 35));
+				
 			$this->output('</div>');
 			$this->output('<div class="qa-c-wrap">');
 			$this->post_meta($c_item, 'qa-c-item');
@@ -1081,7 +1086,7 @@
 		function a_list($a_list)
 		{
 			if (!empty($a_list)) {
-				$this->part_title($a_list);
+				//$this->part_title($a_list);
 				
 				$this->output('<div class="qa-a-list'.($this->list_vote_disabled($a_list['as']) ? ' qa-a-list-vote-disabled' : '').'" '.@$a_list['tags'].'>', '');
 				$this->a_list_items($a_list['as']);				
@@ -1803,35 +1808,21 @@
 				require_once QA_INCLUDE_DIR.'qa-db-metas.php';
 				$featured_image_name = qa_db_postmeta_get($postid, 'featured_image');
 				if (empty($featured_image_name)){
-					$featured_image = Q_THEME_URL . '/images/featured-preview.jpg';
+					$featured_image = '';
 				}else{
 					$featured_image = Q_THEME_URL . '/uploads/' . $featured_image_name;
 				}
 				$this->output('
 					<div class="question-meta" id="question-meta">
 						<label>
-
-
-
-
-
 							<input' . (qa_db_postmeta_get($postid, 'featured_question') ? ' checked=""' : '') . ' id="option_featured_question" class="qa-form-tall-checkbox" type="checkbox" value="1" name="option_featured_question">
 							Make this a Featured Question!
 						</label>
 						<div class="clearfix"></div>
-
-
-
-
 						<label>Featured Image</label>
 						<img id="image-preview" class="image-preview img-thumbnail" src="' . $featured_image . '" >
 						<div id="fileuploader">Upload</div>
 						<btn id="q_meta_remove_featured_image" class="qa-form-light-button qa-form-light-button-features" title="Remove featured image" type="submit" name="q_meta_remove_featured_image">Remove Featured image</btn>
-
-
-
-
-
 						<hr>
 						<input id="featured_image" type="hidden" name="featured_image" value="' . $featured_image . '">
 						<btn id="q_meta_save" class="qa-form-light-button qa-form-light-button-features" title="Save" type="submit" name="q_meta_save" onclick="qa_show_waiting_after(this, false);">Save</btn>

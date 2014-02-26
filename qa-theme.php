@@ -54,6 +54,7 @@
 						'Content Bottom' => 'After questions lists', 
 						'Right' => 'Right side of content', 
 						'Bottom' => 'Below content and before footer',
+						'Home Slide' => 'Home Top',
 						'Home Left' => 'Home left',
 						'Home Left Right' => 'Home inner right',
 						'Home Left Bottom 1' => 'Home bottom',

@@ -1,22 +1,22 @@
 <?php
 	class cs_new_users_widget {
 
-		function ra_widget_form()
+		function cs_widget_form()
 		{
 			
 			return array(
 				'style' => 'wide',
 				'fields' => array(
-					'ra_nu_count' => array(
+					'cs_nu_count' => array(
 						'label' => 'Numbers of user',
 						'type' => 'number',
-						'tags' => 'name="ra_nu_count"',
+						'tags' => 'name="cs_nu_count"',
 						'value' => '10',
 					),
-					'ra_nu_avatar' => array(
+					'cs_nu_avatar' => array(
 						'label' => 'Avatar Size',
 						'type' => 'number',
-						'tags' => 'name="ra_nu_avatar"',
+						'tags' => 'name="cs_nu_avatar"',
 						'value' => '30',
 					)	
 				),
@@ -69,7 +69,7 @@
 			
 			return $allow;
 		}
-		function ra_new_users($limit, $size){
+		function cs_new_users($limit, $size){
 			$output = '<ul class="users-list clearfix">';
 			if (defined('QA_FINAL_WORDPRESS_INTEGRATE_PATH')){
 				global $wpdb;
@@ -79,7 +79,7 @@
 				foreach($users as $u){
 					$handle = qa_post_userid_to_handle($u->ID);
 					$output .= '<li class="user">';
-					$output .= '<div class="avatar" data-handle="'.$handle.'" data-id="'. qa_handle_to_userid($handle).'"><img src="'.ra_get_avatar($u['handle'], $size, false).'" /></div>';
+					$output .= '<div class="avatar" data-handle="'.$handle.'" data-id="'. qa_handle_to_userid($handle).'"><img src="'.cs_get_avatar($u['handle'], $size, false).'" /></div>';
 					$output .= '</li>';
 				}
 				
@@ -87,7 +87,7 @@
 				$users = qa_db_query_sub('SELECT * FROM ^users ORDER BY created DESC LIMIT #', $limit);	
 				while($u = mysql_fetch_array($users)){
 					$output .= '<li class="user">';
-					$output .= '<div class="avatar" data-handle="'.$u['handle'].'" data-id="'. qa_handle_to_userid($u['handle']).'"><img src="'.ra_get_avatar($u['handle'], $size, false).'" /></div>';
+					$output .= '<div class="avatar" data-handle="'.$u['handle'].'" data-id="'. qa_handle_to_userid($u['handle']).'"><img src="'.cs_get_avatar($u['handle'], $size, false).'" /></div>';
 					$output .= '</li>';
 				}
 			}
@@ -103,7 +103,7 @@
 				$themeobject->output('<h3 class="widget-title">New Users</h3>');
 				
 			$themeobject->output('<div class="ra-new-users-widget">');
-			$themeobject->output($this->ra_new_users((int)@$widget_opt['ra_nu_count'], (int)@$widget_opt['ra_nu_avatar']));
+			$themeobject->output($this->cs_new_users((int)@$widget_opt['cs_nu_count'], (int)@$widget_opt['cs_nu_avatar']));
 			$themeobject->output('</div>');
 		}
 	

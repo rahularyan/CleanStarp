@@ -9,7 +9,7 @@ $(document).ready(function(){
 		showDelete: true,
 		onSuccess:function(files,data,xhr)
 		{
-			$("#ra_logo_field").val(theme_url + "/uploads/" + data);
+			$("#cs_logo_field").val(theme_url + "/uploads/" + data);
 			$("#logo-preview").attr("src",theme_url + "/uploads/"+data);
 			$("#logo-preview").show();
 		},
@@ -17,7 +17,7 @@ $(document).ready(function(){
 			$.post(theme_url + "/inc/upload-delete.php", {op: "delete",name: data},
 					function (resp,textStatus, jqXHR) {
 							$("#logo-preview").hide(500);
-							$("#ra_logo_field").val("");
+							$("#cs_logo_field").val("");
 					});
 			pd.statusbar.hide(500); //You choice.		
 		},
@@ -31,7 +31,7 @@ $(document).ready(function(){
 		showDelete: true,
 		onSuccess:function(files,data,xhr)
 		{
-			$("#ra_favicon_field").val(theme_url + "/uploads/" + data);
+			$("#cs_favicon_field").val(theme_url + "/uploads/" + data);
 			$("#favicon-preview").attr("src",theme_url + "/uploads/" + data);
 			$("#favicon-preview").show();
 		},
@@ -40,18 +40,18 @@ $(document).ready(function(){
 	// Typography
 	$.each( $( ".font-family" ), function( index, elem ){
 		demo = $(elem).parent().find('.font-demo');
-		var font=demo.parent().children('#typo_option_family').val();
-		var font_backup=demo.parent().children('#typo_option_backup').val();
+		var font=demo.parent().children('#typo_family').val();
+		var font_backup=demo.parent().children('#typo_backup').val();
 		if((font == '') || (font_backup=='')){var connector = '';}else{var connector = ', ';}
-		var font_style = demo.parent().children('#typo_option_style').val();
+		var font_style = demo.parent().children('#typo_style').val();
 		style = 'normal';
 		weight='inherit';
 		if (font_style.indexOf("italic") !== -1) {
 			style = 'italic';
 			weight = font_style.replace('italic', '');
 		}		
-		var font_height = demo.parent().children().children('#typo_option_lineheight').val();
-		var font_size = demo.parent().children().children('#typo_option_size').val();
+		var font_height = demo.parent().children().children('#typo_lineheight').val();
+		var font_size = demo.parent().children().children('#typo_size').val();
 		demo.css('font-family', font + connector + font_backup);
 		demo.children().css('font-family', font + connector + font_backup);
 		demo.css('font-style', style);
@@ -68,11 +68,11 @@ $(document).ready(function(){
 	$(".font-style").chosen({width: "200px",allow_single_deselect: true});
 	$(".font-family-backup").chosen({width: "260px",allow_single_deselect: true});
 	$( ".font-family, .font-style, .font-family-backup" ).on('change keyup paste',function(){
-		var font=$(this).parent().children('#typo_option_family').val();
-		var font_backup=$(this).parent().children('#typo_option_backup').val();
-		var font_style = $(this).parent().children('#typo_option_style').val();
+		var font=$(this).parent().children('#typo_family').val();
+		var font_backup=$(this).parent().children('#typo_backup').val();
+		var font_style = $(this).parent().children('#typo_style').val();
 		
-		font_option = $(this).parent().find('#typo_option_family').find('option:selected')
+		font_option = $(this).parent().find('#typo_family').find('option:selected')
 		if(font_option.attr("font-data-type")=='googlefont'){
 			// update styling variants
 			var details = jQuery.parseJSON(font_option.attr('font-data-detail'));
@@ -83,17 +83,17 @@ $(document).ready(function(){
 				options += '<option value="' + value.id + '"' + selected + '>' + value.name.replace(/\+/g, " ") + '</option>';	
 			});
 
-			 $(this).parent().children('#typo_option_style').html(options).trigger('chosen:updated');
+			 $(this).parent().children('#typo_style').html(options).trigger('chosen:updated');
 			// show backup fonts
 			var font_name = font.replace(/\s+/g, '+');
-			$(this).parent().children('#typo_option_backup_chosen').fadeIn('fast');
+			$(this).parent().children('#typo_backup_chosen').fadeIn('fast');
 			var link = 'http://fonts.googleapis.com/css?family=' + font_name;
 			if (font_style) {
 				link += ':' + font_style.replace(/\-/g, " ");
 			}
 			$('head').append('<link href="' + link + '" rel="stylesheet" type="text/css">');
 		} else {
-			$(this).parent().children('#typo_option_backup_chosen').fadeOut('fast');
+			$(this).parent().children('#typo_backup_chosen').fadeOut('fast');
 		}
 		if((font == '') || (font_backup=='')){var connector = '';}else{var connector = ', ';}
 		$(this).parent().children('span').css('font-family', font + connector + font_backup);
@@ -112,14 +112,14 @@ $(document).ready(function(){
 		$(this).parent().children('span').children().css('font-weight', font_style);
 	});
 	$( ".font-size" ).on('change keyup paste',function(){
-		var font_size = $(this).parent().children('#typo_option_size').val();
+		var font_size = $(this).parent().children('#typo_size').val();
 		if (font_size.match('^(0|[1-9][0-9]*)$')){
 			$(this).parent().parent().children('span').css('font-size', font_size + 'px');
 			$(this).parent().parent().children('span').children().css('font-size', font_size + 'px');
 		}
 	});
 	$( ".font-size, .font-linehight" ).on('change keyup paste',function(){
-		var font_height = $(this).parent().children('#typo_option_lineheight').val();
+		var font_height = $(this).parent().children('#typo_lineheight').val();
 		if (font_height.match('^(0|[1-9][0-9]*)$')){
 			$(this).parent().parent().children('span').css('line-height', font_height + 'px');
 			$(this).parent().parent().children('span').children().css('line-height', font_height + 'px');
@@ -145,16 +145,16 @@ $(document).ready(function(){
 	});
 	
 	// Styling
-	$( "#option_bg_select" ).change(function() {
-		if ($( "#option_bg_select" ).val()=='bg_color')
+	$( "#cs_bg_select" ).change(function() {
+		if ($( "#cs_bg_select" ).val()=='bg_color')
 			$( "#bg-color-container" ).show(500);
 		else
 			$( "#bg-color-container" ).hide(500);
 	});
-	$( "#option_enble_back_to_top" ).change(function() {
+	$( "#cs_enble_back_to_top" ).change(function() {
 		$( "#back_to_top_location_container" ).toggle(500);
 	});
-	$( "#option_enable_adv_list" ).change(function() {
+	$( "#cs_enable_adv_list" ).change(function() {
 		$( "#ads_container" ).toggle(500);
 	});
 	

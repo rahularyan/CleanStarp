@@ -1,32 +1,32 @@
 <?php
 	class cs_featured_questions_widget {
 		
-		function ra_widget_form()
+		function cs_widget_form()
 		{
 			
 			return array(
 				'style' => 'wide',
 				'fields' => array(
-					'ra_ticker_count' => array(
+					'cs_ticker_count' => array(
 						'label' => 'Questions to show',
 						'type' => 'number',
-						'tags' => 'name="ra_ticker_count"',
+						'tags' => 'name="cs_ticker_count"',
 						'value' => '10',
 					),
-					'ra_ticker_data' => array(
+					'cs_ticker_data' => array(
 						'label' => 'Data from',
 						'type' => 'select',
-						'tags' => 'name="ra_ticker_data"',
+						'tags' => 'name="cs_ticker_data"',
 						'value' => 'Category',
 						'options' => array(
 							'Category' => 'Category',
 							'Tags' => 'Tags',
 						)
 					),
-					'ra_ticker_slug' => array(
+					'cs_ticker_slug' => array(
 						'label' => 'Enter slug',
 						'type' => 'text',
-						'tags' => 'name="ra_ticker_slug"',
+						'tags' => 'name="cs_ticker_slug"',
 					),
 	
 				),
@@ -89,11 +89,11 @@
 			$i = 1;
 			while($p = mysql_fetch_array($post)){
 				if($type=='Q'){
-					$what = _ra_lang('asked');
+					$what = _cs_lang('asked');
 				}elseif($type=='A'){
-					$what = _ra_lang('answered');
+					$what = _cs_lang('answered');
 				}elseif('C'){
-					$what = _ra_lang('commented');
+					$what = _cs_lang('commented');
 				}
 				
 				$handle = qa_post_userid_to_handle($p['userid']);
@@ -104,20 +104,20 @@
 				if ($type=='Q'){
 					$output .= '<div class="big-ans-count pull-left">'.$p['acount'].'<span> ans</span></div>';
 				}elseif($type=='A'){
-					$output .= '<div class="big-ans-count pull-left vote">'.$p['netvotes'].'<span>'._ra_lang('Vote').'</span></div>';
+					$output .= '<div class="big-ans-count pull-left vote">'.$p['netvotes'].'<span>'._cs_lang('Vote').'</span></div>';
 				}
 
 				if($type=='Q'){
-					$output .= '<h5><a href="'. qa_q_path_html($p['postid'], $p['title']) .'" title="'. $p['title'] .'">'.ra_truncate(qa_html($p['title']), 50).'</a></h5>';
+					$output .= '<h5><a href="'. qa_q_path_html($p['postid'], $p['title']) .'" title="'. $p['title'] .'">'.cs_truncate(qa_html($p['title']), 50).'</a></h5>';
 				}elseif($type=='A'){
-					$output .= '<h5><a href="'.ra_post_link($p['parentid']).'#a'.$p['postid'].'">'. ra_truncate(strip_tags($p['content']), 50).'</a></h5>';
+					$output .= '<h5><a href="'.cs_post_link($p['parentid']).'#a'.$p['postid'].'">'. cs_truncate(strip_tags($p['content']), 50).'</a></h5>';
 				}else{
-					$output .= '<h5><a href="'.ra_post_link($p['parentid']).'#c'.$p['postid'].'">'. ra_truncate(strip_tags($p['content']), 50).'</a></h5>';
+					$output .= '<h5><a href="'.cs_post_link($p['parentid']).'#c'.$p['postid'].'">'. cs_truncate(strip_tags($p['content']), 50).'</a></h5>';
 				}
 				
 					
-				$output .= '<div class="meta"><img src="'.ra_get_avatar($handle, 15, false).'" /><span class="icon-calendar-2">'.date('d M Y', strtotime($p['created'])).'</span>';	
-				$output .= '<span class="vote-count">'.$p['netvotes'].' '._ra_lang('votes').'</span></div>';	
+				$output .= '<div class="meta"><img src="'.cs_get_avatar($handle, 15, false).'" /><span class="icon-calendar-2">'.date('d M Y', strtotime($p['created'])).'</span>';	
+				$output .= '<span class="vote-count">'.$p['netvotes'].' '._cs_lang('votes').'</span></div>';	
 				
 				$output .= '</div>';
 				$output .= '</div>';
@@ -135,11 +135,11 @@
 		{
 			$widget_opt = $themeobject->current_widget['Featured Questions']['options'];
 
-			$count = (isset($widget_opt['ra_ticker_count']) && !empty($widget_opt['ra_ticker_count'])) ?(int)$widget_opt['ra_ticker_count'] : 10;
+			$count = (isset($widget_opt['cs_ticker_count']) && !empty($widget_opt['cs_ticker_count'])) ?(int)$widget_opt['cs_ticker_count'] : 10;
 			
-			$category = (isset($widget_opt['ra_ticker_data']) && $widget_opt['ra_ticker_data'] == 'Category') ? $widget_opt['ra_ticker_slug'] : '';
+			$category = (isset($widget_opt['cs_ticker_data']) && $widget_opt['cs_ticker_data'] == 'Category') ? $widget_opt['cs_ticker_slug'] : '';
 			
-			$tag = (isset($widget_opt['ra_ticker_data']) && $widget_opt['ra_ticker_data'] == 'Tags') ? $widget_opt['ra_ticker_slug'] : '';
+			$tag = (isset($widget_opt['cs_ticker_data']) && $widget_opt['cs_ticker_data'] == 'Tags') ? $widget_opt['cs_ticker_slug'] : '';
 			
 			$themeobject->output('<div class="ra-featured-widget">');
 

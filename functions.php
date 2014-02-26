@@ -6,14 +6,14 @@
 	}
 
 
-function ra_lang($str){
+function cs_lang($str){
 	global $qa_content;
 	if(isset($qa_content['lang'][strtolower($str)]))
 		echo $qa_content['lang'][strtolower($str)];
 	else
 		echo $str;
 }
-function _ra_lang($str){
+function _cs_lang($str){
 	global $qa_content;
 	if(isset($qa_content['lang'][strtolower($str)]))
 		return $qa_content['lang'][strtolower($str)];
@@ -22,7 +22,7 @@ function _ra_lang($str){
 }
 
 
-function ra_user_data($handle){
+function cs_user_data($handle){
 	$userid = qa_handle_to_userid($handle);
 	$identifier=QA_FINAL_EXTERNAL_USERS ? $userid : $handle;
 	if(defined('QA_WORDPRESS_INTEGRATE_PATH')){
@@ -48,7 +48,7 @@ function ra_user_data($handle){
 
 
 
-function ra_get_avatar($handle, $size = 40, $html =true){
+function cs_get_avatar($handle, $size = 40, $html =true){
 	$userid = qa_handle_to_userid($handle);
 	if(defined('QA_WORDPRESS_INTEGRATE_PATH')){
 		$img_html = get_avatar( qa_get_user_email($userid), $size);
@@ -63,7 +63,7 @@ function ra_get_avatar($handle, $size = 40, $html =true){
 			else
 				$img_html = '';
 		}else{
-			$f = ra_user_data($handle);
+			$f = cs_user_data($handle);
 			if(empty($f[0]['avatarblobid'])){
 				$img_html = '';
 			}
@@ -81,34 +81,34 @@ function ra_get_avatar($handle, $size = 40, $html =true){
 		return $match[1];
 }
 
-function ra_post_type($id){
+function cs_post_type($id){
 	$result = qa_db_read_one_value(qa_db_query_sub('SELECT type FROM ^posts WHERE postid=#', $id ),true);
 	return $result;
 }
 
-function ra_post_status($item){
+function cs_post_status($item){
 	// this will return a notice whether question is open, closed, duplicate or solved
 	
 	if (@$item['answer_selected'] || @$item['raw']['selchildid']){	
-		$notice =   '<span class="post-status selected">'._ra_lang('Solved').'</span>' ;
+		$notice =   '<span class="post-status selected">'._cs_lang('Solved').'</span>' ;
 	}elseif(@$item['raw']['closedbyid']){
-		$type = ra_post_type(@$item['raw']['closedbyid']);
+		$type = cs_post_type(@$item['raw']['closedbyid']);
 		if($type == 'Q')
-			$notice =   '<span class="post-status duplicate">'._ra_lang('Duplicate').'</span>' ;	
+			$notice =   '<span class="post-status duplicate">'._cs_lang('Duplicate').'</span>' ;	
 		else
-			$notice =   '<span class="post-status closed">'._ra_lang('Closed').'</span>' ;	
+			$notice =   '<span class="post-status closed">'._cs_lang('Closed').'</span>' ;	
 	}else{
-		$notice =   '<span class="post-status open">'._ra_lang('Open').'</span>' ;	
+		$notice =   '<span class="post-status open">'._cs_lang('Open').'</span>' ;	
 	}
 	return $notice;
 }
-function ra_get_post_status($item){
+function cs_get_post_status($item){
 	// this will return question status whether question is open, closed, duplicate or solved
 	
 	if (@$item['answer_selected'] || @$item['raw']['selchildid']){	
 		$status =   'solved' ;
 	}elseif(@$item['raw']['closedbyid']){
-		$type = ra_post_type(@$item['raw']['closedbyid']);
+		$type = cs_post_type(@$item['raw']['closedbyid']);
 		if($type == 'Q')
 			$status =   'duplicate' ;	
 		else
@@ -118,11 +118,11 @@ function ra_get_post_status($item){
 	}
 	return $status;
 }
-function ra_get_excerpt($id){
+function cs_get_excerpt($id){
 	$result = qa_db_read_one_value(qa_db_query_sub('SELECT content FROM ^posts WHERE postid=#', $id ),true);
 	return strip_tags($result);
 }
-function ra_truncate($string, $limit, $pad="...") {
+function cs_truncate($string, $limit, $pad="...") {
 	if(strlen($string) <= $limit) 
 		return $string; 
 	else{ 
@@ -132,7 +132,7 @@ function ra_truncate($string, $limit, $pad="...") {
 
 }
 		
-function ra_user_profile($handle, $field =NULL){
+function cs_user_profile($handle, $field =NULL){
 	$userid = qa_handle_to_userid($handle);
 	if(defined('QA_WORDPRESS_INTEGRATE_PATH')){
 		return get_user_meta( $userid );
@@ -147,7 +147,7 @@ function ra_user_profile($handle, $field =NULL){
 	return false;
 }	
 
-function ra_user_badge($handle) {
+function cs_user_badge($handle) {
 	if(qa_opt('badge_active')){
 	$userids = qa_handles_to_userids(array($handle));
 	$userid = $userids[$handle];
@@ -185,13 +185,13 @@ function ra_user_badge($handle) {
 	return($output);
 	}
 }
-function ra_name($handle){
-	return strlen(ra_user_profile($handle, 'name')) ? ra_user_profile($handle, 'name') : $handle;
+function cs_name($handle){
+	return strlen(cs_user_profile($handle, 'name')) ? cs_user_profile($handle, 'name') : $handle;
 }
 
 
 // output the list of selected post type
-function ra_user_post_list($handle, $type, $limit){
+function cs_user_post_list($handle, $type, $limit){
 	$userid = qa_handle_to_userid($handle);
 	require_once QA_INCLUDE_DIR.'qa-app-posts.php';
 	$post = qa_db_query_sub('SELECT * FROM ^posts WHERE ^posts.type=$ and ^posts.userid=# ORDER BY ^posts.created DESC LIMIT #', $type, $userid, $limit);	
@@ -200,33 +200,33 @@ function ra_user_post_list($handle, $type, $limit){
 	while($p = mysql_fetch_array($post)){
 
 		if($type=='Q'){
-			$what = _ra_lang('asked');
+			$what = _cs_lang('asked');
 		}elseif($type=='A'){
-			$what = _ra_lang('answered');
+			$what = _cs_lang('answered');
 		}elseif('C'){
-			$what = _ra_lang('commented');
+			$what = _cs_lang('commented');
 		}
 		
 		$handle = qa_post_userid_to_handle($p['userid']);
 
 		$output .= '<li id="q-list-'.$p['postid'].'" class="question-item">';
 		if ($type=='Q'){
-			$output .= '<div class="big-ans-count pull-left">'.$p['acount'].'<span>'._ra_lang('Ans').'</span></div>';
+			$output .= '<div class="big-ans-count pull-left">'.$p['acount'].'<span>'._cs_lang('Ans').'</span></div>';
 		}elseif($type=='A'){
-			$output .= '<div class="big-ans-count pull-left vote">'.$p['netvotes'].'<span>'._ra_lang('Vote').'</span></div>';
+			$output .= '<div class="big-ans-count pull-left vote">'.$p['netvotes'].'<span>'._cs_lang('Vote').'</span></div>';
 		}
 		$output .= '<div class="list-right">';
 
 		if($type=='Q'){
 			$output .= '<h5><a href="'. qa_q_path_html($p['postid'], $p['title']) .'" title="'. $p['title'] .'">'.qa_html($p['title']).'</a></h5>';
 		}elseif($type=='A'){
-			$output .= '<h5><a href="'.ra_post_link($p['parentid']).'#a'.$p['postid'].'">'. substr(strip_tags($p['content']), 0, 50).'</a></h5>';
+			$output .= '<h5><a href="'.cs_post_link($p['parentid']).'#a'.$p['postid'].'">'. substr(strip_tags($p['content']), 0, 50).'</a></h5>';
 		}else{
-			$output .= '<h5><a href="'.ra_post_link($p['parentid']).'#c'.$p['postid'].'">'. substr(strip_tags($p['content']), 0, 50).'</a></h5>';
+			$output .= '<h5><a href="'.cs_post_link($p['parentid']).'#c'.$p['postid'].'">'. substr(strip_tags($p['content']), 0, 50).'</a></h5>';
 		}
 		
 		$output .= '<div class="list-date"><span class="icon-calendar-2">'.date('d M Y', strtotime($p['created'])).'</span>';	
-		$output .= '<span class="icon-chevron-up">'.$p['netvotes'].' '._ra_lang('votes').'</span></div>';	
+		$output .= '<span class="icon-chevron-up">'.$p['netvotes'].' '._cs_lang('votes').'</span></div>';	
 		$output .= '</div>';	
 		$output .= '</li>';
 	}
@@ -237,7 +237,7 @@ function ra_user_post_list($handle, $type, $limit){
 	echo $output;
 }
 
-function ra_post_link($id){
+function cs_post_link($id){
 	$type = mysql_result(qa_db_query_sub('SELECT type FROM ^posts WHERE postid = "'.$id.'"'), 0);
 	
 	if($type == 'A')
@@ -247,7 +247,7 @@ function ra_post_link($id){
 	return qa_q_path_html($id, mysql_result($post,0));
 }	
 
-function ra_tag_list($limit = 20){
+function cs_tag_list($limit = 20){
 	$populartags=qa_db_single_select(qa_db_popular_tags_selectspec(0, $limit));
 			
 	$i= 1;
@@ -257,7 +257,7 @@ function ra_tag_list($limit = 20){
 }
 
 // output the list of selected post type
-function ra_post_list($type, $limit, $return = false){
+function cs_post_list($type, $limit, $return = false){
 	require_once QA_INCLUDE_DIR.'qa-app-posts.php';
 	$post = qa_db_query_sub('SELECT * FROM ^posts WHERE ^posts.type=$ ORDER BY ^posts.created DESC LIMIT #', $type, $limit);	
 	
@@ -265,25 +265,25 @@ function ra_post_list($type, $limit, $return = false){
 	while($p = mysql_fetch_array($post)){
 
 		if($type=='Q'){
-			$what = _ra_lang('asked');
+			$what = _cs_lang('asked');
 		}elseif($type=='A'){
-			$what = _ra_lang('answered');
+			$what = _cs_lang('answered');
 		}elseif('C'){
-			$what = _ra_lang('commented');
+			$what = _cs_lang('commented');
 		}
 		
 		$handle = qa_post_userid_to_handle($p['userid']);
 
 		$output .= '<li id="q-list-'.$p['postid'].'" class="question-item">';
-		$output .= '<div class="pull-left avatar" data-handle="'.$handle.'" data-id="'. qa_handle_to_userid($handle).'">'.ra_get_avatar($handle, 35).'</div>';
+		$output .= '<div class="pull-left avatar" data-handle="'.$handle.'" data-id="'. qa_handle_to_userid($handle).'">'.cs_get_avatar($handle, 35).'</div>';
 		$output .= '<div class="list-right">';
 		
 		if($type=='Q'){
 			$output .= '<a class="title" href="'. qa_q_path_html($p['postid'], $p['title']) .'" title="'. $p['title'] .'">'.qa_html($p['title']).'</a>';
 		}elseif($type=='A'){
-			$output .= '<p><a href="'.ra_post_link($p['parentid']).'#a'.$p['postid'].'">'. substr(strip_tags($p['content']), 0, 50).'</a></p>';
+			$output .= '<p><a href="'.cs_post_link($p['parentid']).'#a'.$p['postid'].'">'. substr(strip_tags($p['content']), 0, 50).'</a></p>';
 		}else{
-			$output .= '<p><a href="'.ra_post_link($p['parentid']).'#c'.$p['postid'].'">'. substr(strip_tags($p['content']), 0, 50).'</a></p>';
+			$output .= '<p><a href="'.cs_post_link($p['parentid']).'#c'.$p['postid'].'">'. substr(strip_tags($p['content']), 0, 50).'</a></p>';
 		}
 		
 		
@@ -293,7 +293,7 @@ function ra_post_list($type, $limit, $return = false){
 		}elseif($type=='A'){
 			$output .= '<div class="counts"><div class="vote-count"><span>'.$p['netvotes'].'</span></div>';
 		}
-		$output .= '<h5><a href="'.qa_path_html('user/'.$handle).'">'.ra_name($handle).'</a> '.$what.'</h5>';
+		$output .= '<h5><a href="'.qa_path_html('user/'.$handle).'">'.cs_name($handle).'</a> '.$what.'</h5>';
 
 		$output .= '</div>';	
 		$output .= '</li>';
@@ -303,7 +303,7 @@ function ra_post_list($type, $limit, $return = false){
 		return $output;
 	echo $output;
 }
-function ra_url_grabber($str) {
+function cs_url_grabber($str) {
 	preg_match_all(
 	  '#<a\s
 		(?:(?= [^>]* href="   (?P<href>  [^"]*) ")|)
@@ -324,15 +324,15 @@ function ra_url_grabber($str) {
 	}	
 }
 
-function ra_register_widget_position($widget_array){
+function cs_register_widget_position($widget_array){
 	if(is_array($widget_array)){
-		qa_opt('ra_widgets_positions', serialize($widget_array));
+		qa_opt('cs_widgets_positions', serialize($widget_array));
 	}
 	return;
 }
 
-function ra_position_active($name){
-	$widgets = unserialize(qa_opt('ra_widgets'));
+function cs_position_active($name){
+	$widgets = unserialize(qa_opt('cs_widgets'));
 	$template = qa_request(1);
 	$template = (!empty($template) ? $template : 'home' );
 	if(is_array($widgets) && !empty($widgets[$name]) && isset($widgets[$name])){
@@ -345,7 +345,7 @@ function ra_position_active($name){
 	return false;
 }
 
-function ra_get_template_array(){
+function cs_get_template_array(){
 	return array(
 		'qa' 			=> 'QA',
 		'home' 			=> 'Home',
@@ -375,7 +375,7 @@ function ra_get_template_array(){
 	);
 }
 
-function ra_social_icons(){
+function cs_social_icons(){
 	return array(
 		'icon-facebook' => 'Facebook',
 		'icon-twitter' => 'Twitter',
@@ -419,7 +419,7 @@ function get_user_activity($handle, $limit = 10){
 
 
 	$output = '<div class="widget user-activities">';
-	$output .= '<h3 class="widget-title">'.ra_name($handle).'\'s '._ra_lang('activities').'</h3>';
+	$output .= '<h3 class="widget-title">'.cs_name($handle).'\'s '._cs_lang('activities').'</h3>';
 	$output .='<ul class="question-list">';
 	if(isset($qa_content)){
 		foreach ($qa_content as $qs){
@@ -451,7 +451,7 @@ function get_user_activity($handle, $limit = 10){
 			$output .='</li>';
 		}
 	}else{
-		$output .='<li>'._ra_lang('No activity yet.').'</li>';
+		$output .='<li>'._cs_lang('No activity yet.').'</li>';
 	}
 	$output .= '</ul>';
 	$output .= '</div>';
@@ -460,51 +460,51 @@ function get_user_activity($handle, $limit = 10){
 
 function reset_theme_options(){
 	// General
-	qa_opt('ra_custom_style','');
-	qa_opt('logo_show', true);
-	qa_opt('logo_url', qa_opt('site_url').'qa-theme/'.qa_get_site_theme().'/images/logo.png');
-	//qa_opt('favicon_url', '');
-	qa_opt('google_analytics', '');	
-	qa_opt('ra_colla_comm', false);
-	qa_opt('show_real_name', true);
+	qa_opt('cs_custom_style','');
+	qa_opt('cs_logo_show', true);
+	qa_opt('logo_url', Q_THEME_URL . '/images/logo.png');
+	qa_opt('cs_favicon_url', '');
+	qa_opt('cs_google_analytics', '');	
+	qa_opt('cs_colla_comm', false);
+	qa_opt('cs_show_real_name', true);
 	
 	// Layout
-	qa_opt('theme_layout', 'boxed');
-	qa_opt('users_table_layout', false);
-	qa_opt('ra_nav_fixed', true);	
-	qa_opt('ra_show_icon', true);	
-	qa_opt('ra_enable_except', false);
-	qa_opt('ra_except_len', 240);
-	qa_opt('ra_enable_avatar_lists', false);
+	qa_opt('cs_theme_layout', 'boxed');
+	qa_opt('cs_users_table_layout', false);
+	qa_opt('cs_nav_fixed', true);	
+	qa_opt('cs_show_icon', true);	
+	qa_opt('cs_enable_except', false);
+	qa_opt('cs_except_len', 240);
+	qa_opt('cs_enable_avatar_lists', false);
 	if ((int)qa_opt('avatar_q_list_size')>0){
 		qa_opt('avatar_q_list_size',35);
-		qa_opt('ra_enable_avatar_lists', true);
+		qa_opt('cs_enable_avatar_lists', true);
 	}else
-		qa_opt('ra_enable_avatar_lists', false);
+		qa_opt('cs_enable_avatar_lists', false);
 	qa_opt('show_view_counts', false);
-	qa_opt('show_tags_list', true);
-	qa_opt('horizontal_voting_btns', false);
-	qa_opt('enble_back_to_top', true);
-	qa_opt('back_to_top_location', 'nav');
+	qa_opt('cs_show_tags_list', true);
+	qa_opt('cs_horizontal_voting_btns', false);
+	qa_opt('cs_enble_back_to_top', true);
+	qa_opt('cs_back_to_top_location', 'nav');
 	// Styling
-	qa_opt('styling_duplicate_question', false);
-	qa_opt('styling_solved_question', false);
-	qa_opt('styling_closed_question', false);
-	qa_opt('styling_open_question', false);
-	qa_opt('bg_select', false);
-	qa_opt('bg_color', '#F4F4F4');
-	qa_opt('text_color', '');
-	qa_opt('border_color', '#EEEEEE');
-	qa_opt('q_link_color', '');
-	qa_opt('q_link_hover_color', '');
-	qa_opt('nav_link_color', '');
-	qa_opt('nav_link_color_hover', '');
-	qa_opt('subnav_link_color', '');
-	qa_opt('subnav_link_color_hover', '');
-	qa_opt('link_color', '');
-	qa_opt('link_hover_color', '');
-	qa_opt('highlight_color', '');
-	qa_opt('highlight_bg_color', '');
+	qa_opt('cs_styling_duplicate_question', false);
+	qa_opt('cs_styling_solved_question', false);
+	qa_opt('cs_styling_closed_question', false);
+	qa_opt('cs_styling_open_question', false);
+	qa_opt('cs_bg_select', false);
+	qa_opt('cs_bg_color', '#F4F4F4');
+	qa_opt('cs_text_color', '');
+	qa_opt('cs_border_color', '#EEEEEE');
+	qa_opt('cs_q_link_color', '');
+	qa_opt('cs_q_link_hover_color', '');
+	qa_opt('cs_nav_link_color', '');
+	qa_opt('cs_nav_link_color_hover', '');
+	qa_opt('cs_subnav_link_color', '');
+	qa_opt('cs_subnav_link_color_hover', '');
+	qa_opt('cs_link_color', '');
+	qa_opt('cs_link_hover_color', '');
+	qa_opt('cs_highlight_color', '');
+	qa_opt('cs_highlight_bg_color', '');
 	
 	// Typography
 	$typo = array('h1','h2','h3','h4','h5','p','span','quote');
@@ -517,18 +517,18 @@ function reset_theme_options(){
 	}
 	
 	// Social
-	qa_opt('ra_social_list','');
-	qa_opt('ra_social_enable', false);
+	qa_opt('cs_social_list','');
+	qa_opt('cs_social_enable', false);
 	
 	// Advertisement
-	qa_opt('ra_advs','');
-	qa_opt('enable_adv_list', false);
-	qa_opt('ads_below_question_title', '');
-	qa_opt('ads_after_question_content','');
+	qa_opt('cs_advs','');
+	qa_opt('cs_enable_adv_list', false);
+	qa_opt('cs_ads_below_question_title', '');
+	qa_opt('cs_ads_after_question_content','');
 
 	// footer							
-	qa_opt('ra_ticker_data', '');				
-	qa_opt('footer_copyright', 'Copyright © 2014');
+	qa_opt('cs_ticker_data', '');				
+	qa_opt('cs_footer_copyright', 'Copyright © 2014');
 }
 
 function is_featured($postid){

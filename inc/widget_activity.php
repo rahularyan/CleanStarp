@@ -1,22 +1,22 @@
 <?php
 	class cs_activity_widget {
 
-		function ra_widget_form()
+		function cs_widget_form()
 		{
 			
 			return array(
 				'style' => 'wide',
 				'fields' => array(
-					'ra_tc_count' => array(
+					'cs_tc_count' => array(
 						'label' => 'Numbers of user',
 						'type' => 'number',
-						'tags' => 'name="ra_tc_count"',
+						'tags' => 'name="cs_tc_count"',
 						'value' => '10',
 					),
-					'ra_tc_avatar' => array(
+					'cs_tc_avatar' => array(
 						'label' => 'Avatar Size',
 						'type' => 'number',
-						'tags' => 'name="ra_tc_avatar"',
+						'tags' => 'name="cs_tc_avatar"',
 						'value' => '30',
 					)	
 				),
@@ -140,25 +140,25 @@
 						$linkToPost = qa_path_html('user/'.$row['handle']);
 					}
 					
-					$username = (is_null($row['handle'])) ? _ra_lang('Anonymous') : htmlspecialchars($row['handle']);
-					$usernameLink = (is_null($row['handle'])) ? _ra_lang('Anonymous') : '<a target="_blank" class="qa-user-link" href="'.qa_opt('site_url').'user/'.$row['handle'].'">'.ra_name($row['handle']).'</a>';
+					$username = (is_null($row['handle'])) ? _cs_lang('Anonymous') : htmlspecialchars($row['handle']);
+					$usernameLink = (is_null($row['handle'])) ? _cs_lang('Anonymous') : '<a target="_blank" class="qa-user-link" href="'.qa_opt('site_url').'user/'.$row['handle'].'">'.cs_name($row['handle']).'</a>';
 					
 					// set event name and css class
 					$eventName = '';
 					if($row['event']=="q_post") {
-						$eventName = _ra_lang('asked');
+						$eventName = _cs_lang('asked');
 					}
 					else if($row['event']=="a_post") {
-						$eventName = _ra_lang('answered');
+						$eventName = _cs_lang('answered');
 					}
 					else if($row['event']=="c_post") {
-						$eventName = _ra_lang('commented');	
+						$eventName = _cs_lang('commented');	
 					}
 					else if($row['event']=="a_select") {
-						$eventName = _ra_lang('selected an answer');
+						$eventName = _cs_lang('selected an answer');
 					}				
 					else if($row['event']=="badge_awarded") {
-						$eventName = _ra_lang('earned a badge');
+						$eventName = _cs_lang('earned a badge');
 					}			
 					
 					// set event icon class
@@ -196,9 +196,9 @@
 					$o .= '<p class="title"><strong>'.$usernameLink.'</strong> <span class="what">'.$eventName.'</span></p>';			
 					
 					if($row['event']=="badge_awarded")
-						$o .= '<strong class="event-title">'.ra_truncate($qTitle,50).'</strong>';						
+						$o .= '<strong class="event-title">'.cs_truncate($qTitle,50).'</strong>';						
 					else
-						$o .= '<a class="event-title" href="'.$linkToPost.'">'.ra_truncate($qTitle,50).'</a>';
+						$o .= '<a class="event-title" href="'.$linkToPost.'">'.cs_truncate($qTitle,50).'</a>';
 					
 					$o .= $time;	
 					$o .= '</div>';	
@@ -213,7 +213,7 @@
 			$o .= '</ul>';
 			return $o;
 		} 
-		function ra_events($limit =10, $events_type = false){
+		function cs_events($limit =10, $events_type = false){
 			if(!$events_type)
 				$events_type = array('q_post', 'a_post', 'c_post', 'a_select', 'badge_awarded');
 			
@@ -233,7 +233,7 @@
 				$themeobject->output('<h3 class="widget-title">Site Activity</h3>');
 				
 			$themeobject->output('<div class="ra-tags-widget">');
-			$themeobject->output($this->ra_events(10));
+			$themeobject->output($this->cs_events(10));
 			$themeobject->output('</div>');
 		}
 	

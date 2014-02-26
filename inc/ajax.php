@@ -6,8 +6,8 @@
 	}
 	
 	
-	if(isset($_REQUEST['ra_ajax'])){
-		$action = 'ra_ajax_'.$_REQUEST['action'];
+	if(isset($_REQUEST['cs_ajax'])){
+		$action = 'cs_ajax_'.$_REQUEST['action'];
 		if(function_exists($action))
 			$action();
 	}

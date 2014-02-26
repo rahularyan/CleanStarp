@@ -1,32 +1,32 @@
 <?php
 	class cs_ticker_widget {
 		
-		function ra_widget_form()
+		function cs_widget_form()
 		{
 			
 			return array(
 				'style' => 'wide',
 				'fields' => array(
-					'ra_ticker_count' => array(
+					'cs_ticker_count' => array(
 						'label' => 'Questions to show',
 						'type' => 'number',
-						'tags' => 'name="ra_ticker_count"',
+						'tags' => 'name="cs_ticker_count"',
 						'value' => '10',
 					),
-					'ra_ticker_data' => array(
+					'cs_ticker_data' => array(
 						'label' => 'Data from',
 						'type' => 'select',
-						'tags' => 'name="ra_ticker_data"',
+						'tags' => 'name="cs_ticker_data"',
 						'value' => 'Category',
 						'options' => array(
 							'Category' => 'Category',
 							'Tags' => 'Tags',
 						)
 					),
-					'ra_ticker_slug' => array(
+					'cs_ticker_slug' => array(
 						'label' => 'Enter slug',
 						'type' => 'text',
-						'tags' => 'name="ra_ticker_slug"',
+						'tags' => 'name="cs_ticker_slug"',
 					),
 	
 				),
@@ -81,7 +81,7 @@
 		}
 		
 		// output the list of selected post type
-		function ra_relative_post_list($type, $limit, $categories, $tags, $return = false){
+		function cs_relative_post_list($type, $limit, $categories, $tags, $return = false){
 			require_once QA_INCLUDE_DIR.'qa-app-posts.php';
 			if(!empty($categories)){
 				
@@ -109,31 +109,31 @@
 			$output .= '<ul class="question-list">';
 			while($p = mysql_fetch_array($post)){
 				if($type=='Q'){
-					$what = _ra_lang('asked');
+					$what = _cs_lang('asked');
 				}elseif($type=='A'){
-					$what = _ra_lang('answered');
+					$what = _cs_lang('answered');
 				}elseif('C'){
-					$what = _ra_lang('commented');
+					$what = _cs_lang('commented');
 				}
 				$handle = qa_post_userid_to_handle($p['userid']);
 				$output .= '<li id="q-list-'.$p['postid'].'" class="question-item">';
-				$output .= '<div class="pull-left avatar" data-handle="'.$handle.'" data-id="'. qa_handle_to_userid($handle).'"><img src="'.ra_get_avatar($handle, 35, false).'" /></div>';
+				$output .= '<div class="pull-left avatar" data-handle="'.$handle.'" data-id="'. qa_handle_to_userid($handle).'"><img src="'.cs_get_avatar($handle, 35, false).'" /></div>';
 				$output .= '<div class="list-right">';
 
 				if($type=='Q'){
 
-					$output .= '<a class="title" href="'. qa_q_path_html($p['postid'], $p['title']) .'" title="'. $p['title'] .'">'.ra_truncate(qa_html($p['title']), 50).'</a>';
+					$output .= '<a class="title" href="'. qa_q_path_html($p['postid'], $p['title']) .'" title="'. $p['title'] .'">'.cs_truncate(qa_html($p['title']), 50).'</a>';
 
 				}elseif($type=='A'){
 
-					$output .= '<p><a href="'.ra_post_link($p['parentid']).'#a'.$p['postid'].'">'. ra_truncate(strip_tags($p['content']),50).'</a></p>';
+					$output .= '<p><a href="'.cs_post_link($p['parentid']).'#a'.$p['postid'].'">'. cs_truncate(strip_tags($p['content']),50).'</a></p>';
 
 				}else{
 
-					$output .= '<p><a href="'.ra_post_link($p['parentid']).'#c'.$p['postid'].'">'. ra_truncate(strip_tags($p['content']),50).'</a></p>';
+					$output .= '<p><a href="'.cs_post_link($p['parentid']).'#c'.$p['postid'].'">'. cs_truncate(strip_tags($p['content']),50).'</a></p>';
 
 				}
-				$output .= '<div class="meta"><a href="'.qa_path_html('user/'.$handle).'">'.ra_name($handle).'</a> '.$what;
+				$output .= '<div class="meta"><a href="'.qa_path_html('user/'.$handle).'">'.cs_name($handle).'</a> '.$what;
 				if ($type=='Q'){
 
 					$output .= ' <span class="vote-count">'.$p['netvotes'].' votes</span>';
@@ -161,15 +161,15 @@
 		{
 			$widget_opt = $themeobject->current_widget['RA Ticker']['options'];
 
-			$count = (isset($widget_opt['ra_ticker_count']) && !empty($widget_opt['ra_ticker_count'])) ?(int)$widget_opt['ra_ticker_count'] : 10;
+			$count = (isset($widget_opt['cs_ticker_count']) && !empty($widget_opt['cs_ticker_count'])) ?(int)$widget_opt['cs_ticker_count'] : 10;
 			
-			$category = (isset($widget_opt['ra_ticker_data']) && $widget_opt['ra_ticker_data'] == 'Category') ? $widget_opt['ra_ticker_slug'] : '';
+			$category = (isset($widget_opt['cs_ticker_data']) && $widget_opt['cs_ticker_data'] == 'Category') ? $widget_opt['cs_ticker_slug'] : '';
 			
-			$tag = (isset($widget_opt['ra_ticker_data']) && $widget_opt['ra_ticker_data'] == 'Tags') ? $widget_opt['ra_ticker_slug'] : '';
+			$tag = (isset($widget_opt['cs_ticker_data']) && $widget_opt['cs_ticker_data'] == 'Tags') ? $widget_opt['cs_ticker_slug'] : '';
 			
 			$themeobject->output('<div class="ra-ticker-widget">');
 			
-			$themeobject->output($this->ra_relative_post_list('Q', $count, $category, $tag, true));
+			$themeobject->output($this->cs_relative_post_list('Q', $count, $category, $tag, true));
 			$themeobject->output('</div>');
 		}
 	

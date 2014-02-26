@@ -31,13 +31,13 @@ if(isset($_FILES["featured"]))
 			
 			$image = new Image($uploaddir.$temp_name_with_ext);
 			
-			$width = (int)qa_opt('featured_image_width');
+			$width = (int)qa_opt('cs_featured_image_width');
 			if ($width<=0) $width = 621;
-			$height = (int)qa_opt('featured_image_height');
+			$height = (int)qa_opt('cs_featured_image_height');
 			if ($height<=0) $height = 300;
-			$t_width = (int)qa_opt('featured_thumbnail_width');
+			$t_width = (int)qa_opt('cs_featured_thumbnail_width');
 			if ($t_width<=0) $t_width = 278;
-			$t_height = (int)qa_opt('featured_thumbnail_height');
+			$t_height = (int)qa_opt('cs_featured_thumbnail_height');
 			if ($t_height<=0) $t_height = 120;
 			
 			$image->resize($width, $height, 'crop', 'c', 't', 99);

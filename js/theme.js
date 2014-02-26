@@ -20,6 +20,7 @@ function ra_question_meta(){
 }
 
 function ra_tab(){
+	jQuery('.ra-option-tabs li:first-child').addClass('active');
 	jQuery('.ra-option-tabs li a').click(function(e){
 		e.preventDefault();
 		jQuery('.ra-option-tabs li').removeClass('active');

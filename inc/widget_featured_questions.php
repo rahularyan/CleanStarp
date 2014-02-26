@@ -116,8 +116,8 @@
 				}
 				
 					
-				$output .= '<div class="list-date"><span class="icon-calendar-2">'.date('d M Y', strtotime($p['created'])).'</span>';	
-				$output .= '<span class="icon-chevron-up">'.$p['netvotes'].' '._ra_lang('votes').'</span></div>';	
+				$output .= '<div class="meta"><img src="'.ra_get_avatar($handle, 15, false).'" /><span class="icon-calendar-2">'.date('d M Y', strtotime($p['created'])).'</span>';	
+				$output .= '<span class="vote-count">'.$p['netvotes'].' '._ra_lang('votes').'</span></div>';	
 				
 				$output .= '</div>';
 				$output .= '</div>';

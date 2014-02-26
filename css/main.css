@@ -603,16 +603,16 @@ h1,h2,h3,h4,h5,h6, .qa-q-item-title{
     display: block;
     font-size: 12px;
     font-weight: 600;
-    padding: 4px;
+    padding: 6px;
 }
 
 .left-sidebar .qa-nav-main-list .qa-nav-main-item .qa-nav-main-link:before{
     border-right: 1px solid rgba(0, 0, 0, 0.03);
     display: inline-block;
     font-size: 14px;
-    height: 36px;
+    height: 38px;
     margin: -10px 10px -5px -5px;
-    padding: 6px;
+    padding: 9px;
     text-align: center;
     vertical-align: baseline;
     width: 40px;
@@ -1737,14 +1737,19 @@ table.page-users-list{
 }
 
 .qa-part-tabs-nav .ra-option-tabs li a {
-    background-color: #EEEEEE;
+    background: none repeat scroll 0 0 transparent;
     color: #AAAAAA;
     font-size: 13px;
     margin-right: 5px;
     outline: medium none;
     padding: 7px 15px;
 }
+.qa-part-tabs-nav .ra-option-tabs li a:hover{
+	border-color:transparent;
+}
+.qa-part-tabs-nav .ra-option-tabs li.active{
 
+}
 .qa-part-tabs-nav .ra-option-tabs li.active a {
 	background-color: #fff;
 	color: #666;
@@ -2733,6 +2738,9 @@ margin-right:5px;
     top: 18px;
     width: 2px;
 }
+.ra-activity .event-item:last-child .event-inner:before {
+	display:none;
+}
 .ra-activity .event-item:last-child .event-inner {
     border: medium none;
     padding: 0;
@@ -2891,8 +2899,11 @@ margin-right:5px;
     text-shadow: none;
     top: 50%;
     width: 25px;
+	display: none;
 }
-
+.carousel:hover .carousel-control.left, .carousel:hover .carousel-control.right{
+	display:block;
+}
 .carousel .slider-item {
     overflow: hidden;
 }
@@ -2922,7 +2933,43 @@ margin-right:5px;
     line-height: 19px;
     margin-bottom: 0;
 }
-.carousel .slider-item .list-date{
+.carousel .slider-item .meta{
     color: #AAAAAA;
     font-size: 11px;
+}
+.carousel .slider-item .meta img{
+	margin-right:10px;
+}
+.carousel .slider-item .meta .vote-count{
+	margin-left:10px;
+}
+
+.user-tabs{
+    background: none repeat scroll 0 0 #FFFFFF;
+    margin-bottom: 20px;
+}
+.user-tabs .nav-tabs{
+	padding: 10px 10px 0;
+    background: none repeat scroll 0 0 #F9F9F9;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+}
+.user-tabs .nav-tabs > li.active > a{
+	border-color: rgba(0, 0, 0, 0.04);
+	border-bottom-color: transparent;
+}
+.user-tabs .nav-tabs > li > a {
+    padding: 5px 10px;
+	outline: medium none;
+}
+
+.ra-new-users-widget .users-list{
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+}
+.ra-new-users-widget .users-list li{
+	float: left;
+}
+.ra-new-users-widget .users-list li .avatar{
+	padding: 3px;
 }

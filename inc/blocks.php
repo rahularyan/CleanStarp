@@ -74,7 +74,7 @@
 			');
 
 			if (qa_opt('cs_enable_gzip')) //Gzip
-				$this->output('<LINK REL="stylesheet" TYPE="text/css" HREF="'.Q_THEME_URL.'/gzip.php'.'"/>');
+				$this->output('<LINK REL="stylesheet" TYPE="text/css" HREF="'.Q_THEME_URL.'/inc/gzip.php'.'"/>');
 			else{
 				$this->output('<link rel="stylesheet" type="text/css" href="'.Q_THEME_URL.'/css/font.css"/>');
 				$this->output('<link rel="stylesheet" type="text/css" href="'.Q_THEME_URL.'/css/bootstrap.css"/>');

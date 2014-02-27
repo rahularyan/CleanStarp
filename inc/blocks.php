@@ -1409,20 +1409,29 @@
 							$handle = ltrim(strip_tags($user['label']));
 						
 						$data = cs_user_data($handle);
+						$avatar = cs_get_avatar($handle, 150, false);
 						$this->output('
 							<div class="user-card">
 							<div class="user-card-inner">	
 								<div class="card-container">
-								<div class="f1_card"">
-								  <div class="front face">
-									<img class="avatar" height="150" src="'.cs_get_avatar($handle, 150, false).'" />
-								  </div>
-								  <div class="back face center">
-									<span class="activity q"><i>'.$data[2]['qposts'].'</i> Questions</span>
-									<span class="activity a"><i>'.$data[2]['aposts'].'</i> Answers</span>
-									<span class="activity c"><i>'.$data[2]['cposts'].'</i> Comments</span>
-								  </div>
-								</div>
+								' . (isset($avatar)? '
+									<div class="f1_card">
+										<div class="front face">
+											<img class="avatar" height="150" src="'. $avatar .'" />
+										</div>
+										<div class="back face center">
+											<span class="activity q"><i>'.$data[2]['qposts'].'</i> Questions</span>
+											<span class="activity a"><i>'.$data[2]['aposts'].'</i> Answers</span>
+											<span class="activity c"><i>'.$data[2]['cposts'].'</i> Comments</span>
+										</div>
+									</div>
+									' : '
+									<div class="card-metas center">
+										<span class="activity q"><i>'.$data[2]['qposts'].'</i> Questions</span>
+										<span class="activity a"><i>'.$data[2]['aposts'].'</i> Answers</span>
+										<span class="activity c"><i>'.$data[2]['cposts'].'</i> Comments</span>
+									</div>													
+								' ) .'
 								</div>	
 								<div class="card-bottom">
 								<a class="user-name" href="'.qa_path_html('user/'.$handle).'">'.cs_name($handle).'</a>								

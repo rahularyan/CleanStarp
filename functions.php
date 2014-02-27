@@ -535,7 +535,16 @@ function is_featured($postid){
 	require_once QA_INCLUDE_DIR.'qa-db-metas.php';
 	return (bool)qa_db_postmeta_get($postid, 'featured_question');
 }
+function get_featured_thumb($postid){
+	require_once QA_INCLUDE_DIR.'qa-db-metas.php';
+	$img =  qa_db_postmeta_get($postid, 'featured_image');
 
+	if (!empty($img)){
+		$thumb_img = preg_replace('/(\.[^.]+)$/', sprintf('%s$1', '_s'), $img);
+		return '<img src="'.Q_THEME_URL . '/uploads/' . $thumb_img .'" />';
+	}
+	return false;
+}
 function get_featured_image($postid){
 	require_once QA_INCLUDE_DIR.'qa-db-metas.php';
 	$img =  qa_db_postmeta_get($postid, 'featured_image');

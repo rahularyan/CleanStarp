@@ -921,10 +921,10 @@
 				$vote_text = ($post['raw']['netvotes'] >1 || $post['raw']['netvotes']< (-1)) ? _cs_lang('votes') : _cs_lang('vote');
 							
 				if (isset($post['vote_up_tags']))
-					$this->output('<a '.@$up_tags.' href="#" data-code="'.$code.'" class="icon-thumbs-up enabled vote-up '.$state.'"></a>');
+					$this->output('<a '.@$up_tags.' href="#" data-code="'.$code.'" class="icon-angle-up enabled vote-up '.$state.'"></a>');
 				$this->output('<span class="count">'.$post['raw']['netvotes'].'</span>');	
 				if (isset($post['vote_down_tags']))
-					$this->output('<a '.@$down_tags.' href="#" data-code="'.$code.'" class="icon-thumbs-down enabled vote-down '.$state.'"></a>');
+					$this->output('<a '.@$down_tags.' href="#" data-code="'.$code.'" class="icon-angle-down enabled vote-down '.$state.'"></a>');
 
 		}
 		
@@ -970,13 +970,20 @@
 
 			// this will prevent showing extra sections while Question Edit, close or other action forms
 			if (strpos($this->content['title'],$q_view['raw']['title'])){
-				$this->output(
+			$this->output(get_featured_image($q_view['raw']['postid']));
+			$this->output(
+				'<div class="question-head">',
 					'<h2 class="question-title">',
-					$q_view['raw']['title'],
-					'</h2>'
+						$q_view['raw']['title'],
+					'</h2>',
+					'<div class="question-meta">',
+						cs_post_status($q_view),
+						'<span class="q-view-a-count">'.$q_view['raw']['acount'].' Answers</span>',
+						'<span class="q-view-v-count">'.$q_view['raw']['views'].' Views</span>',
+					'</div>',
+				'</div>'
+			);
 
-
-				);
 
 				//$this->favorite();
 				//$this->post_tags($q_view, 'qa-q-view');

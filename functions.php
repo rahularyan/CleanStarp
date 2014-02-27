@@ -78,7 +78,7 @@ function cs_get_avatar($handle, $size = 40, $html =true){
 		
 	preg_match( '@src="([^"]+)"@' , $img_html , $match );
 	if($html)
-		return '<a href="'.qa_path_html('user/'.$handle).'">'.(defined('QA_WORDPRESS_INTEGRATE_PATH') ?  '<img src="'.$match[1].'" />':$img_html).'</a>';		
+		return '<a href="'.qa_path_html('user/'.$handle).'">'.(!defined('QA_WORDPRESS_INTEGRATE_PATH') ?  '<img src="'.$match[1].'" />':$img_html).'</a>';		
 	elseif(isset($match[1]))
 		return $match[1];
 }

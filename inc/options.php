@@ -98,6 +98,7 @@ class qa_html_theme_layer extends qa_html_theme_base {
 				qa_opt('cs_link_hover_color', qa_post_text('cs_link_hover_color'));
 				qa_opt('cs_highlight_color', qa_post_text('cs_highlight_color'));
 				qa_opt('cs_highlight_bg_color', qa_post_text('cs_highlight_bg_color'));
+				qa_opt('cs_custom_style_created', false);
 				require_once($this->theme_directory . '/inc/styles.php'); // Generate customized CSS styling				
 				
 				// Typography

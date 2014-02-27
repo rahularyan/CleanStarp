@@ -56,16 +56,21 @@ function cs_get_avatar($handle, $size = 40, $html =true){
 		$img_html = qa_get_external_avatar_html($userid, $size, false);
 	}else{
 		if (!isset($handle)){
-			if ( qa_opt('avatar_allow_upload') && qa_opt('avatar_default_show') && strlen(qa_opt('avatar_default_blobid')) )
-				$img_html = qa_get_avatar_blob_html(qa_opt('avatar_default_blobid'), qa_opt('avatar_default_width'), qa_opt('avatar_default_height'), $size);
-			else if (qa_opt('avatar_allow_gravatar'))
+			if (qa_opt('avatar_allow_gravatar'))
 				$img_html = qa_get_gravatar_html(qa_get_user_email($userid), $size);
+			else if ( qa_opt('avatar_allow_upload') && qa_opt('avatar_default_show') && strlen(qa_opt('avatar_default_blobid')) )
+				$img_html = qa_get_avatar_blob_html(qa_opt('avatar_default_blobid'), qa_opt('avatar_default_width'), qa_opt('avatar_default_height'), $size);
 			else
 				$img_html = '';
 		}else{
 			$f = cs_user_data($handle);
 			if(empty($f[0]['avatarblobid'])){
-				$img_html = '';
+				if (qa_opt('avatar_allow_gravatar'))
+					$img_html = qa_get_gravatar_html(qa_get_user_email($userid), $size);
+				if ( qa_opt('avatar_allow_upload') && qa_opt('avatar_default_show') && strlen(qa_opt('avatar_default_blobid')) )
+					$img_html = qa_get_avatar_blob_html(qa_opt('avatar_default_blobid'), qa_opt('avatar_default_width'), qa_opt('avatar_default_height'), $size);
+				else
+					$img_html = '';
 			}
 			else
 				$img_html = qa_get_user_avatar_html($f[0]['flags'], $f[0]['email'], $handle, $f[0]['avatarblobid'], $size, $size, $size, true);

@@ -65,7 +65,6 @@ function cs_get_avatar($handle, $size = 40, $html =true){
 		}else{
 			$f = cs_user_data($handle);
 			if(empty($f[0]['avatarblobid'])){
-			echo "<pre>"; var_dump( qa_opt('avatar_allow_gravatar') ); echo "</pre>";
 				if (qa_opt('avatar_allow_gravatar'))
 					$img_html = qa_get_gravatar_html(qa_get_user_email($userid), $size);
 				else if ( qa_opt('avatar_allow_upload') && qa_opt('avatar_default_show') && strlen(qa_opt('avatar_default_blobid')) )

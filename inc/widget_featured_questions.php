@@ -100,7 +100,7 @@
 
 				$output .= '<div class="slider-item col-sm-'.(12/$col_item).'">';
 				$output .= '<div class="slider-item-inner">';
-				$output .= '<div class="featured-image">'.get_featured_image($p['postid']).'</div>';
+				$output .= '<div class="featured-image">'.get_featured_thumb($p['postid']).'</div>';
 				if ($type=='Q'){
 					$output .= '<div class="big-ans-count pull-left">'.$p['acount'].'<span> ans</span></div>';
 				}elseif($type=='A'){

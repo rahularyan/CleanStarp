@@ -618,6 +618,8 @@ h1,h2,h3,h4,h5,h6, .qa-q-item-title{
     width: 40px;
 }
 .qa-main {
+    margin: 0 auto;
+    max-width: 1500px;
     min-height: 420px;
     padding: 20px 5px;
 }
@@ -897,12 +899,13 @@ a.feed-link{
 	margin-bottom: 5px;
 }
 .qa-q-view{
-	max-width: 800px;
+    background: none repeat scroll 0 0 #F8F8F8;
+    max-width: 800px;
 }
 .question-title{
-    color: #FFFFFF;
-    font-size: 22px;
-    line-height: 35px;
+    color: #333333;
+    font-size: 30px;
+    line-height: 45px;
     margin: 0;
     padding: 15px;
 }

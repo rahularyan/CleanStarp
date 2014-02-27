@@ -53,7 +53,7 @@ a:hover{
 	border-color:#90BD59;
 }
 
-.ra-ask-widget .input-group-btn button, .carousel-control.left, .carousel-control.right, .question-title {
+.ra-ask-widget .input-group-btn button, .carousel-control.left, .carousel-control.right{
     background: none repeat scroll 0 0 #d6313a;
 }
 

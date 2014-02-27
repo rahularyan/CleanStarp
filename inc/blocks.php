@@ -967,6 +967,7 @@
 		}
 		function q_view_main($q_view)
 		{
+			$this->output(get_featured_image($q_view['raw']['postid']));
 			$this->output(
 				'<h2 class="question-title">',
 				$q_view['raw']['title'],

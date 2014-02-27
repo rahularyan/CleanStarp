@@ -32,7 +32,7 @@ if(isset($_FILES["featured"]))
 			$image = new Image($uploaddir.$temp_name_with_ext);
 			
 			$width = (int)qa_opt('cs_featured_image_width');
-			if ($width<=0) $width = 621;
+			if ($width<=0) $width = 800;
 			$height = (int)qa_opt('cs_featured_image_height');
 			if ($height<=0) $height = 300;
 			$t_width = (int)qa_opt('cs_featured_thumbnail_width');
@@ -40,13 +40,13 @@ if(isset($_FILES["featured"]))
 			$t_height = (int)qa_opt('cs_featured_thumbnail_height');
 			if ($t_height<=0) $t_height = 120;
 			
-			$image->resize($width, $height, 'crop', 'c', 't', 99);
+			$image->resize($width, $height, 'crop', 'c', 'c', 99);
 			$image->save($file_name, $uploaddir);
 			
 			$thumb = new Image($uploaddir.$temp_name_with_ext);
-			$thumb->resize($t_width, $t_height, 'crop', 'c', 't', 99);
+			$thumb->resize($t_width, $t_height, 'crop', 'c', 'c', 99);
 			$thumb->save($file_name.'_s', $uploaddir);
-			
+			unlink ($uploaddir.$temp_name_with_ext); 
  	 	
     	echo $file_name_with_ext;
 	}

@@ -32,7 +32,7 @@ if(isset($_FILES["featured"]))
 			$image = new Image($uploaddir.$temp_name_with_ext);
 			
 			$width = (int)qa_opt('cs_featured_image_width');
-			if ($width<=0) $width = 770;
+			if ($width<=0) $width = 800;
 			$height = (int)qa_opt('cs_featured_image_height');
 			if ($height<=0) $height = 300;
 			$t_width = (int)qa_opt('cs_featured_thumbnail_width');

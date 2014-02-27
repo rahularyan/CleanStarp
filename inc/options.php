@@ -162,7 +162,6 @@ class qa_html_theme_layer extends qa_html_theme_base {
 				qa_opt('cs_ads_after_question_content', base64_encode($_REQUEST['cs_ads_after_question_content']));
 
 				// footer							
-				qa_opt('cs_ticker_data', qa_post_text('cs_ticker_data'));				
 				qa_opt('cs_footer_copyright', qa_post_text('cs_footer_copyright'));
 
 				
@@ -183,7 +182,7 @@ if(isset($advs))
 			}
 			$adv_location = '<select id="adv_location_' . $i . '" name="adv_location_' . $i . '" class="qa-form-wide-select">' . $list_options . '</select>';
 		}else{
-			$adv_location = '<input id="adv_location_' . $i . '" name="adv_location_' . $i . '" class="form-control" value="" placeholder="Position of ads in list" />';
+			$adv_location = '<input id="adv_location_' . $i . '" name="adv_location_' . $i . '" class="form-control" value="" placeholder="Position of advertisements in list" />';
 		}
 		if (isset($adv['adv_adsense'])){
 			$adv_content .= '<tr id="adv_box_' . $i . '">
@@ -309,13 +308,10 @@ $cs_page = '
 				<a href="#" data-toggle=".qa-part-form-tc-social">Social</a>
 			</li>
 			<li>
-				<a href="#" data-toggle=".qa-part-form-tc-ads">Ads</a>
+				<a href="#" data-toggle=".qa-part-form-tc-ads">Advertisements</a>
 			</li>
 			<li>
 				<a href="#" data-toggle=".qa-part-form-tc-footer">Footer</a>
-			</li>
-			<li>
-				<a href="#" data-toggle=".qa-part-form-tc-widget">Widget</a>
 			</li>
 		</ul>
 	</div>
@@ -634,7 +630,7 @@ $cs_page = '
 						Body Font Color
 					</th>
 					<td class="qa-form-tall-label">
-						<input type="color" class="form-control" value="' . qa_opt('cs_bg_color') . '" id="cs_bg_color" name="cs_bg_color">
+						<input type="colorpicker" class="form-control" value="' . qa_opt('cs_bg_color') . '" id="cs_bg_color" name="cs_bg_color">
 					</td>
 				</tr>
 			</tbody>
@@ -644,7 +640,7 @@ $cs_page = '
 						Text color
 					</th>
 					<td class="qa-form-tall-label">
-						<input type="color" class="form-control" value="' . qa_opt('cs_text_color') . '" id="cs_text_color" name="cs_text_color">
+						<input type="colorpicker" class="form-control" value="' . qa_opt('cs_text_color') . '" id="cs_text_color" name="cs_text_color">
 					</td>
 				</tr>
 				<tr>
@@ -652,7 +648,7 @@ $cs_page = '
 						Border color
 					</th>
 					<td class="qa-form-tall-label">
-						<input type="color" class="form-control" value="' . qa_opt('cs_border_color') . '" id="cs_border_color" name="cs_border_color">
+						<input type="colorpicker" class="form-control" value="' . qa_opt('cs_border_color') . '" id="cs_border_color" name="cs_border_color">
 					</td>
 				</tr>
 				<tr>
@@ -660,8 +656,8 @@ $cs_page = '
 						Link color
 					</th>
 					<td class="qa-form-tall-label">
-						Link Color<input type="color" class="form-control" value="' . qa_opt('cs_link_color') . '" id="cs_link_color" name="cs_link_color">
-						Hover Color<input type="color" class="form-control" value="' . qa_opt('cs_link_hover_color') . '" id="cs_link_hover_color" name="cs_link_hover_color">
+						Link Color<input type="colorpicker" class="form-control" value="' . qa_opt('cs_link_color') . '" id="cs_link_color" name="cs_link_color">
+						Hover Color<input type="colorpicker" class="form-control" value="' . qa_opt('cs_link_hover_color') . '" id="cs_link_hover_color" name="cs_link_hover_color">
 					</td>
 				</tr>
 				<tr>
@@ -669,8 +665,8 @@ $cs_page = '
 						Question Link color
 					</th>
 					<td class="qa-form-tall-label">
-						Link Color<input type="color" class="form-control" value="' . qa_opt('cs_q_link_color') . '" id="cs_q_link_color" name="cs_q_link_color">
-						Hover Color<input type="color" class="form-control" value="' . qa_opt('cs_q_link_hover_color') . '" id="cs_q_link_hover_color" name="cs_q_link_hover_color">
+						Link Color<input type="colorpicker" class="form-control" value="' . qa_opt('cs_q_link_color') . '" id="cs_q_link_color" name="cs_q_link_color">
+						Hover Color<input type="colorpicker" class="form-control" value="' . qa_opt('cs_q_link_hover_color') . '" id="cs_q_link_hover_color" name="cs_q_link_hover_color">
 					</td>
 				</tr>
 				<tr>
@@ -678,8 +674,8 @@ $cs_page = '
 						Navigation Link color
 					</th>
 					<td class="qa-form-tall-label">
-						Text Color<input type="color" class="form-control" value="' . qa_opt('cs_nav_link_color') . '" id="cs_nav_link_color" name="cs_nav_link_color">
-						Hover Color<input type="color" class="form-control" value="' . qa_opt('cs_nav_link_color_hover') . '" id="cs_nav_link_color_hover" name="cs_nav_link_color_hover">
+						Text Color<input type="colorpicker" class="form-control" value="' . qa_opt('cs_nav_link_color') . '" id="cs_nav_link_color" name="cs_nav_link_color">
+						Hover Color<input type="colorpicker" class="form-control" value="' . qa_opt('cs_nav_link_color_hover') . '" id="cs_nav_link_color_hover" name="cs_nav_link_color_hover">
 					</td>
 				</tr>
 				<tr>
@@ -687,8 +683,8 @@ $cs_page = '
 						Sub Navigation Link color
 					</th>
 					<td class="qa-form-tall-label">
-						Text Color<input type="color" class="form-control" value="' . qa_opt('cs_subnav_link_color') . '" id="cs_subnav_link_color" name="cs_subnav_link_color">
-						Hover Color<input type="color" class="form-control" value="' . qa_opt('cs_subnav_link_color_hover') . '" id="cs_subnav_link_color_hover" name="cs_subnav_link_color_hover">
+						Text Color<input type="colorpicker" class="form-control" value="' . qa_opt('cs_subnav_link_color') . '" id="cs_subnav_link_color" name="cs_subnav_link_color">
+						Hover Color<input type="colorpicker" class="form-control" value="' . qa_opt('cs_subnav_link_color_hover') . '" id="cs_subnav_link_color_hover" name="cs_subnav_link_color_hover">
 					</td>
 				</tr>
 				<tr>
@@ -696,7 +692,7 @@ $cs_page = '
 						Highlight Text color
 					</th>
 					<td class="qa-form-tall-label">
-						<input type="color" class="form-control" value="' . qa_opt('cs_highlight_color') . '" id="cs_highlight_color" name="cs_highlight_color">
+						<input type="colorpicker" class="form-control" value="' . qa_opt('cs_highlight_color') . '" id="cs_highlight_color" name="cs_highlight_color">
 					</td>
 				</tr>
 				<tr>
@@ -704,7 +700,7 @@ $cs_page = '
 						Highlight background color
 					</th>
 					<td class="qa-form-tall-label">
-						<input type="color" class="form-control" value="' . qa_opt('cs_highlight_bg_color') . '" id="cs_highlight_bg_color" name="cs_highlight_bg_color">
+						<input type="colorpicker" class="form-control" value="' . qa_opt('cs_highlight_bg_color') . '" id="cs_highlight_bg_color" name="cs_highlight_bg_color">
 					</td>
 				</tr>
 			</tbody>
@@ -772,7 +768,7 @@ $cs_page = '
 						<span class="description">ADD DETAIL.</span>
 					</th>
 					<td class="qa-form-tall-label">
-						<input type="color" class="form-control" value="' . qa_opt('cs_ask_btn_bg') . '" id="cs_ask_btn_bg" name="cs_ask_btn_bg">
+						<input type="colorpicker" class="form-control" value="' . qa_opt('cs_ask_btn_bg') . '" id="cs_ask_btn_bg" name="cs_ask_btn_bg">
 					</td>
 				</tr>
 			</tbody>
@@ -1129,30 +1125,12 @@ $cs_page = '
 		</tbody>
 	</table>
 	</div>	
-	<div class="qa-part-form-tc-widget">
-	<table class="qa-form-tall-table options-table">
-		<tbody>
-			<tr>
-				<th class="qa-form-tall-label">
-					Ticker Data from
-					<span class="description">Select from where you want to get data</span>
-				</th>
-				<td class="qa-form-tall-label">
-					<select id="cs_ticker_data" class="form-control" name="cs_ticker_data">
-						<option value="tags" ' . (qa_opt('cs_ticker_data') =='tags' ? 'selected':'' ) . '>Tags</option>
-						<option value="categories" ' . (qa_opt('cs_ticker_data') =='categories' ? 'selected':'' ) . '>Categories</option>
-					</select>
-				</td>
-			</tr>
-		</tbody>
-	</table>
+	<div class="form-button-sticky-footer">
+		<div class="form-button-holder">
+			<input type="submit" class="qa-form-tall-button btn-primary" title="" value="Save Changes" name="cs_save_button">
+			<input type="submit" class="qa-form-tall-button" title="" value="Reset to Default" name="cs_reset_button">
+		</div>
 	</div>
-<div class="form-button-sticky-footer">
-	<div class="form-button-holder">
-		<input type="submit" class="qa-form-tall-button btn-primary" title="" value="Save Changes" name="cs_save_button">
-		<input type="submit" class="qa-form-tall-button" title="" value="Reset to Default" name="cs_reset_button">
-	</div>
-</div>
 </form>
 ';
 			$this->content['custom'] = $cs_page;

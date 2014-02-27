@@ -73,16 +73,16 @@
 				<![endif]-->
 			');
 
-			if (qa_opt('cs_enable_gzip')) //Gzip
+			//if (qa_opt('cs_enable_gzip')) //Gzip
 				$this->output('<LINK REL="stylesheet" TYPE="text/css" HREF="'.Q_THEME_URL.'/gzip.php'.'"/>');
-			else{
+			//else{
 				$this->output('<link rel="stylesheet" type="text/css" href="'.Q_THEME_URL.'/css/font.css"/>');
 				$this->output('<link rel="stylesheet" type="text/css" href="'.Q_THEME_URL.'/css/bootstrap.css"/>');
 				$this->output('<link rel="stylesheet" type="text/css" href="'.Q_THEME_URL.'/css/main.css"/>');
 				$this->output('<link rel="stylesheet" type="text/css" href="'.Q_THEME_URL.'/css/wide.css"/>');
 				$this->output('<link rel="stylesheet" type="text/css" href="'.Q_THEME_URL.'/css/responsive.css"/>');
 				$this->output('<link rel="stylesheet" type="text/css" href="'.Q_THEME_URL.'/css/theme-green.css"/>');	
-			}
+			//}
 
 			$this->output("<link href='http://fonts.googleapis.com/css?family=Open+Sans:300,600,700' rel='stylesheet' type='text/css'>");
 			$googlefonts = json_decode(qa_opt('typo_googlefonts'),true);

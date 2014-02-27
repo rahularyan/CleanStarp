@@ -55,8 +55,10 @@ class qa_html_theme_layer extends qa_html_theme_base {
 				qa_opt('cs_featured_image_height', (int)qa_post_text('cs_featured_image_height'));
 				qa_opt('cs_featured_thumbnail_width', (int)qa_post_text('cs_featured_thumbnail_width'));
 				qa_opt('cs_featured_thumbnail_height', (int)qa_post_text('cs_featured_thumbnail_height'));
+				qa_opt('cs_crop_x', qa_post_text('cs_crop_x'));
+				qa_opt('cs_crop_y', qa_post_text('cs_crop_y'));
 				
-				//Layout
+				// Layout
 				qa_opt('cs_theme_layout', qa_post_text('cs_theme_layout'));
 				qa_opt('cs_users_table_layout', (bool)qa_post_text('cs_users_table_layout'));
 				qa_opt('cs_nav_fixed', (bool)qa_post_text('cs_nav_fixed'));	
@@ -447,6 +449,32 @@ $cs_page = '
 							<input id="cs_featured_thumbnail_height" class="form-control featured-thumb-height" type="text" name="cs_featured_thumbnail_height" value="' . qa_opt('cs_featured_thumbnail_height') . '">
 							<span class="input-group-addon">px</span>
 						</div>
+					</td>
+				</tr>
+				<tr>
+					<th class="qa-form-tall-label">
+						Image Cropping X
+						<span class="description">Crop Featured image from Right/Left</span>
+					</th>
+					<td class="qa-form-tall-label">
+						<select id="cs_crop_x" name="cs_crop_y" >
+							<option'.((qa_opt('cs_crop_x')=='l') ? ' selected' : ''). ' value="l">left</option>
+							<option'.((qa_opt('cs_crop_x')=='c') ? ' selected' : ''). ' value="c">Center</option>
+							<option'.((qa_opt('cs_crop_x')=='r') ? ' selected' : ''). ' value="r">right</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th class="qa-form-tall-label">
+						Image Cropping Y
+						<span class="description">Crop Featured image from Top/Bottom</span>
+					</th>
+					<td class="qa-form-tall-label">
+						<select id="cs_crop_y" name="cs_crop_y" >
+							<option'.((qa_opt('cs_crop_y')=='t') ? ' selected' : ''). ' value="t">Top</option>
+							<option'.((qa_opt('cs_crop_y')=='c') ? ' selected' : ''). ' value="c">Center</option>
+							<option'.((qa_opt('cs_crop_y')=='b') ? ' selected' : ''). ' value="b">Bottom</option>
+						</select>
 					</td>
 				</tr>
 			</tbody>

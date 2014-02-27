@@ -82,6 +82,7 @@
 				$this->output('<link rel="stylesheet" type="text/css" href="'.Q_THEME_URL.'/css/wide.css"/>');
 				$this->output('<link rel="stylesheet" type="text/css" href="'.Q_THEME_URL.'/css/responsive.css"/>');
 				$this->output('<link rel="stylesheet" type="text/css" href="'.Q_THEME_URL.'/css/theme-green.css"/>');	
+				$this->output('<link rel="stylesheet" type="text/css" href="'.Q_THEME_URL.'/css/dynamic.css"/>');	
 			}
 
 			$this->output("<link href='http://fonts.googleapis.com/css?family=Open+Sans:300,600,700' rel='stylesheet' type='text/css'>");
@@ -92,7 +93,6 @@
 					$link = 'http://fonts.googleapis.com/css?family=' . $font_name;
 					$this->output('<link href="' . $link . '" rel="stylesheet" type="text/css">');
 				}
-			$this->output( '<style>' . qa_opt('cs_custom_style') . '</style>');
 		}
 		function body()
 		{

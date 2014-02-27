@@ -500,15 +500,19 @@ $(document).ready(function(){
 			showDelete: true,
 			onSuccess:function(files,data,xhr)
 			{
-				$("#featured_image").val(data);
-				$("#image-preview").attr("src",theme_url + "/uploads/"+data);
+				var u_files = $.parseJSON( data );
+				$("#featured_image").val(u_files[0]);
+				$("#image-preview").attr("src",theme_url + "/uploads/"+u_files[0]);
 			},
 			deleteCallback:function(data, pd) {
-				$.post(theme_url + "/inc/upload-delete.php", {op: "delete",name: data},
-						function (resp,textStatus, jqXHR) {
-								$("#image-preview").attr("src",theme_url + "/images/featured-preview.jpg");
-								$("#featured_image").val("");
-						});
+				var data = $.parseJSON( data );
+				for (var i = 0; i < data.length; i++) {
+					$.post(theme_url + "/inc/upload-delete.php", {op: "delete",name: data[i]},
+							function (resp,textStatus, jqXHR) {
+									$("#image-preview").attr("src",theme_url + "/images/featured-preview.jpg");
+									$("#featured_image").val("");
+							});
+				}
 				pd.statusbar.hide(500); //You choice.		
 			},
 		});

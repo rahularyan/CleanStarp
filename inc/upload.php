@@ -21,6 +21,7 @@ if(isset($_FILES["featured"]))
 	if(!is_array($_FILES["featured"]["name"])) //single file
 	{
 		require_once $inc_dir;
+			$filenames = array();
 			$uploaddir 	= $output_dir;
 			$ext = pathinfo( $_FILES['featured']['name'], PATHINFO_EXTENSION);
 			$file_name = md5(time().uniqid());
@@ -50,8 +51,12 @@ if(isset($_FILES["featured"]))
 			$thumb->resize($t_width, $t_height, 'crop', $crop_x, $crop_y, 99);
 			$thumb->save($file_name.'_s', $uploaddir);
 			unlink ($uploaddir.$temp_name_with_ext); 
- 	 	
-    	echo $file_name_with_ext;
+			
+ 			$filenames[] = $file_name_with_ext;
+			$filenames[] = $file_name .'_s.'.$ext;
+	 	
+    	//echo $file_name_with_ext;
+		 echo json_encode($filenames);
 	}
 }
 if(isset($_FILES["myfile"]["name"])) //single file

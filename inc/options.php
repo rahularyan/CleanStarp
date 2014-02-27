@@ -633,7 +633,7 @@ $cs_page = '
 						Body Font Color
 					</th>
 					<td class="qa-form-tall-label">
-						<input type="color" class="form-control" value="' . qa_opt('cs_bg_color') . '" id="cs_bg_color" name="cs_bg_color">
+						<input type="colorpicker" class="form-control" value="' . qa_opt('cs_bg_color') . '" id="cs_bg_color" name="cs_bg_color">
 					</td>
 				</tr>
 			</tbody>
@@ -643,7 +643,7 @@ $cs_page = '
 						Text color
 					</th>
 					<td class="qa-form-tall-label">
-						<input type="color" class="form-control" value="' . qa_opt('cs_text_color') . '" id="cs_text_color" name="cs_text_color">
+						<input type="colorpicker" class="form-control" value="' . qa_opt('cs_text_color') . '" id="cs_text_color" name="cs_text_color">
 					</td>
 				</tr>
 				<tr>
@@ -651,7 +651,7 @@ $cs_page = '
 						Border color
 					</th>
 					<td class="qa-form-tall-label">
-						<input type="color" class="form-control" value="' . qa_opt('cs_border_color') . '" id="cs_border_color" name="cs_border_color">
+						<input type="colorpicker" class="form-control" value="' . qa_opt('cs_border_color') . '" id="cs_border_color" name="cs_border_color">
 					</td>
 				</tr>
 				<tr>
@@ -659,8 +659,8 @@ $cs_page = '
 						Link color
 					</th>
 					<td class="qa-form-tall-label">
-						Link Color<input type="color" class="form-control" value="' . qa_opt('cs_link_color') . '" id="cs_link_color" name="cs_link_color">
-						Hover Color<input type="color" class="form-control" value="' . qa_opt('cs_link_hover_color') . '" id="cs_link_hover_color" name="cs_link_hover_color">
+						Link Color<input type="colorpicker" class="form-control" value="' . qa_opt('cs_link_color') . '" id="cs_link_color" name="cs_link_color">
+						Hover Color<input type="colorpicker" class="form-control" value="' . qa_opt('cs_link_hover_color') . '" id="cs_link_hover_color" name="cs_link_hover_color">
 					</td>
 				</tr>
 				<tr>
@@ -668,8 +668,8 @@ $cs_page = '
 						Question Link color
 					</th>
 					<td class="qa-form-tall-label">
-						Link Color<input type="color" class="form-control" value="' . qa_opt('cs_q_link_color') . '" id="cs_q_link_color" name="cs_q_link_color">
-						Hover Color<input type="color" class="form-control" value="' . qa_opt('cs_q_link_hover_color') . '" id="cs_q_link_hover_color" name="cs_q_link_hover_color">
+						Link Color<input type="colorpicker" class="form-control" value="' . qa_opt('cs_q_link_color') . '" id="cs_q_link_color" name="cs_q_link_color">
+						Hover Color<input type="colorpicker" class="form-control" value="' . qa_opt('cs_q_link_hover_color') . '" id="cs_q_link_hover_color" name="cs_q_link_hover_color">
 					</td>
 				</tr>
 				<tr>
@@ -677,8 +677,8 @@ $cs_page = '
 						Navigation Link color
 					</th>
 					<td class="qa-form-tall-label">
-						Text Color<input type="color" class="form-control" value="' . qa_opt('cs_nav_link_color') . '" id="cs_nav_link_color" name="cs_nav_link_color">
-						Hover Color<input type="color" class="form-control" value="' . qa_opt('cs_nav_link_color_hover') . '" id="cs_nav_link_color_hover" name="cs_nav_link_color_hover">
+						Text Color<input type="colorpicker" class="form-control" value="' . qa_opt('cs_nav_link_color') . '" id="cs_nav_link_color" name="cs_nav_link_color">
+						Hover Color<input type="colorpicker" class="form-control" value="' . qa_opt('cs_nav_link_color_hover') . '" id="cs_nav_link_color_hover" name="cs_nav_link_color_hover">
 					</td>
 				</tr>
 				<tr>
@@ -686,8 +686,8 @@ $cs_page = '
 						Sub Navigation Link color
 					</th>
 					<td class="qa-form-tall-label">
-						Text Color<input type="color" class="form-control" value="' . qa_opt('cs_subnav_link_color') . '" id="cs_subnav_link_color" name="cs_subnav_link_color">
-						Hover Color<input type="color" class="form-control" value="' . qa_opt('cs_subnav_link_color_hover') . '" id="cs_subnav_link_color_hover" name="cs_subnav_link_color_hover">
+						Text Color<input type="colorpicker" class="form-control" value="' . qa_opt('cs_subnav_link_color') . '" id="cs_subnav_link_color" name="cs_subnav_link_color">
+						Hover Color<input type="colorpicker" class="form-control" value="' . qa_opt('cs_subnav_link_color_hover') . '" id="cs_subnav_link_color_hover" name="cs_subnav_link_color_hover">
 					</td>
 				</tr>
 				<tr>
@@ -695,7 +695,7 @@ $cs_page = '
 						Highlight Text color
 					</th>
 					<td class="qa-form-tall-label">
-						<input type="color" class="form-control" value="' . qa_opt('cs_highlight_color') . '" id="cs_highlight_color" name="cs_highlight_color">
+						<input type="colorpicker" class="form-control" value="' . qa_opt('cs_highlight_color') . '" id="cs_highlight_color" name="cs_highlight_color">
 					</td>
 				</tr>
 				<tr>
@@ -703,7 +703,7 @@ $cs_page = '
 						Highlight background color
 					</th>
 					<td class="qa-form-tall-label">
-						<input type="color" class="form-control" value="' . qa_opt('cs_highlight_bg_color') . '" id="cs_highlight_bg_color" name="cs_highlight_bg_color">
+						<input type="colorpicker" class="form-control" value="' . qa_opt('cs_highlight_bg_color') . '" id="cs_highlight_bg_color" name="cs_highlight_bg_color">
 					</td>
 				</tr>
 			</tbody>
@@ -771,7 +771,7 @@ $cs_page = '
 						<span class="description">ADD DETAIL.</span>
 					</th>
 					<td class="qa-form-tall-label">
-						<input type="color" class="form-control" value="' . qa_opt('cs_ask_btn_bg') . '" id="cs_ask_btn_bg" name="cs_ask_btn_bg">
+						<input type="colorpicker" class="form-control" value="' . qa_opt('cs_ask_btn_bg') . '" id="cs_ask_btn_bg" name="cs_ask_btn_bg">
 					</td>
 				</tr>
 			</tbody>

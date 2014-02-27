@@ -7,27 +7,18 @@
 			return array(
 				'style' => 'wide',
 				'fields' => array(
-					'cs_ticker_count' => array(
+					'cs_fq_count' => array(
 						'label' => 'Questions to show',
 						'type' => 'number',
-						'tags' => 'name="cs_ticker_count"',
+						'tags' => 'name="cs_fq_count"',
 						'value' => '10',
 					),
-					'cs_ticker_data' => array(
-						'label' => 'Data from',
-						'type' => 'select',
-						'tags' => 'name="cs_ticker_data"',
-						'value' => 'Category',
-						'options' => array(
-							'Category' => 'Category',
-							'Tags' => 'Tags',
-						)
-					),
-					'cs_ticker_slug' => array(
-						'label' => 'Enter slug',
-						'type' => 'text',
-						'tags' => 'name="cs_ticker_slug"',
-					),
+					'cs_fq_boxes' => array(
+						'label' => 'Number of box per row',
+						'type' => 'number',
+						'tags' => 'name="cs_fq_boxes"',
+						'value' => '4'						
+					)
 	
 				),
 
@@ -135,11 +126,10 @@
 		{
 			$widget_opt = $themeobject->current_widget['Featured Questions']['options'];
 
-			$count = (isset($widget_opt['cs_ticker_count']) && !empty($widget_opt['cs_ticker_count'])) ?(int)$widget_opt['cs_ticker_count'] : 10;
+			$count = (isset($widget_opt['cs_fq_count']) && !empty($widget_opt['cs_fq_count'])) ?(int)$widget_opt['cs_fq_count'] : 10;
 			
-			$category = (isset($widget_opt['cs_ticker_data']) && $widget_opt['cs_ticker_data'] == 'Category') ? $widget_opt['cs_ticker_slug'] : '';
-			
-			$tag = (isset($widget_opt['cs_ticker_data']) && $widget_opt['cs_ticker_data'] == 'Tags') ? $widget_opt['cs_ticker_slug'] : '';
+			$col = (int)$widget_opt['cs_fq_boxes'];
+	
 			
 			$themeobject->output('<div class="ra-featured-widget">');
 
@@ -148,7 +138,7 @@
             <div id="featured-slider" class="carousel slide">
                 <!-- Carousel items -->
                 <div class="carousel-inner">
-                    '.$this->carousel_item('Q', '12', 4).'                    
+                    '.$this->carousel_item('Q', $count, $col).'                    
                 </div>
                 <a class="left carousel-control icon-angle-left" href="#featured-slider" data-slide="prev"></a><a class="right carousel-control icon-angle-right" href="#featured-slider" data-slide="next"></a>
             </div>

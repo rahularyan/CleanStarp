@@ -292,5 +292,9 @@ $(document).ready(function(){
 			social_frame.remove();
 		}, 600);
 	});
+	
+	$('input[type="color"]').spectrum({
+		color: "#3db8f1"
+	});
 });
 

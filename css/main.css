@@ -1095,30 +1095,33 @@ a.feed-link{
 	padding:0;
 }
 .acti-indicators ul li{
+    font-size: 11px;
+    line-height: 20px;
     list-style: none outside none;
     margin: 0;
-    padding: 5px 5px 5px 20px;
+    padding: 0 0 0 20px;
     position: relative;
     text-align: left;
 }
 .acti-indicators ul li i:before{
     border: 5px solid;
+    border-radius: 6px;
     content: "";
     display: block;
-    margin-top: 8px;
-    position: absolute;	
-	left:0;
+    left: 0;
+    margin-top: 6px;
+    position: absolute;
 }
 .acti-indicators ul li span{
-    background: #B1B5B9;
+   background: none repeat scroll 0 0 #B1B5B9;
     border-radius: 8px;
     color: #FFFFFF;
     display: block;
     float: right;
-    font-size: 11px;
-    line-height: 17px;
-    margin-top: 5px;
-    padding: 0 10px;
+    font-size: 10px;
+    line-height: 13px;
+    margin-top: 3px;
+    padding: 0 5px;
 }
 
 .qa-c-form{
@@ -2753,7 +2756,7 @@ margin-right:5px;
     padding: 0;
 }
 .activity-list > li:nth-child(2n) {
-    background: rgba(0, 0, 0, 0.03);
+    background: rgba(0, 0, 0, 0.02);
 }
 .ra-question-activity-widget ul li a{
     color: #909090;
@@ -2910,7 +2913,7 @@ margin-right:5px;
 }
 .user-tabs .nav-tabs{
 	padding: 10px 10px 0;
-    background: none repeat scroll 0 0 #F9F9F9;
+    background: #FBFBFB;
     border-bottom: 1px solid rgba(0, 0, 0, 0.04);
 }
 .user-tabs .nav-tabs > li.active > a{
@@ -3031,4 +3034,16 @@ margin-right:5px;
 }
 #loginform .btn{
 	padding: 12px;
+}
+
+.site-status-inner .bar-float, .site-status-inner .acti-indicators{
+    float: left;
+    width: 50%;
+}
+.site-status-inner .acti-indicators > ul{
+	margin-left:10px;
+}
+.site-status-inner  .list-inline li{
+    font-size: 9px;
+    text-align: center;
 }

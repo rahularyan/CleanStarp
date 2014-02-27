@@ -65,26 +65,26 @@
 			return $allow;
 		}
 		function cs_stats_chart($type = 'bar'){
-			$o = '<div class="site-status-inner">';
+			$o = '<div class="site-status-inner clearfix">';
 			
 			if($type == 'bar'){
-			$o .='<div class="sparkline" data-type="bar" data-bar-color="#8e98a9" data-bar-width="25" data-height="50">
+			$o .='<div class="bar-float"><div class="sparkline" data-type="bar" data-bar-color="#8e98a9" data-bar-width="30" data-height="80">
 					<!--'.qa_opt('cache_qcount').','.qa_opt('cache_acount').','.qa_opt('cache_ccount').','.qa_opt('cache_unaqcount').','.qa_opt('cache_unselqcount').'--></div>
                     <ul class="list-inline text-muted axis">
-						<li>Q</li><li>A</li><li>C</li><li>UA</li><li>US</li>
-					</ul>
+						<li>Que</li><li>Ans</li><li>Com</li><li>UA</li><li>US</li>
+					</ul></div>
 					<div class="acti-indicators">
 						<ul>
-							<li><i class="fa fa-circle text-info" style="color:#233445"></i> Questions <span></span></li>
-							<li><i class="fa fa-circle text-info" style="color:#3fcf7f"></i> Answers <span></span></li>
-							<li><i class="fa fa-circle text-info" style="color:#FF5F5F"></i> Comments <span></span></li>
-							<li><i class="fa fa-circle text-info" style="color:#13C4A5"></i> Unanswered <span></span></li>
-							<li><i class="fa fa-circle text-info" style="color:#F4C414"></i> Unselected <span></span></li>
-						</ul>
+					<li><i class="fa fa-circle text-info" style="color:#233445"></i> Questions <span>'.qa_opt('cache_qcount').'</span></li>
+					<li><i class="fa fa-circle text-info" style="color:#3fcf7f"></i> Answers <span>'.qa_opt('cache_acount').'</span></li>
+					<li><i class="fa fa-circle text-info" style="color:#FF5F5F"></i> Comments <span>'.qa_opt('cache_ccount').'</span></li>
+					<li><i class="fa fa-circle text-info" style="color:#13C4A5"></i> Unanswered <span>'.qa_opt('cache_unaqcount').'</span></li>
+					<li><i class="fa fa-circle text-info" style="color:#F4C414"></i> Unselected <span>'.qa_opt('cache_unselqcount').'</span></li>
+				</ul>
 					</div>';
 			}else{
-			$o .= '<div class="sparkline pieact inline" data-type="pie" data-height="175" data-slice-colors="[\'#233445\',\'#3fcf7f\',\'#ff5f5f\',\'#f4c414\',\'#13c4a5\']">'.qa_opt('cache_qcount').','.qa_opt('cache_acount').','.qa_opt('cache_ccount').','.qa_opt('cache_unaqcount').','.qa_opt('cache_unselqcount').'</div>
-				<div class="line pull-in"></div>
+			$o .= '<div class="bar-float"><div class="sparkline pieact inline" data-type="pie" data-height="130" data-slice-colors="[\'#233445\',\'#3fcf7f\',\'#ff5f5f\',\'#f4c414\',\'#13c4a5\']">'.qa_opt('cache_qcount').','.qa_opt('cache_acount').','.qa_opt('cache_ccount').','.qa_opt('cache_unaqcount').','.qa_opt('cache_unselqcount').'</div>
+				<div class="line pull-in"></div></div>
 				<div class="acti-indicators">
 				<ul>
 					<li><i class="fa fa-circle text-info" style="color:#233445"></i> Questions <span>'.qa_opt('cache_qcount').'</span></li>
@@ -101,7 +101,7 @@
 		function output_widget($region, $place, $themeobject, $template, $request, $qa_content)
 		{
 			$widget_opt = @$themeobject->current_widget['Site Status']['options'];
-			$type = (@$widget_opt == 'pie' ? 'pie' : 'bar');
+			$type = (@$widget_opt['cs_ss_type'] == 'pie' ? 'pie' : 'bar');
 			if(@$themeobject->current_widget['Site Status']['locations']['show_title'])
 				$themeobject->output('<h3 class="widget-title">Site Status</h3>');
 				

@@ -1,5 +1,5 @@
 <?php
-	class cs_activity_count_widget {
+	class cs_site_status_widget {
 
 		function cs_widget_form()
 		{
@@ -79,10 +79,10 @@
 		}
 		function output_widget($region, $place, $themeobject, $template, $request, $qa_content)
 		{
-			$widget_opt = @$themeobject->current_widget['User Activity Count']['options'];
+			$widget_opt = @$themeobject->current_widget['Site Status']['options'];
 
-			if(@$themeobject->current_widget['User Activity Count']['locations']['show_title'])
-				$themeobject->output('<h3 class="widget-title">User Activity Count</h3>');
+			if(@$themeobject->current_widget['Site Status']['locations']['show_title'])
+				$themeobject->output('<h3 class="widget-title">Site Status</h3>');
 				
 			$themeobject->output('<div class="ra-tags-widget">');
 			$themeobject->output($this->cs_pie_stats());

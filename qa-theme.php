@@ -79,7 +79,7 @@
 		qa_register_module('widget', '/inc/widget_activity.php', 'cs_activity_widget', 'Site Activity', Q_THEME_DIR, Q_THEME_URL);
 		qa_register_module('widget', '/inc/widget_question_activity.php', 'cs_question_activity_widget', 'Question Activity', Q_THEME_DIR, Q_THEME_URL);
 		qa_register_module('widget', '/inc/widget_featured_questions.php', 'cs_featured_questions_widget', 'Featured Questions', Q_THEME_DIR, Q_THEME_URL);
-		qa_register_module('widget', '/inc/widget_activity_count.php', 'cs_activity_count_widget', 'User Activity Count', Q_THEME_DIR, Q_THEME_URL);
+		qa_register_module('widget', '/inc/widget_site_status.php', 'cs_site_status_widget', 'Site Status', Q_THEME_DIR, Q_THEME_URL);
 		qa_register_module('widget', '/inc/widget_twitter.php', 'cs_twitter_widget', 'Twitter Widget', Q_THEME_DIR, Q_THEME_URL);
 		qa_register_module('widget', '/inc/widget_feed.php', 'cs_feed_widget', 'Feed Widget', Q_THEME_DIR, Q_THEME_URL);
 		qa_register_module('widget', '/inc/widget_new_users.php', 'cs_new_users_widget', 'New Users', Q_THEME_DIR, Q_THEME_URL);			

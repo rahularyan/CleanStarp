@@ -831,20 +831,23 @@ a.feed-link{
     margin: 10px auto 0;
 }
 .qa-voting-net a{
-    color: #AAAAAA;
+	color: #AAAAAA;
     display: block;
-    font-size: 15px;
-    padding: 2px;
+    font-size: 20px;
+    text-align: center;
+    vertical-align: middle;
+}
+.qa-voting-net .vote-up{
+
 }
 .qa-voting-net .vote-up, .qa-voting-net .vote-up{
-    color: #3FCF7F;
+    background: #3FCF7F;
 }
 .qa-voting-net .vote-down, .qa-voting-net .vote-down{
-    color: #FF5F5F;
-    transform: rotate(180deg);
+    background: #FF5F5F;
 }
 .qa-voting-net .vote-up.disabled,.qa-voting-net .vote-down.disabled,.qa-voting-net .vote-down.voted_up,.qa-voting-net .vote-up.voted_down{
-    color: #aaa;
+    background: #D9D9D9;
 }
 .qa-voting-net .count{
     display: block;
@@ -855,23 +858,39 @@ a.feed-link{
 	margin: 0;
 }
 .voting-vertical .count {
-    display: inline-block;
+    display: block;
+    float: left;
+    font-family: 'open sans',arial;
+    font-size: 12px;
+    height: 22px;
+    line-height: 22px;
+    min-width: 30px;
+    padding: 0 8px;
 }
 .voting-vertical a {
-    display: inline-block;
-}
-
-.asker-avatar{
+    color: #FFFFFF;
+    display: block;
     float: left;
-    margin-right: 15px;
+    height: 22px;
+    width: 22px;
+	opacity:0.9;
+}
+.voting-vertical a:hover {
+    color: #FFFFFF;
+    opacity: 1;
+}
+.asker-avatar{
+    margin-bottom: 20px;
     margin-top: 0;
     position: relative;
-	text-align: center;
-	
 }
 .asker-avatar img{
     position: relative;
     z-index: 9;
+}
+.asker-avatar .voting-vertical {
+    float: right;
+    margin: 0;
 }
 .fav-parent .fav-btn{
     background: #FFFFFF;
@@ -898,21 +917,39 @@ a.feed-link{
 	float:right;
 	margin-bottom: 5px;
 }
-.qa-q-view{
-    background: none repeat scroll 0 0 #F8F8F8;
+.qa-q-view{    
     max-width: 800px;
+}
+.question-head{
+    background: #fff;
+    margin-bottom: 20px;
+}
+.question-head .question-meta{
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border: medium none;
+    margin: 0;
+    padding: 0 15px 15px;	
 }
 .question-title{
     color: #333333;
-    font-size: 30px;
-    line-height: 45px;
+    font-size: 26px;
+    line-height: 35px;
     margin: 0;
-    padding: 15px;
+    padding: 15px 15px 0;
 }
 .qa-q-view-main{
-    background: none repeat scroll 0 0 #F8F8F8;
+    background: none repeat scroll 0 0 #FFFFFF;
+    margin-bottom: 20px;
     padding: 15px;
 }
+.qa-q-view-content{
+    color: #757575;
+    font-family: 'open sans',arial;
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 27px;
+}
+
 .qa-q-view .qa-q-view-wrap{
 	overflow:hidden;
 }
@@ -1113,7 +1150,7 @@ a.feed-link{
     position: absolute;
 }
 .acti-indicators ul li span{
-   background: none repeat scroll 0 0 #B1B5B9;
+   background: #B1B5B9;
     border-radius: 8px;
     color: #FFFFFF;
     display: block;
@@ -1699,7 +1736,7 @@ table.page-users-list{
 }
 
 .qa-part-tabs-nav .ra-option-tabs li a {
-    background: none repeat scroll 0 0 transparent;
+    background: transparent;
     color: #AAAAAA;
     font-size: 13px;
     margin-right: 5px;
@@ -2882,7 +2919,7 @@ margin-right:5px;
     overflow: hidden;
 }
 .carousel .slider-item .slider-item-inner {
-    background: none repeat scroll 0 0 #FFFFFF;
+    background: #FFFFFF;
     padding: 10px;
     position: relative;
 }
@@ -2919,7 +2956,7 @@ margin-right:5px;
 }
 
 .user-tabs{
-    background: none repeat scroll 0 0 #FFFFFF;
+    background: #FFFFFF;
     margin-bottom: 20px;
 }
 .user-tabs .nav-tabs{
@@ -2986,7 +3023,7 @@ margin-right:5px;
     width: 20px;
 }
 .social-logins a{
-    background: none repeat scroll 0 0 #A7B2BE;
+    background: #A7B2BE;
     border-radius: 2px;
     border-width: 0;
     color: #FFFFFF;
@@ -3012,7 +3049,7 @@ margin-right:5px;
     color: #333333;
 }
 .row *:first-child #loginform:before {
-    background: none repeat scroll 0 0 #EEEEEE;
+    background: #EEEEEE;
     content: "";
     display: block;
     height: 100%;
@@ -3028,7 +3065,7 @@ margin-right:5px;
     margin-bottom: 10px;
 }
 #loginform .input-group .input-group-addon{
-    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.02);
+    background: rgba(0, 0, 0, 0.02);
     border-color: #EEEEEE;
     border-radius: 0;
     border-right: medium none #EEEEEE;

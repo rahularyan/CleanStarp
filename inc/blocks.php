@@ -921,10 +921,10 @@
 				$vote_text = ($post['raw']['netvotes'] >1 || $post['raw']['netvotes']< (-1)) ? _cs_lang('votes') : _cs_lang('vote');
 							
 				if (isset($post['vote_up_tags']))
-					$this->output('<a '.@$up_tags.' href="#" data-code="'.$code.'" class="icon-thumbs-up enabled vote-up '.$state.'"></a>');
-				$this->output('<span class="count">'.$post['raw']['netvotes'].'</span>');	
+					$this->output('<a '.@$up_tags.' href="#" data-code="'.$code.'" class="icon-angle-up enabled vote-up '.$state.'"></a>');
+				$this->output('<span class="count">'.$post['raw']['netvotes'].' Votes</span>');	
 				if (isset($post['vote_down_tags']))
-					$this->output('<a '.@$down_tags.' href="#" data-code="'.$code.'" class="icon-thumbs-down enabled vote-down '.$state.'"></a>');
+					$this->output('<a '.@$down_tags.' href="#" data-code="'.$code.'" class="icon-angle-down enabled vote-down '.$state.'"></a>');
 
 		}
 		
@@ -969,9 +969,16 @@
 		{
 			$this->output(get_featured_image($q_view['raw']['postid']));
 			$this->output(
-				'<h2 class="question-title">',
-				$q_view['raw']['title'],
-				'</h2>'
+				'<div class="question-head">',
+					'<h2 class="question-title">',
+						$q_view['raw']['title'],
+					'</h2>',
+					'<div class="question-meta">',
+						cs_post_status($q_view),
+						'<span class="q-view-a-count">'.$q_view['raw']['acount'].' Answers</span>',
+						'<span class="q-view-v-count">'.$q_view['raw']['views'].' Views</span>',
+					'</div>',
+				'</div>'
 			);
 			
 
@@ -994,20 +1001,6 @@
 			$this->output('<div class="qa-q-view-wrap">');
 			$this->output('<div class="qa-q-view-inner">');
 
-			$this->output('<div class="qa-q-view-head">');
-			
-			$this->output('<div class="qa-q-meta">');
-			$this->output(cs_post_status($q_view));	
-			$this->view_count($q_view);
-			$this->output(
-				'<span class="q-view-a-count">',
-				$q_view['raw']['acount'],
-				'Answers',
-				'</span>'
-				);
-			$this->output('</div>');			
-			$this->output('</div>');
-			
 			$this->q_view_content($q_view);
 			$this->post_meta($q_view, 'qa-q-item');	
 			

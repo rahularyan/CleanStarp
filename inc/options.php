@@ -61,6 +61,8 @@ class qa_html_theme_layer extends qa_html_theme_base {
 				qa_opt('cs_users_table_layout', (bool)qa_post_text('cs_users_table_layout'));
 				qa_opt('cs_nav_fixed', (bool)qa_post_text('cs_nav_fixed'));	
 				qa_opt('cs_show_icon', (bool)qa_post_text('cs_show_icon'));	
+				qa_opt('cs_enable_clean_qlist', (bool)qa_post_text('cs_enable_clean_qlist'));	
+				qa_opt('cs_enable_default_home', (bool)qa_post_text('cs_enable_default_home'));	
 				qa_opt('cs_enable_except', (bool)qa_post_text('cs_enable_except'));
 				qa_opt('cs_except_len', (int)qa_post_text('cs_except_len'));
 				qa_opt('cs_enable_avatar_lists', (bool)qa_post_text('cs_enable_avatar_lists'));
@@ -504,6 +506,33 @@ $cs_page = '
 						<div class="on-off-checkbox-container">
 								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('cs_show_icon') ? ' checked=""' : '') . ' id="cs_show_icon" name="cs_show_icon">
 								<label for="cs_show_icon"></label>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+			<tbody>
+				<tr><td><h3>Home Page</h3></td></tr>
+				<tr>
+					<th class="qa-form-tall-label">
+						Default Home Page Layout
+						<span class="description">Turn on to load default home page layout.</span>
+					</th>
+					<td class="qa-form-tall-label">
+						<div class="on-off-checkbox-container">
+								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('cs_enable_default_home') ? ' checked=""' : '') . ' id="cs_enable_default_home" name="cs_enable_default_home">
+								<label for="cs_enable_default_home"></label>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th class="qa-form-tall-label">
+						Clean Question List
+						<span class="description">Enable to switch to default question list.</span>
+					</th>
+					<td class="qa-form-tall-label">
+						<div class="on-off-checkbox-container">
+								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('cs_enable_clean_qlist') ? ' checked=""' : '') . ' id="cs_enable_clean_qlist" name="cs_enable_clean_qlist">
+								<label for="cs_enable_clean_qlist"></label>
 						</div>
 					</td>
 				</tr>

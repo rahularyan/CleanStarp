@@ -135,6 +135,9 @@
 
 		function output_widget($region, $place, $themeobject, $template, $request, $qa_content)
 		{
+			if(!function_exists('curl_version'))
+				return;
+				
 			$user = qa_opt('qa_twitter_id');
 			$count=(int)qa_opt('qa_twitter_t_count');
 			$title=qa_opt('qa_twitter_title');

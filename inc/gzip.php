@@ -10,12 +10,12 @@ if(extension_loaded('zlib')){
 	$expire = "expires: " . gmdate ("D, d M Y H:i:s", time() + $offset) . " GMT";
 	header ($expire);
 	// list CSS files to be included in the Gzip
-	include('css/font.css');
-	include('css/bootstrap.css');
-	include('css/main.css');
-	include('css/wide.css');
-	include('css/responsive.css');
-	include('css/theme-green.css');
+	include('../css/font.css');
+	include('../css/bootstrap.css');
+	include('../css/main.css');
+	include('../css/wide.css');
+	include('../css/responsive.css');
+	include('../css/theme-green.css');
 	ob_end_flush();
 }else{
 	ob_start();
@@ -25,12 +25,12 @@ if(extension_loaded('zlib')){
 	$expire = "expires: " . gmdate ("D, d M Y H:i:s", time() + $offset) . " GMT";
 	header ($expire);
 	// list CSS files to be included in the Gzip
-	include('css/font.css');
-	include('css/bootstrap.css');
-	include('css/main.css');
-	include('css/wide.css');
-	include('css/responsive.css');
-	include('css/theme-green.css');
+	include('../css/font.css');
+	include('../css/bootstrap.css');
+	include('../css/main.css');
+	include('../css/wide.css');
+	include('../css/responsive.css');
+	include('../css/theme-green.css');
 	ob_end_flush();
 }
 /*

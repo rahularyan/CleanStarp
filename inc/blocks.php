@@ -922,7 +922,7 @@
 							
 				if (isset($post['vote_up_tags']))
 					$this->output('<a '.@$up_tags.' href="#" data-code="'.$code.'" class="icon-angle-up enabled vote-up '.$state.'"></a>');
-				$this->output('<span class="count">'.$post['raw']['netvotes'].' Votes</span>');	
+				$this->output('<span class="count">'.$post['raw']['netvotes'].'</span>');	
 				if (isset($post['vote_down_tags']))
 					$this->output('<a '.@$down_tags.' href="#" data-code="'.$code.'" class="icon-angle-down enabled vote-down '.$state.'"></a>');
 
@@ -967,6 +967,9 @@
 		}
 		function q_view_main($q_view)
 		{
+
+			// this will prevent showing extra sections while Question Edit, close or other action forms
+			if (strpos($this->content['title'],$q_view['raw']['title'])){
 			$this->output(get_featured_image($q_view['raw']['postid']));
 			$this->output(
 				'<div class="question-head">',
@@ -980,54 +983,70 @@
 					'</div>',
 				'</div>'
 			);
-			
 
-			//$this->favorite();
-			//$this->post_tags($q_view, 'qa-q-view');
 
-			/* $this->favorite();
-			$this->output(base64_decode( qa_opt('cs_ads_below_question_title') ));
-			$this->post_tags($q_view, 'qa-q-view'); */
+				//$this->favorite();
+				//$this->post_tags($q_view, 'qa-q-view');
 
-			$this->output('<div class="qa-q-view-main">');
+				/* $this->favorite();
+				$this->output(base64_decode( qa_opt('cs_ads_below_question_title') ));
+				$this->post_tags($q_view, 'qa-q-view'); */
 
-			if (isset($q_view['main_form_tags']))
-				$this->output('<form '.$q_view['main_form_tags'].'>'); // form for buttons on question	
-			
-			$this->output('<div class="asker-avatar no-radius">');
-			$this->output(cs_get_avatar($q_view['raw']['handle'], 40));
-			$this->voting($q_view);
-			$this->output('</div>');		
-			$this->output('<div class="qa-q-view-wrap">');
-			$this->output('<div class="qa-q-view-inner">');
+				$this->output('<div class="qa-q-view-main">');
 
-			$this->q_view_content($q_view);
-			$this->post_meta($q_view, 'qa-q-item');	
-			
-			$this->q_view_extra($q_view);
-			$this->q_view_follows($q_view);
-			$this->q_view_closed($q_view);
-			
-			$ans_button = @$q_view['form']['buttons']['answer']['tags'];
-			if(isset($ans_button)){
-				$onclick = preg_replace('/onclick="([^"]+)"/', '', $ans_button);
-				$q_view['form']['buttons']['answer']['tags'] = $onclick;
-			}	
-			
-			$this->q_view_buttons($q_view);
-			$this->output('</div>');
-			$this->c_list(@$q_view['c_list'], 'qa-q-view');
-			
-			if (isset($q_view['main_form_tags'])) {
-				$this->form_hidden_elements(@$q_view['buttons_form_hidden']);
-				$this->output('</form>');
+				if (isset($q_view['main_form_tags']))
+					$this->output('<form '.$q_view['main_form_tags'].'>'); // form for buttons on question	
+				
+				$this->output('<div class="asker-avatar no-radius">');
+				$this->output(cs_get_avatar($q_view['raw']['handle'], 40));
+				$this->voting($q_view);
+				$this->output('</div>');		
+				$this->output('<div class="qa-q-view-wrap">');
+				$this->output('<div class="qa-q-view-inner">');
+
+				$this->output('<div class="qa-q-view-head">');
+
+				$this->output('<div class="qa-q-meta">');
+				$this->output(cs_post_status($q_view));	
+				$this->view_count($q_view);
+				$this->output(
+					'<span class="q-view-a-count">',
+					$q_view['raw']['acount'],
+					'Answers',
+					'</span>'
+					);
+				$this->output('</div>');			
+				$this->output('</div>');
+
+				$this->q_view_content($q_view);
+				$this->post_meta($q_view, 'qa-q-item');	
+
+				$this->q_view_extra($q_view);
+				$this->q_view_follows($q_view);
+				$this->q_view_closed($q_view);
+
+				
+				$ans_button = @$q_view['form']['buttons']['answer']['tags'];
+				if(isset($ans_button)){
+					$onclick = preg_replace('/onclick="([^"]+)"/', '', $ans_button);
+					$q_view['form']['buttons']['answer']['tags'] = $onclick;
+				}	
+				
+				$this->q_view_buttons($q_view);
+				$this->output('</div>');
+				$this->c_list(@$q_view['c_list'], 'qa-q-view');
+				
+				if (isset($q_view['main_form_tags'])) {
+					$this->form_hidden_elements(@$q_view['buttons_form_hidden']);
+					$this->output('</form>');
+				}
+				
+				$this->c_form(@$q_view['c_form']);
+				$this->output('</div>');
+				$this->question_meta_form();
+				$this->output(base64_decode( qa_opt('cs_ads_after_question_content') ));
+				$this->output('</div> <!-- END qa-q-view-main -->');
 			}
-			
-			$this->c_form(@$q_view['c_form']);
-			$this->output('</div>');
-			$this->question_meta_form();
-			$this->output(base64_decode( qa_opt('cs_ads_after_question_content') ));
-			$this->output('</div> <!-- END qa-q-view-main -->');
 		}
 		function post_tags($post, $class)
 		{

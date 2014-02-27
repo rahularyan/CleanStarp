@@ -882,7 +882,6 @@ a.feed-link{
 .asker-avatar{
     margin-bottom: 20px;
     margin-top: 0;
-    position: relative;
 }
 .asker-avatar img{
     position: relative;
@@ -3095,3 +3094,12 @@ margin-right:5px;
     font-size: 9px;
     text-align: center;
 }
+.qa-waiting{
+    background: url("../images/spinner.gif") no-repeat scroll center center rgba(0, 0, 0, 0);
+    display: inline-block;
+    font-size: 0;
+    height: 16px;
+    margin: 0 6px 0 4px;
+    vertical-align: middle;
+    width: 16px;
+} 

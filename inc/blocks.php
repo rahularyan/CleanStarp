@@ -1619,7 +1619,7 @@
 			if (qa_get_logged_in_level()>=QA_USER_LEVEL_ADMIN){				
 				$position = strip_tags($_REQUEST['position']);
 				$widget_names = json_decode($_REQUEST['widget_names'], true);
-
+				//print_r($widget_names);
 				$prev = unserialize(qa_opt('cs_widgets'));
 				if(!is_array($prev))
 					$w = array();
@@ -1741,7 +1741,6 @@
 		}
 		
 		function cs_position($name){
-			print_r(qa_opt('cs_widgets'));
 			$widgets = unserialize(qa_opt('cs_widgets'));
 			if(isset($widgets[$name]) && is_array($widgets) && !empty($widgets[$name])){
 				foreach ($widgets[$name] as $widget => $template){

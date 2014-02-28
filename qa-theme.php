@@ -68,6 +68,7 @@
 				reset_theme_options();
 				qa_opt('cs_init',true);
 			}
+			
 			qa_register_layer('/inc/options.php', 'Theme Options', Q_THEME_DIR , Q_THEME_URL );	
 			qa_register_layer('/inc/widgets.php', 'Theme Widgets', Q_THEME_DIR , Q_THEME_URL );
 		}		

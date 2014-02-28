@@ -113,7 +113,7 @@ class qa_html_theme_layer extends qa_html_theme_base {
 			$widget_positions = unserialize(qa_opt('cs_widgets_positions'));
 			
 			$widgets = unserialize(qa_opt('cs_widgets'));
-			
+			//print_r($widgets);
 			ob_start();
 			if(is_array($widget_positions)){
 				foreach($widget_positions as $name => $description){

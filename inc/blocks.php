@@ -982,15 +982,13 @@
 						//'<span class="q-view-a-count">'.$q_view['raw']['acount'].' Answers</span>',
 						'<span class="icon-eye-open q-view-v-count">'.$q_view['raw']['views'].' Views</span>
 						<a class="cat-in icon-folder-close-alt" href="'.cs_cat_path($q_view['raw']['categorybackpath']).'">'.$q_view['raw']['categoryname'].'</a>');
-					
-					$this->favorite();
+					$this->output('<div class="icon-tags2 question-tags">');	
+					$this->post_tags($q_view, 'qa-q-view');
+					$this->output('</div>');
+					$this->favorite();					
 				$this->output('</div></div>');
-			
-				//$this->post_tags($q_view, 'qa-q-view');
-
-				/* $this->favorite();
+				
 				$this->output(base64_decode( qa_opt('cs_ads_below_question_title') ));
-				$this->post_tags($q_view, 'qa-q-view'); */
 
 				$this->output('<div class="qa-q-view-main">');
 
@@ -1390,8 +1388,8 @@
 		}
 		function favorite_inner_html($favorite)
 		{			
-			$this->favorite_button(@$favorite['favorite_add_tags'], 'icon-star,'.@$favorite['form_hidden']['code'].',Favourite');
-			$this->favorite_button(@$favorite['favorite_remove_tags'], 'icon-star active remove,'.@$favorite['form_hidden']['code'].',Unfavourite');
+			$this->favorite_button(@$favorite['favorite_add_tags'], 'icon-star,'.@$favorite['form_hidden']['code'].',');
+			$this->favorite_button(@$favorite['favorite_remove_tags'], 'icon-star active remove,'.@$favorite['form_hidden']['code'].',');
 		}
 		function favorite_button($tags, $class)
 		{
@@ -1743,7 +1741,7 @@
 		}
 		
 		function cs_position($name){
-			
+			print_r(qa_opt('cs_widgets'));
 			$widgets = unserialize(qa_opt('cs_widgets'));
 			if(isset($widgets[$name]) && is_array($widgets) && !empty($widgets[$name])){
 				foreach ($widgets[$name] as $widget => $template){

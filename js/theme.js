@@ -542,5 +542,5 @@ $(document).ready(function(){
 	$('#featured-slider').carousel({
 		interval: 10000
 	})
-	$('.voting a').tooltip({placement:'top'});
+	$('.voting a, .fav-btn ').tooltip({placement:'top'});
 });

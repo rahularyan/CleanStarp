@@ -566,3 +566,6 @@ function get_featured_image($postid){
 	
 	return false;
 }
+function cs_cat_path($categorybackpath){
+	return qa_path_html(implode('/', array_reverse(explode('/', $categorybackpath))));
+}

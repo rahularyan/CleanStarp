@@ -517,6 +517,10 @@ $(document).ready(function(){
 			},
 		});
 	}
+	
+	$('.question-label').click(function(){
+		$(this).next().slideToggle()
+	});
 /* 	cs_ajax_sub_menu('.qa-nav-sub-recent a');
 	cs_ajax_sub_menu('.qa-nav-sub-hot a');
 	cs_ajax_sub_menu('.qa-nav-sub-votes a');
@@ -535,7 +539,8 @@ $(document).ready(function(){
 		cs_float_left()
 	}); */
 
-$('#featured-slider').carousel({
-	interval: 10000
+	$('#featured-slider').carousel({
+		interval: 10000
 	})
+	$('.voting a, .fav-btn ').tooltip({placement:'top'});
 });

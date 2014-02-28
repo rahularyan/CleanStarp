@@ -524,9 +524,11 @@ h1,h2,h3,h4,h5,h6, .qa-q-item-title{
     font-weight: 600;
     margin-right: 10px;
 }
-.qa-q-item-meta {
-    color: #AAAAAA;
+.qa-q-item-meta, .qa-a-item-meta, .qa-c-item-meta {
+    color: #666666;
     font-size: 12px;
+    font-style: italic;
+    text-transform: lowercase;
 }
 .qa-q-list .qa-q-list-item .ans-this-q{
 	background:#fff;
@@ -800,11 +802,12 @@ a.feed-link{
 
 
 .post-status{			
-    border-radius: 1px;
+    border-radius: 2px;
     color: #FFFFFF;
     font-family: arial;
+    font-size: 14px;
     margin-right: 10px;
-    padding: 2px 8px;
+    padding: 3px 8px;
     vertical-align: bottom;
 }	
 .post-status.closed{
@@ -875,8 +878,7 @@ a.feed-link{
 	opacity:0.9;
 }
 .voting-vertical a:hover {
-    color: #FFFFFF;
-    opacity: 1;
+
 }
 .asker-avatar{
     float: left;
@@ -892,7 +894,8 @@ a.feed-link{
     padding: 15px;
 }
 .asker-detail .voting-vertical{
-	float:right;
+    float: right;
+    margin-top: 14px;
 }
 .asker-detail .user-info{
     display: table;
@@ -903,7 +906,7 @@ a.feed-link{
     margin: 0;
 }
 .asker-detail .user-info .asker-point .title{
-    background: none repeat scroll 0 0 #EEEEEE;
+    background: #EEEEEE;
     border-radius: 2px;
     font-size: 11px;
     margin-left: 5px;
@@ -924,11 +927,13 @@ a.feed-link{
     margin: 0;
 }
 .fav-parent .fav-btn{
-    background: #FFFFFF;
-    border: 1px solid rgba(0, 0, 0, 0.2);
+    background: #F9F9F9;
+    border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 2px;
+    color: #AAAAAA;
     display: block;
     font-size: 13px;
+    font-weight: 400;
     margin-left: 10px;
     padding: 0 8px;
 }
@@ -962,13 +967,16 @@ a.feed-link{
     margin-bottom: 20px;
 }
 .question-head .question-meta{
-    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: rgba(0, 0, 0, 0);
     border: medium none;
     font-family: 'open sans',arial,serif;
     font-size: 16px;
     font-weight: 300;
     margin: 0;
     padding: 0 15px 15px;
+}
+.question-head *:before {
+    margin-right: 8px;
 }
 .question-title{
     color: #333333;
@@ -978,18 +986,20 @@ a.feed-link{
     padding: 15px 15px 0;
 }
 .featured-sticker {
+    border-radius: 2px;
     color: #FFFFFF;
+    font-size: 14px;
     margin-right: 10px;
-    padding: 0 9px;
+    padding: 1px 9px;
 }
 .qa-q-view-main{
-    background: none repeat scroll 0 0 #FFFFFF;
+    background: #FDFDF8;
     border-radius: 5px;
     border-top: 2px solid #A6C776;
     margin-bottom: 20px;
     padding: 0;
 }
-.qa-q-view-content{
+.qa-q-view-content, .qa-a-item-content .entry-content{
     color: #777777;
     font-family: 'open sans',arial;
     font-size: 14px;
@@ -1023,7 +1033,7 @@ a.feed-link{
 	font-size: 12px;
 }
 .question-label{
-    background: none repeat scroll 0 0 #A6C776;
+    background: #A6C776;
     border-radius: 5px;
     color: #FFFFFF;
     display: table;
@@ -1039,14 +1049,19 @@ a.feed-link{
 
 
 .qa-q-view-c-list{
-    background: none repeat scroll 0 0 #FAFAFA;
-    padding: 20px 0;
+    background: #FAFAFA;
+    padding: 0;
 }
 .qa-c-list-item{
-    margin-bottom: 20px;
-    padding: 0 20px;
+    margin-bottom: 0;
+    padding: 10px 20px;
     position: relative;
 }
+.cat-in{
+    color: #888888;
+    margin-left: 10px;
+}
+
 .qa-c-list-item:last-child {
     margin: 0;
 }
@@ -1064,8 +1079,7 @@ a.feed-link{
     line-height: 25px;
 }
 .qa-c-item-meta{
-    font-weight: bold;
-    text-transform: lowercase;
+
 }
 .qa-q-view-tag-list{
     float: right;
@@ -1106,12 +1120,12 @@ a.feed-link{
 	max-width: 800px;
 }
 .answers-label{
-    background: none repeat scroll 0 0 #5DBAF5;
+    background: #5DBAF5;
     border-radius: 5px;
     color: #FFFFFF;
     display: table;
     font-size: 17px;
-    margin: 35px auto 20px;
+    margin-top: 40px;
     padding: 6px 12px;
 }
 .answers-label:before{
@@ -1120,7 +1134,7 @@ a.feed-link{
     vertical-align: middle;
 }
 .qa-a-list .qa-a-list-item{
-    background: none repeat scroll 0 0 #FFFFFF;
+    background: #FFFFFF;
     border-radius: 4px;
     margin-bottom: 20px;    
 }
@@ -1145,8 +1159,11 @@ a.feed-link{
 }
 .a-item-wrap{
     border-bottom: 1px solid rgba(0, 0, 0, 0.04);
-    margin-bottom: 20px;
     padding: 15px;
+}
+.qa-a-item-c-list {
+    background: #FAFAFA;
+    padding: 0;
 }
 .a-item-head{
     font-weight: 600;
@@ -1177,26 +1194,34 @@ a.feed-link{
     font-size: 11px;
     padding: 1px 7px;
 }
-
-.answer-f-wrap{
-    background: #FFFFFF;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 3px;
-    overflow: hidden;
+.your-answer{
+    float: right;
+    font-size: 14px;
+    font-style: italic;
+}
+.answer-f-wrap {
+    background: rgba(0, 0, 0, 0.02);
     padding: 15px;
 }
-.answer-f-wrap > p{
-    font-size: 14px;
-    font-weight: bold;
+.answer-f-wrap > h3{
+    font-size: 18px;
+    font-weight: 300;
+    margin-bottom: 18px;
+    margin-top: 0;
 }
 .qa-form-tall-table{
 	width:100%;
 }
 .answer-f-wrap .qa-form-tall-text{
-
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    border-radius: 3px;
+   border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.04) inset;
     width: 100%;
+}
+.bg-q-icon{
+    font-size: 175px;
+    position: absolute;
+    top: 60px;
 }
 #a_list_title{
     font-size: 16px;
@@ -1708,9 +1733,9 @@ table.page-users-list{
 }
 .answer-form{
     background: #FFFFFF;
+    border-radius: 4px;
     margin-bottom: 20px;
     max-width: 800px;
-    padding: 15px;
 }
 
 .qa-suggest-next{
@@ -3204,17 +3229,17 @@ margin-right:5px;
 	margin-top:15px;
 }
 .post-button .btn{
-    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: rgba(0, 0, 0, 0);
     border-radius: 0;
     color: #666666;
     font-family: 'open sans',arial,serif;
     font-size: 13px;
-    font-weight: 300;
+    font-weight: 400;
     padding: 2px 10px;
     text-transform: capitalize;
 }
 .post-button .btn:hover {
-    background: none repeat scroll 0 0 #EEEEEE;
+    background: #EEEEEE;
     box-shadow: 0 0 7px rgba(0, 0, 0, 0.05);
     color: #777777;
 }
@@ -3224,5 +3249,9 @@ margin-right:5px;
 
 .qa-c-wrap .post-button{
     float: right;
-    margin: 0;c
+    margin: 0;
+}
+
+.post-button .icon-edit, .post-button .icon-flag, .post-button .icon-remove, .post-button .icon-error{
+	float:right;
 }

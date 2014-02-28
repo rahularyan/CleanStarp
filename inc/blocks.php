@@ -996,43 +996,30 @@
 
 				if (isset($q_view['main_form_tags']))
 					$this->output('<form '.$q_view['main_form_tags'].'>'); // form for buttons on question	
-				
-				$this->output('<div class="asker-avatar no-radius">');
-				$this->output(cs_get_avatar($q_view['raw']['handle'], 40));
+
+				$this->output('<div class="asker-detail clearfix">');
+				$this->output('<div class="asker-avatar avatar">'.cs_get_avatar($q_view['raw']['handle'], 40).'</div>');
+				$this->output('
+					<div class="user-info no-overflow">
+						<h3 class="asker-name">'.cs_name($q_view['raw']['handle']).'</h3>
+						<p class="asker-point">'.implode(' ', $q_view['who']['points']).' <span class="title">'.$q_view['who']['level'].'</span></p>
+					</div>');
 				$this->voting($q_view);
 				$this->output('</div>');		
 				$this->output('<div class="qa-q-view-wrap">');
 				$this->output('<div class="qa-q-view-inner">');
 
-				$this->output('<div class="qa-q-view-head">');
-
-				$this->output('<div class="qa-q-meta">');
-				$this->output(cs_post_status($q_view));	
-				$this->view_count($q_view);
-				$this->output(
-					'<span class="q-view-a-count">',
-					$q_view['raw']['acount'],
-					'Answers',
-					'</span>'
-					);
-				$this->output('</div>');			
-				$this->output('</div>');
-
 				$this->q_view_content($q_view);
-				$this->post_meta($q_view, 'qa-q-item');	
+				$this->output('<div class="qa-post-meta">');
+				$this->post_meta($q_view, 'qa-q-item');
+				$this->output('</div>');				
 
 				$this->q_view_extra($q_view);
 				$this->q_view_follows($q_view);
 				$this->q_view_closed($q_view);
-
 				
-				$ans_button = @$q_view['form']['buttons']['answer']['tags'];
-				if(isset($ans_button)){
-					$onclick = preg_replace('/onclick="([^"]+)"/', '', $ans_button);
-					$q_view['form']['buttons']['answer']['tags'] = $onclick;
-				}	
-				
-				$this->q_view_buttons($q_view);
+				$this->ra_post_buttons($q_view);
+				//$this->q_view_buttons($q_view);
 				$this->output('</div>');
 				$this->c_list(@$q_view['c_list'], 'qa-q-view');
 				
@@ -1043,10 +1030,33 @@
 				
 				$this->c_form(@$q_view['c_form']);
 				$this->output('</div>');
-				$this->question_meta_form();
+				//$this->question_meta_form();
 				$this->output(base64_decode( qa_opt('cs_ads_after_question_content') ));
 				$this->output('</div> <!-- END qa-q-view-main -->');
 			}
+		}
+		function ra_post_buttons($q_view){
+			$buttons = $q_view['form']['buttons'];
+			
+			$ans_button = $buttons['answer']['tags'];
+			if(isset($ans_button)){
+				$onclick = preg_replace('/onclick="([^"]+)"/', '', $ans_button);
+				$buttons['answer']['tags'] = $onclick;
+			}
+			
+			$this->output('<div class="post-button">');
+			foreach($buttons as $k => $btn){
+				if($k == 'edit')  $btn['class'] = 'icon-edit';
+				if($k == 'flag')  $btn['class'] = 'icon-flag';
+				if($k == 'unflag')  $btn['class'] = 'icon-flag';
+				if($k == 'close')  $btn['class'] = 'icon-remove';
+				if($k == 'hide')  $btn['class'] = 'icon-error';
+				if($k == 'answer')  $btn['class'] = 'icon-answer';
+				if($k == 'comment')  $btn['class'] = 'icon-comments';
+				
+				$this->output('<button '.$btn['tags'].' class="btn '.@$btn['class'].'" title="'.$btn['popup'].'" type="submit">'.$btn['label'].'</button>');
+			}
+			$this->output('</div>');
 		}
 		function post_tags($post, $class)
 		{
@@ -1064,7 +1074,7 @@
 			$this->output('<div class="asker-avatar">');
 			
 			if(isset($c_item['raw']['handle']))
-				$this->output(cs_get_avatar($c_item['raw']['handle'], 35));
+				$this->output(cs_get_avatar($c_item['raw']['handle'], 30));
 				
 			$this->output('</div>');
 			$this->output('<div class="qa-c-wrap">');
@@ -1863,6 +1873,7 @@
 					qa_db_postmeta_set($postid, 'featured_question', false);
 			}
 		}
+		
 	}
 
 

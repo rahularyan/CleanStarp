@@ -61,7 +61,9 @@ body{
 h1,h2,h3,h4,h5,h6, .qa-q-item-title{
 	font-family: 'Open Sans',Helvetica,Arial,sans-serif;
 }
-
+.no-overflow{
+	overflow:hidden;
+}
 .avatar img{
 	border-radius:2px;
 }
@@ -798,11 +800,10 @@ a.feed-link{
 
 
 .post-status{			
-    border-radius: 2px;
+    border-radius: 1px;
     color: #FFFFFF;
     display: inline;
     font-family: arial;
-    font-size: 11px;
     margin-right: 10px;
     padding: 0 5px;
     text-transform: lowercase;
@@ -880,8 +881,41 @@ a.feed-link{
     opacity: 1;
 }
 .asker-avatar{
-    margin-bottom: 20px;
+    float: left;
+    margin-bottom: 0;
+    margin-right: 10px;
     margin-top: 0;
+}
+.asker-avatar > a{
+	float:left;
+}
+.asker-detail{
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+    padding: 15px;
+}
+.asker-detail .voting-vertical{
+	float:right;
+}
+.asker-detail .user-info{
+    display: table;
+    float: left;
+}
+.asker-detail .user-info .asker-point{
+    font-size: 13px;
+    margin: 0;
+}
+.asker-detail .user-info .asker-point .title{
+    background: none repeat scroll 0 0 #EEEEEE;
+    border-radius: 2px;
+    font-size: 11px;
+    margin-left: 5px;
+    padding: 2px 5px;
+}
+.asker-name{
+    color: #333333;
+    font-size: 18px;
+    font-weight: 300;
+    margin: 0 0 2px;
 }
 .asker-avatar img{
     position: relative;
@@ -912,6 +946,12 @@ a.feed-link{
     text-transform: lowercase;
     vertical-align: top;
 }
+.entry-content blockquote{
+	margin-left:15px;
+}
+.qa-q-view-inner{
+	padding: 15px;
+}
 .qa-q-view .fav-parent{
 	float:right;
 	margin-bottom: 5px;
@@ -926,36 +966,43 @@ a.feed-link{
 .question-head .question-meta{
     background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
     border: medium none;
+    font-family: 'open sans',arial,serif;
+    font-size: 16px;
+    font-weight: 300;
     margin: 0;
-    padding: 0 15px 15px;	
+    padding: 0 15px 15px;
 }
 .question-title{
     color: #333333;
     font-size: 26px;
     line-height: 35px;
-    margin: 0;
+    margin: 0 0 8px;
     padding: 15px 15px 0;
 }
 .qa-q-view-main{
     background: none repeat scroll 0 0 #FFFFFF;
+    border-radius: 5px;
     margin-bottom: 20px;
-    padding: 15px;
+    padding: 0;
 }
 .qa-q-view-content{
-    color: #757575;
+    color: #777777;
     font-family: 'open sans',arial;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 300;
     line-height: 27px;
+    margin-bottom: 15px;
 }
 
 .qa-q-view .qa-q-view-wrap{
 	overflow:hidden;
 }
 .qa-q-view-inner{
+	border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+}
+.qa-post-meta .qa-post-meta{
 
 }
-
 .qa-q-view-inner .qa-q-view-head {
 	margin-bottom: 15px;
 }
@@ -966,8 +1013,7 @@ a.feed-link{
     padding: 0;
 }
 .qa-view-count, .q-view-a-count{
-    font-weight: 600;
-    margin-right: 10px;
+    margin-right: 15px;
 }
 .qa-q-view-inner .qa-q-view-head .qa-q-item-meta{
 	font-size: 12px;
@@ -980,16 +1026,25 @@ a.feed-link{
 }
 .qa-c-list-item{
     margin-bottom: 20px;
+    padding: 0 20px;
     position: relative;
 }
-
+.qa-c-list-item .asker-avatar {
+    margin-top: 6px;
+}
 
 .qa-c-wrap{
     overflow: hidden;
 }
 .qa-c-wrap .qa-c-item-content{
-    font-size: 12px;
-    line-height: 20px;
+    font-family: 'open sans',arial,serif;
+    font-size: 13px;
+    font-weight: 300;
+    line-height: 25px;
+}
+.qa-c-item-meta{
+    font-weight: bold;
+    text-transform: lowercase;
 }
 .qa-q-view-tag-list{
     float: right;
@@ -1027,7 +1082,9 @@ a.feed-link{
 	border-color:#fcb034;
 }
 .qa-a-list .qa-a-list-item{
-    background: #FFFFFF;
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-radius: 4px;
+    margin-bottom: 20px;
     max-width: 800px;
     padding: 15px;
 }
@@ -3103,3 +3160,13 @@ margin-right:5px;
     vertical-align: middle;
     width: 16px;
 } 
+
+.post-button .btn{
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border-radius: 0;
+    color: #666666;
+    padding: 2px 10px;
+}
+.post-button .btn:before{
+	margin-right: 5px;
+}

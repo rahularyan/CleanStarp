@@ -82,6 +82,16 @@ function cs_get_avatar($handle, $size = 40, $html =true){
 	elseif(isset($match[1]))
 		return $match[1];
 }
+function cs_get_post_avatar($post, $userid ,$size = 40){
+	if(defined('QA_WORDPRESS_INTEGRATE_PATH')){
+		$avatar = get_avatar( qa_get_user_email($userid), $size);
+	}if (QA_FINAL_EXTERNAL_USERS)
+		$avatar = qa_get_external_avatar_html($post['userid'], $size, false);
+	else
+		$avatar = qa_get_user_avatar_html(@$post['flags'], @$post['email'], @$post['handle'],
+			@$post['avatarblobid'], @$post['avatarwidth'], @$post['avatarheight'], $size);
+	return $avatar;
+}
 
 function cs_post_type($id){
 	$result = qa_db_read_one_value(qa_db_query_sub('SELECT type FROM ^posts WHERE postid=#', $id ),true);

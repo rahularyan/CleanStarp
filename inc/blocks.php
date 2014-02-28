@@ -921,10 +921,10 @@
 				$vote_text = ($post['raw']['netvotes'] >1 || $post['raw']['netvotes']< (-1)) ? _cs_lang('votes') : _cs_lang('vote');
 							
 				if (isset($post['vote_up_tags']))
-					$this->output('<a '.@$up_tags.' href="#" data-code="'.$code.'" class="icon-angle-up enabled vote-up '.$state.'"></a>');
+					$this->output('<a '.@$up_tags.' href="#" data-code="'.$code.'" class=" icon-thumbs-up2 enabled vote-up '.$state.'"></a>');
 				$this->output('<span class="count">'.$post['raw']['netvotes'].'</span>');	
 				if (isset($post['vote_down_tags']))
-					$this->output('<a '.@$down_tags.' href="#" data-code="'.$code.'" class="icon-angle-down enabled vote-down '.$state.'"></a>');
+					$this->output('<a '.@$down_tags.' href="#" data-code="'.$code.'" class=" icon-thumbs-down2 enabled vote-down '.$state.'"></a>');
 
 		}
 		
@@ -978,13 +978,14 @@
 					'</h2>',
 					'<div class="question-meta">',
 						cs_post_status($q_view),
+						(is_featured($q_view['raw']['postid']) ? '<span class="featured-sticker">Featured</span>' : ''),
 						'<span class="q-view-a-count">'.$q_view['raw']['acount'].' Answers</span>',
-						'<span class="q-view-v-count">'.$q_view['raw']['views'].' Views</span>',
+						'<span class="q-view-v-count">'.$q_view['raw']['views'].' Views</span>',				
 					'</div>',
 				'</div>'
 			);
 
-
+			$this->output('<h3 class="question-label icon-question">Question</h3>');
 				//$this->favorite();
 				//$this->post_tags($q_view, 'qa-q-view');
 
@@ -1078,7 +1079,8 @@
 				
 			$this->output('</div>');
 			$this->output('<div class="qa-c-wrap">');
-			$this->post_meta($c_item, 'qa-c-item');
+			$this->ra_comment_buttons($c_item);
+			$this->post_meta($c_item, 'qa-c-item');			
 			$this->c_item_main($c_item);
 			$this->output('</div>');
 			$this->output('</div> <!-- END qa-c-item -->');
@@ -1094,17 +1096,30 @@
 				$this->c_item_link($c_item);
 			else
 				$this->c_item_content($c_item);
+		}
+		function ra_comment_buttons($c_item){
+			$buttons = $c_item['form']['buttons'];
 			
-			$this->output('<div class="qa-c-item-footer">');			
-			$this->c_item_buttons($c_item);
+			$this->output('<div class="post-button">');
+			foreach($buttons as $k => $btn){
+				if($k == 'edit')  $btn['class'] = 'icon-edit';
+				if($k == 'flag')  $btn['class'] = 'icon-flag';
+				if($k == 'unflag')  $btn['class'] = 'icon-flag';
+				if($k == 'hide')  $btn['class'] = 'icon-error';
+				if($k == 'reshow')  $btn['class'] = 'icon-eye-open';
+				if($k == 'comment')  $btn['class'] = 'icon-comments';
+				
+				$this->output('<button '.$btn['tags'].' class="btn '.@$btn['class'].'" title="'.@$btn['popup'].'" type="submit">'.@$btn['label'].'</button>');
+			}
 			$this->output('</div>');
 		}
 		function a_list($a_list)
 		{
-			if (!empty($a_list)) {
-				//$this->part_title($a_list);
+			if (!empty($a_list)) {				
 				
 				$this->output('<div class="qa-a-list'.($this->list_vote_disabled($a_list['as']) ? ' qa-a-list-vote-disabled' : '').'" '.@$a_list['tags'].'>', '');
+				if (strlen(@$a_list['title']) || strlen(@$a_list['title_tags']))
+					$this->output('<h3 class="answers-label icon-answer">'.@$a_list['title'].'</h3>');
 				$this->a_list_items($a_list['as']);				
 				$this->output('</div> <!-- END qa-a-list -->', '');
 			}
@@ -1124,10 +1139,15 @@
 		function a_item_main($a_item)
 		{
 			$this->output('<div class="qa-a-item-main">');
-			$this->output('<div class="asker-avatar no-radius">');
-			$this->output(cs_get_avatar($a_item['raw']['handle'], 40));
-			$this->voting($a_item);
-			$this->output('</div>');
+				$this->output('<div class="asker-detail clearfix">');
+				$this->output('<div class="asker-avatar avatar">'.cs_get_avatar($a_item['raw']['handle'], 40).'</div>');
+				$this->output('
+					<div class="user-info no-overflow">
+						<h3 class="asker-name">'.cs_name($a_item['raw']['handle']).'</h3>
+						<p class="asker-point">'.implode(' ', $a_item['who']['points']).' <span class="title">'.$a_item['who']['level'].'</span></p>
+					</div>');
+				$this->voting($a_item);
+				$this->output('</div>');	
 			$this->output('<div class="a-item-inner-wrap">');
 			
 			if (isset($a_item['main_form_tags']))
@@ -1395,14 +1415,14 @@
 				(@$c_form['collapse'] ? ' style="display:none;"' : '').'>');
 			
 			$this->output('<div class="asker-avatar no-radius">');
-			$this->output(cs_get_avatar(qa_get_logged_in_handle(), 35));
+			$this->output(cs_get_avatar(qa_get_logged_in_handle(), 30));
 			$this->output('</div>');
 			if (!empty($c_form['title'])){
 				$this->output('<div class="comment-f-wrap">');
 				$this->output(
-					'<p>',
-					$c_form['title'],
-					'</p>'
+					'<h3>',
+						$c_form['title'],
+					'</h3>'
 				);
 				$c_form['title'] = '';
 				$this->form($c_form);

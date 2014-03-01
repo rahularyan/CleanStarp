@@ -1363,21 +1363,25 @@
 		function a_form($a_form)
 		{
 			$this->output('<div class="qa-a-form"'.(isset($a_form['id']) ? (' id="'.$a_form['id'].'"') : '').'>');
-					
-			$this->output('<div class="asker-detail clearfix">');
-			$this->output('<div class="asker-avatar avatar">'.cs_get_avatar(qa_get_logged_in_handle(), 20).'</div>');
-			$this->output('
-				<div class="user-info no-overflow">
-					<h3 class="asker-name">'.cs_name(qa_get_logged_in_handle()).'</h3>					
-				</div>');
-			$this->output('<span class="your-answer">'.$a_form['title'].'</span>');
-			$this->output('</div>');
-			$this->output('<div class="answer-f-wrap">'	);
+			
+			if(qa_is_logged_in()){
+				$this->output('<div class="asker-detail clearfix">');
+				$this->output('<div class="asker-avatar avatar">'.cs_get_avatar(qa_get_logged_in_handle(), 20).'</div>');
+				$this->output('
+					<div class="user-info no-overflow">
+						<h3 class="asker-name">'.cs_name(qa_get_logged_in_handle()).'</h3>					
+					</div>');
+				$this->output('<span class="your-answer">'.$a_form['title'].'</span>');
+				$this->output('</div>');
+				$this->output('<div class="answer-f-wrap">'	);
 
-			$a_form['title'] = '';
-			$this->form($a_form);
-			$this->c_list(@$a_form['c_list'], 'qa-a-item');
-			$this->output('</div>');
+				$a_form['title'] = '';
+				$this->form($a_form);
+				$this->c_list(@$a_form['c_list'], 'qa-a-item');
+				$this->output('</div>');
+			}else{
+				$this->output('<div class="login-to-answer">'.$a_form['title'].'</div>');
+			}
 			$this->output('</div> <!-- END qa-a-form -->', '');
 		}
 		

@@ -97,9 +97,9 @@
 
 		function output_widget($region, $place, $themeobject, $template, $request, $qa_content)
 		{
-			$widget_opt = $themeobject->current_widget['New Users']['options'];
+			$widget_opt = $themeobject->current_widget['param']['options'];
 
-			if(@$themeobject->current_widget['New Users']['locations']['show_title'])
+			if(@$themeobject->current_widget['param']['locations']['show_title'])
 				$themeobject->output('<h3 class="widget-title">New Users</h3>');
 				
 			$themeobject->output('<div class="ra-new-users-widget">');

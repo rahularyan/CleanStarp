@@ -67,9 +67,9 @@
 		function output_widget($region, $place, $themeobject, $template, $request, $qa_content)
 		{
 			require_once QA_INCLUDE_DIR.'qa-db-selects.php';
-			$widget_opt = @$themeobject->current_widget['Tags']['options'];
+			$widget_opt = @$themeobject->current_widget['param']['options'];
 
-			if(@$themeobject->current_widget['Tags']['locations']['show_title'])
+			if(@$themeobject->current_widget['param']['locations']['show_title'])
 				$themeobject->output('<h3 class="widget-title">Tags <a href="'.qa_path_html('tags').'">View All</a></h3>');
 				
 			$to_show = (int)$widget_opt['cs_tags_count'];

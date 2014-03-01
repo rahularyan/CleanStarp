@@ -101,9 +101,9 @@
 
 		function output_widget($region, $place, $themeobject, $template, $request, $qa_content)
 		{
-			$widget_opt = $themeobject->current_widget['Top Contributors']['options'];
+			$widget_opt = $themeobject->current_widget['param']['options'];
 
-			if(@$themeobject->current_widget['Top Contributors']['locations']['show_title'])
+			if(@$themeobject->current_widget['param']['locations']['show_title'])
 				$themeobject->output('<h3 class="widget-title">Top Contributors</h3>');
 				
 			$themeobject->output('<div class="ra-tags-widget">');

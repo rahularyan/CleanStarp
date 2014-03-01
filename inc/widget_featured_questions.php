@@ -124,7 +124,7 @@
 		}
 		function output_widget($region, $place, $themeobject, $template, $request, $qa_content)
 		{
-			$widget_opt = $themeobject->current_widget['Featured Questions']['options'];
+			$widget_opt = $themeobject->current_widget['param']['options'];
 
 			$count = (isset($widget_opt['cs_fq_count']) && !empty($widget_opt['cs_fq_count'])) ?(int)$widget_opt['cs_fq_count'] : 10;
 			
@@ -132,7 +132,10 @@
 	
 			
 			$themeobject->output('<div class="ra-featured-widget">');
-
+			
+			if(@$themeobject->current_widget['param']['locations']['show_title'])
+				$themeobject->output('<h3 class="widget-title">Featured Questions</h3>');
+				
 			$themeobject->output('
 
             <div id="featured-slider" class="carousel slide">

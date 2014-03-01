@@ -10,7 +10,9 @@
 		var $postid;
 		var $widgets;
 		function doctype(){
-			$this->widgets = get_all_widgets();
+			global $widgets;
+			$widgets = get_all_widgets();
+			$this->widgets = $widgets;
 			if(isset($_REQUEST['cs_ajax_html'])){
 				$action = 'cs_ajax_'.$_REQUEST['action'];
 				if(method_exists ($this, $action))
@@ -1630,20 +1632,6 @@
 						else
 							widget_opt($k, $position, serialize($w));
 					}
-				
-				//$prev = unserialize(qa_opt('cs_widgets'));
-				/* if(!is_array($prev))
-					$w = array();
-				else
-					$w = $prev;
-					
-				if(!is_array($widget_names) && empty($widget_names))
-					$w[$position] = '';
-				else{
-					$w[$position] = $widget_names;
-				} */
-
-				//qa_opt('cs_widgets', serialize($w));
 			}
 			die();
 		}
@@ -1759,13 +1747,16 @@
 				$this->output('<button '.$post[$element].' type="submit" value="'.$value.'" class="'.$class.'-button"></button>');
 		}
 		
-		function cs_position($name){
-			$widgets = unserialize(qa_opt('cs_widgets'));
-			if(isset($widgets[$name]) && is_array($widgets) && !empty($widgets[$name])){
-				foreach ($widgets[$name] as $widget => $template){
-					if(isset($template['locations'][$this->template]) && (bool)$template['locations'][$this->template] ){
-						$this->current_widget = $widgets[$name];
-						$this->cs_get_widget($widget, @$template['locations']['show_title'], $name);
+		function cs_position($position){
+			$widgets = $this->widgets;
+			$position_active = multi_array_key_exists($position, $widgets);
+			
+			if(isset($widgets) && $position_active){
+				foreach ($widgets as $w){
+				
+					if(($w['position'] ==$position) &&  isset($w['param']['locations'][$this->template]) && (bool)$w['param']['locations'][$this->template] ){
+						$this->current_widget = $w;
+						$this->cs_get_widget($w['name'], @$w['param']['locations']['show_title'], $position);
 					}
 				}
 			}

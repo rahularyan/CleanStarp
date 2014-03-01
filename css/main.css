@@ -3267,3 +3267,17 @@ margin-right:5px;
 .theme-widgets > div{
 	background:#fff;
 }
+
+.cs-category-widget-list{
+	padding:0;
+	list-style:none;
+}
+.cs-category-widget-list li a:before{
+	margin-right:10px;	
+}
+.cs-category-widget-list li a{
+    display: block;
+    font-family: 'open sans',arial;
+    font-size: 14px;
+    padding: 5px;
+}

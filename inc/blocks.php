@@ -1845,18 +1845,11 @@
 			if (!empty($q_items)) {
 				foreach ($q_items as $q_item)
 					$this->q_list_item($q_item);
-			}else
-				$this->output('
-					<div class="no-items">
-						<h3 class="icon-sad">No questions found!</h3>
-						<p>Sorry we cannot display anything, query returns nothings.</p>
-					</div>');
+			}
 		}
 		
 		function question_meta_form(){
-			//echo "<pre>";
-			//var_dump($this->content["q_view"]["raw"]["postid"]);
-			//echo "</pre>";
+
 			$postid = @$this->content["q_view"]["raw"]["postid"];
 			if ( ($this->template=='question') && (qa_get_logged_in_level()>=QA_USER_LEVEL_ADMIN) && (!empty($postid)) ){
 				require_once QA_INCLUDE_DIR.'qa-db-metas.php';

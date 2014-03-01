@@ -1023,7 +1023,7 @@
 				$this->q_view_closed($q_view);
 				
 				$this->ra_post_buttons($q_view);
-				//$this->q_view_buttons($q_view);
+
 				$this->output('</div>');
 				$this->c_list(@$q_view['c_list'], 'qa-q-view');
 				
@@ -1041,6 +1041,9 @@
 		}
 		function ra_post_buttons($q_view){
 			$buttons = $q_view['form']['buttons'];
+			
+			if ( ($this->template=='question') && (qa_get_logged_in_level()>=QA_USER_LEVEL_ADMIN) && (!empty($q_view)) )
+				$buttons['featured'] = array ( 'tags' => '','tags' => '', 'label' => 'Featured', 'popup' => 'Set this question as featured', 'class' => 'icon-star');
 			
 			$ans_button = @$buttons['answer']['tags'];
 			if(isset($ans_button)){
@@ -1398,8 +1401,8 @@
 		}
 		function favorite_inner_html($favorite)
 		{			
-			$this->favorite_button(@$favorite['favorite_add_tags'], 'icon-star,'.@$favorite['form_hidden']['code'].',');
-			$this->favorite_button(@$favorite['favorite_remove_tags'], 'icon-star active remove,'.@$favorite['form_hidden']['code'].',');
+			$this->favorite_button(@$favorite['favorite_add_tags'], 'icon-heart,'.@$favorite['form_hidden']['code'].',');
+			$this->favorite_button(@$favorite['favorite_remove_tags'], 'icon-heart active remove,'.@$favorite['form_hidden']['code'].',');
 		}
 		function favorite_button($tags, $class)
 		{

@@ -389,20 +389,7 @@ function cs_register_widget_position($widget_array){
 	return;
 }
 
-function cs_position_active($name){
-	global $widgets;
 
-	$template = qa_request(1);
-	$template = (!empty($template) ? $template : 'home' );
-	if(isset($widgets) && is_array($widgets)){
-		foreach ($widgets as $w){
-			if(($w['name']==$name) && isset($w['param']['locations'][$template]) && (bool)$w['param']['locations'][$template])
-				return true;
-		}
-		
-	}
-	return false;
-}
 
 function cs_get_template_array(){
 	return array(

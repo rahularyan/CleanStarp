@@ -136,29 +136,29 @@
 			$this->notices();
 			$this->header();
 			
-			if(cs_position_active('Header Left') && cs_position_active('Header') && cs_position_active('Header Right'))
+			if($this->cs_position_active('Header Left') && $this->cs_position_active('Header') && $this->cs_position_active('Header Right'))
 				$class= 4;
-			elseif(cs_position_active('Header') && (cs_position_active('Header Left') || cs_position_active('Header Right'))){
+			elseif($this->cs_position_active('Header') && ($this->cs_position_active('Header Left') || $this->cs_position_active('Header Right'))){
 				$class= 5;
 			}
 			
-			if(cs_position_active('Header')){
+			if($this->cs_position_active('Header')){
 				$this->output('<div class="header-position-c container">');	
 				
 				$this->output('<h1 class="intro-title">Do you have questions ? We got the answers!</h1>');
 				
-				if(cs_position_active('Header Left')){
+				if($this->cs_position_active('Header Left')){
 					$this->output('<div class="col-md-'.$class.'">');	
 					$this->cs_position('Header Left');
 					$this->output('</div>');	
 				}
 				
-				if(cs_position_active('Header')){
+				if($this->cs_position_active('Header')){
 					$this->output('<div class="col-md-'.(12-@$class).'">');
 					$this->cs_position('Header');
 					$this->output('</div>');
 				}				
-				if(cs_position_active('Header Right')){
+				if($this->cs_position_active('Header Right')){
 					$this->output('<div class="col-md-'.$class.'">');	
 					$this->cs_position('Header Right');
 					$this->output('</div>');
@@ -402,7 +402,7 @@
 		}
 		
 		function sidepanel() {			
-			if(cs_position_active('Right')){
+			if($this->cs_position_active('Right')){
 				$this->output('<div class="col-sm-4 side-c">');
 				$this->output('<div class="qa-sidepanel">');
 					$this->cs_position('Right');
@@ -546,7 +546,7 @@
 			
 			$this->output('<div class="clearfix qa-main'.(@$this->content['hidden'] ? ' qa-main-hidden' : '').'">');
 
-			$this->output('<div class="col-sm-'.(cs_position_active('Right') ? '8' : '12').' list-c">');
+			$this->output('<div class="col-sm-'.($this->cs_position_active('Right') ? '8' : '12').' list-c">');
 			
 			if($this->template != 'question' && $this->template != 'user' && (!strlen(qa_request(1)) == 0) && (!empty($this->content['title']))){
 				$this->output(
@@ -611,7 +611,8 @@
 			$this->cs_position('Content Bottom');
 			
 			$this->output('</div>');
-			if(cs_position_active('Right')){
+			
+			if($this->cs_position_active('Right')){
 				$this->sidepanel();
 			}
 			$this->output('</div>');
@@ -1900,6 +1901,20 @@
 				else
 					qa_db_postmeta_set($postid, 'featured_question', false);
 			}
+		}
+		function cs_position_active($name){
+			$widgets = $this->widgets;
+			$template = $this->template;
+			$template = (!empty($this->request) ? $template : 'home' );
+			if(isset($widgets) && is_array($widgets)){
+				foreach ($widgets as $w){
+					
+					if(($w['position']==$name) && isset($w['param']['locations'][$template]) && (bool)$w['param']['locations'][$template])
+						return true;
+				}
+				
+			}
+			return false;
 		}
 		
 	}

@@ -9,6 +9,7 @@ class qa_html_theme_layer extends qa_html_theme_base {
 
 	var $theme_directory;
 	var $theme_url;
+
 	function qa_html_theme_layer($template, $content, $rooturl, $request)
 	{
 		global $qa_layers;
@@ -18,6 +19,7 @@ class qa_html_theme_layer extends qa_html_theme_base {
 	}
 
 	function doctype(){
+		$this->widgets = get_all_widgets();
 		// Setup Navigation
 		global $qa_request;
 		//var_dump($qa_request);
@@ -105,15 +107,14 @@ class qa_html_theme_layer extends qa_html_theme_base {
 				</div>
 				<?php
 			}
+			
 			return ob_get_clean();
 		}	
 
 
 		function cs_get_widgets_positions(){
 			$widget_positions = unserialize(qa_opt('cs_widgets_positions'));
-			
-			$widgets = unserialize(qa_opt('cs_widgets'));
-			//print_r($widgets);
+
 			ob_start();
 			if(is_array($widget_positions)){
 				foreach($widget_positions as $name => $description){
@@ -127,22 +128,22 @@ class qa_html_theme_layer extends qa_html_theme_base {
 						</div>
 						<div class="position-canvas" data-name="<?php echo $name; ?>">
 							<?php
-
-								if(isset($widgets[$name]) && !empty($widgets[$name]))
-									foreach($widgets[$name] as $name => $template){ ?>
-										<div class="draggable-widget" data-name="<?php echo $name; ?>">	
-											<div class="widget-title"><?php echo $name; ?> 
+								$pos_widgets = get_widgets_by_position($name);
+								if(isset($pos_widgets) && !empty($pos_widgets))
+									foreach($pos_widgets as $w){ ?>
+										<div class="draggable-widget" data-name="<?php echo $w['name']; ?>" data-id="<?php echo $w['id']; ?>">	
+											<div class="widget-title"><?php echo $w['name']; ?> 
 												<div class="drag-handle icon-move"></div>
 												<div class="widget-delete icon-trash"></div>
 												<div class="widget-template-to icon-list"></div>		
 												<div class="widget-options icon-wrench"></div>		
 											</div>
 											<div class="select-template">
-											<input type="checkbox" name="show_title" <?php echo (@$template['locations']['show_title'] ? 'checked' : ''); ?>> Show widget title</label><br />
+											<input type="checkbox" name="show_title" <?php echo (@$w['param']['locations']['show_title'] ? 'checked' : ''); ?>> Show widget title</label><br />
 												<span>Select pages where you want to show</span>
 												<?php
 													foreach(cs_get_template_array() as $k => $t){
-														$checked = @$template['locations'][$k] ? 'checked' : '';
+														$checked = @$w['param']['locations'][$k] ? 'checked' : '';
 														echo '												
 															<div class="checkbox">
 																<label>
@@ -154,7 +155,7 @@ class qa_html_theme_layer extends qa_html_theme_base {
 												?>
 											</div>
 											<div class="widget-option">
-												<?php $this->get_widget_form($name, $template['options']); ?>
+												<?php $this->get_widget_form($w['name'], $w['param']['options']); ?>
 											</div>
 										</div>									
 									<?php

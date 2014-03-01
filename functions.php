@@ -20,7 +20,53 @@ function _cs_lang($str){
 	else
 		return $str;
 }
+function get_all_widgets()
+{		
+	$widgets = qa_db_read_all_assoc(qa_db_query_sub('SELECT * FROM ^ra_widgets'));
+	foreach($widgets as $k => $w){
+		$param = unserialize($w['param']);
+		$widgets[$k]['param'] = $param;
+	}
+	return $widgets;
 
+}
+function get_widgets_by_position($position)
+{		
+	$widgets = qa_db_read_all_assoc(qa_db_query_sub('SELECT * FROM ^ra_widgets WHERE position = $', $position));
+	foreach($widgets as $k => $w){
+		$param = unserialize($w['param']);
+		$widgets[$k]['param'] = $param;
+	}
+	return $widgets;
+
+}
+function widget_opt($name, $position=false, $param = false, $id= false)
+{		
+	if($position && $param){
+		widget_opt_update($name, $position, $param, $id);
+	}else{
+		$widgets = qa_db_read_one_value(qa_db_query_sub('SELECT * FROM ^ra_widgets WHERE name = $',$name ), true);
+		return $widgets;
+	}
+}
+
+
+function widget_opt_update($name, $position, $param, $id = false){
+
+	if($id)
+		qa_db_query_sub(
+			'UPDATE ^ra_widgets SET name = $, position = $, param = $ WHERE id=#',
+			$name, $position, $param, $id
+		);
+	else
+		qa_db_query_sub(
+			'INSERT ^ra_widgets (name, position, param) VALUES ($, $, $)',
+			$name, $position, $param
+		);
+}
+function widget_opt_delete($id ){
+	qa_db_query_sub('DELETE FROM ^ra_widgets WHERE id=#', $id);
+}
 
 function cs_user_data($handle){
 	$userid = qa_handle_to_userid($handle);

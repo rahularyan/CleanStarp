@@ -297,9 +297,21 @@ function cs_widgets(){
 		$(this).toggleClass('icon-angle-up icon-angle-down');
 	});	
 	$('#ra-widgets').delegate('.widget-delete', 'click', function(){
-		var $parent = $(this).closest('.widget-canvas');
+		
+		var id = $(this).closest('.draggable-widget').data('id');
+		$.ajax({
+			data: {
+				cs_ajax: true,
+				cs_ajax_html: true,
+				id: id,
+				action: 'delete_widget',
+			},
+			dataType: 'html',
+			success: function (response) {
+				
+			},
+		});	
 		$(this).closest('.draggable-widget').remove();
-		$parent.find('.widget-save').addClass('active');	
 	});		
 	$('#ra-widgets').delegate('.draggable-widget select, .draggable-widget input, .draggable-widget textarea', 'click', function(){
 		var $parent = $(this).closest('.widget-canvas');
@@ -352,8 +364,9 @@ function cs_save_widget($elm){
 		
 	$elm.find('.draggable-widget').each(function(){		
 		var name = $(this).data('name');
+		var id = typeof $(this).data('id') == 'undefined' ? 0 : $(this).data('id') ;
 		
-		widget[name] = {'locations':'', 'options':''};
+		widget[name] = {'id' : id, 'locations':'', 'options':''};
 		
 		$(this).find('.select-template input').each(function(){
 			locations[$(this).attr('name')] = $(this).is(':checked') ? true : false;
@@ -366,7 +379,7 @@ function cs_save_widget($elm){
 		widget[name]['options'] = options;
 		
 	});
-	
+
 
 	 $.ajax({
 		data: {

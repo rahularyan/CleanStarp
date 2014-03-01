@@ -2019,8 +2019,12 @@ input[type=checkbox].on-off-checkbox{
     box-shadow: 0 0 5px #E9E9E9;    
     font-size: 15px;
     margin-bottom: 12px;
-    padding: 5px 10px;
+    padding: 7px 10px;
     z-index: 99;
+}
+#ra-widgets .draggable-widget .widget-title{
+	font-size:12px;
+	font-weight:bold;
 }
 #ra-widgets .draggable-widget:hover{
     border: 1px solid #A9A9A9;
@@ -2069,16 +2073,16 @@ input[type=checkbox].on-off-checkbox{
 }
 
 #ra-widgets .position-canvas{
-    background: #F6F6F6;
+    background: none repeat scroll 0 0 #F6F6F6;
     border: 1px solid #DDDDDD;
     box-shadow: 0 5px 5px #DDDDDD;
     display: none;
-    left: -1px;
+    left: 0;
     min-height: 100px;
     padding: 10px;
     position: absolute;
-    top: 50px;
-    width: 100.9%;
+    right: 0;
+    top: 44px;
     z-index: 9;
 }
 
@@ -3260,4 +3264,8 @@ margin-right:5px;
 
 .post-button .icon-edit, .post-button .icon-flag, .post-button .icon-remove, .post-button .icon-error{
 	float:right;
+}
+
+.theme-widgets > div{
+	background:#fff;
 }

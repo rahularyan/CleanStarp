@@ -390,12 +390,13 @@ function cs_register_widget_position($widget_array){
 }
 
 function cs_position_active($name){
-	$widgets = unserialize(qa_opt('cs_widgets'));
+	global $widgets;
+
 	$template = qa_request(1);
 	$template = (!empty($template) ? $template : 'home' );
-	if(is_array($widgets) && !empty($widgets[$name]) && isset($widgets[$name])){
-		foreach ($widgets[$name] as $t){			
-			if(isset($t['location'][$template]) && (bool)$t['location'][$template])
+	if(isset($widgets) && is_array($widgets)){
+		foreach ($widgets as $w){
+			if(isset($w['param']['locations'][$template]) && (bool)$w['param']['locations'][$template])
 				return true;
 		}
 		
@@ -614,4 +615,30 @@ function get_featured_image($postid){
 }
 function cs_cat_path($categorybackpath){
 	return qa_path_html(implode('/', array_reverse(explode('/', $categorybackpath))));
+}
+
+/**
+ * multi_array_key_exists function.
+ *
+ * @param mixed $needle The key you want to check for
+ * @param mixed $haystack The array you want to search
+ * @return bool
+ */
+function multi_array_key_exists( $needle, $haystack ) {
+ 
+    foreach ( $haystack as $key => $value ) :
+
+        if ( $needle == $key )
+            return true;
+       
+        if ( is_array( $value ) ) :
+             if ( multi_array_key_exists( $needle, $value ) == true )
+                return true;
+             else
+                 continue;
+        endif;
+       
+    endforeach;
+   
+    return false;
 }

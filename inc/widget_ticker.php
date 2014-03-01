@@ -210,7 +210,7 @@
 		}
 		function output_widget($region, $place, $themeobject, $template, $request, $qa_content)
 		{
-			$widget_opt = $themeobject->current_widget['Ticker']['options'];
+			$widget_opt = $themeobject->current_widget['param']['options'];
 
 			$count = (isset($widget_opt['cs_ticker_count']) && !empty($widget_opt['cs_ticker_count'])) ?(int)$widget_opt['cs_ticker_count'] : 10;
 			

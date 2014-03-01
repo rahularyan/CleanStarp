@@ -7,7 +7,7 @@
 			return array(
 				'style' => 'wide',
 				'fields' => array(
-					'cs_nu_count' => array(
+					'cs_category_depth' => array(
 						'label' => 'Categories Depth',
 						'type' => 'number',
 						'tags' => 'name="cs_category_depth"',
@@ -75,24 +75,18 @@
 					$output .= '</li>';
 					$output .= '</ul>';
 				}
-				/*	$navigation[qa_html($category['tags'])]=array(
-						'url' => qa_path_html($pathprefix.$category['tags'], $pathparams),
-						'label' => qa_html($category['title']),
-						'popup' => qa_html(@$category['content']),
-						'selected' => isset($selecteds[$category['categoryid']]),
-						'note' => $showqcount ? ('('.qa_html(number_format($category['qcount'])).')') : null,
-						'subnav' => qa_category_navigation_sub($parentcategories, $category['categoryid'], $selecteds,
-							$pathprefix.$category['tags'].'/', $showqcount, $pathparams, $favoritemap),
-						'categoryid' => $category['categoryid'],
-						'favorited' => @$favoritemap['category'][$category['backpath']],
-					);
-				*/
+
 			return $output;
 		}
 		function output_widget($region, $place, $themeobject, $template, $request, $qa_content)
 		{
-		if ( qa_using_categories() ){}
-			$depth=3; // change it to get from options
+			$widget_opt = @$themeobject->current_widget['param']['options'];
+
+			if(@$themeobject->current_widget['param']['locations']['show_title'])
+				$themeobject->output('<h3 class="widget-title">Categories</h3>');
+		
+		
+			$depth= (int)$widget_opt['cs_category_depth']; // change it to get from options
 			$userid=qa_get_logged_in_userid();
 			$categoryslugs=0;
 			$countslugs=0;
@@ -104,7 +98,7 @@
 				//$sub_categories = qa_category_navigation(qa_db_select_with_pending(qa_db_category_nav_selectspec($categoryslugs, false, false, true)));
 				$sub_categories = qa_db_select_with_pending(qa_db_category_sub_selectspec($category['categoryid']));
 				
-				$themeobject->output('<li><a href="' . $category['url'] . '">' . $category['label'] . '</a>');
+				$themeobject->output('<li><a class="icon-folder-close-alt" href="' . $category['url'] . '">' . $category['label'] . '<span>'.$category['note'].'</span></a>');
 				$themeobject->output($this->cs_category_navigation_sub($sub_categories,$depth));
 				$themeobject->output('</li>');
 			}

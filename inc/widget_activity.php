@@ -7,18 +7,12 @@
 			return array(
 				'style' => 'wide',
 				'fields' => array(
-					'cs_tc_count' => array(
-						'label' => 'Numbers of user',
+					'cs_sa_count' => array(
+						'label' => 'Numbers of Questions',
 						'type' => 'number',
-						'tags' => 'name="cs_tc_count"',
+						'tags' => 'name="cs_sa_count"',
 						'value' => '10',
 					),
-					'cs_tc_avatar' => array(
-						'label' => 'Avatar Size',
-						'type' => 'number',
-						'tags' => 'name="cs_tc_avatar"',
-						'value' => '30',
-					)	
 				),
 
 			);
@@ -227,13 +221,13 @@
 
 		function output_widget($region, $place, $themeobject, $template, $request, $qa_content)
 		{
-			$widget_opt = @$themeobject->current_widget['Site Activity']['options'];
+			$widget_opt = @$themeobject->current_widget['param']['options'];
 
-			if(@$themeobject->current_widget['Site Activity']['locations']['show_title'])
+			if(@$themeobject->current_widget['param']['locations']['show_title'])
 				$themeobject->output('<h3 class="widget-title">Site Activity</h3>');
 				
-			$themeobject->output('<div class="ra-tags-widget">');
-			$themeobject->output($this->cs_events(10));
+			$themeobject->output('<div class="ra-sa-widget">');
+			$themeobject->output($this->cs_events((int)$widget_opt['cs_sa_count']));
 			$themeobject->output('</div>');
 		}
 	

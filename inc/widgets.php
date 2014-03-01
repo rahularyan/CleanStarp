@@ -188,7 +188,8 @@ class qa_html_theme_layer extends qa_html_theme_base {
 				
 				if($options){
 					foreach($options as $k => $opt){
-						$fields['fields'][$k]['value'] = $opt;
+						if(isset($fields['fields'][$k]))
+							$fields['fields'][$k]['value'] = $opt;
 					}
 				}
 				$this->form($fields); 

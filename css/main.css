@@ -2783,7 +2783,7 @@ margin-right:5px;
 	list-style:none;
 }
 .top-users-list .top-user {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.02);
     margin-bottom: 12px;
     padding-bottom: 12px;
 }
@@ -2969,8 +2969,6 @@ margin-right:5px;
 }
 .ra-question-activity-widget ul li .featured{
     background: #FFFAE5;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-    border-top: 1px solid rgba(0, 0, 0, 0.05);
 }
 .ra-question-activity-widget ul li .fav-star{   
 	color:#ddd;

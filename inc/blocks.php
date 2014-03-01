@@ -8,7 +8,9 @@
 	class qa_html_theme extends qa_html_theme_base
 	{
 		var $postid;
+		var $widgets;
 		function doctype(){
+			$this->widgets = get_all_widgets();
 			if(isset($_REQUEST['cs_ajax_html'])){
 				$action = 'cs_ajax_'.$_REQUEST['action'];
 				if(method_exists ($this, $action))
@@ -27,6 +29,7 @@
 				
 				unset($this->content['navigation']['main']['ask']);
 			}
+			
 		}
 		function html(){
 			if(isset($_REQUEST['cs_ajax_html'])){
@@ -1619,9 +1622,17 @@
 			if (qa_get_logged_in_level()>=QA_USER_LEVEL_ADMIN){				
 				$position = strip_tags($_REQUEST['position']);
 				$widget_names = json_decode($_REQUEST['widget_names'], true);
-				//print_r($widget_names);
-				$prev = unserialize(qa_opt('cs_widgets'));
-				if(!is_array($prev))
+				
+				if(isset($widget_names) && is_array($widget_names))
+					foreach($widget_names as $k => $w){
+						if(isset($w['id']) && $w['id'] != 0)
+							widget_opt($k, $position, serialize($w), $w['id']);
+						else
+							widget_opt($k, $position, serialize($w));
+					}
+				
+				//$prev = unserialize(qa_opt('cs_widgets'));
+				/* if(!is_array($prev))
 					$w = array();
 				else
 					$w = $prev;
@@ -1630,9 +1641,17 @@
 					$w[$position] = '';
 				else{
 					$w[$position] = $widget_names;
-				}
+				} */
 
-				qa_opt('cs_widgets', serialize($w));
+				//qa_opt('cs_widgets', serialize($w));
+			}
+			die();
+		}
+		
+		function cs_ajax_delete_widget(){
+			if (qa_get_logged_in_level()>=QA_USER_LEVEL_ADMIN){	
+				$id = strip_tags($_REQUEST['id']);
+				widget_opt_delete($id);
 			}
 			die();
 		}

@@ -68,6 +68,24 @@
 				reset_theme_options();
 				qa_opt('cs_init',true);
 			}
+			qa_opt('ra_installed', false);
+			if(!qa_opt('ra_installed')){
+			/* add some option when theme init first time */
+			
+				//create table for builder
+				qa_db_query_sub(
+					'CREATE TABLE IF NOT EXISTS ^ra_widgets ('.
+						'id int(10) NOT NULL AUTO_INCREMENT,'.				
+						'name VARCHAR (64),'.				
+						'position VARCHAR (64),'.				
+						'param LONGTEXT,'.				
+						'PRIMARY KEY (id),'.
+						'UNIQUE KEY id (id)'.				
+					') ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;'
+				);
+				qa_opt('ra_installed', true); // update db, so that this code should not execute every time
+
+			}
 			
 			qa_register_layer('/inc/options.php', 'Theme Options', Q_THEME_DIR , Q_THEME_URL );	
 			qa_register_layer('/inc/widgets.php', 'Theme Widgets', Q_THEME_DIR , Q_THEME_URL );

@@ -396,7 +396,7 @@ function cs_position_active($name){
 	$template = (!empty($template) ? $template : 'home' );
 	if(isset($widgets) && is_array($widgets)){
 		foreach ($widgets as $w){
-			if(isset($w['param']['locations'][$template]) && (bool)$w['param']['locations'][$template])
+			if(($w['name']==$name) && isset($w['param']['locations'][$template]) && (bool)$w['param']['locations'][$template])
 				return true;
 		}
 		

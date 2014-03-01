@@ -1750,9 +1750,11 @@
 		function cs_position($position){
 			$widgets = $this->widgets;
 			$position_active = multi_array_key_exists($position, $widgets);
+			
 			if(isset($widgets) && $position_active){
 				foreach ($widgets as $w){
-					if(isset($w['param']['locations'][$this->template]) && (bool)$w['param']['locations'][$this->template] ){
+				
+					if(($w['position'] ==$position) &&  isset($w['param']['locations'][$this->template]) && (bool)$w['param']['locations'][$this->template] ){
 						$this->current_widget = $w;
 						$this->cs_get_widget($w['name'], @$w['param']['locations']['show_title'], $position);
 					}

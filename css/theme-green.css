@@ -32,7 +32,7 @@ a:hover{
 }
 
 
-.t-bg2, .qa-main .qa-nav-sub ul li a.qa-nav-sub-selected, .ra-ask-widget .ui-helper-hidden-accessible, .ra-tags-widget .widget-tag, .t-bg:hover, .top-users-list .top-user-data .points, #left-position .ra-tags-widget .widget-tag span, .navbar-default .navbar-nav.category-nav .category-list-drop li a span, .carousel .slider-item .big-ans-count, .featured-sticker {
+.t-bg2, .qa-main .qa-nav-sub ul li a.qa-nav-sub-selected, .ra-ask-widget .ui-helper-hidden-accessible, .ra-tags-widget .widget-tag, .t-bg:hover, .top-users-list .top-user-data .points, #left-position .ra-tags-widget .widget-tag span, .navbar-default .navbar-nav.category-nav .category-list-drop li a span, .carousel .slider-item .big-ans-count, .featured-sticker, .cs-category-widget-list li a span {
     background: none repeat scroll 0 0 #FDAB0C;
 }
 

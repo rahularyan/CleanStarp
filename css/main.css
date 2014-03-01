@@ -3275,9 +3275,29 @@ margin-right:5px;
 .cs-category-widget-list li a:before{
 	margin-right:10px;	
 }
+.cs-category-widget-list li {
+    border-bottom: 1px solid #F9F9F9;
+}
 .cs-category-widget-list li a{
+    color: #8F8F8F;
     display: block;
     font-family: 'open sans',arial;
     font-size: 14px;
     padding: 5px;
+}
+.cs-category-widget-list li a span{
+    border-radius: 2px;
+    color: #FFFFFF;
+    float: right;
+    font-size: 11px;
+    line-height: 20px;
+    padding: 0 6px;
+}
+
+.login-to-answer{
+    font-family: 'open sans',arial;
+    font-size: 20px;
+    font-weight: 300;
+    padding: 17px;
+    text-align: center;
 }

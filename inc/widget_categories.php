@@ -9,9 +9,10 @@
 				'fields' => array(
 					'cs_category_depth' => array(
 						'label' => 'Categories Depth',
-						'type' => 'number',
+						'type' => 'select',
 						'tags' => 'name="cs_category_depth"',
-						'value' => '1',
+						'value' => 1,
+						'options' => array('1' => 'One', '2'=> 'Two', '3' => 'Three'),
 					),
 				),
 
@@ -98,7 +99,7 @@
 				//$sub_categories = qa_category_navigation(qa_db_select_with_pending(qa_db_category_nav_selectspec($categoryslugs, false, false, true)));
 				$sub_categories = qa_db_select_with_pending(qa_db_category_sub_selectspec($category['categoryid']));
 				
-				$themeobject->output('<li><a class="icon-folder-close-alt" href="' . $category['url'] . '">' . $category['label'] . '<span>'.$category['note'].'</span></a>');
+				$themeobject->output('<li><a class="icon-folder-close-alt" href="' . $category['url'] . '">' . $category['label'] . '<span>'.filter_var($category['note'], FILTER_SANITIZE_NUMBER_INT).'</span></a>');
 				$themeobject->output($this->cs_category_navigation_sub($sub_categories,$depth));
 				$themeobject->output('</li>');
 			}

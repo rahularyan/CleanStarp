@@ -91,12 +91,15 @@
 			$url = qa_opt('cs_feed_url');
 			$count=(int)qa_opt('cs_feed_count');
 			$title=qa_opt('cs_feed_title');
+			//$url = 'http://qa-themes.com/?feed=rss';
+			//$count=10;
+			//$title='Blog Feed';
 
 			// read live content
 			$content = file_get_contents($url);
 			$x = new SimpleXmlElement($content);  
 			$output ='<aside class="qa-feed-widget">';
-			$output .='<H2 class="qa-feed-header" style="margin-top:0; padding-top:0;">'.$title.'</H2>';
+			$output .='<H2 class="qa-feed-header">'.$title.'</H2>';
 
 			$output .= '<ul class="qa-feed-list">'; 
 			$i=0;

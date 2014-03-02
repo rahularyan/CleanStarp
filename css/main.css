@@ -3736,11 +3736,12 @@ input[type=checkbox].on-off-checkbox {
     padding: 10px;
 }
 .user-activities .type{
-    color: #B3B3B3;
-    font-size: 20px;
-    margin-right: 20px;
+    background: none repeat scroll 0 0 #FFFFFF;
+    color: #AAAAAA;
+    font-size: 17px;
+    margin-right: 10px;
     text-align: center;
-    width: 26px;
+    width: 30px;
 }
 .user-activities .what{
     color: #777777;

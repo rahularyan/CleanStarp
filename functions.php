@@ -430,79 +430,6 @@ function cs_social_icons(){
 }
 
 
-function get_user_activity($handle, $limit = 10){
-	$userid = qa_handle_to_userid($handle);
-	require_once QA_INCLUDE_DIR.'qa-db-selects.php';
-	require_once QA_INCLUDE_DIR.'qa-app-format.php';
-	
-	$identifier=QA_FINAL_EXTERNAL_USERS ? $userid : $handle;
-
-	list($useraccount, $questions, $answerqs, $commentqs, $editqs)=qa_db_select_with_pending(
-		QA_FINAL_EXTERNAL_USERS ? null : qa_db_user_account_selectspec($handle, false),
-		qa_db_user_recent_qs_selectspec($userid, $identifier, $limit),
-		qa_db_user_recent_a_qs_selectspec($userid, $identifier),
-		qa_db_user_recent_c_qs_selectspec($userid, $identifier),
-		qa_db_user_recent_edit_qs_selectspec($userid, $identifier)
-	);
-	
-	if ((!QA_FINAL_EXTERNAL_USERS) && !is_array($useraccount)) // check the user exists
-		return include QA_INCLUDE_DIR.'qa-page-not-found.php';
-
-
-//	Get information on user references
-
-	$questions=qa_any_sort_and_dedupe(array_merge($questions, $answerqs, $commentqs, $editqs));
-	$questions=array_slice($questions, 0, $limit);
-	$usershtml=qa_userids_handles_html(qa_any_get_userids_handles($questions), false);
-	$htmldefaults=qa_post_html_defaults('Q');
-	$htmldefaults['whoview']=false;
-	$htmldefaults['voteview']=false;
-	$htmldefaults['avatarsize']=0;
-	
-	foreach ($questions as $question)
-		$qa_content[]=qa_any_to_q_html_fields($question, $userid, qa_cookie_get(),
-			$usershtml, null, array('voteview' => false) + qa_post_html_options($question, $htmldefaults));
-
-
-	$output = '<div class="widget user-activities">';
-	$output .= '<h3 class="widget-title">'.cs_name($handle).'\'s '._cs_lang('activities').'</h3>';
-	$output .='<ul class="question-list">';
-	if(isset($qa_content)){
-		foreach ($qa_content as $qs){
-
-			if($qs['what'] == 'answered'){
-				$icon = 'icon-chat-3 answered';
-			}elseif($qs['what'] == 'asked'){
-				$icon = 'icon-question asked';
-			}elseif($qs['what'] == 'commented'){
-				$icon = 'icon-chat-2 commented';
-			}elseif($qs['what'] == 'edited' || $qs['what'] == 'answer edited'){
-				$icon = 'icon-edit edited';
-			}elseif($qs['what'] == 'closed'){
-				$icon = 'icon-error closed';
-			}elseif($qs['what'] == 'answer selected'){
-				$icon = 'icon-checked selected';
-			}elseif($qs['what'] == 'recategorized'){
-				$icon = 'icon-folder-close recategorized';
-			}else{
-				$icon = 'icon-pin undefined';
-			}
-			
-			$output .='<li class="activity-item">';
-			$output .= '<div class="type pull-left '.$icon.'"></div>';
-			$output .= '<div class="list-right">';
-			$output .= '<strong class="when"><a href="'.@$qs['what_url'].'">'.$qs['what'].'</a> '.implode(' ', $qs['when']).'</strong>';
-			$output .= '<a class="what" href="'.$qs['url'].'">'.$qs['title'].'</a>';
-			$output .= '</div>';
-			$output .='</li>';
-		}
-	}else{
-		$output .='<li>'._cs_lang('No activity yet.').'</li>';
-	}
-	$output .= '</ul>';
-	$output .= '</div>';
-	return $output;
-}
 
 function reset_theme_options(){
 	// General
@@ -587,7 +514,7 @@ function get_featured_thumb($postid){
 
 	if (!empty($img)){
 		$thumb_img = preg_replace('/(\.[^.]+)$/', sprintf('%s$1', '_s'), $img);
-		return '<img src="'.Q_THEME_URL . '/uploads/' . $thumb_img .'" />';
+		return '<img class="featured-image" src="'.Q_THEME_URL . '/uploads/' . $thumb_img .'" />';
 	}
 	return false;
 }
@@ -596,7 +523,7 @@ function get_featured_image($postid){
 	$img =  qa_db_postmeta_get($postid, 'featured_image');
 
 	if (!empty($img))
-		return '<img src="'.Q_THEME_URL . '/uploads/' . $img.'" />';
+		return '<img class="featured-image" src="'.Q_THEME_URL . '/uploads/' . $img.'" />';
 	
 	return false;
 }

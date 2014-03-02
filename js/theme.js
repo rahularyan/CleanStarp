@@ -1,22 +1,37 @@
 // Tab for option page
 function cs_question_meta(){
-	$('#q_meta_save').click(function(e){
+	$('#set_featured').click(function(e){
+		e.preventDefault();
+		qa_show_waiting_after(this, false);
 		$.ajax({
 			data: {
 				cs_ajax: true,
 				cs_ajax_html: true,
-				featured_image: $("#featured_image").val(),
-				featured_question: $('#featured_question').attr('checked'),
-				action: 'save_q_meta',
+				action: 'set_question_featured',
 			},
 			dataType: 'html',
+			context:this,
+			success: function (response) {				
+				qa_hide_waiting(this);
+			},
+		});		
+	});
+	
+	$('#q_meta_remove_featured_image').click(function(){
+		$.ajax({
+			data: {
+				cs_ajax: true,
+				cs_ajax_html: true,
+				args: $(this).data('args'),
+				action: 'delete_featured_image',
+			},
+			context:this,
 			success: function (response) {
+				$(this).closest('.question-image-container').find('.featured-image').remove();
 			},
 		});	
-		qa_hide_waiting(this);
-		$('#question-meta').append('<span class="bg-success btn" id="q-meta-notice">Settings are saved.</span>');
-		setTimeout(function() {$('#q-meta-notice').fadeOut(1000);}, 1000);
 	});
+
 }
 
 function cs_tab(){
@@ -472,7 +487,20 @@ function cs_load_login_register(){
 		});
 	});
 }
-
+function cs_save_image(image){
+	$.ajax({
+		data: {
+			cs_ajax: true,
+			cs_ajax_html: true,
+			featured_image: image,
+			action: 'save_q_meta',
+		},
+		dataType: 'html',
+		success: function (response) {
+			$('.question-image-container').append('<img src="'+response+'" />');
+		},
+	});	
+}
 $(document).ready(function(){
 
 	var win_height = $(window).height();
@@ -511,9 +539,11 @@ $(document).ready(function(){
 			maxFileCount:1,
 			multiple:false,
 			showDelete: true,
-			onSuccess:function(files,data,xhr)
-			{
+			onSuccess:function(files,data,xhr){
 				var u_files = $.parseJSON( data );
+				if($('#question-meta').length)
+					cs_save_image(u_files[0]);
+					
 				$("#featured_image").val(u_files[0]);
 				$("#image-preview").attr("src",theme_url + "/uploads/"+u_files[0]);
 			},

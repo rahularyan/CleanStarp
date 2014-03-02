@@ -88,7 +88,7 @@
 				if($type=='Category'){
 					$post_type='Q';
 					$title = 'Questions in <a href="'.qa_path_html('questions/'.qa_strtolower($slug)).'">'.$slug.'</a>';
-					$posts = qa_db_query_sub(
+					$posts = cs_get_cache(
 						'SELECT * FROM ^posts WHERE ^posts.type=$
 						AND categoryid=(SELECT categoryid FROM ^categories WHERE ^categories.title=$ LIMIT 1) 
 						ORDER BY ^posts.created DESC LIMIT #',
@@ -96,7 +96,7 @@
 				}elseif($type=='Tags'){
 					$post_type='Q';
 					$title = 'Questions in <a href="'.qa_path_html('tag/'.qa_strtolower($slug)).'">'.$slug.'</a>';
-					$posts = qa_db_query_sub(
+					$posts = cs_get_cache(
 						'SELECT * FROM ^posts WHERE ^posts.type=$
 						AND qa_posts.postid IN (SELECT postid FROM qa_posttags WHERE 
 							wordid=(SELECT wordid FROM qa_words WHERE word=$ OR word=$ COLLATE utf8_bin LIMIT 1) ORDER BY postcreated DESC)
@@ -110,7 +110,6 @@
 					//$post=qa_get_search_results($keyword, 0, $limit, $userid , false, false);
 					$words=qa_string_to_words($keyword);
 					$posts=qa_db_select_with_pending(qa_db_search_posts_selectspec($userid, $words, $words, $words, $words, trim($keyword), 0, false, $limit));
-					var_dump( $posts );
 					$output = '<h3 class="widget-title">'.$title.'</h3>';
 					$output .= '<ul class="question-list">';
 					foreach ($posts as $post) {
@@ -155,9 +154,9 @@
 				return;
 
 			$output = '<h3 class="widget-title">'.$title.'</h3>';
-			
 			$output .= '<ul class="question-list">';
-			while($p = mysql_fetch_array($posts)){
+			foreach($posts as $p){
+				if (empty($p['userid'])) $p['userid']=NULL; // to prevent error for anonumous posts while calling qa_post_userid_to_handle()
 				if($post_type=='Q'){
 					$what = _cs_lang('asked');
 				}elseif($post_type=='A'){
@@ -168,6 +167,7 @@
 				$handle = qa_post_userid_to_handle($p['userid']);
 				$avatar = cs_get_avatar($handle, 35, false);
 				$output .= '<li id="q-list-'.$p['postid'].'" class="question-item">';
+				
 				$output .= '<div class="pull-left avatar" data-handle="'.$handle.'" data-id="'. qa_handle_to_userid($handle).'">' . (isset($avatar)?'<img src="'. $avatar .'" />':'') . '</div>';
 				$output .= '<div class="list-right">';
 

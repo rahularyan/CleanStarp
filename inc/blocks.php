@@ -47,6 +47,7 @@
 				$this->output(
 					'</html>'
 				);
+				cs_set_site_cache();
 			}
 		}		
 		

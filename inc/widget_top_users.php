@@ -71,8 +71,7 @@
 		}
 		/* top users widget */
 		function cs_top_users($limit = 5, $size){
-			$users = qa_db_select_with_pending(qa_db_top_users_selectspec(qa_get_start()));
-			
+			$users = cs_get_cache_select_selectspec(qa_db_top_users_selectspec(qa_get_start()));
 			$output = '<ul class="top-users-list clearfix">';
 			$i = 1;
 			foreach($users as $u){

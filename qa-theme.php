@@ -36,6 +36,9 @@
 	require Q_THEME_DIR.'/functions.php';
 	require Q_THEME_DIR.'/inc/blocks.php';
 	
+	require_once QA_INCLUDE_DIR.'qa-db-cache.php';
+	cs_get_site_cache();	
+	
 	if(isset($_REQUEST['cs_ajax']))
 		require Q_THEME_DIR.'/inc/ajax.php';
 	else{
@@ -107,3 +110,5 @@
 		if ( qa_using_categories() )
 			qa_register_module('widget', '/inc/widget_categories.php', 'widget_categories', 'Categories', Q_THEME_DIR, Q_THEME_URL);			
 	}
+//$test = qa_db_category_sub_selectspec(0);
+//var_dump($test);

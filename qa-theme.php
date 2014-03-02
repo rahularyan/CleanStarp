@@ -61,8 +61,9 @@
 						'Home Left Bottom 2' => 'Home bottom',
 						'Home Left Bottom 3' => 'Home bottom',
 						'Home Right' => 'Top content in home',
-						'Top Users' => 'Right tab',
-						'New Users' => 'Right tab'
+						'Top Users' => 'Home right tab',
+						'New Users' => 'Home right tab',
+						'User Content' => 'On user page'
 					)
 				);
 				reset_theme_options();
@@ -102,6 +103,8 @@
 		qa_register_module('widget', '/inc/widget_twitter.php', 'cs_twitter_widget', 'Twitter Widget', Q_THEME_DIR, Q_THEME_URL);
 		qa_register_module('widget', '/inc/widget_feed.php', 'cs_feed_widget', 'Feed Widget', Q_THEME_DIR, Q_THEME_URL);
 		qa_register_module('widget', '/inc/widget_new_users.php', 'cs_new_users_widget', 'New Users', Q_THEME_DIR, Q_THEME_URL);
+		
+		qa_register_module('widget', '/inc/widget_user_activity.php', 'cs_user_activity_widget', 'User Activity', Q_THEME_DIR, Q_THEME_URL);
 		
 		//enable category widget only if category is active in q2a
 		if ( qa_using_categories() )

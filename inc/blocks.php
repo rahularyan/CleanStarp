@@ -1263,10 +1263,18 @@
 		
 		function profile_page(){
 			$handle = $this->content['raw']['account']['handle'];
-			$userid = $this->content['raw']['account']['userid'];			
+			$userid = $this->content['raw']['account']['userid'];
+			$about = cs_user_profile($handle, 'about');	
+			
 			$this->output('<div class="user-cols">');
 			$this->cs_user_nav($handle);
 			$this->output('<div class="user-cols-right">');
+				if(isset($about) && strlen($about))
+				$this->output(
+					'<div class="about-me">',
+					$about,
+					'</div>'
+				);
 			$this->cs_user_activity_count($handle);
 			$this->cs_user_qa($handle);
 			$this->output('</div>');
@@ -1276,7 +1284,7 @@
 
 		function cs_user_nav($handle){
 			$user = cs_user_data($handle);
-			$about = cs_user_profile($handle, 'about');
+			
 			if(qa_get_logged_in_level()>=QA_USER_LEVEL_ADMIN){
 				$edit =  '<a id="edit-user" class="btn btn-xs btn-success edit-profile icon-edit" href="'.qa_path_absolute('user/'.$handle,array('state'=>'edit')).'">Edit User</a>';
 			}
@@ -1284,19 +1292,14 @@
 			<div class="user-header">
 				<div class="user-header-inner clearfix">
 			  <div class="user-thumb">
-				'.@$edit. cs_get_avatar($handle, 100).'
+				'.@$edit. cs_get_avatar($handle, 150).'
 			  </div>
 			  <div class="user-name-detail">
 				<h3>'.cs_name($handle).'<small class="block m-t-mini">'.qa_user_level_string($user[0]['level']).'</small>
 				</h3>
 				
 				');
-				if(isset($about) && strlen($about))
-				$this->output(
-					'<div class="about-me">',
-					$about,
-					'</div>'
-				);
+				
 				$this->favorite();
 				
 			  $this->output('</div>');
@@ -1341,13 +1344,13 @@
 		function cs_user_qa($handle){
 			ob_start();
 			?>
-			 <div class="user-qac-list row">
-				<div class="col-md-5">
+			 <div class="user-qac-list">
+				
 					<?php
+						$this->cs_position('User Content');
 						echo get_user_activity($handle);
 					?>
-				</div>
-				<div class="col-md-7">
+				
 					<header class="panel-heading">
 					  <ul class="nav nav-tabs nav-justified">
 						<li class="active"><a data-toggle="tab" href="#user-questions">Questions</a></li>
@@ -1368,7 +1371,7 @@
 						</div>
 					  </div>
 					</div>
-				</div>
+				
 			  </div>
 			<?php
 			//echo '<pre>'; cs_user_activity($handle); echo '</pre>';

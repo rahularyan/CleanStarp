@@ -1200,7 +1200,7 @@ a.feed-link {
 }
 
 .qa-q-view-c-list {
-    background: none repeat scroll 0 0 #FAFAFA;
+    background: #FAFAFA;
     border-radius: 4px;
     padding: 0;
 }
@@ -2329,7 +2329,7 @@ input[type=checkbox].on-off-checkbox {
 }
 
 #ra-widgets .position-canvas {
-    background: none repeat scroll 0 0 #F6F6F6;
+    background: #F6F6F6;
     border: 1px solid #DDDDDD;
     box-shadow: 0 5px 5px #DDDDDD;
     display: none;
@@ -2819,6 +2819,7 @@ input[type=checkbox].on-off-checkbox {
 
 .user-cols-right {
     display: table-cell;
+    position: relative;
     vertical-align: top;
 }
 
@@ -2828,14 +2829,17 @@ input[type=checkbox].on-off-checkbox {
     vertical-align: top;
     width: 175px;
 }
-
+.user-header-inner{	
+	padding-right:15px;
+}
 .user-name-detail {
+    background: #FFFFFF;
     overflow: hidden;
 }
 
 .user-name-detail h3 {
     font-size: 16px;
-    margin-top: 0;
+    margin: 0;
     text-align: center;
 }
 
@@ -2850,16 +2854,61 @@ input[type=checkbox].on-off-checkbox {
 }
 
 .user-header .user-thumb {
+    background: #FFFFFF;
+    padding: 5px;
     text-align: center;
 }
 
-.user-name-detail .about-me {
-    font-family: 'open sans', arial,helvetica,serif;
+.user-header .fav-parent{
+	margin:0;
 }
+.user-header .fav-parent .fav-btn{
+    color: #FFFFFF;
+    display: table;
+    margin: 0 auto 10px;
+    text-align: center;
+}
+.user-header .fav-parent .fav-btn span{
+	display:none;
+}
+.user-header .fav-parent .fav-btn.active {
 
+}
+.user-header .qa-nav-sub{
+    background: #FFFFFF;
+    margin-top: 10px;
+}
+.user-header .qa-nav-sub ul {
+	margin:0;
+}
+.user-header .qa-nav-sub ul li{
+	float:none;
+}
+.user-header .qa-nav-sub ul li a{
+    color: #888888;
+    display: block;
+    font-size: 12px;
+    font-weight: bold;
+    margin: 0;
+    padding: 6px 10px;
+}
+.user-header .qa-nav-sub ul li a:hover{
+	background:#F7F7F7;
+}
+.user-name-detail .about-me {
+    
+}
+.user-cols-right .about-me {
+	font-family: 'open sans', arial,helvetica,serif;
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-radius: 4px;
+    padding: 15px;
+	margin-bottom: 15px;
+}
 .user-activity-count {
-    border-bottom: 1px solid #EEEEEE;
-    margin: 0 -15px 20px;
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-radius: 4px;
+    margin-bottom: 15px;
 }
 
 .user-activity-count .points {
@@ -2971,7 +3020,7 @@ input[type=checkbox].on-off-checkbox {
 }
 
 .ajax-file-upload {
-    background: none repeat scroll 0 0 #FFFFFF;
+    background: #FFFFFF;
     border: medium none;
     border-radius: 3px;
     color: #888888;
@@ -3585,7 +3634,7 @@ input[type=checkbox].on-off-checkbox {
 }
 
 .post-button .btn {
-    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: rgba(0, 0, 0, 0);
     border-radius: 0;
     color: #666666;
     font-family: 'open sans',arial,serif;
@@ -3668,6 +3717,6 @@ input[type=checkbox].on-off-checkbox {
     margin-top: 5px;
 }
 .question-image-container {
-    background: none repeat scroll 0 0 #F6F6F6;
+    background: #F6F6F6;
     min-height: 60px;
 }

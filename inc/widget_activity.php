@@ -79,30 +79,30 @@
 					
 					$postid = (isset($data['postid'])) ? $data['postid'] : null;
 					if($postid !== null) {
-						$getPostType = cs_get_cache( qa_db_query_sub("SELECT type,parentid FROM `^posts` WHERE `postid` = #", $postid) );
+						$getPostType = cs_get_cache( "SELECT type,parentid FROM `^posts` WHERE `postid` = #", $postid );
 						$postType = $getPostType[0]; // type, and $getPostType[1] is parentid
 						if($postType=="A") {
-							$getQtitle = cs_get_cache( qa_db_query_sub("SELECT title FROM `^posts` WHERE `postid` = # LIMIT 1", $getPostType[1]) );
-							$qTitle = (isset($getQtitle[0])) ? $getQtitle[0] : "";
+							$getQtitle = cs_get_cache( "SELECT title FROM `^posts` WHERE `postid` = # LIMIT 1", $getPostType[1] );
+							$qTitle = (isset($getQtitle[0])) ? $getQtitle[0]['title'] : "";
 							// get correct public URL
 							$activity_url = qa_path_html(qa_q_request($getPostType[1], $qTitle), null, qa_opt('site_url'), null, null);
 							$linkToPost = $activity_url."?show=".$postid."#a".$postid;
 						}
 						else if($postType=="C") {
 							// get question link from answer
-							$getQlink = cs_get_cache( qa_db_query_sub("SELECT parentid,type FROM `^posts` WHERE `postid` = # LIMIT 1", $getPostType[1]) );
+							$getQlink = cs_get_cache( "SELECT parentid,type FROM `^posts` WHERE `postid` = # LIMIT 1", $getPostType[1] );
 							$linkToQuestion = $getQlink[0];
 							if($getQlink[1]=="A") {
-								$getQtitle = cs_get_cache( qa_db_query_sub("SELECT title FROM `^posts` WHERE `postid` = # LIMIT 1", $getQlink[0]) );
-								$qTitle = (isset($getQtitle[0])) ? $getQtitle[0] : "";
+								$getQtitle = cs_get_cache( "SELECT title FROM `^posts` WHERE `postid` = # LIMIT 1", $getQlink[0] );
+								$qTitle = (isset($getQtitle[0])) ? $getQtitle[0]['title'] : "";
 								// get correct public URL
 								$activity_url = qa_path_html(qa_q_request($linkToQuestion, $qTitle), null, qa_opt('site_url'), null, null);
 								$linkToPost = $activity_url."?show=".$postid."#c".$postid;
 							}
 							else {
 								// default: comment on question
-								$getQtitle = cs_get_cache( qa_db_query_sub("SELECT title FROM `^posts` WHERE `postid` = # LIMIT 1", $getPostType[1]) );
-								$qTitle = (isset($getQtitle[0])) ? $getQtitle[0] : "";
+								$getQtitle = cs_get_cache( "SELECT title FROM `^posts` WHERE `postid` = # LIMIT 1", $getPostType[1] );
+								$qTitle = (isset($getQtitle[0])) ? $getQtitle[0]['title'] : "";
 								// get correct public URL
 								$activity_url = qa_path_html(qa_q_request($getPostType[1], $qTitle), null, qa_opt('site_url'), null, null);
 								$linkToPost = $activity_url."?show=".$postid."#c".$postid;
@@ -115,8 +115,8 @@
 						else {
 							// question has correct postid to link
 							// $questionTitle = (isset($data['title'])) ? $data['title'] : "";
-							$getQtitle = cs_get_cache( qa_db_query_sub("SELECT title FROM `^posts` WHERE `postid` = # LIMIT 1", $postid) );
-							$qTitle = (isset($getQtitle[0])) ? $getQtitle[0] : "";
+							$getQtitle = cs_get_cache( "SELECT title FROM `^posts` WHERE `postid` = # LIMIT 1", $postid );
+							$qTitle = (isset($getQtitle[0])) ? $getQtitle[0]['title'] : "";
 							// get correct public URL
 							// $activity_url = qa_path_html(qa_q_request($getPostType[1], $qTitle), null, qa_opt('site_url'), null, null);
 							$activity_url = qa_path_html(qa_q_request($postid, $qTitle), null, qa_opt('site_url'), null, null);

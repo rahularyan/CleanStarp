@@ -1348,7 +1348,6 @@
 				
 					<?php
 						$this->cs_position('User Content');
-						echo get_user_activity($handle);
 					?>
 				
 					<header class="panel-heading">

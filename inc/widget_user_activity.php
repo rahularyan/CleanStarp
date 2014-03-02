@@ -1,5 +1,5 @@
 <?php
-	class cs_activity_widget {
+	class cs_user_activity_widget {
 
 		function cs_widget_form()
 		{
@@ -7,10 +7,10 @@
 			return array(
 				'style' => 'wide',
 				'fields' => array(
-					'cs_sa_count' => array(
+					'cs_ua_count' => array(
 						'label' => 'Numbers of Questions',
 						'type' => 'number',
-						'tags' => 'name="cs_sa_count"',
+						'tags' => 'name="cs_ua_count"',
 						'value' => '10',
 					),
 				),
@@ -64,170 +64,89 @@
 			return $allow;
 		}
 
-		function list_events($query, $events_type, $limit) {
-			$countEvents = 0;
-			$o = '<ul class="ra-activity">';
-			while ( ($row = qa_db_read_one_assoc($query,true)) !== null ) {
-				if(in_array($row['event'], $events_type)) {
-					$qTitle = '';			
-
-					$toURL = str_replace("\t","&",$row['params']);
-				
-					parse_str($toURL, $data);  
-					
-					$linkToPost = "-";
-					
-					$postid = (isset($data['postid'])) ? $data['postid'] : null;
-					if($postid !== null) {
-						$getPostType = mysql_fetch_array( qa_db_query_sub("SELECT type,parentid FROM `^posts` WHERE `postid` = #", $postid) );
-						$postType = $getPostType[0]; // type, and $getPostType[1] is parentid
-						if($postType=="A") {
-							$getQtitle = mysql_fetch_array( qa_db_query_sub("SELECT title FROM `^posts` WHERE `postid` = # LIMIT 1", $getPostType[1]) );
-							$qTitle = (isset($getQtitle[0])) ? $getQtitle[0] : "";
-							// get correct public URL
-							$activity_url = qa_path_html(qa_q_request($getPostType[1], $qTitle), null, qa_opt('site_url'), null, null);
-							$linkToPost = $activity_url."?show=".$postid."#a".$postid;
-						}
-						else if($postType=="C") {
-							// get question link from answer
-							$getQlink = mysql_fetch_array( qa_db_query_sub("SELECT parentid,type FROM `^posts` WHERE `postid` = # LIMIT 1", $getPostType[1]) );
-							$linkToQuestion = $getQlink[0];
-							if($getQlink[1]=="A") {
-								$getQtitle = mysql_fetch_array( qa_db_query_sub("SELECT title FROM `^posts` WHERE `postid` = # LIMIT 1", $getQlink[0]) );
-								$qTitle = (isset($getQtitle[0])) ? $getQtitle[0] : "";
-								// get correct public URL
-								$activity_url = qa_path_html(qa_q_request($linkToQuestion, $qTitle), null, qa_opt('site_url'), null, null);
-								$linkToPost = $activity_url."?show=".$postid."#c".$postid;
-							}
-							else {
-								// default: comment on question
-								$getQtitle = mysql_fetch_array( qa_db_query_sub("SELECT title FROM `^posts` WHERE `postid` = # LIMIT 1", $getPostType[1]) );
-								$qTitle = (isset($getQtitle[0])) ? $getQtitle[0] : "";
-								// get correct public URL
-								$activity_url = qa_path_html(qa_q_request($getPostType[1], $qTitle), null, qa_opt('site_url'), null, null);
-								$linkToPost = $activity_url."?show=".$postid."#c".$postid;
-							}
-						}
-						// if question is hidden, do not show frontend!
-						else if($postType=="Q_HIDDEN") {
-							$qTitle = '';
-						}
-						else {
-							// question has correct postid to link
-							// $questionTitle = (isset($data['title'])) ? $data['title'] : "";
-							$getQtitle = mysql_fetch_array( qa_db_query_sub("SELECT title FROM `^posts` WHERE `postid` = # LIMIT 1", $postid) );
-							$qTitle = (isset($getQtitle[0])) ? $getQtitle[0] : "";
-							// get correct public URL
-							// $activity_url = qa_path_html(qa_q_request($getPostType[1], $qTitle), null, qa_opt('site_url'), null, null);
-							$activity_url = qa_path_html(qa_q_request($postid, $qTitle), null, qa_opt('site_url'), null, null);
-							$linkToPost = $activity_url;
-						}
-					}elseif($row['event'] == 'badge_awarded' && function_exists('qa_get_badge_type_by_slug')){
-						$toURL = str_replace("\t","&",$row['params']);			
-						parse_str($toURL, $data);
-						
-						$badge = qa_get_badge_type_by_slug($data['badge_slug']);
-						$badge_type = $badge['slug'];
-						$badge_name = qa_opt('badge_'.$data['badge_slug'].'_name');
-						$var = qa_opt('badge_'.$data['badge_slug'].'_var');
-						$qTitle =  $badge_name.' - '.qa_badge_desc_replace($data['badge_slug'],$var,false);
-						$linkToPost = qa_path_html('user/'.$row['handle']);
-					}
-					
-					$username = (is_null($row['handle'])) ? _cs_lang('Anonymous') : htmlspecialchars($row['handle']);
-					$usernameLink = (is_null($row['handle'])) ? _cs_lang('Anonymous') : '<a target="_blank" class="qa-user-link" href="'.qa_opt('site_url').'user/'.$row['handle'].'">'.cs_name($row['handle']).'</a>';
-					
-					// set event name and css class
-					$eventName = '';
-					if($row['event']=="q_post") {
-						$eventName = _cs_lang('asked');
-					}
-					else if($row['event']=="a_post") {
-						$eventName = _cs_lang('answered');
-					}
-					else if($row['event']=="c_post") {
-						$eventName = _cs_lang('commented');	
-					}
-					else if($row['event']=="a_select") {
-						$eventName = _cs_lang('selected an answer');
-					}				
-					else if($row['event']=="badge_awarded") {
-						$eventName = _cs_lang('earned a badge');
-					}			
-					
-					// set event icon class
-					
-					if($row['event']=="q_post") {
-						$event_icon = 'icon-question question';
-					}
-					else if($row['event']=="a_post") {
-						$event_icon = 'icon-chat-3 ans';
-					}
-					else if($row['event']=="c_post") {
-						$event_icon = 'icon-chat-2 comment';
-					}
-					else if($row['event']=="a_select") {
-						$event_icon = 'icon-checkmark selected';
-					}
-					else if($row['event']=="badge_awarded") {
-						$event_icon = 'icon-badge badge-icon '.@$badge_type;
-					}
-
-					$timeCode = implode('', qa_when_to_html( strtotime($row['datetime']), qa_opt('show_full_date_days')));
-					$time = '<span class="time">'.$timeCode.'</span>';
-					
-					// if question title is empty, question got possibly deleted, do not show frontend!
-					if($qTitle=='') {
-						continue;
-					}
-
-					$o .= '<li class="event-item">';
-					$o .= '<div class="event-inner">';	
-					
-					$o .= '<div class="avatar pull-left" data-handle="'.@$row['handle'].'" data-id="'. qa_handle_to_userid($row['handle']).'"><div class="event-icon pull-left '.$event_icon.'"></div></div>';
-						
-					$o .= '<div class="event-content">';			
-					$o .= '<p class="title"><strong>'.$usernameLink.'</strong> <span class="what">'.$eventName.'</span></p>';			
-					
-					if($row['event']=="badge_awarded")
-						$o .= '<strong class="event-title">'.cs_truncate($qTitle,50).'</strong>';						
-					else
-						$o .= '<a class="event-title" href="'.$linkToPost.'">'.cs_truncate($qTitle,50).'</a>';
-					
-					$o .= $time;	
-					$o .= '</div>';	
-					$o .= '</div>';	
-					$o .= '</li>';
-					$countEvents++;
-					if($countEvents>=$limit) {
-						break;
-					}
-				}
-			}
-			$o .= '</ul>';
-			return $o;
-		} 
-		function cs_events($limit =10, $events_type = false){
-			if(!$events_type)
-				$events_type = array('q_post', 'a_post', 'c_post', 'a_select', 'badge_awarded');
+		function get_user_activity($handle, $limit = 10){
+			$userid = qa_handle_to_userid($handle);
+			require_once QA_INCLUDE_DIR.'qa-db-selects.php';
+			require_once QA_INCLUDE_DIR.'qa-app-format.php';
 			
-			// query last 3 events
-			$query = qa_db_query_sub("SELECT datetime,ipaddress,handle,event,params FROM `^eventlog` WHERE `event`='q_post' OR `event`='a_post' OR `event`='c_post' OR `event`='a_select' OR `event`='badge_awarded' ORDER BY datetime DESC LIMIT $limit");
+			$identifier=QA_FINAL_EXTERNAL_USERS ? $userid : $handle;
 
-			$recentEvents = '';
+			list($useraccount, $questions, $answerqs, $commentqs, $editqs)=qa_db_select_with_pending(
+				QA_FINAL_EXTERNAL_USERS ? null : qa_db_user_account_selectspec($handle, false),
+				qa_db_user_recent_qs_selectspec($userid, $identifier, $limit),
+				qa_db_user_recent_a_qs_selectspec($userid, $identifier),
+				qa_db_user_recent_c_qs_selectspec($userid, $identifier),
+				qa_db_user_recent_edit_qs_selectspec($userid, $identifier)
+			);
+			
+			if ((!QA_FINAL_EXTERNAL_USERS) && !is_array($useraccount)) // check the user exists
+				return include QA_INCLUDE_DIR.'qa-page-not-found.php';
 
-			return $this->list_events($query, $events_type, $limit);
+
+		//	Get information on user references
+
+			$questions=qa_any_sort_and_dedupe(array_merge($questions, $answerqs, $commentqs, $editqs));
+			$questions=array_slice($questions, 0, $limit);
+			$usershtml=qa_userids_handles_html(qa_any_get_userids_handles($questions), false);
+			$htmldefaults=qa_post_html_defaults('Q');
+			$htmldefaults['whoview']=false;
+			$htmldefaults['voteview']=false;
+			$htmldefaults['avatarsize']=0;
+			
+			foreach ($questions as $question)
+				$qa_content[]=qa_any_to_q_html_fields($question, $userid, qa_cookie_get(),
+					$usershtml, null, array('voteview' => false) + qa_post_html_options($question, $htmldefaults));
+
+
+			$output = '<div class="user-activities">';
+			$output .='<ul>';
+			if(isset($qa_content)){
+				foreach ($qa_content as $qs){
+
+					if($qs['what'] == 'answered'){
+						$icon = 'icon-chat-3 answered';
+					}elseif($qs['what'] == 'asked'){
+						$icon = 'icon-question asked';
+					}elseif($qs['what'] == 'commented'){
+						$icon = 'icon-chat-2 commented';
+					}elseif($qs['what'] == 'edited' || $qs['what'] == 'answer edited'){
+						$icon = 'icon-edit edited';
+					}elseif($qs['what'] == 'closed'){
+						$icon = 'icon-error closed';
+					}elseif($qs['what'] == 'answer selected'){
+						$icon = 'icon-checked selected';
+					}elseif($qs['what'] == 'recategorized'){
+						$icon = 'icon-folder-close recategorized';
+					}else{
+						$icon = 'icon-time undefined';
+					}
+					
+					$output .='<li class="activity-item">';
+					$output .= '<div class="type pull-left '.$icon.'"></div>';
+					$output .= '<div class="list-right">';
+					$output .= '<a class="what" href="'.$qs['url'].'">'.$qs['title'].'</a>';
+					$output .= '<strong class="when"><a href="'.@$qs['what_url'].'">'.$qs['what'].'</a> '.implode(' ', $qs['when']).'</strong>';					
+					$output .= '</div>';
+					$output .='</li>';
+				}
+			}else{
+				$output .='<li>'._cs_lang('No activity yet.').'</li>';
+			}
+			$output .= '</ul>';
+			$output .= '</div>';
+			return $output;
 		}
 
 		function output_widget($region, $place, $themeobject, $template, $request, $qa_content)
 		{
 			$widget_opt = @$themeobject->current_widget['param']['options'];
-
+			$handle = $qa_content['raw']['account']['handle'];
+			
 			if(@$themeobject->current_widget['param']['locations']['show_title'])
-				$themeobject->output('<h3 class="widget-title">Site Activity</h3>');
+				$themeobject->output('<h3 class="widget-title">'.cs_name($handle).'\'s '._cs_lang('activities').'</h3>');
 				
-			$themeobject->output('<div class="ra-sa-widget">');
-			$themeobject->output($this->cs_events((int)$widget_opt['cs_sa_count']));
+			$themeobject->output('<div class="ra-ua-widget">');
+			$themeobject->output($this->get_user_activity($handle, (int)$widget_opt['cs_ua_count']));
 			$themeobject->output('</div>');
 		}
 	

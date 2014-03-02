@@ -3048,6 +3048,7 @@ input[type=checkbox].on-off-checkbox {
 }
 
 .widget.user-activities {
+    margin: 0;
 }
 
 .widget.user-activities .question-list {
@@ -3719,4 +3720,38 @@ input[type=checkbox].on-off-checkbox {
 .question-image-container {
     background: #F6F6F6;
     min-height: 60px;
+}
+
+.user-activities ul{
+	padding:0;
+	margin:0;
+	list-style:none;
+}
+.ra-ua-widget{
+	margin: -10px;
+}
+
+.user-activities ul .activity-item{
+    border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+    padding: 10px;
+}
+.user-activities .type{
+    color: #B3B3B3;
+    font-size: 20px;
+    margin-right: 20px;
+    text-align: center;
+    width: 26px;
+}
+.user-activities .what{
+    color: #777777;
+    font-family: 'open sans',arial;
+    font-size: 15px;
+    font-weight: 300;
+}
+.user-activities .when{
+    color: #AAAAAA;
+    float: right;
+    font-size: 13px;
+    font-style: italic;
+    font-weight: 300;
 }

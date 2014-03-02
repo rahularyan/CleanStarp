@@ -976,7 +976,10 @@
 
 			// this will prevent showing extra sections while Question Edit, close or other action forms
 			if (strpos($this->content['title'],$q_view['raw']['title'])){
+			$this->output('<div class="question-image-container">');
+			$this->question_meta_form();
 			$this->output(get_featured_image($q_view['raw']['postid']));
+			$this->output('</div>');
 			$this->output(
 				'<div class="question-head">',
 					'<h2 class="question-title">',
@@ -1034,7 +1037,7 @@
 				
 				$this->c_form(@$q_view['c_form']);
 				$this->output('</div>');
-				//$this->question_meta_form();
+
 				$this->output(base64_decode( qa_opt('cs_ads_after_question_content') ));
 				$this->output('</div> <!-- END qa-q-view-main -->');
 			}
@@ -1043,7 +1046,7 @@
 			$buttons = $q_view['form']['buttons'];
 			
 			if ( ($this->template=='question') && (qa_get_logged_in_level()>=QA_USER_LEVEL_ADMIN) && (!empty($q_view)) )
-				$buttons['featured'] = array ( 'tags' => '','tags' => '', 'label' => 'Featured', 'popup' => 'Set this question as featured', 'class' => 'icon-star');
+				$buttons['featured'] = array ( 'tags' => 'id="set_featured"', 'label' => 'Featured', 'popup' => 'Set this question as featured', 'class' => 'icon-star');
 			
 			$ans_button = @$buttons['answer']['tags'];
 			if(isset($ans_button)){
@@ -1857,25 +1860,12 @@
 			if ( ($this->template=='question') && (qa_get_logged_in_level()>=QA_USER_LEVEL_ADMIN) && (!empty($postid)) ){
 				require_once QA_INCLUDE_DIR.'qa-db-metas.php';
 				$featured_image_name = qa_db_postmeta_get($postid, 'featured_image');
-				if (empty($featured_image_name)){
-					$featured_image = '';
-				}else{
-					$featured_image = Q_THEME_URL . '/uploads/' . $featured_image_name;
-				}
+
 				$this->output('
-					<div class="question-meta" id="question-meta">
-						<label>
-							<input' . (qa_db_postmeta_get($postid, 'featured_question') ? ' checked=""' : '') . ' id="featured_question" class="qa-form-tall-checkbox" type="checkbox" value="1" name="featured_question">
-							Make this a Featured Question!
-						</label>
-						<div class="clearfix"></div>
-						<label>Featured Image</label>
-						<img id="image-preview" class="image-preview img-thumbnail" src="' . $featured_image . '" >
+					<div class="question-image" id="question-meta">
+						<btn data-args="'.qa_get_form_security_code('delete-image').'_'.$postid.'" id="q_meta_remove_featured_image" class="qa-form-light-button qa-form-light-button-features " title="Remove featured image" type="submit" name="q_meta_remove_featured_image">Delete</btn>
 						<div id="fileuploader">Upload</div>
-						<btn id="q_meta_remove_featured_image" class="qa-form-light-button qa-form-light-button-features" title="Remove featured image" type="submit" name="q_meta_remove_featured_image">Remove Featured image</btn>
-						<hr>
-						<input id="featured_image" type="hidden" name="featured_image" value="' . $featured_image . '">
-						<btn id="q_meta_save" class="qa-form-light-button qa-form-light-button-features" title="Save" type="submit" name="q_meta_save" onclick="qa_show_waiting_after(this, false);">Save</btn>
+					
 					</div>
 				');
 			}
@@ -1884,7 +1874,6 @@
 			require_once QA_INCLUDE_DIR.'qa-db-metas.php';
 			$postid = @$this->content["q_view"]["raw"]["postid"];
 			@$featured_image = $_REQUEST['featured_image'];
-			@$featured_question = $_REQUEST['featured_question'];
 			
 			if( ($this->template=='question') && (qa_get_logged_in_level()>=QA_USER_LEVEL_ADMIN) ){
 				if(!empty($featured_image)){
@@ -1892,11 +1881,8 @@
 				}else
 					qa_db_postmeta_clear($postid, 'featured_image');
 
-				if(isset($featured_question))
-					qa_db_postmeta_set($postid, 'featured_question', true);
-				else
-					qa_db_postmeta_set($postid, 'featured_question', false);
 			}
+			die(Q_THEME_URL . '/uploads/' . $featured_image);
 		}
 		function cs_position_active($name){
 			$widgets = $this->widgets;
@@ -1913,6 +1899,45 @@
 			return false;
 		}
 		
+		function cs_ajax_set_question_featured(){
+			require_once QA_INCLUDE_DIR.'qa-db-metas.php';
+			$postid = @$this->content["q_view"]["raw"]["postid"];
+			
+			if( ($this->template=='question') && (qa_get_logged_in_level()>=QA_USER_LEVEL_ADMIN) ){
+				if(!is_featured($postid))
+					qa_db_postmeta_set($postid, 'featured_question', true);
+				else
+					qa_db_postmeta_clear($postid, 'featured_question');
+			}
+			die();		
+		}
+		function cs_ajax_delete_featured_image(){
+			$args = strip_tags($_REQUEST['args']);
+			$args = explode('_', $args);
+			print_r($args);
+			if((qa_get_logged_in_level()>QA_USER_LEVEL_ADMIN) && isset($args) && qa_check_form_security_code('delete-image', $args[0]) )
+			{
+				require_once QA_INCLUDE_DIR.'qa-db-metas.php';
+				$img =  qa_db_postmeta_get($args[1], 'featured_image');
+
+				if (!empty($img)){
+					$thumb_img = preg_replace('/(\.[^.]+)$/', sprintf('%s$1', '_s'), $img);
+					$thumb = Q_THEME_DIR . '/uploads/' . $thumb_img;
+					
+					$big_img = Q_THEME_DIR . '/uploads/' . $img;
+					qa_db_postmeta_clear($args[1], 'featured_image');
+					if (file_exists($big_img))
+						unlink($big_img);
+					
+					if (file_exists($thumb))
+						unlink($thumb);
+
+					
+				}
+			}
+
+			die();
+		}
 	}
 
 

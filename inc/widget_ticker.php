@@ -110,7 +110,7 @@
 					//$post=qa_get_search_results($keyword, 0, $limit, $userid , false, false);
 					$words=qa_string_to_words($keyword);
 					$posts=qa_db_select_with_pending(qa_db_search_posts_selectspec($userid, $words, $words, $words, $words, trim($keyword), 0, false, $limit));
-					var_dump( $posts );
+
 					$output = '<h3 class="widget-title">'.$title.'</h3>';
 					$output .= '<ul class="question-list">';
 					foreach ($posts as $post) {

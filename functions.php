@@ -587,7 +587,7 @@ function get_featured_thumb($postid){
 
 	if (!empty($img)){
 		$thumb_img = preg_replace('/(\.[^.]+)$/', sprintf('%s$1', '_s'), $img);
-		return '<img src="'.Q_THEME_URL . '/uploads/' . $thumb_img .'" />';
+		return '<img class="featured-image" src="'.Q_THEME_URL . '/uploads/' . $thumb_img .'" />';
 	}
 	return false;
 }
@@ -596,7 +596,7 @@ function get_featured_image($postid){
 	$img =  qa_db_postmeta_get($postid, 'featured_image');
 
 	if (!empty($img))
-		return '<img src="'.Q_THEME_URL . '/uploads/' . $img.'" />';
+		return '<img class="featured-image" src="'.Q_THEME_URL . '/uploads/' . $img.'" />';
 	
 	return false;
 }

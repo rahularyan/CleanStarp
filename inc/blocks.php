@@ -403,7 +403,7 @@
 		
 		function sidepanel() {			
 			if($this->cs_position_active('Right')){
-				$this->output('<div class="col-sm-4 side-c">');
+				$this->output('<div class="col-sm-3 side-c">');
 				$this->output('<div class="qa-sidepanel">');
 					$this->cs_position('Right');
 				$this->output('</div>', '');
@@ -546,7 +546,7 @@
 			
 			$this->output('<div class="clearfix qa-main'.(@$this->content['hidden'] ? ' qa-main-hidden' : '').'">');
 
-			$this->output('<div class="col-sm-'.($this->cs_position_active('Right') ? '8' : '12').' list-c">');
+			$this->output('<div class="col-sm-'.($this->cs_position_active('Right') ? '9' : '12').' list-c">');
 			
 			if($this->template != 'question' && $this->template != 'user' && (!strlen(qa_request(1)) == 0) && (!empty($this->content['title']))){
 				$this->output(
@@ -564,6 +564,8 @@
 				$this->profile_page();
 			}elseif(strlen(qa_request(1)) == 0){
 				$this->home();
+			}elseif($this->template == 'question'){
+				$this->question_view($content);
 			}elseif($this->template == 'user-wall'){
 				$handle = qa_request_part(1);
 				$this->output('<section id="content" class="content-sidebar">');
@@ -592,21 +594,15 @@
 				$this->main_parts($content);
 				$this->output('</section>');
 			}else{
-				$this->widgets('main', 'top');			
-				$this->widgets('main', 'high');
 				
 				if($this->template != 'admin')
 					$this->nav('sub');	
 				$this->main_parts($content);
-					
-				$this->widgets('main', 'low');
 				
 				if($this->template != 'question')
 					$this->page_links();
 					
 				$this->suggest_next();
-				
-				$this->widgets('main', 'bottom');	
 			}
 			$this->cs_position('Content Bottom');
 			
@@ -667,6 +663,26 @@
 			$this->right_tabs();
 			$this->cs_position('Home Right');
 			$this->output('</div>');
+			$this->output('</div>');
+		}
+		
+		function question_view($content){
+			$this->output('<div class="row">');
+				$this->output('<div class="col-md-9 home-left-inner">');
+					$this->output('<div class="row">');
+						$this->output('<div class="col-md-12">');
+							$this->cs_position('Content Top');
+						$this->output('</div>');
+						
+						$this->output('<div class="col-md-12">');
+							$this->main_parts($content);
+						$this->output('</div>');
+					$this->output('</div>');
+				$this->output('</div>');
+			
+				$this->output('<div class="col-md-3">');
+				$this->cs_position('Right Inset');
+				$this->output('</div>');
 			$this->output('</div>');
 		}
 

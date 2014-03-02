@@ -88,7 +88,7 @@
 				if($type=='Category'){
 					$post_type='Q';
 					$title = 'Questions in <a href="'.qa_path_html('questions/'.qa_strtolower($slug)).'">'.$slug.'</a>';
-					$posts = qa_db_query_sub(
+					$posts = cs_get_cache(
 						'SELECT * FROM ^posts WHERE ^posts.type=$
 						AND categoryid=(SELECT categoryid FROM ^categories WHERE ^categories.title=$ LIMIT 1) 
 						ORDER BY ^posts.created DESC LIMIT #',
@@ -96,7 +96,7 @@
 				}elseif($type=='Tags'){
 					$post_type='Q';
 					$title = 'Questions in <a href="'.qa_path_html('tag/'.qa_strtolower($slug)).'">'.$slug.'</a>';
-					$posts = qa_db_query_sub(
+					$posts = cs_get_cache(
 						'SELECT * FROM ^posts WHERE ^posts.type=$
 						AND qa_posts.postid IN (SELECT postid FROM qa_posttags WHERE 
 							wordid=(SELECT wordid FROM qa_words WHERE word=$ OR word=$ COLLATE utf8_bin LIMIT 1) ORDER BY postcreated DESC)
@@ -157,7 +157,8 @@
 			$output = '<h3 class="widget-title">'.$title.'</h3>';
 			
 			$output .= '<ul class="question-list">';
-			while($p = mysql_fetch_array($posts)){
+			foreach($posts as $p){
+				if (empty($p['userid'])) $p['userid']=NULL; // to prevent error for anonymous posts while calling qa_post_userid_to_handle()
 				if($post_type=='Q'){
 					$what = _cs_lang('asked');
 				}elseif($post_type=='A'){

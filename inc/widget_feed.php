@@ -77,46 +77,43 @@
 		}
 		function output_widget($region, $place, $themeobject, $template, $request, $qa_content)
 		{
+			global $cache;
+			$age = 3600; //one hour
+
+			if (isset($cache['feed'])){
+				if ( ((int)$cache['feed']['age'] + $age) > time()) {
+					$feed = $cache['feed']['content'];
+					$themeobject->output($feed);
+					return;
+				}
+			}
+			
 			$url = qa_opt('cs_feed_url');
 			$count=(int)qa_opt('cs_feed_count');
 			$title=qa_opt('cs_feed_title');
 
-			$themeobject->output('<aside class="qa-feed-widget">');
-				$themeobject->output('<H2 class="qa-feed-header" style="margin-top:0; padding-top:0;">'.$title.'</H2>');
-
-			$file = Q_THEME_DIR . '/cache/feed_' . $title . '_content.txt';
-			$modified = @filemtime( $file );
-			$now = time();
-			$interval = 3600; // 1 hour
-			// Cache File
-			if ( empty($modified) || ( ( $now - $modified ) > $interval ) ) {
-				// read live content
-				$content = file_get_contents($url);
-				if ( $content ) {
-				// cache content
-					$cache = fopen( $file, 'w' );
-					fwrite($cache, $content);
-					fclose( $cache );
-				}
-			}else{
-				//read content from cache
-				$content = file_get_contents( $file );
-			}
-
-
+			// read live content
+			$content = file_get_contents($url);
 			$x = new SimpleXmlElement($content);  
-			echo '<ul class="qa-feed-list">'; 
+			$output ='<aside class="qa-feed-widget">';
+			$output .='<H2 class="qa-feed-header" style="margin-top:0; padding-top:0;">'.$title.'</H2>';
+
+			$output .= '<ul class="qa-feed-list">'; 
 			$i=0;
 			foreach($x->channel->item as $entry) {  
-				echo "<li class=\"qa-feed-item\"><a href='$entry->link' title='$entry->title'>" . $entry->title . "</a></li>";  
+				$output .= "<li class=\"qa-feed-item\"><a href='$entry->link' title='$entry->title'>" . $entry->title . "</a></li>";  
 				$i++;
 				if ($i>=$count)
 					break;
 			}  
-			echo "</ul>";  
+			$output .= "</ul>";  
+			$output .= '</aside>';
+			$themeobject->output($output);
 			
-			
-			$themeobject->output('</aside>');		}
+			$cache['feed']['content'] =  $output;
+			$cache['feed']['age'] = time();
+			$cache['changed'] = true;	
+		}
 	
 	}
 /*

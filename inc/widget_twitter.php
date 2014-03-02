@@ -108,11 +108,21 @@
 		}
 		function get_tweets()
 		{
+			global $cache;
+			$age = 3600; //one hour
+			if (isset($cache['twitter'])){
+				if ( ((int)$cache['twitter']['age'] + $age) > time()) {
+					$tweets = $cache['twitter'];
+					unset($tweets['age']);
+					return $tweets;
+				}
+			}
+
 			$user = qa_opt('cs_twitter_id');
 			$count=(int)qa_opt('cs_twitter_t_count');
 			$title=qa_opt('cs_twitter_title');
 			
-			require_once Q_THEME_DIR.'/inc/' . 'TwitterAPIExchange.php';
+			require_once Q_THEME_DIR.'/inc/TwitterAPIExchange.php';
 			// Setting our Authentication Variables that we got after creating an application
 			$settings = array(
 				'oauth_access_token' => qa_opt('cs_twitter_at'),
@@ -129,8 +139,11 @@
 			$tweets = json_decode($twitter->setGetfield($getfield)
 				->buildOauth($url, $requestMethod)
 					->performRequest(),$assoc = TRUE);
+			//$tweets = array(array('text' => "hello @towhidn"));
+			$cache['twitter'] =  $tweets;
+			$cache['twitter']['age'] = time();
+			$cache['changed'] = true;	
 			return $tweets;
-
 		}
 
 		function output_widget($region, $place, $themeobject, $template, $request, $qa_content)
@@ -145,25 +158,8 @@
 			$themeobject->output('<DIV class="qa-tweeter-widget">');
 				$themeobject->output('<H2 class="qa-tweeter-header">'.$title.'</H2>');
 				
-			$file = Q_THEME_DIR . '/cache/' . $user ."-tweets.txt";
-			$modified = @filemtime( $file );
-			$now = time();
-			$interval = 3600; // 1 hour
-			// Cache File
-			if ( empty($modified) || ( ( $now - $modified ) > $interval ) ) {
-				// read live tweets
-				$tweets=$this->get_tweets();
-				if ( $tweets ) {
-				// cache tweets
-					$cache = fopen( $file, 'w' );
-					fwrite($cache, json_encode($tweets));
-					fclose( $cache );
-				}
-			}else{
-				//read tweets from cache
-				$tweets = json_decode(file_get_contents( $file ),$assoc = TRUE);
-			}
-			
+			$tweets=$this->get_tweets();
+
 			if (empty($tweets)) return;			
 			$themeobject->output('<ul class="qa-tweeter-list">');
 			foreach($tweets as $items)

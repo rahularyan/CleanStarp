@@ -84,11 +84,15 @@
 				}
 				
 			}else{
-				$users = qa_db_query_sub('SELECT * FROM ^users ORDER BY created DESC LIMIT #', $limit);	
-				while($u = mysql_fetch_array($users)){
-					$output .= '<li class="user">';
-					$output .= '<div class="avatar" data-handle="'.$u['handle'].'" data-id="'. qa_handle_to_userid($u['handle']).'"><img src="'.cs_get_avatar($u['handle'], $size, false).'" /></div>';
-					$output .= '</li>';
+				$users = cs_get_cache('SELECT * FROM ^users ORDER BY created DESC LIMIT #', $limit);	
+				foreach($users as $u){
+					if (isset($u['handle'])){
+						$handle = $u['handle'];
+						if (isset($u['useid']))	$id = $u['useid']; else $id = qa_handle_to_userid($handle);
+						$output .= '<li class="user">';
+						$output .= '<div class="avatar" data-handle="'. $handle .'" data-id="'. $id .'"><img src="'.cs_get_avatar($handle, $size, false).'" /></div>';
+						$output .= '</li>';
+					}
 				}
 			}
 			$output .= '</ul>';

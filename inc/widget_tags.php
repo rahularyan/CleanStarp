@@ -73,11 +73,9 @@
 				$themeobject->output('<h3 class="widget-title">Tags <a href="'.qa_path_html('tags').'">View All</a></h3>');
 				
 			$to_show = (int)$widget_opt['cs_tags_count'];
-			$populartags=qa_db_single_select(qa_db_popular_tags_selectspec(0, (!empty($to_show) ? $to_show : 20)));
+			$populartags = cs_get_cache_popular_tags($to_show);
 			
 			reset($populartags);
-			$maxcount=current($populartags);
-			
 			$themeobject->output('<div class="ra-tags-widget clearfix">');
 	
 			$blockwordspreg=qa_get_block_words_preg();			

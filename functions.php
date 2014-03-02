@@ -556,3 +556,131 @@ function multi_array_key_exists( $needle, $haystack ) {
    
     return false;
 }
+function make_array_utf8( $arr ) {
+    foreach ( $arr as $key => $value )
+        if ( is_array( $value ) ) 
+            $arr[$key] = make_array_utf8( $value );
+        else
+			$arr[$key] = iconv('UTF-8', 'UTF-8//IGNORE', utf8_encode($value));
+	return $arr;
+}
+
+function cs_get_site_cache(){
+	global $cache;
+	$cache = json_decode( qa_db_cache_get('cs_cache', 0),true );
+}
+
+function cs_get_cache_popular_tags($to_show){
+	global $cache;
+	$age = 60; // one minute
+
+	if (isset($cache['tags'])){
+		if ( ((int)$cache['tags']['age'] + $age) > time()) {
+			$populartags = $cache['tags'];
+			unset($populartags['age']);
+			return $populartags;
+		}
+	}
+	$populartags=qa_db_single_select(qa_db_popular_tags_selectspec(0, (!empty($to_show) ? $to_show : 20)));
+	$cache['tags'] =  $populartags;
+	$cache['tags']['age'] = time();
+	$cache['changed'] = true;	
+	return $populartags;
+}
+function cs_get_cache_question_activity($qcount){
+	global $cache;
+	$age = 60; // one minute
+
+	if (isset($cache['qactivity'])){
+		if ( ((int)$cache['qactivity']['age'] + $age) > time()) {
+			$content = $cache['qactivity'];
+			unset($content['age']);
+			return $content;
+		}
+	}
+	
+	require_once QA_INCLUDE_DIR.'qa-db-selects.php';
+	require_once QA_INCLUDE_DIR.'qa-app-format.php';
+	require_once QA_INCLUDE_DIR.'qa-app-q-list.php';
+	
+	$categoryslugs='';
+	$userid=qa_get_logged_in_userid();
+
+
+//	Get lists of recent activity in all its forms, plus category information
+	
+	list($questions1, $questions2, $questions3, $questions4)=qa_db_select_with_pending(
+		qa_db_qs_selectspec($userid, 'created', 0, $categoryslugs, null, false, false, $qcount),
+		qa_db_recent_a_qs_selectspec($userid, 0, $categoryslugs),
+		qa_db_recent_c_qs_selectspec($userid, 0, $categoryslugs),
+		qa_db_recent_edit_qs_selectspec($userid, 0, $categoryslugs)
+	);
+	
+//	Prepare and return content for theme
+	$content =  qa_q_list_page_content(
+		qa_any_sort_and_dedupe(array_merge($questions1, $questions2, $questions3, $questions4)), // questions
+		$qcount, // questions per page
+		0, // start offset
+		null, // total count (null to hide page links)
+		null, // title if some questions
+		null, // title if no questions
+		null, // categories for navigation
+		null, // selected category id
+		true, // show question counts in category navigation
+		'activity/', // prefix for links in category navigation
+		null, // prefix for RSS feed paths (null to hide)
+		null, // suggest what to do next
+		null, // page link params
+		null // category nav params
+	);
+	$cache['qactivity'] =  $content;
+	$cache['qactivity']['age'] = time();
+	$cache['changed'] = true;	
+	return $content;
+}
+function cs_get_cache_select_selectspec($selectspec){
+	global $cache;
+	$age = 10; //one hour
+
+	$hash = md5(json_encode($selectspec));
+	if (isset($cache[$hash])){
+		if ( ((int)$cache[$hash]['age'] + $age) > time()) {
+			$result = $cache[$hash];
+			unset($result['age']);
+			return $result;
+		}
+	}
+	$result = qa_db_select_with_pending($selectspec);
+	$cache[$hash] =  $result;
+	$cache[$hash]['age'] = time();
+	$cache['changed'] = true;
+	return $result ;	
+}
+function cs_get_cache($query){
+	global $cache;
+	$age = 10; //one hour
+
+	$funcargs=func_get_args();
+	$query =  qa_db_apply_sub($query, array_slice($funcargs, 1));
+	$hash = md5($query);
+	if (isset($cache[$hash])){
+		if ( ((int)$cache[$hash]['age'] + $age) > time()) {
+			$result = $cache[$hash];
+			unset($result['age']);
+			return $result;
+		}
+	}
+	$result = qa_db_read_all_assoc( qa_db_query_raw($query) );
+	$cache[$hash] =  $result;
+	$cache[$hash]['age'] = time();
+	$cache['changed'] = true;
+	return $result ;	
+}
+function cs_set_site_cache(){
+	global $cache;
+	if (@$cache['changed']){
+		unset($cache['changed']);
+		$cache = make_array_utf8($cache);
+		qa_db_cache_set('cs_cache', 0, json_encode($cache) );
+	}
+}

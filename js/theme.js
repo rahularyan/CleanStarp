@@ -444,9 +444,11 @@ function cs_ask_box_autocomplete(){
 			results: function() {}
 		}
 	}).data( "uiAutocomplete" )._renderItem = function( ul, item ) {
+		if(item.blob!=null)
+			var avatar = '<img src="'+item.blob+'" />';
 		return $("<li></li>")
 		.data("item.uiAutocomplete", item)
-		.append('<a href="'+item.url+'" class=""><img src="'+item.blob+'" /><span class="title">' + item.label + '</span><span class="tags icon-tags">'+item.tags+'</span><span class="category icon-chat">'+item.answers+'</span></a>')
+		.append('<a href="'+item.url+'" class="">'+avatar+'<span class="title">' + item.label + '</span><span class="tags icon-tags">'+item.tags+'</span><span class="category icon-chat">'+item.answers+'</span></a>')
 		.appendTo(ul);
 	};
 

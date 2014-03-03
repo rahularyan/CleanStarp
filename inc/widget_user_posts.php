@@ -17,7 +17,7 @@
 						'label' => 'Numbers of Questions',
 						'type' => 'select',
 						'tags' => 'name="cs_up_type"',
-						'value' => 'Q',
+						'value' => array('Q' => 'Questions'),
 						'options' => array(
 							'Q' => 'Questions',
 							'A' => 'Answers',
@@ -115,13 +115,6 @@
 				$output .= '</div>';	
 				$output .= '</li>';
 			}
-			$output .= '<li>';
-
-			$type_link = $type == 'Q' ? 'questions' : 'answers';
-
-				
-			$output .= '<a class="see-all" href="'.qa_path_html('user/'.$handle.'/'.$type_link).'">Show all</a>';
-			$output .= '</li>';
 			$output .= '</ul>';
 			echo $output;
 		}
@@ -132,14 +125,17 @@
 			$handle = $qa_content['raw']['account']['handle'];
 			
 			if($widget_opt['cs_up_type'] == 'Q')
-				$type_title = 'Questions';
+				$type_title = 'questions';
 			elseif($widget_opt['cs_up_type'] == 'A')
-				$type_title = 'Answers';
+				$type_title = 'answers';
 			else
-				$type_title = 'Comments';
-				
+				$type_title = 'comments';
+			
+			if($widget_opt['cs_up_type'] != 'C')
+				$type_link = '<a class="see-all" href="'.qa_path_html('user/'.$handle.'/'.$type_title).'">Show all</a>';
+			
 			if(@$themeobject->current_widget['param']['locations']['show_title'])
-				$themeobject->output('<h3 class="widget-title">'.cs_name($handle).'\'s '.$type_title.'</h3>');
+				$themeobject->output('<h3 class="widget-title">'.cs_name($handle).'\'s '.$type_title.@$type_link.'</h3>');
 				
 			$themeobject->output('<div class="ra-ua-widget">');
 			$themeobject->output($this->cs_user_post_list($handle, @$widget_opt['cs_up_type'],  (int)$widget_opt['cs_ua_count']));

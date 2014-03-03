@@ -72,16 +72,17 @@
 				reset_theme_options();
 				qa_opt('cs_init',true);
 			}
-			qa_opt('ra_installed', false);
+
 			if(!qa_opt('ra_installed')){
 			/* add some option when theme init first time */
-			
+
 				//create table for builder
 				qa_db_query_sub(
 					'CREATE TABLE IF NOT EXISTS ^ra_widgets ('.
-						'id int(10) NOT NULL AUTO_INCREMENT,'.				
+						'id INT(10) NOT NULL AUTO_INCREMENT,'.				
 						'name VARCHAR (64),'.				
 						'position VARCHAR (64),'.				
+						'widget_order INT(2) NOT NULL DEFAULT 0,'.				
 						'param LONGTEXT,'.				
 						'PRIMARY KEY (id),'.
 						'UNIQUE KEY id (id)'.				

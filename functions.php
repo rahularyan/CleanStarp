@@ -22,7 +22,7 @@ function _cs_lang($str){
 }
 function get_all_widgets()
 {		
-	$widgets = qa_db_read_all_assoc(qa_db_query_sub('SELECT * FROM ^ra_widgets'));
+	$widgets = qa_db_read_all_assoc(qa_db_query_sub('SELECT * FROM ^ra_widgets ORDER BY widget_order'));
 	foreach($widgets as $k => $w){
 		$param = unserialize($w['param']);
 		$widgets[$k]['param'] = $param;
@@ -32,7 +32,7 @@ function get_all_widgets()
 }
 function get_widgets_by_position($position)
 {		
-	$widgets = qa_db_read_all_assoc(qa_db_query_sub('SELECT * FROM ^ra_widgets WHERE position = $', $position));
+	$widgets = qa_db_read_all_assoc(qa_db_query_sub('SELECT * FROM ^ra_widgets WHERE position = $ ORDER BY widget_order', $position));
 	foreach($widgets as $k => $w){
 		$param = unserialize($w['param']);
 		$widgets[$k]['param'] = $param;
@@ -40,10 +40,10 @@ function get_widgets_by_position($position)
 	return $widgets;
 
 }
-function widget_opt($name, $position=false, $param = false, $id= false)
+function widget_opt($name, $position=false, $order = false, $param = false, $id= false)
 {		
 	if($position && $param){
-		widget_opt_update($name, $position, $param, $id);
+		widget_opt_update($name, $position, $order, $param, $id);
 	}else{
 		$widgets = qa_db_read_one_value(qa_db_query_sub('SELECT * FROM ^ra_widgets WHERE name = $',$name ), true);
 		return $widgets;
@@ -51,17 +51,17 @@ function widget_opt($name, $position=false, $param = false, $id= false)
 }
 
 
-function widget_opt_update($name, $position, $param, $id = false){
+function widget_opt_update($name, $position, $order, $param, $id = false){
 
 	if($id)
 		qa_db_query_sub(
-			'UPDATE ^ra_widgets SET name = $, position = $, param = $ WHERE id=#',
-			$name, $position, $param, $id
+			'UPDATE ^ra_widgets SET name = $, position = $, widget_order = #, param = $ WHERE id=#',
+			$name, $position, $order, $param, $id
 		);
 	else
 		qa_db_query_sub(
-			'INSERT ^ra_widgets (name, position, param) VALUES ($, $, $)',
-			$name, $position, $param
+			'INSERT ^ra_widgets (name, position, widget_order, param) VALUES ($, $, #, $)',
+			$name, $position, $order, $param
 		);
 }
 function widget_opt_delete($id ){

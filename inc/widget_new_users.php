@@ -95,7 +95,7 @@
 						if (isset($u['useid']))	$id = $u['useid']; else $id = qa_handle_to_userid($handle);
 						$output .= '<li class="user">';
 						if (!empty($avatar))
-							$output .= '<div class="avatar" data-handle="'. $handle .'" data-id="'. $id .'"><img src="'.$avatar.'" /></div>';
+							$output .= '<a href="' . qa_path_html('user/'. $handle) . '"><div class="avatar" data-handle="'. $handle .'" data-id="'. $id .'"><img src="'.$avatar.'" /></div></a>';
 						$output .= '</li>';
 					}
 				}

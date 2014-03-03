@@ -1,5 +1,5 @@
 <?php
-	class cs_user_activity_widget {
+	class cs_user_posts_widget {
 
 		function cs_widget_form()
 		{

@@ -3748,6 +3748,13 @@ input[type=checkbox].on-off-checkbox {
     font-size: 15px;
     font-weight: 300;
 }
+.user-activities .what-task{
+    display: inline-block;
+    font-family: open sans;
+    margin-right: 15px;
+    min-width: 80px;
+    text-transform: capitalize;
+}
 .user-activities .when{
     color: #AAAAAA;
     float: right;

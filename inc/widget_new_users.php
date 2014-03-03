@@ -84,13 +84,18 @@
 				}
 				
 			}else{
-				$users = cs_get_cache('SELECT * FROM ^users ORDER BY created DESC LIMIT #', $limit);	
+				if ( qa_opt('avatar_default_show') && strlen(qa_opt('avatar_default_blobid')) )
+					$users = cs_get_cache("SELECT * FROM ^users ORDER BY created DESC LIMIT #", $limit);	
+				else if ( qa_opt('avatar_allow_upload') )
+					$users = cs_get_cache("SELECT * FROM ^users WHERE avatarblobid IS NOT NULL ORDER BY created DESC LIMIT #", $limit);	
 				foreach($users as $u){
 					if (isset($u['handle'])){
 						$handle = $u['handle'];
+						$avatar = cs_get_avatar($handle, $size, false);
 						if (isset($u['useid']))	$id = $u['useid']; else $id = qa_handle_to_userid($handle);
 						$output .= '<li class="user">';
-						$output .= '<div class="avatar" data-handle="'. $handle .'" data-id="'. $id .'"><img src="'.cs_get_avatar($handle, $size, false).'" /></div>';
+						if (!empty($avatar))
+							$output .= '<div class="avatar" data-handle="'. $handle .'" data-id="'. $id .'"><img src="'.$avatar.'" /></div>';
 						$output .= '</li>';
 					}
 				}

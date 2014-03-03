@@ -22,7 +22,7 @@ function _cs_lang($str){
 }
 function get_all_widgets()
 {		
-	$widgets = qa_db_read_all_assoc(qa_db_query_sub('SELECT * FROM ^ra_widgets'));
+	$widgets = qa_db_read_all_assoc(qa_db_query_sub('SELECT * FROM ^ra_widgets ORDER BY widget_order'));
 	foreach($widgets as $k => $w){
 		$param = unserialize($w['param']);
 		$widgets[$k]['param'] = $param;
@@ -32,7 +32,7 @@ function get_all_widgets()
 }
 function get_widgets_by_position($position)
 {		
-	$widgets = qa_db_read_all_assoc(qa_db_query_sub('SELECT * FROM ^ra_widgets WHERE position = $', $position));
+	$widgets = qa_db_read_all_assoc(qa_db_query_sub('SELECT * FROM ^ra_widgets WHERE position = $ ORDER BY widget_order', $position));
 	foreach($widgets as $k => $w){
 		$param = unserialize($w['param']);
 		$widgets[$k]['param'] = $param;
@@ -40,10 +40,10 @@ function get_widgets_by_position($position)
 	return $widgets;
 
 }
-function widget_opt($name, $position=false, $param = false, $id= false)
+function widget_opt($name, $position=false, $order = false, $param = false, $id= false)
 {		
 	if($position && $param){
-		widget_opt_update($name, $position, $param, $id);
+		widget_opt_update($name, $position, $order, $param, $id);
 	}else{
 		$widgets = qa_db_read_one_value(qa_db_query_sub('SELECT * FROM ^ra_widgets WHERE name = $',$name ), true);
 		return $widgets;
@@ -51,17 +51,17 @@ function widget_opt($name, $position=false, $param = false, $id= false)
 }
 
 
-function widget_opt_update($name, $position, $param, $id = false){
+function widget_opt_update($name, $position, $order, $param, $id = false){
 
 	if($id)
 		qa_db_query_sub(
-			'UPDATE ^ra_widgets SET name = $, position = $, param = $ WHERE id=#',
-			$name, $position, $param, $id
+			'UPDATE ^ra_widgets SET name = $, position = $, widget_order = #, param = $ WHERE id=#',
+			$name, $position, $order, $param, $id
 		);
 	else
 		qa_db_query_sub(
-			'INSERT ^ra_widgets (name, position, param) VALUES ($, $, $)',
-			$name, $position, $param
+			'INSERT ^ra_widgets (name, position, widget_order, param) VALUES ($, $, #, $)',
+			$name, $position, $order, $param
 		);
 }
 function widget_opt_delete($id ){
@@ -248,52 +248,6 @@ function cs_name($handle){
 }
 
 
-// output the list of selected post type
-function cs_user_post_list($handle, $type, $limit){
-	$userid = qa_handle_to_userid($handle);
-	require_once QA_INCLUDE_DIR.'qa-app-posts.php';
-	$post = qa_db_query_sub('SELECT * FROM ^posts WHERE ^posts.type=$ and ^posts.userid=# ORDER BY ^posts.created DESC LIMIT #', $type, $userid, $limit);	
-	
-	$output = '<ul class="question-list users-widget">';
-	while($p = mysql_fetch_array($post)){
-
-		if($type=='Q'){
-			$what = _cs_lang('asked');
-		}elseif($type=='A'){
-			$what = _cs_lang('answered');
-		}elseif('C'){
-			$what = _cs_lang('commented');
-		}
-		
-		$handle = qa_post_userid_to_handle($p['userid']);
-
-		$output .= '<li id="q-list-'.$p['postid'].'" class="question-item">';
-		if ($type=='Q'){
-			$output .= '<div class="big-ans-count pull-left">'.$p['acount'].'<span>'._cs_lang('Ans').'</span></div>';
-		}elseif($type=='A'){
-			$output .= '<div class="big-ans-count pull-left vote">'.$p['netvotes'].'<span>'._cs_lang('Vote').'</span></div>';
-		}
-		$output .= '<div class="list-right">';
-
-		if($type=='Q'){
-			$output .= '<h5><a href="'. qa_q_path_html($p['postid'], $p['title']) .'" title="'. $p['title'] .'">'.qa_html($p['title']).'</a></h5>';
-		}elseif($type=='A'){
-			$output .= '<h5><a href="'.cs_post_link($p['parentid']).'#a'.$p['postid'].'">'. substr(strip_tags($p['content']), 0, 50).'</a></h5>';
-		}else{
-			$output .= '<h5><a href="'.cs_post_link($p['parentid']).'#c'.$p['postid'].'">'. substr(strip_tags($p['content']), 0, 50).'</a></h5>';
-		}
-		
-		$output .= '<div class="list-date"><span class="icon-calendar-2">'.date('d M Y', strtotime($p['created'])).'</span>';	
-		$output .= '<span class="icon-chevron-up">'.$p['netvotes'].' '._cs_lang('votes').'</span></div>';	
-		$output .= '</div>';	
-		$output .= '</li>';
-	}
-	$output .= '<li>';
-	$output .= '<a class="see-all" href="#">Show all</a>';
-	$output .= '</li>';
-	$output .= '</ul>';
-	echo $output;
-}
 
 function cs_post_link($id){
 	$type = mysql_result(qa_db_query_sub('SELECT type FROM ^posts WHERE postid = "'.$id.'"'), 0);

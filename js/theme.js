@@ -348,7 +348,7 @@ function cs_widgets(){
 	});
 	
 	if ($('#ra-widgets').length>0) {
-		$('#ra-widgets .draggable-widget').draggable({
+		$('#ra-widgets .widget-list .draggable-widget').draggable({
 			connectToSortable: '.position-canvas',
 			helper: 'clone',
 			handle: '.drag-handle',
@@ -381,7 +381,7 @@ function cs_save_widget($elm){
 		var name = $(this).data('name');
 		var id = typeof $(this).data('id') == 'undefined' ? 0 : $(this).data('id') ;
 		
-		widget[name] = {'id' : id, 'locations':'', 'options':''};
+		widget[name] = {'id' : id, 'order' : $(this).index(), 'locations':'', 'options':''};
 		
 		$(this).find('.select-template input').each(function(){
 			locations[$(this).attr('name')] = $(this).is(':checked') ? true : false;

@@ -48,7 +48,7 @@
 					'</html>'
 				);
 			}
-			cs_set_site_cache();
+			//cs_set_site_cache();
 		}		
 		
 		function body_tags()
@@ -1632,10 +1632,11 @@
 				
 				if(isset($widget_names) && is_array($widget_names))
 					foreach($widget_names as $k => $w){
-						if(isset($w['id']) && $w['id'] != 0)
-							widget_opt($k, $position, serialize($w), $w['id']);
+						$param = array('locations' => $w['locations'], 'options'=> $w['options']);
+						if(isset($w['id']) && $w['id'] > 0)
+							widget_opt($k, $position, $w['order'], serialize($param), $w['id']);
 						else
-							widget_opt($k, $position, serialize($w));
+							widget_opt($k, $position, $w['order'], serialize($param));
 					}
 			}
 			die();

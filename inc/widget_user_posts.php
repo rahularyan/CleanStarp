@@ -7,11 +7,22 @@
 			return array(
 				'style' => 'wide',
 				'fields' => array(
-					'cs_ua_count' => array(
-						'label' => 'Numbers of Questions',
+					'cs_up_count' => array(
+						'label' => 'Numbers of post',
 						'type' => 'number',
-						'tags' => 'name="cs_ua_count"',
+						'tags' => 'name="cs_up_count"',
 						'value' => '10',
+					),
+					'cs_up_type' => array(
+						'label' => 'Numbers of Questions',
+						'type' => 'select',
+						'tags' => 'name="cs_up_type"',
+						'value' => 'Q',
+						'options' => array(
+							'Q' => 'Questions',
+							'A' => 'Answers',
+							'C' => 'Comments',
+						)
 					),
 				),
 
@@ -64,60 +75,55 @@
 			return $allow;
 		}
 
-		function get_user_activity($handle, $limit = 10){
+		// output the list of selected post type
+		function cs_user_post_list($handle, $type, $limit){
 			$userid = qa_handle_to_userid($handle);
-			require_once QA_INCLUDE_DIR.'qa-db-selects.php';
-			require_once QA_INCLUDE_DIR.'qa-app-format.php';
+			require_once QA_INCLUDE_DIR.'qa-app-posts.php';
+			$post = qa_db_query_sub('SELECT * FROM ^posts WHERE ^posts.type=$ and ^posts.userid=# ORDER BY ^posts.created DESC LIMIT #', $type, $userid, $limit);	
 			
-			$identifier=QA_FINAL_EXTERNAL_USERS ? $userid : $handle;
+			$output = '<ul class="question-list users-post-widget">';
+			while($p = mysql_fetch_array($post)){
 
-			list($useraccount, $questions, $answerqs, $commentqs, $editqs)=qa_db_select_with_pending(
-				QA_FINAL_EXTERNAL_USERS ? null : qa_db_user_account_selectspec($handle, false),
-				qa_db_user_recent_qs_selectspec($userid, $identifier, $limit),
-				qa_db_user_recent_a_qs_selectspec($userid, $identifier),
-				qa_db_user_recent_c_qs_selectspec($userid, $identifier),
-				qa_db_user_recent_edit_qs_selectspec($userid, $identifier)
-			);
-			
-			if ((!QA_FINAL_EXTERNAL_USERS) && !is_array($useraccount)) // check the user exists
-				return include QA_INCLUDE_DIR.'qa-page-not-found.php';
-
-
-		//	Get information on user references
-
-			$questions=qa_any_sort_and_dedupe(array_merge($questions, $answerqs, $commentqs, $editqs));
-			$questions=array_slice($questions, 0, $limit);
-			$usershtml=qa_userids_handles_html(qa_any_get_userids_handles($questions), false);
-			$htmldefaults=qa_post_html_defaults('Q');
-			$htmldefaults['whoview']=false;
-			$htmldefaults['voteview']=false;
-			$htmldefaults['avatarsize']=0;
-			
-			foreach ($questions as $question)
-				$qa_content[]=qa_any_to_q_html_fields($question, $userid, qa_cookie_get(),
-					$usershtml, null, array('voteview' => false) + qa_post_html_options($question, $htmldefaults));
-
-
-			$output = '<div class="user-activities">';
-			$output .='<ul>';
-			if(isset($qa_content)){
-				foreach ($qa_content as $qs){
-					$icon = 'icon-time undefined';					
-					$output .='<li class="activity-item">';
-					$output .= '<div class="type pull-left '.$icon.'"></div>';
-					$output .= '<div class="list-right">';
-					$output .= '<a class="what-task" href="'.@$qs['url'].'">'.$qs['what'].'</a>';
-					$output .= '<a class="what" href="'.$qs['url'].'">'.$qs['title'].'</a>';
-					$output .= '<strong class="when">'.implode(' ', $qs['when']).'</strong>';					
-					$output .= '</div>';
-					$output .='</li>';
+				if($type=='Q'){
+					$what = _cs_lang('asked');
+				}elseif($type=='A'){
+					$what = _cs_lang('answered');
+				}elseif('C'){
+					$what = _cs_lang('commented');
 				}
-			}else{
-				$output .='<li>'._cs_lang('No activity yet.').'</li>';
+				
+				$handle = qa_post_userid_to_handle($p['userid']);
+
+				$output .= '<li id="q-list-'.$p['postid'].'" class="question-item">';
+				if ($type=='Q'){
+					$output .= '<div class="big-ans-count pull-left">'.$p['acount'].'<span>'._cs_lang('Ans').'</span></div>';
+				}elseif($type=='A'){
+					$output .= '<div class="big-ans-count pull-left vote">'.$p['netvotes'].'<span>'._cs_lang('Vote').'</span></div>';
+				}
+				$output .= '<div class="list-right">';
+
+				if($type=='Q'){
+					$output .= '<h5><a href="'. qa_q_path_html($p['postid'], $p['title']) .'" title="'. $p['title'] .'">'.qa_html($p['title']).'</a></h5>';
+				}elseif($type=='A'){
+					$output .= '<h5><a href="'.cs_post_link($p['parentid']).'#a'.$p['postid'].'">'. substr(strip_tags($p['content']), 0, 50).'</a></h5>';
+				}else{
+					$output .= '<h5><a href="'.cs_post_link($p['parentid']).'#c'.$p['postid'].'">'. substr(strip_tags($p['content']), 0, 50).'</a></h5>';
+				}
+				
+				$output .= '<div class="list-date"><span class="icon-calendar-2">'.date('d M Y', strtotime($p['created'])).'</span>';	
+				$output .= '<span class="icon-chevron-up">'.$p['netvotes'].' '._cs_lang('votes').'</span></div>';	
+				$output .= '</div>';	
+				$output .= '</li>';
 			}
+			$output .= '<li>';
+
+			$type_link = $type == 'Q' ? 'questions' : 'answers';
+
+				
+			$output .= '<a class="see-all" href="'.qa_path_html('user/'.$handle.'/'.$type_link).'">Show all</a>';
+			$output .= '</li>';
 			$output .= '</ul>';
-			$output .= '</div>';
-			return $output;
+			echo $output;
 		}
 
 		function output_widget($region, $place, $themeobject, $template, $request, $qa_content)
@@ -125,11 +131,18 @@
 			$widget_opt = @$themeobject->current_widget['param']['options'];
 			$handle = $qa_content['raw']['account']['handle'];
 			
+			if($widget_opt['cs_up_type'] == 'Q')
+				$type_title = 'Questions';
+			elseif($widget_opt['cs_up_type'] == 'A')
+				$type_title = 'Answers';
+			else
+				$type_title = 'Comments';
+				
 			if(@$themeobject->current_widget['param']['locations']['show_title'])
-				$themeobject->output('<h3 class="widget-title">'.cs_name($handle).'\'s '._cs_lang('activities').'</h3>');
+				$themeobject->output('<h3 class="widget-title">'.cs_name($handle).'\'s '.$type_title.'</h3>');
 				
 			$themeobject->output('<div class="ra-ua-widget">');
-			$themeobject->output($this->get_user_activity($handle, (int)$widget_opt['cs_ua_count']));
+			$themeobject->output($this->cs_user_post_list($handle, @$widget_opt['cs_up_type'],  (int)$widget_opt['cs_ua_count']));
 			$themeobject->output('</div>');
 		}
 	

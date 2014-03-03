@@ -48,7 +48,7 @@
 					'</html>'
 				);
 			}
-			cs_set_site_cache();
+			//cs_set_site_cache();
 		}		
 		
 		function body_tags()

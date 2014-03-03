@@ -37,7 +37,7 @@
 	require Q_THEME_DIR.'/inc/blocks.php';
 	
 	require_once QA_INCLUDE_DIR.'qa-db-cache.php';
-	cs_get_site_cache();	
+	//cs_get_site_cache();	
 
 	if(isset($_REQUEST['cs_ajax']))
 		require Q_THEME_DIR.'/inc/ajax.php';

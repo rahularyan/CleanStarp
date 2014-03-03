@@ -248,52 +248,6 @@ function cs_name($handle){
 }
 
 
-// output the list of selected post type
-function cs_user_post_list($handle, $type, $limit){
-	$userid = qa_handle_to_userid($handle);
-	require_once QA_INCLUDE_DIR.'qa-app-posts.php';
-	$post = qa_db_query_sub('SELECT * FROM ^posts WHERE ^posts.type=$ and ^posts.userid=# ORDER BY ^posts.created DESC LIMIT #', $type, $userid, $limit);	
-	
-	$output = '<ul class="question-list users-widget">';
-	while($p = mysql_fetch_array($post)){
-
-		if($type=='Q'){
-			$what = _cs_lang('asked');
-		}elseif($type=='A'){
-			$what = _cs_lang('answered');
-		}elseif('C'){
-			$what = _cs_lang('commented');
-		}
-		
-		$handle = qa_post_userid_to_handle($p['userid']);
-
-		$output .= '<li id="q-list-'.$p['postid'].'" class="question-item">';
-		if ($type=='Q'){
-			$output .= '<div class="big-ans-count pull-left">'.$p['acount'].'<span>'._cs_lang('Ans').'</span></div>';
-		}elseif($type=='A'){
-			$output .= '<div class="big-ans-count pull-left vote">'.$p['netvotes'].'<span>'._cs_lang('Vote').'</span></div>';
-		}
-		$output .= '<div class="list-right">';
-
-		if($type=='Q'){
-			$output .= '<h5><a href="'. qa_q_path_html($p['postid'], $p['title']) .'" title="'. $p['title'] .'">'.qa_html($p['title']).'</a></h5>';
-		}elseif($type=='A'){
-			$output .= '<h5><a href="'.cs_post_link($p['parentid']).'#a'.$p['postid'].'">'. substr(strip_tags($p['content']), 0, 50).'</a></h5>';
-		}else{
-			$output .= '<h5><a href="'.cs_post_link($p['parentid']).'#c'.$p['postid'].'">'. substr(strip_tags($p['content']), 0, 50).'</a></h5>';
-		}
-		
-		$output .= '<div class="list-date"><span class="icon-calendar-2">'.date('d M Y', strtotime($p['created'])).'</span>';	
-		$output .= '<span class="icon-chevron-up">'.$p['netvotes'].' '._cs_lang('votes').'</span></div>';	
-		$output .= '</div>';	
-		$output .= '</li>';
-	}
-	$output .= '<li>';
-	$output .= '<a class="see-all" href="#">Show all</a>';
-	$output .= '</li>';
-	$output .= '</ul>';
-	echo $output;
-}
 
 function cs_post_link($id){
 	$type = mysql_result(qa_db_query_sub('SELECT type FROM ^posts WHERE postid = "'.$id.'"'), 0);

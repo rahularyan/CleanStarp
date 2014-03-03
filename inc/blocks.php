@@ -1272,7 +1272,8 @@
 			$this->output('<div class="user-cols-right">');
 				if(isset($about) && strlen($about))
 				$this->output(
-					'<div class="about-me">',
+					'<div class="about-me widget">',
+					'<h3 class="widget-title">About Me</h3>',
 					$about,
 					'</div>'
 				);
@@ -1286,14 +1287,11 @@
 		function cs_user_nav($handle){
 			$user = cs_user_data($handle);
 			
-			if(qa_get_logged_in_level()>=QA_USER_LEVEL_ADMIN){
-				$edit =  '<a id="edit-user" class="btn btn-xs btn-success edit-profile icon-edit" href="'.qa_path_absolute('user/'.$handle,array('state'=>'edit')).'">Edit User</a>';
-			}
 			$this->output('			
 			<div class="user-header">
 				<div class="user-header-inner clearfix">
 			  <div class="user-thumb">
-				'.@$edit. cs_get_avatar($handle, 150).'
+				'. cs_get_avatar($handle, 150).'
 			  </div>
 			  <div class="user-name-detail">
 				<h3>'.cs_name($handle).'<small class="block m-t-mini">'.qa_user_level_string($user[0]['level']).'</small>
@@ -1304,6 +1302,9 @@
 				$this->favorite();
 				
 			  $this->output('</div>');
+			if(qa_get_logged_in_level()>=QA_USER_LEVEL_ADMIN){
+				$this->output('<a id="edit-user" class="btn btn-xs btn-success edit-profile" href="'.qa_path_absolute('user/'.$handle,array('state'=>'edit')).'">Edit User</a>');
+			}
 			 $this->nav('sub');
 			  $this->output('</div>');
 			$this->output('</div>');

@@ -2087,11 +2087,13 @@ table.page-users-list {
 }
 
 #edit-user {
-    background: #fcb034;
+    background: none repeat scroll 0 0 #333333;
+    display: block;
     font-size: 11px;
     font-weight: 400;
-    position: absolute;
-    right: 0;
+    margin-top: 10px;
+    padding: 3px;
+	border-radius:2px;
 }
 
 .sidebar-inner div.text-center {
@@ -2898,24 +2900,29 @@ input[type=checkbox].on-off-checkbox {
     
 }
 .user-cols-right .about-me {
-	font-family: 'open sans', arial,helvetica,serif;
     background: none repeat scroll 0 0 #FFFFFF;
     border-radius: 4px;
+    font-family: 'open sans',arial,helvetica,serif;
+    font-size: 15px;
+    margin-bottom: 15px;
     padding: 15px;
-	margin-bottom: 15px;
+}
+.user-cols-right .about-me h3{
+
 }
 .user-activity-count {
-    background: none repeat scroll 0 0 #FFFFFF;
-    border-radius: 4px;
     margin-bottom: 15px;
 }
 
 .user-activity-count .points {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-radius: 3px;
     border-right: 1px solid #EEEEEE;
     display: block;
     float: left;
+    font-family: 'open sans',arial;
     font-size: 25px;
-    font-weight: 600;
+    font-weight: 300;
     overflow: hidden;
     padding: 10px;
     text-align: center;
@@ -2923,31 +2930,35 @@ input[type=checkbox].on-off-checkbox {
 }
 
 .user-activity-count .points span {
-    color: #AAAAAA;
     display: block;
-    font-size: 12px;
-    font-weight: 400;
-    line-height: 18px;
+    font-size: 13px;
+    text-align: center;
+    text-transform: uppercase;
 }
 
 .user-activity-count .counts {
     float: left;
-    margin-top: 6px;
-    padding: 12px 12px 12px 20px;
 }
 
 .user-activity-count .counts > div {
-    color: #888888;
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-radius: 3px;
+    color: #AAAAAA;
     display: inline-block;
-    margin-right: 20px;
+    font-family: 'open sans',arial,helvetica;
+    font-size: 12px;
+    font-weight: 300;
+    margin-left: 16px;
+    margin-right: 0;
+    min-width: 100px;
+    padding: 10px;
     text-align: center;
+    text-transform: uppercase;
 }
 
 .user-activity-count .counts > div span {
-    border-radius: 1px;
-    color: #FFFFFF;
-    margin-right: 5px;
-    padding: 4px 10px;
+    display: block;
+    font-size: 22px;
 }
 
 .user-activity-count .bar-chart {
@@ -3769,7 +3780,29 @@ input[type=checkbox].on-off-checkbox {
 .users-post-widget .question-item .list-right h5 a{
 	color: #777;
 }
+.users-post-widget.post-type-A .question-item .list-right h5 a, .users-post-widget.post-type-C .question-item .list-right h5 a{
+    font-size: 14px;
+    line-height: 24px;
+}
+.question-list .question-item .big-ans-count.icon-chat{
+    border-radius: 50%;
+    font-size: 24px;
+    line-height: 45px;
+}
+.question-list .question-item .big-ans-count.icon-comment{
+    border-radius: 50%;
+    font-size: 18px;
+    line-height: 37px;
+}
 .users-post-widget .question-item .list-right .list-date span{
     color: #AAAAAA;
     font-size: 11px;
+}
+.widget .user-post-title a {
+    background: none repeat scroll 0 0 #333333;
+    border-radius: 2px;
+    color: #FFFFFF;
+    margin-right: -5px;
+    margin-top: -5px;
+    padding: 5px 10px;
 }

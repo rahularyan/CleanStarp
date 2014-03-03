@@ -1345,34 +1345,9 @@
 		function cs_user_qa($handle){
 			ob_start();
 			?>
-			 <div class="user-qac-list">
-				
-					<?php
-						$this->cs_position('User Content');
-					?>
-				
-					<header class="panel-heading">
-					  <ul class="nav nav-tabs nav-justified">
-						<li class="active"><a data-toggle="tab" href="#user-questions">Questions</a></li>
-						<li class=""><a data-toggle="tab" href="#user-answers">Answers</a></li>
-						<li class=""><a data-toggle="tab" href="#user-comments">Comments</a></li>
-					  </ul>
-					</header>
-					<div class="panel-body">
-					  <div class="tab-content">
-						<div id="user-questions" class="tab-pane active">
-							<?php cs_user_post_list($handle, 'Q', 5); ?>
-						</div>
-						<div id="user-answers" class="tab-pane">
-							<?php cs_user_post_list($handle, 'A', 5); ?>
-						</div>
-						<div id="user-comments" class="tab-pane">
-							<?php cs_user_post_list($handle, 'C', 5); ?>
-						</div>
-					  </div>
-					</div>
-				
-			  </div>
+			<div class="user-qac-list">
+				<?php $this->cs_position('User Content'); ?>
+			</div>
 			<?php
 			//echo '<pre>'; cs_user_activity($handle); echo '</pre>';
 			$this->output(ob_get_clean());

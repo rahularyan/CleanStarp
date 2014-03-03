@@ -109,6 +109,8 @@
 		
 		qa_register_module('widget', '/inc/widget_user_activity.php', 'cs_user_activity_widget', 'User Activity', Q_THEME_DIR, Q_THEME_URL);
 		
+		qa_register_module('widget', '/inc/widget_user_posts.php', 'cs_user_posts_widget', 'User Posts', Q_THEME_DIR, Q_THEME_URL);
+		
 		//enable category widget only if category is active in q2a
 		if ( qa_using_categories() )
 			qa_register_module('widget', '/inc/widget_categories.php', 'widget_categories', 'Categories', Q_THEME_DIR, Q_THEME_URL);			

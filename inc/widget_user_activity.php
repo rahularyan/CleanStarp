@@ -102,30 +102,13 @@
 			$output .='<ul>';
 			if(isset($qa_content)){
 				foreach ($qa_content as $qs){
-
-					if($qs['what'] == 'answered'){
-						$icon = 'icon-chat-3 answered';
-					}elseif($qs['what'] == 'asked'){
-						$icon = 'icon-question asked';
-					}elseif($qs['what'] == 'commented'){
-						$icon = 'icon-chat-2 commented';
-					}elseif($qs['what'] == 'edited' || $qs['what'] == 'answer edited'){
-						$icon = 'icon-edit edited';
-					}elseif($qs['what'] == 'closed'){
-						$icon = 'icon-error closed';
-					}elseif($qs['what'] == 'answer selected'){
-						$icon = 'icon-checked selected';
-					}elseif($qs['what'] == 'recategorized'){
-						$icon = 'icon-folder-close recategorized';
-					}else{
-						$icon = 'icon-time undefined';
-					}
-					
+					$icon = 'icon-time undefined';					
 					$output .='<li class="activity-item">';
 					$output .= '<div class="type pull-left '.$icon.'"></div>';
 					$output .= '<div class="list-right">';
+					$output .= '<a class="what-task" href="'.@$qs['url'].'">'.$qs['what'].'</a>';
 					$output .= '<a class="what" href="'.$qs['url'].'">'.$qs['title'].'</a>';
-					$output .= '<strong class="when"><a href="'.@$qs['what_url'].'">'.$qs['what'].'</a> '.implode(' ', $qs['when']).'</strong>';					
+					$output .= '<strong class="when">'.implode(' ', $qs['when']).'</strong>';					
 					$output .= '</div>';
 					$output .='</li>';
 				}

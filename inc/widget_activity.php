@@ -134,25 +134,25 @@
 						$linkToPost = qa_path_html('user/'.$row['handle']);
 					}
 					
-					$username = (is_null($row['handle'])) ? _cs_lang('Anonymous') : htmlspecialchars($row['handle']);
-					$usernameLink = (is_null($row['handle'])) ? _cs_lang('Anonymous') : '<a target="_blank" class="qa-user-link" href="'.qa_opt('site_url').'user/'.$row['handle'].'">'.cs_name($row['handle']).'</a>';
+					$username = (is_null($row['handle'])) ? qa_lang('Anonymous') : htmlspecialchars($row['handle']);
+					$usernameLink = (is_null($row['handle'])) ? qa_lang('Anonymous') : '<a target="_blank" class="qa-user-link" href="'.qa_opt('site_url').'user/'.$row['handle'].'">'.cs_name($row['handle']).'</a>';
 					
 					// set event name and css class
 					$eventName = '';
 					if($row['event']=="q_post") {
-						$eventName = _cs_lang('asked');
+						$eventName = qa_lang('asked');
 					}
 					else if($row['event']=="a_post") {
-						$eventName = _cs_lang('answered');
+						$eventName = qa_lang('answered');
 					}
 					else if($row['event']=="c_post") {
-						$eventName = _cs_lang('commented');	
+						$eventName = qa_lang('commented');	
 					}
 					else if($row['event']=="a_select") {
-						$eventName = _cs_lang('selected an answer');
+						$eventName = qa_lang('selected an answer');
 					}				
 					else if($row['event']=="badge_awarded") {
-						$eventName = _cs_lang('earned a badge');
+						$eventName = qa_lang('earned a badge');
 					}			
 					
 					// set event icon class

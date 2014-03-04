@@ -272,7 +272,7 @@
 						</a>
 						<ul class="user-nav dropdown-menu">
 							<li class="points"><?php echo qa_get_logged_in_points(); ?></li>
-							<li><a class="icon-profile" href="<?php echo qa_path_html('user/' . qa_get_logged_in_handle()); ?>"><?php cs_lang('Profile'); ?></a></li>
+							<li><a class="icon-profile" href="<?php echo qa_path_html('user/' . qa_get_logged_in_handle()); ?>"><?php qa_lang('Profile'); ?></a></li>
 							<?php
 							foreach ($this->content['navigation']['user'] as $a) {
 								if (isset($a['url'])) {
@@ -461,7 +461,7 @@
 			?>
 				<ul class="user-sidebar">
 					<li class="points"><?php echo qa_get_logged_in_points(); ?></li>
-					<li><a class="icon-profile" href="<?php echo qa_path_html('user/' . qa_get_logged_in_handle()); ?>"><?php cs_lang('Profile'); ?></a></li>
+					<li><a class="icon-profile" href="<?php echo qa_path_html('user/' . qa_get_logged_in_handle()); ?>"><?php qa_lang('Profile'); ?></a></li>
 					<?php
 					foreach ($this->content['navigation']['user'] as $a) {
 						if (isset($a['url'])) {
@@ -941,7 +941,7 @@
 			
 			$state = @$post['vote_state'] ;
 			$code = qa_get_form_security_code('vote');
-				$vote_text = ($post['raw']['netvotes'] >1 || $post['raw']['netvotes']< (-1)) ? _cs_lang('votes') : _cs_lang('vote');
+				$vote_text = ($post['raw']['netvotes'] >1 || $post['raw']['netvotes']< (-1)) ? qa_lang('votes') : qa_lang('vote');
 							
 				if (isset($post['vote_up_tags']))
 					$this->output('<a '.@$up_tags.' href="#" data-code="'.$code.'" class=" icon-thumbs-up2 enabled vote-up '.$state.'"></a>');
@@ -1430,7 +1430,7 @@
 		{
 
 			if (isset($tags)){
-				if($this->template == 'user') $text =  isset($favorite['favorite_add_tags'])? _cs_lang('Follow') : _cs_lang('Unfollow');
+				if($this->template == 'user') $text =  isset($favorite['favorite_add_tags'])? qa_lang('Follow') : qa_lang('Unfollow');
 				$code_icon = explode(',', $class);
 				$data = str_replace('name', 'data-id', @$tags);
 				$data = str_replace('onclick="return qa_favorite_click(this);"', '', @$data);

@@ -5,21 +5,6 @@
 			exit;
 	}
 
-
-function cs_lang($str){
-	global $qa_content;
-	if(isset($qa_content['lang'][strtolower($str)]))
-		echo $qa_content['lang'][strtolower($str)];
-	else
-		echo $str;
-}
-function _cs_lang($str){
-	global $qa_content;
-	if(isset($qa_content['lang'][strtolower($str)]))
-		return $qa_content['lang'][strtolower($str)];
-	else
-		return $str;
-}
 function get_all_widgets()
 {		
 	$widgets = qa_db_read_all_assoc(qa_db_query_sub('SELECT * FROM ^ra_widgets ORDER BY widget_order'));

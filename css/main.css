@@ -3780,6 +3780,13 @@ input[type=checkbox].on-off-checkbox {
     font-size: 24px;
     line-height: 45px;
 }
+.question-list .no-post-found{
+    font-family: 'open sans',arial;
+    font-size: 17px;
+    font-weight: 300;
+    padding: 10px;
+    text-align: center;
+}
 .question-list .question-item .big-ans-count.icon-comment{
     border-radius: 50%;
     font-size: 18px;

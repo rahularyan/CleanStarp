@@ -34,6 +34,9 @@ a:hover{
 .navbar-default .navbar-form .icon-search{
     color: #aaa;
 }
+.user-popover .counts{
+	background:#e45840;
+}
 .left-sidebar .qa-nav-main-list .qa-nav-main-item .qa-nav-main-link.qa-nav-main-selected, .left-sidebar .qa-nav-main-list .qa-nav-main-item .qa-nav-main-link:hover{
 	color:#6E973C;
 }

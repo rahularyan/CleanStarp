@@ -623,3 +623,47 @@ function cs_set_site_cache(){
 		qa_db_cache_set('cs_cache', 0, json_encode($cache) );
 	}
 }
+
+function cs_ajax_user_popover(){
+	
+	$handle_id= qa_post_text('handle');
+	$handle= qa_post_text('handle');
+	require_once QA_INCLUDE_DIR.'qa-db-users.php';
+	if(isset($handle)){
+		$userid = qa_handle_to_userid($handle);
+		//$badges = ra_user_badge($handle);
+		
+		if(defined('QA_WORDPRESS_INTEGRATE_PATH')){
+			$userid = qa_handle_to_userid($handle);
+			$cover = get_user_meta( $userid, 'cover' );
+			$cover = $cover[0];
+		}else{
+			$data = cs_user_data($handle);
+		}
+
+		?>
+		<div id="<?php echo $userid;?>_popover" class="user-popover">
+			<div class="counts clearfix">
+				<div class="points">
+					<?php echo '<span>'.$data[2]['points'] .'</span>Points'; ?>
+				</div>
+				<div class="qcount">
+					<?php echo '<span>'.$data[2]['qposts'] .'</span>Questions'; ?>
+				</div>
+				<div class="acount">
+					<?php echo '<span>'.$data[2]['aposts'] .'</span>Answers'; ?>
+				</div>
+				<div class="ccount">
+					<?php echo '<span>'.$data[2]['cposts'] .'</span>Comments'; ?>
+				</div>
+			</div>
+			<div class="bottom">	
+				<div class="avatar pull-left"><?php echo cs_get_avatar($handle, 30); ?></div>
+				<span class="name"><?php echo cs_name($handle); ?></span>				
+				<span class="level"><?php echo qa_user_level_string($data[0]['level']); ?></span>				
+			</div>
+		</div>	
+		<?php
+	}
+	die();
+}

@@ -576,8 +576,8 @@ h1,h2,h3,h4,h5,h6, .qa-q-item-title {
 }
 
 .qa-q-list .qa-q-list-item .qa-q-item-title {
-    font-size: 18px;
-    font-weight: 300;
+    font-size: 16px;
+    font-weight: 400;
     line-height: 28px;
 }
 
@@ -706,11 +706,12 @@ h1,h2,h3,h4,h5,h6, .qa-q-item-title {
 
 .page-title {
     background: none repeat scroll 0 0 #FFFFFF;
+    border-radius: 2px;
     color: #565655;
     font-size: 25px;
     font-weight: 400;
     line-height: 30px;
-    margin: 0;
+    margin: 0 0 15px;
     padding: 10px;
 }
 
@@ -3842,4 +3843,55 @@ input[type=checkbox].on-off-checkbox {
     background: none repeat scroll 0 0 #FFFFFF;
     border-radius: 4px;
     padding: 15px;
+}
+
+.user-popover{
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+    display: block;
+    overflow: hidden;
+    position: absolute;
+    width: 300px;
+    z-index: 999;
+}
+.user-popover .counts {
+    padding: 10px 0;
+}
+.user-popover .counts > div{
+    color: #fff;
+    display: block;
+    float: left;
+    font-family: open sans,arial;
+    font-size: 11px;
+    font-weight: 300;
+    text-align: center;
+    text-transform: uppercase;
+    width: 25%;
+}
+.user-popover .counts > div span{
+    display: block;
+    font-size: 20px;
+    font-weight: bold;  
+}
+.user-popover .bottom{
+	padding: 10px;
+}
+.user-popover .bottom .avatar{
+    margin-right: 10px;
+    margin-top: 4px;
+}
+.user-popover .bottom .name{
+    display: block;
+    line-height: 18px;
+	font-weight:bold;
+	margin-bottom:5px;
+}
+.user-popover .bottom .level{
+    background: none repeat scroll 0 0 #EEEEEE;
+    border-radius: 2px;
+    display: table;
+    font-size: 10px;
+    line-height: 13px;
+    padding: 0 5px;
 }

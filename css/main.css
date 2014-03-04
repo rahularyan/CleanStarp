@@ -1023,6 +1023,7 @@ a.feed-link {
 }
 
 .asker-avatar img {
+    border-radius: 2px;
     position: relative;
     z-index: 9;
 }
@@ -1711,26 +1712,32 @@ table.page-users-list {
     text-align: center;
 }
 
-.qa-message-list-form {
+.messages{
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-radius: 4px;
     display: table;
     margin-bottom: 20px;
+    padding: 0;
     width: 100%;
 }
-
+.qa-message-list-form {
+    background: none repeat scroll 0 0 #F9F9F9;
+    border-bottom: 1px solid #ECECEC;
+    margin-bottom: 20px;
+    padding: 15px;
+}
 .qa-message-list-form > .asker-avatar {
     display: table-cell;
     margin: 0;
-    width: 50px;
+    width: 40px;
 }
 
 .qa-message-list-form > .qa-message-list-inner {
-    background: #FFFFFF;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 3px;
     overflow: hidden;
-    padding: 10px;
 }
-
+.qa-message-list {
+    padding: 0 15px;
+}
 .qa-message-list-form > .qa-message-list-inner textarea {
     margin-bottom: 10px;
     width: 100%;
@@ -1745,15 +1752,13 @@ table.page-users-list {
 }
 
 .qa-message-item-inner {
-    background: #FFFFFF;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 3px;
-    overflow: hidden;
-    padding: 10px;
+	overflow: hidden;
 }
 
 .qa-message-meta {
+    display: block;
     font-weight: 600;
+    margin-bottom: 10px;
 }
 
 .qa-template-user-wall .content-sidebar .main form {

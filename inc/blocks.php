@@ -549,7 +549,7 @@
 
 			$this->output('<div class="col-sm-'.($this->cs_position_active('Right') ? '9' : '12').' list-c">');
 			
-			if($this->template != 'question' && $this->template != 'user' && (!strlen(qa_request(1)) == 0) && (!empty($this->content['title']))){
+			if($this->template != 'user-answers' && $this->template != 'user-questions' && $this->template != 'user-activity' && $this->template != 'user-wall' && $this->template != 'question' && $this->template != 'user' && (!strlen(qa_request(1)) == 0) && (!empty($this->content['title']))){
 				$this->output(
 					'<h1 class="page-title">',
 					$this->content['title']
@@ -1573,7 +1573,7 @@
 			if (!empty($list['form'])) {
 				$this->output('<div class="qa-message-list-form">');
 				$this->output('<div class="asker-avatar no-radius">');
-				$this->output(cs_get_avatar(qa_get_logged_in_handle(), 40));
+				$this->output(cs_get_avatar(qa_get_logged_in_handle(), 30));
 				$this->output('</div>');
 				$this->output('<div class="qa-message-list-inner">');
 				$this->form($list['form']);
@@ -1586,7 +1586,7 @@
 		{
 			$this->output('<div class="qa-message-item" '.@$message['tags'].'>');
 			$this->output('<div class="asker-avatar">');
-			$this->output(cs_get_avatar($message['raw']['fromhandle'], 35));
+			$this->output(cs_get_avatar($message['raw']['fromhandle'], 30));
 			$this->output('</div>');
 			$this->output('<div class="qa-message-item-inner">');
 			$this->post_meta($message, 'qa-message');

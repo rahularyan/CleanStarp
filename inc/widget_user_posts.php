@@ -79,43 +79,54 @@
 		function cs_user_post_list($handle, $type, $limit){
 			$userid = qa_handle_to_userid($handle);
 			require_once QA_INCLUDE_DIR.'qa-app-posts.php';
-			$post = qa_db_query_sub('SELECT * FROM ^posts WHERE ^posts.type=$ and ^posts.userid=# ORDER BY ^posts.created DESC LIMIT #', $type, $userid, $limit);	
+			$post = qa_db_read_all_assoc(qa_db_query_sub('SELECT * FROM ^posts INNER JOIN ^users ON ^posts.userid=^users.userid WHERE ^posts.type=$ and ^posts.userid=# ORDER BY ^posts.created DESC LIMIT #', $type, $userid, $limit));	
 			
 			$output = '<ul class="question-list users-post-widget post-type-'.$type.'">';
-			while($p = mysql_fetch_array($post)){
+			
+			if(count($post) > 0){
+				foreach($post as $p){
+				
+					if($type=='Q'){
+						$what = _cs_lang('asked');
+					}elseif($type=='A'){
+						$what = _cs_lang('answered');
+					}elseif('C'){
+						$what = _cs_lang('commented');
+					}
+					$handle = $p['handle'];
 
+					$output .= '<li id="q-list-'.$p['postid'].'" class="question-item">';
+					if ($type=='Q'){
+						$output .= '<div class="big-ans-count pull-left">'.$p['acount'].'<span>'._cs_lang('Ans').'</span></div>';
+					}elseif($type=='A'){
+						$output .= '<div class="big-ans-count pull-left icon-chat"></div>';
+					}elseif($type=='C'){
+						$output .= '<div class="big-ans-count pull-left icon-comment"></div>';
+					}
+					$output .= '<div class="list-right">';
+
+					if($type=='Q'){
+						$output .= '<h5><a href="'. qa_q_path_html($p['postid'], $p['title']) .'" title="'. $p['title'] .'">'.qa_html($p['title']).'</a></h5>';
+					}elseif($type=='A'){
+						$output .= '<h5><a href="'.cs_post_link($p['parentid']).'#a'.$p['postid'].'">'. cs_truncate(strip_tags($p['content']), 300).'</a></h5>';
+					}else{
+						$output .= '<h5><a href="'.cs_post_link($p['parentid']).'#c'.$p['postid'].'">'. cs_truncate(strip_tags($p['content']), 300).'</a></h5>';
+					}
+					
+					$output .= '<div class="list-date"><span class="icon-clock">'.date('d M Y', strtotime($p['created'])).'</span>';	
+					$output .= '<span class="icon-thumbs-up2">'.$p['netvotes'].' '._cs_lang('votes').'</span></div>';	
+					$output .= '</div>';	
+					$output .= '</li>';
+				}
+			}else{
 				if($type=='Q'){
-					$what = _cs_lang('asked');
+					$what = 'comments';
 				}elseif($type=='A'){
-					$what = _cs_lang('answered');
+					$what = 'answers';
 				}elseif('C'){
-					$what = _cs_lang('commented');
+					$what = 'comments';
 				}
-				
-				$handle = qa_post_userid_to_handle($p['userid']);
-
-				$output .= '<li id="q-list-'.$p['postid'].'" class="question-item">';
-				if ($type=='Q'){
-					$output .= '<div class="big-ans-count pull-left">'.$p['acount'].'<span>'._cs_lang('Ans').'</span></div>';
-				}elseif($type=='A'){
-					$output .= '<div class="big-ans-count pull-left icon-chat"></div>';
-				}elseif($type=='C'){
-					$output .= '<div class="big-ans-count pull-left icon-comment"></div>';
-				}
-				$output .= '<div class="list-right">';
-
-				if($type=='Q'){
-					$output .= '<h5><a href="'. qa_q_path_html($p['postid'], $p['title']) .'" title="'. $p['title'] .'">'.qa_html($p['title']).'</a></h5>';
-				}elseif($type=='A'){
-					$output .= '<h5><a href="'.cs_post_link($p['parentid']).'#a'.$p['postid'].'">'. cs_truncate(strip_tags($p['content']), 300).'</a></h5>';
-				}else{
-					$output .= '<h5><a href="'.cs_post_link($p['parentid']).'#c'.$p['postid'].'">'. cs_truncate(strip_tags($p['content']), 300).'</a></h5>';
-				}
-				
-				$output .= '<div class="list-date"><span class="icon-calendar-2">'.date('d M Y', strtotime($p['created'])).'</span>';	
-				$output .= '<span class="icon-chevron-up">'.$p['netvotes'].' '._cs_lang('votes').'</span></div>';	
-				$output .= '</div>';	
-				$output .= '</li>';
+				$output .= '<li class="no-post-found">No '.$what.' posted yet! </li>';
 			}
 			$output .= '</ul>';
 			echo $output;

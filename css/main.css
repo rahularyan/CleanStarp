@@ -705,13 +705,13 @@ h1,h2,h3,h4,h5,h6, .qa-q-item-title {
 }
 
 .page-title {
-    border-bottom: 1px solid #EEEEEE;
+    background: none repeat scroll 0 0 #FFFFFF;
     color: #565655;
-    font-size: 20px;
+    font-size: 25px;
     font-weight: 400;
-    margin-bottom: 25px;
-    margin-top: 0;
-    padding: 20px 0;
+    line-height: 30px;
+    margin: 0;
+    padding: 10px;
 }
 
 .ajax-item {
@@ -810,14 +810,13 @@ ul.qa-nav-cat-list-4  > li.qa-nav-cat-item:first-child {
 
 /* main */
 .qa-main .qa-nav-sub {
-    border-bottom: 1px solid #EEEEEE;
-    margin-bottom: 20px;
-    margin-top: -15px;
+    background: none repeat scroll 0 0 #F8F8F8;
+    padding: 10px;
 }
 
 .qa-main .qa-nav-sub ul {
     list-style: none outside none;
-    margin: 0 0 10px;
+    margin: 0;
     padding: 0;
 }
 
@@ -826,9 +825,10 @@ ul.qa-nav-cat-list-4  > li.qa-nav-cat-item:first-child {
 }
 
 .qa-main .qa-nav-sub ul li a {
+    color: #969696;
     display: block;
     font-size: 13px;
-    font-weight: 500;
+    font-weight: bold;
     line-height: 20px;
     margin-right: 10px;
     padding: 0 10px;
@@ -1472,7 +1472,8 @@ a.feed-link {
 }
 
 .qa-part-ranking, .qa-part-ranking-users {
-    margin-bottom: 20px;
+    background: none repeat scroll 0 0 #FFFFFF;
+    margin-bottom: 10px;
 }
 
 .qa-part-ranking-users h2 {
@@ -3836,4 +3837,9 @@ input[type=checkbox].on-off-checkbox {
 }
 .list-meta a{
 	color:#777;
+}
+.qa-template-ask .qa-part-form {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-radius: 4px;
+    padding: 15px;
 }

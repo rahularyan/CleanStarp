@@ -549,7 +549,7 @@
 
 			$this->output('<div class="col-sm-'.($this->cs_position_active('Right') ? '9' : '12').' list-c">');
 			
-			if($this->template != 'question' && $this->template != 'user' && (!strlen(qa_request(1)) == 0) && (!empty($this->content['title']))){
+			if($this->template != 'user-answers' && $this->template != 'user-questions' && $this->template != 'user-activity' && $this->template != 'user-wall' && $this->template != 'question' && $this->template != 'user' && (!strlen(qa_request(1)) == 0) && (!empty($this->content['title']))){
 				$this->output(
 					'<h1 class="page-title">',
 					$this->content['title']

@@ -113,7 +113,7 @@
 					$output .='</li>';
 				}
 			}else{
-				$output .='<li>'._cs_lang('No activity yet.').'</li>';
+				$output .='<li>'.qa_lang('No activity yet.').'</li>';
 			}
 			$output .= '</ul>';
 			$output .= '</div>';
@@ -126,7 +126,7 @@
 			$handle = $qa_content['raw']['account']['handle'];
 			
 			if(@$themeobject->current_widget['param']['locations']['show_title'])
-				$themeobject->output('<h3 class="widget-title">'.cs_name($handle).'\'s '._cs_lang('activities').'</h3>');
+				$themeobject->output('<h3 class="widget-title">'.cs_name($handle).'\'s '.qa_lang('activities').'</h3>');
 				
 			$themeobject->output('<div class="ra-ua-widget">');
 			$themeobject->output($this->get_user_activity($handle, (int)$widget_opt['cs_ua_count']));

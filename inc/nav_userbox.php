@@ -26,7 +26,7 @@ if (qa_is_logged_in()) {
 
             <div class="dropdown-menu">				
                 <ul class="user-nav">
-                    <li><a class="icon-profile" href="<?php echo qa_path_html('user/' . qa_get_logged_in_handle()); ?>"><?php cs_lang('Profile'); ?></a></li>
+                    <li><a class="icon-profile" href="<?php echo qa_path_html('user/' . qa_get_logged_in_handle()); ?>"><?php qa_lang('Profile'); ?></a></li>
                     <?php
                     foreach ($context->content['navigation']['user'] as $a) {
                         if (isset($a['url'])) {
@@ -50,7 +50,7 @@ if (qa_is_logged_in()) {
 <?php } else { ?>
         <div class="navbar-form navbar-right">
                         <a class="btn btn-success" href="<?php echo $user_link['register']['url']; ?>" title="<?php echo $user_link['register']['label']; ?>"><?php echo $user_link['register']['label']; ?></a>
-                        <a class="btn btn-success dropdown-toggle"  href="#" data-toggle="dropdown" id="navLogin" >  <?php cs_lang('Login'); ?>  </a>
+                        <a class="btn btn-success dropdown-toggle"  href="#" data-toggle="dropdown" id="navLogin" >  <?php qa_lang('Login'); ?>  </a>
                         <div class="dropdown-menu login-form keep_open">
                             <form id="loginform" class="keep_open" role="form" action="<?php echo $user_link['login']['url']; ?>" method="post">
                                 <input type="text" class="form-control" id="qa-userid" name="emailhandle" placeholder="<?php echo trim(qa_lang_html('users/email_handle_label'), ':'); ?>" />

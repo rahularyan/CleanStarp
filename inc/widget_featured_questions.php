@@ -80,11 +80,11 @@
 			$i = 1;
 			while($p = mysql_fetch_array($post)){
 				if($type=='Q'){
-					$what = _cs_lang('asked');
+					$what = qa_lang('asked');
 				}elseif($type=='A'){
-					$what = _cs_lang('answered');
+					$what = qa_lang('answered');
 				}elseif('C'){
-					$what = _cs_lang('commented');
+					$what = qa_lang('commented');
 				}
 				
 				$handle = qa_post_userid_to_handle($p['userid']);
@@ -95,7 +95,7 @@
 				if ($type=='Q'){
 					$output .= '<div class="big-ans-count pull-left">'.$p['acount'].'<span> ans</span></div>';
 				}elseif($type=='A'){
-					$output .= '<div class="big-ans-count pull-left vote">'.$p['netvotes'].'<span>'._cs_lang('Vote').'</span></div>';
+					$output .= '<div class="big-ans-count pull-left vote">'.$p['netvotes'].'<span>'.qa_lang('Vote').'</span></div>';
 				}
 
 				if($type=='Q'){
@@ -108,7 +108,7 @@
 				
 					
 				$output .= '<div class="meta"><img src="'.cs_get_avatar($handle, 15, false).'" /><span class="icon-calendar-2">'.date('d M Y', strtotime($p['created'])).'</span>';	
-				$output .= '<span class="vote-count">'.$p['netvotes'].' '._cs_lang('votes').'</span></div>';	
+				$output .= '<span class="vote-count">'.$p['netvotes'].' '.qa_lang('votes').'</span></div>';	
 				
 				$output .= '</div>';
 				$output .= '</div>';

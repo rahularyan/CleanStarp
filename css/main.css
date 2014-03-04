@@ -544,20 +544,22 @@ h1,h2,h3,h4,h5,h6, .qa-q-item-title {
 }
 
 .qa-q-list {
+    background: none repeat scroll 0 0 #FFFFFF;
 }
-
 .qa-q-list .qa-q-list-item {
-    margin-bottom: 20px;
-    position: relative;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+    padding: 10px 15px;
 }
 
 .qa-q-list .qa-q-list-item .asker-avatar {
     float: left;
     margin-right: 15px;
+    margin-top: 3px;
     position: relative;
 }
 
 .qa-q-list .qa-q-list-item .asker-avatar img {
+    border-radius: 2px;
     margin-top: 4px;
 }
 
@@ -574,9 +576,9 @@ h1,h2,h3,h4,h5,h6, .qa-q-item-title {
 }
 
 .qa-q-list .qa-q-list-item .qa-q-item-title {
-    font-size: 15px;
-    font-weight: 400;
-    line-height: 18px;
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 28px;
 }
 
 .qa-q-list .qa-q-list-item .qa-q-item-stats {
@@ -589,9 +591,7 @@ h1,h2,h3,h4,h5,h6, .qa-q-item-title {
 }
 
 .qa-q-item-meta, .qa-a-item-meta, .qa-c-item-meta {
-    color: #666666;
-    font-size: 12px;
-    font-style: italic;
+    font-size: 13px;
     text-transform: lowercase;
 }
 
@@ -629,15 +629,6 @@ h1,h2,h3,h4,h5,h6, .qa-q-item-title {
     margin-right: 8px;
 }
 
-.qa-q-item-tags ul li .qa-tag-link {
-    border: 1px solid rgba(0, 0, 0, 0.07);
-    border-radius: 1px;
-    color: #AAAAAA;
-    display: block;
-    font-size: 11px;
-    line-height: 18px;
-    padding: 0 8px;
-}
 
 .qa-q-list .qa-q-list-item .qa-q-item-avatar-meta {
     color: #888888;
@@ -3805,4 +3796,32 @@ input[type=checkbox].on-off-checkbox {
     margin-right: -5px;
     margin-top: -5px;
     padding: 5px 10px;
+}
+
+.list-tag-tag-list{
+    display: inline;
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+}
+.list-tag-tag-list li{
+    display: inline;
+    margin-right: 8px;
+}
+.qa-q-list-item .post-status{
+    font-size: 11px;
+    margin-right: 5px;
+    padding: 1px 5px;
+    vertical-align: top;
+}
+.qa-q-item-when, .qa-q-item-where, .qa-q-item-where, .qa-q-item-who{
+    border-right: 1px solid #EEEEEE;
+    margin-right: 10px;
+    padding-right: 5px;
+}
+.list-meta{
+	color:#aaa;
+}
+.list-meta a{
+	color:#777;
 }

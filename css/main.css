@@ -544,20 +544,22 @@ h1,h2,h3,h4,h5,h6, .qa-q-item-title {
 }
 
 .qa-q-list {
+    background: none repeat scroll 0 0 #FFFFFF;
 }
-
 .qa-q-list .qa-q-list-item {
-    margin-bottom: 20px;
-    position: relative;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+    padding: 10px 15px;
 }
 
 .qa-q-list .qa-q-list-item .asker-avatar {
     float: left;
     margin-right: 15px;
+    margin-top: 3px;
     position: relative;
 }
 
 .qa-q-list .qa-q-list-item .asker-avatar img {
+    border-radius: 2px;
     margin-top: 4px;
 }
 
@@ -574,9 +576,9 @@ h1,h2,h3,h4,h5,h6, .qa-q-item-title {
 }
 
 .qa-q-list .qa-q-list-item .qa-q-item-title {
-    font-size: 15px;
-    font-weight: 400;
-    line-height: 18px;
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 28px;
 }
 
 .qa-q-list .qa-q-list-item .qa-q-item-stats {
@@ -589,9 +591,7 @@ h1,h2,h3,h4,h5,h6, .qa-q-item-title {
 }
 
 .qa-q-item-meta, .qa-a-item-meta, .qa-c-item-meta {
-    color: #666666;
-    font-size: 12px;
-    font-style: italic;
+    font-size: 13px;
     text-transform: lowercase;
 }
 
@@ -629,15 +629,6 @@ h1,h2,h3,h4,h5,h6, .qa-q-item-title {
     margin-right: 8px;
 }
 
-.qa-q-item-tags ul li .qa-tag-link {
-    border: 1px solid rgba(0, 0, 0, 0.07);
-    border-radius: 1px;
-    color: #AAAAAA;
-    display: block;
-    font-size: 11px;
-    line-height: 18px;
-    padding: 0 8px;
-}
 
 .qa-q-list .qa-q-list-item .qa-q-item-avatar-meta {
     color: #888888;
@@ -2087,11 +2078,13 @@ table.page-users-list {
 }
 
 #edit-user {
-    background: #fcb034;
+    background: none repeat scroll 0 0 #333333;
+    display: block;
     font-size: 11px;
     font-weight: 400;
-    position: absolute;
-    right: 0;
+    margin-top: 10px;
+    padding: 3px;
+	border-radius:2px;
 }
 
 .sidebar-inner div.text-center {
@@ -2898,24 +2891,29 @@ input[type=checkbox].on-off-checkbox {
     
 }
 .user-cols-right .about-me {
-	font-family: 'open sans', arial,helvetica,serif;
     background: none repeat scroll 0 0 #FFFFFF;
     border-radius: 4px;
+    font-family: 'open sans',arial,helvetica,serif;
+    font-size: 15px;
+    margin-bottom: 15px;
     padding: 15px;
-	margin-bottom: 15px;
+}
+.user-cols-right .about-me h3{
+
 }
 .user-activity-count {
-    background: none repeat scroll 0 0 #FFFFFF;
-    border-radius: 4px;
     margin-bottom: 15px;
 }
 
 .user-activity-count .points {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-radius: 3px;
     border-right: 1px solid #EEEEEE;
     display: block;
     float: left;
+    font-family: 'open sans',arial;
     font-size: 25px;
-    font-weight: 600;
+    font-weight: 300;
     overflow: hidden;
     padding: 10px;
     text-align: center;
@@ -2923,31 +2921,35 @@ input[type=checkbox].on-off-checkbox {
 }
 
 .user-activity-count .points span {
-    color: #AAAAAA;
     display: block;
-    font-size: 12px;
-    font-weight: 400;
-    line-height: 18px;
+    font-size: 13px;
+    text-align: center;
+    text-transform: uppercase;
 }
 
 .user-activity-count .counts {
     float: left;
-    margin-top: 6px;
-    padding: 12px 12px 12px 20px;
 }
 
 .user-activity-count .counts > div {
-    color: #888888;
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-radius: 3px;
+    color: #AAAAAA;
     display: inline-block;
-    margin-right: 20px;
+    font-family: 'open sans',arial,helvetica;
+    font-size: 12px;
+    font-weight: 300;
+    margin-left: 16px;
+    margin-right: 0;
+    min-width: 100px;
+    padding: 10px;
     text-align: center;
+    text-transform: uppercase;
 }
 
 .user-activity-count .counts > div span {
-    border-radius: 1px;
-    color: #FFFFFF;
-    margin-right: 5px;
-    padding: 4px 10px;
+    display: block;
+    font-size: 22px;
 }
 
 .user-activity-count .bar-chart {
@@ -3769,7 +3771,57 @@ input[type=checkbox].on-off-checkbox {
 .users-post-widget .question-item .list-right h5 a{
 	color: #777;
 }
+.users-post-widget.post-type-A .question-item .list-right h5 a, .users-post-widget.post-type-C .question-item .list-right h5 a{
+    font-size: 14px;
+    line-height: 24px;
+}
+.question-list .question-item .big-ans-count.icon-chat{
+    border-radius: 50%;
+    font-size: 24px;
+    line-height: 45px;
+}
+.question-list .question-item .big-ans-count.icon-comment{
+    border-radius: 50%;
+    font-size: 18px;
+    line-height: 37px;
+}
 .users-post-widget .question-item .list-right .list-date span{
     color: #AAAAAA;
     font-size: 11px;
+}
+.widget .user-post-title a {
+    background: none repeat scroll 0 0 #333333;
+    border-radius: 2px;
+    color: #FFFFFF;
+    margin-right: -5px;
+    margin-top: -5px;
+    padding: 5px 10px;
+}
+
+.list-tag-tag-list{
+    display: inline;
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+}
+.list-tag-tag-list li{
+    display: inline;
+    margin-right: 8px;
+}
+.qa-q-list-item .post-status{
+    font-size: 11px;
+    margin-right: 5px;
+    padding: 1px 5px;
+    vertical-align: top;
+}
+.qa-q-item-when, .qa-q-item-where, .qa-q-item-where, .qa-q-item-who{
+    border-right: 1px solid #EEEEEE;
+    margin-right: 10px;
+    padding-right: 5px;
+}
+.list-meta{
+	color:#aaa;
+}
+.list-meta a{
+	color:#777;
 }

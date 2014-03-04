@@ -569,11 +569,11 @@
 				$this->question_view($content);
 			}elseif($this->template == 'user-wall'){
 				$handle = qa_request_part(1);
-				$this->output('<section id="content" class="content-sidebar">');
+				$this->output('<section id="content" class="content-sidebar user-cols">');
 				$this->cs_user_nav($handle);
-				$this->output('<section class="main">');
+				$this->output('<div class="messages">');
 				$this->message_list_and_form($this->content['message_list']);
-				$this->output('</section></section>');
+				$this->output('</div></section>');
 			}elseif($this->template == 'user' && (isset($_REQUEST['state']) && $_REQUEST['state'] == 'edit')){
 				$handle=qa_request_part(1);
 				if (!strlen($handle)) {
@@ -590,7 +590,7 @@
 					$handle=qa_get_logged_in_handle();
 				}
 
-				$this->output('<section id="content" class="content-sidebar">');
+				$this->output('<section id="content" class="content-sidebar user-cols">');
 				$this->cs_user_nav($handle);
 				$this->main_parts($content);
 				$this->output('</section>');
@@ -722,24 +722,18 @@
 			
 			$this->output('<div class="q-item-head">');
 				$this->q_item_title($q_item);
+				$this->output('<div class="list-meta">');
 				$this->output(cs_post_status($q_item));	
 				$this->post_meta($q_item, 'qa-q-item');
-				$this->view_count($q_item);
-			$this->output('</div>');
-			
-			// I used a single query to get all excepts
-			/*
-			if(qa_opt('cs_show_content')){
-				$this->output('<div class="q-item-body">');
-				$this->output(cs_truncate(cs_get_excerpt($q_item['raw']['postid']), 180));
+				if(qa_opt('cs_show_tags_list')){
+					$this->output('<span>Tagged:</span>');
+					$this->post_tag_list($q_item, 'list-tag');
+				}
 				$this->output('</div>');
-			}
-			*/
+			$this->output('</div>');
+
 			$this->q_item_content($q_item);
 			
-			//$this->q_item_stats($q_item);
-			if(qa_opt('cs_show_tags_list'))
-				$this->post_tags($q_item, 'qa-q-item');
 			$this->q_item_buttons($q_item);
 				
 			$this->output('</div>');
@@ -1272,7 +1266,8 @@
 			$this->output('<div class="user-cols-right">');
 				if(isset($about) && strlen($about))
 				$this->output(
-					'<div class="about-me">',
+					'<div class="about-me widget">',
+					'<h3 class="widget-title">About Me</h3>',
 					$about,
 					'</div>'
 				);
@@ -1286,14 +1281,11 @@
 		function cs_user_nav($handle){
 			$user = cs_user_data($handle);
 			
-			if(qa_get_logged_in_level()>=QA_USER_LEVEL_ADMIN){
-				$edit =  '<a id="edit-user" class="btn btn-xs btn-success edit-profile icon-edit" href="'.qa_path_absolute('user/'.$handle,array('state'=>'edit')).'">Edit User</a>';
-			}
 			$this->output('			
 			<div class="user-header">
 				<div class="user-header-inner clearfix">
 			  <div class="user-thumb">
-				'.@$edit. cs_get_avatar($handle, 150).'
+				'. cs_get_avatar($handle, 150).'
 			  </div>
 			  <div class="user-name-detail">
 				<h3>'.cs_name($handle).'<small class="block m-t-mini">'.qa_user_level_string($user[0]['level']).'</small>
@@ -1304,6 +1296,9 @@
 				$this->favorite();
 				
 			  $this->output('</div>');
+			if(qa_get_logged_in_level()>=QA_USER_LEVEL_ADMIN){
+				$this->output('<a id="edit-user" class="btn btn-xs btn-success edit-profile" href="'.qa_path_absolute('user/'.$handle,array('state'=>'edit')).'">Edit User</a>');
+			}
 			 $this->nav('sub');
 			  $this->output('</div>');
 			$this->output('</div>');

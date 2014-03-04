@@ -1496,7 +1496,7 @@
 
 					$this->output('</div>');
 
-			}elseif(@$ranking['type']=='tags'){
+			/*}elseif(@$ranking['type']=='tags'){
 				
 				if ($rows>0) {
 					$this->output('<div class="row '.$class.'">');
@@ -1529,6 +1529,7 @@
 							<p>Sorry we cannot display anything, query returns nothings.</p>
 						</div>'
 					);
+			*/
 			}else{
 				
 				
@@ -1647,6 +1648,7 @@
 
 		function nav_list($navigation, $class, $level=null)
 		{
+			/*
 			if($class == 'browse-cat'){
 				$row=ceil(count($navigation)/2);
 				$this->output('<div class="category-list-page">');
@@ -1669,6 +1671,7 @@
 				$this->output('</ul></div></div></div>');
 
 			}else{
+			*/
 				$this->output('<ul class="qa-'.$class.'-list'.(isset($level) ? (' qa-'.$class.'-list-'.$level) : '').'">');
 
 				$index=0;
@@ -1683,7 +1686,7 @@
 				$this->clear_context('nav_index');
 				
 				$this->output('</ul>');
-			}
+			//}
 		}
 		function cs_cat_items($key, $navlink, $class, $level=null)
 		{

@@ -87,17 +87,17 @@
 				foreach($post as $p){
 				
 					if($type=='Q'){
-						$what = _cs_lang('asked');
+						$what = qa_lang_html('cleanstrap/asked');
 					}elseif($type=='A'){
-						$what = _cs_lang('answered');
+						$what = qa_lang_html('cleanstrap/answered');
 					}elseif('C'){
-						$what = _cs_lang('commented');
+						$what = qa_lang_html('cleanstrap/commented');
 					}
 					$handle = $p['handle'];
 
 					$output .= '<li id="q-list-'.$p['postid'].'" class="question-item">';
 					if ($type=='Q'){
-						$output .= '<div class="big-ans-count pull-left">'.$p['acount'].'<span>'._cs_lang('Ans').'</span></div>';
+						$output .= '<div class="big-ans-count pull-left">'.$p['acount'].'<span>'.qa_lang_html('cleanstrap/answers').'</span></div>';
 					}elseif($type=='A'){
 						$output .= '<div class="big-ans-count pull-left icon-chat"></div>';
 					}elseif($type=='C'){
@@ -114,7 +114,7 @@
 					}
 					
 					$output .= '<div class="list-date"><span class="icon-clock">'.date('d M Y', strtotime($p['created'])).'</span>';	
-					$output .= '<span class="icon-thumbs-up2">'.$p['netvotes'].' '._cs_lang('votes').'</span></div>';	
+					$output .= '<span class="icon-thumbs-up2">'.$p['netvotes'].' '.qa_lang_html('cleanstrap/votes').'</span></div>';	
 					$output .= '</div>';	
 					$output .= '</li>';
 				}

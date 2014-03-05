@@ -33,8 +33,8 @@
 	define('Q_THEME_DIR', dirname( __FILE__ ));
 	define('Q_THEME_URL', get_base_url().'/qa-theme/'.qa_get_site_theme());
 	
-	require Q_THEME_DIR.'/functions.php';
-	require Q_THEME_DIR.'/inc/blocks.php';
+	include_once Q_THEME_DIR.'/functions.php';
+	include_once Q_THEME_DIR.'/inc/blocks.php';
 	
 	//require_once QA_INCLUDE_DIR.'qa-db-cache.php';
 	//cs_get_site_cache();	
@@ -43,7 +43,7 @@
 	qa_register_phrases(Q_THEME_DIR . '/language/cs-lang-*.php', 'cleanstrap');
 
 	if(isset($_REQUEST['cs_ajax']))
-		require Q_THEME_DIR.'/inc/ajax.php';
+		include_once Q_THEME_DIR.'/inc/ajax.php';
 	else{
 		global $qa_request;
 		
@@ -63,7 +63,7 @@
 						'Home Slide' => 'Home Top',
 						'Home 1 Left' => 'Home position 1',
 						'Home 1 Center' => 'Home position 1',
-						'Home 1 Right' => 'Home position 1',
+						'Home Right' => 'Home right side',
 						'Home 2' => 'Home position 2',
 						'Question Right' => 'Right side of question',
 						'User Content' => 'On user page'

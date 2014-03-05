@@ -39,6 +39,9 @@
 	require_once QA_INCLUDE_DIR.'qa-db-cache.php';
 	//cs_get_site_cache();	
 
+	
+	qa_register_phrases(Q_THEME_DIR . '/language/cs-lang-*.php', 'cleanstrap');
+	//global $qa_lang_file_pattern;var_dump($qa_lang_file_pattern);
 	if(isset($_REQUEST['cs_ajax']))
 		require Q_THEME_DIR.'/inc/ajax.php';
 	else{

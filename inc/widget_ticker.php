@@ -123,11 +123,11 @@
 					foreach ($posts as $post) {
 						$post_type = $post['type'];
 						if($post_type=='Q'){
-							$what = qa_lang('asked');
+							$what = qa_lang('cleanstrap/asked');
 						}elseif($post_type=='A'){
-							$what = qa_lang('answered');
+							$what = qa_lang('cleanstrap/answered');
 						}elseif('C'){
-							$what = qa_lang('commented');
+							$what = qa_lang('cleanstrap/commented');
 						}
 						$handle = qa_post_userid_to_handle($post['userid']);
 						$avatar = cs_get_post_avatar($post , $post['userid'], 35);

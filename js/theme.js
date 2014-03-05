@@ -307,7 +307,7 @@ function cs_float_left(){
 
 function cs_widgets(){
 	$('.position-toggler').click(function(){
-		$('.position-canvas').not($(this).parent().next()).hide();
+		//$('.position-canvas').not($(this).parent().next()).hide();
 		$(this).parent().next().toggle(0);
 		$(this).toggleClass('icon-angle-up icon-angle-down');
 	});	

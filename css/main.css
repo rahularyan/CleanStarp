@@ -2293,14 +2293,14 @@ input[type=checkbox].on-off-checkbox {
 #ra-widgets .widget-canvas {
     background: #FFFFFF;
     border: 1px solid #DEDEDE;
-    float: left;
-    margin-bottom: 12px;
+    float: right;
     width: 48%;
+    margin: 0 1% 12px 1%;
     position: relative;
 }
 
 #ra-widgets .widget-canvas:nth-child(2n+1) {
-    margin-right: 4%;
+    float: left;
 }
 
 #ra-widgets .position-header {
@@ -2335,9 +2335,6 @@ input[type=checkbox].on-off-checkbox {
     left: 0;
     min-height: 100px;
     padding: 10px;
-    position: absolute;
-    right: 0;
-    top: 44px;
     z-index: 9;
 }
 

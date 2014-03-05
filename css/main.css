@@ -699,8 +699,12 @@ h1,h2,h3,h4,h5,h6, .qa-q-item-title {
 .home-left-inner {
     padding: 0;
 }
+.home-pos-one .col-md-8{
 
-
+}
+.home-pos-one .row {
+    margin: 0;
+}
 
 .qa-main .side-c {
 
@@ -856,12 +860,13 @@ ul.qa-nav-cat-list-4  > li.qa-nav-cat-item:first-child {
 }
 
 .widget .widget-title {
-    border-top: 3px solid #D6313A;
+    border-bottom: 1px solid #EEEEEE;
+    border-top: 2px solid #D6313A;
     color: #333333;
-    font-size: 15px;
+    font-size: 12px;
     font-weight: 600;
-    margin: 0;
-    padding: 15px 1px;
+    margin: 0 0 10px;
+    padding: 15px 5px;
     text-transform: uppercase;
 }
 
@@ -1604,7 +1609,7 @@ table.page-users-list {
 }
 
 .question-list .question-item {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.03);
     margin-bottom: 10px;
     padding-bottom: 10px;
     position: relative;
@@ -2326,13 +2331,15 @@ input[type=checkbox].on-off-checkbox {
 }
 
 #ra-widgets .position-canvas {
-    background: #F6F6F6;
+    background: none repeat scroll 0 0 #F6F6F6;
     border: 1px solid #DDDDDD;
     box-shadow: 0 5px 5px #DDDDDD;
     display: none;
     left: 0;
     min-height: 100px;
     padding: 10px;
+    position: absolute;
+    width: 100%;
     z-index: 9;
 }
 
@@ -2442,9 +2449,8 @@ input[type=checkbox].on-off-checkbox {
 /* widget positions */
 
 .widget {
-    background: #FFFFFF;
-    margin-bottom: 15px;
-    padding: 10px;
+    margin-bottom: 20px;
+    padding: 0;
 }
 
 .header-position-c {
@@ -3102,10 +3108,9 @@ input[type=checkbox].on-off-checkbox {
 }
 
 .ra-ticker-widget .list-right .title {
-    color: #555555;
-    font-family: 'open sans',arial,helvetica;
-    font-size: 13px;
-    font-weight: 600;
+    color: #747474;
+    font-size: 12px;
+    font-weight: bold;
 }
 
 .ra-ticker-widget .question-item .avatar {
@@ -3201,8 +3206,6 @@ input[type=checkbox].on-off-checkbox {
 .ra-activity .event-content .title {
     color: #777777;
     display: block;
-    font-family: 'open sans';
-    font-size: 13px;
     font-weight: 400;
     margin-bottom: 0;
 }
@@ -3257,7 +3260,7 @@ input[type=checkbox].on-off-checkbox {
 
 .ra-activity .event-title {
     color: #999999;
-    font-size: 11px;
+    font-size: 13px;
 }
 
 .ra-activity .time {
@@ -3289,7 +3292,7 @@ input[type=checkbox].on-off-checkbox {
 }
 
 .ra-question-activity-widget {
-    margin: -11px -10px -10px;
+    margin: 0;
 }
 
 .ra-question-activity-widget ul {
@@ -3303,10 +3306,9 @@ input[type=checkbox].on-off-checkbox {
 }
 
 .ra-question-activity-widget ul li a {
-    color: #919191;
+    color: #777777;
     display: block;
-    font-family: 'open sans',arial;
-    font-size: 15px;
+    font-size: 13px;
     font-weight: 300;
     padding: 13px 15px;
 }
@@ -3452,7 +3454,8 @@ input[type=checkbox].on-off-checkbox {
 
 }
 .carousel .slider-item h5 {
-    font-size: 14px;
+    font-family: arial,helvetica,serif;
+    font-size: 13px;
     font-weight: 600;
     line-height: 20px;
     margin-bottom: 0;
@@ -3503,7 +3506,7 @@ input[type=checkbox].on-off-checkbox {
 }
 
 .ra-new-users-widget .users-list li .avatar {
-    padding: 3px;
+    padding: 6px;
 }
 
 .modal-backdrop {

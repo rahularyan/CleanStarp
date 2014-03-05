@@ -135,11 +135,11 @@
 						$output .= '<div class="pull-left avatar" data-handle="'.$handle.'" data-id="'. $post['userid'] .'">' . $avatar . '</div>';
 						$output .= '<div class="list-right">';
 						if($post_type=='Q'){
-							$output .= '<a class="title" href="'. qa_q_path_html($post['postid'], $post['title']) .'" title="'. $post['title'] .'">'.cs_truncate(qa_html($post['title']), 50).'</a>';
+							$output .= '<a class="title" href="'. qa_q_path_html($post['postid'], $post['title']) .'" title="'. $post['title'] .'">'.cs_truncate(strip_tags($post['title']), 70).'</a>';
 						}elseif($post_type=='A'){
-							$output .= '<p><a href="'.cs_post_link($post['parentid']).'#a'.$post['postid'].'">'. cs_truncate(strip_tags($post['content']),50).'</a></p>';
+							$output .= '<p><a href="'.cs_post_link($post['parentid']).'#a'.$post['postid'].'">'. cs_truncate(strip_tags($post['content']),70).'</a></p>';
 						}else{
-							$output .= '<p><a href="'.cs_post_link($post['parentid']).'#c'.$post['postid'].'">'. cs_truncate(strip_tags($post['content']),50).'</a></p>';
+							$output .= '<p><a href="'.cs_post_link($post['parentid']).'#c'.$post['postid'].'">'. cs_truncate(strip_tags($post['content']),70).'</a></p>';
 						}
 						$output .= '<div class="meta"><a href="'.qa_path_html('user/'.$handle).'">'.cs_name($handle).'</a> '.$what;
 						if ($post_type=='Q'){
@@ -181,15 +181,15 @@
 
 				if($post_type=='Q'){
 
-					$output .= '<a class="title" href="'. qa_q_path_html($p['postid'], $p['title']) .'" title="'. $p['title'] .'">'.cs_truncate(qa_html($p['title']), 50).'</a>';
+					$output .= '<a class="title" href="'. qa_q_path_html($p['postid'], $p['title']) .'" title="'. $p['title'] .'">'.cs_truncate(qa_html($p['title']), 70).'</a>';
 
 				}elseif($post_type=='A'){
 
-					$output .= '<p><a href="'.cs_post_link($p['parentid']).'#a'.$p['postid'].'">'. cs_truncate(strip_tags($p['content']),50).'</a></p>';
+					$output .= '<p><a href="'.cs_post_link($p['parentid']).'#a'.$p['postid'].'">'. cs_truncate(strip_tags($p['content']),70).'</a></p>';
 
 				}else{
 
-					$output .= '<p><a href="'.cs_post_link($p['parentid']).'#c'.$p['postid'].'">'. cs_truncate(strip_tags($p['content']),50).'</a></p>';
+					$output .= '<p><a href="'.cs_post_link($p['parentid']).'#c'.$p['postid'].'">'. cs_truncate(strip_tags($p['content']),70).'</a></p>';
 
 				}
 				$output .= '<div class="meta"><a href="'.qa_path_html('user/'.$handle).'">'.cs_name($handle).'</a> '.$what;

@@ -86,7 +86,7 @@
 				$output .= '<img src="'.cs_get_avatar($u['handle'], $size, false).'" /></div>';
 				$output .= '<div class="top-user-data">';
 				
-				$output .= '<span class="points">'.$u['points'].' '.qa_lang('Points').'</span>';
+				$output .= '<span class="points">'.$u['points'].' '.qa_lang('cleanstrap/points').'</span>';
 				$output .= '<a href="'.qa_path_html('user/'.$u['handle']).'" class="name">'.cs_name($u['handle']).'</a>';
 				$output .= '<p class="counts"><span>'.$data[2]['aposts'].' Answers</span> <span>'.$data[2]['qposts'].' Questions</span></p>';
 				$output .= '</div>';

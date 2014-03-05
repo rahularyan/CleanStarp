@@ -67,7 +67,7 @@
 		{
 			$widget_opt = @$themeobject->current_widget['param']['options'];
 			$content = cs_get_cache_question_activity((int)$widget_opt['cs_qa_count']);
-			if(@$themeobject->current_widget['Question Activity']['locations']['show_title'])
+			if(@$themeobject->current_widget['param']['locations']['show_title'])
 				$themeobject->output('<h3 class="widget-title">Recent Activity <a href="'.qa_path_html('activity').'">View All</a></h3>');
 				
 			$themeobject->output('<div class="ra-question-activity-widget">');

@@ -87,19 +87,26 @@
 			if(!empty($slug)){
 				if($type=='Category'){
 					$post_type='Q';
-					$title = 'Questions in <a href="'.qa_path_html('questions/'.qa_strtolower($slug)).'">'.$slug.'</a>';
+					$categories = explode("/", $slug);
+					if (count($categories)){
+						$category_bread_crup = implode(" > ", $categories);
+						$categories = array_reverse($categories);
+						$slug = implode("/", $categories);
+					}
 					$posts = cs_get_cache(
-						'SELECT * FROM ^posts WHERE ^posts.type=$
-						AND categoryid=(SELECT categoryid FROM ^categories WHERE ^categories.title=$ LIMIT 1) 
-						ORDER BY ^posts.created DESC LIMIT #',
-						'Q', $slug, $limit);
+							'SELECT * FROM ^posts WHERE ^posts.type=$
+							AND categoryid=(SELECT categoryid FROM ^categories WHERE ^categories.backpath=$ LIMIT 1) 
+							ORDER BY ^posts.created DESC LIMIT #',
+							'Q', $slug, $limit);
+					
+					$title = 'Questions in <a href="'.qa_path_html('questions/'.qa_strtolower($slug)).'">'.$category_bread_crup.'</a>';
 				}elseif($type=='Tags'){
 					$post_type='Q';
 					$title = 'Questions in <a href="'.qa_path_html('tag/'.qa_strtolower($slug)).'">'.$slug.'</a>';
 					$posts = cs_get_cache(
 						'SELECT * FROM ^posts WHERE ^posts.type=$
-						AND qa_posts.postid IN (SELECT postid FROM qa_posttags WHERE 
-							wordid=(SELECT wordid FROM qa_words WHERE word=$ OR word=$ COLLATE utf8_bin LIMIT 1) ORDER BY postcreated DESC)
+						AND ^posts.postid IN (SELECT postid FROM ^posttags WHERE 
+							wordid=(SELECT wordid FROM ^words WHERE word=$ OR word=$ COLLATE utf8_bin LIMIT 1) ORDER BY postcreated DESC)
 						ORDER BY ^posts.created DESC LIMIT #',
 						'Q', $slug, qa_strtolower($slug), $limit);
 				}else{ // Relative to Keyword
@@ -160,11 +167,11 @@
 			foreach($posts as $p){
 				if (empty($p['userid'])) $p['userid']=NULL; // to prevent error for anonymous posts while calling qa_post_userid_to_handle()
 				if($post_type=='Q'){
-					$what = qa_lang('asked');
+					$what = qa_lang_html('cleanstrap/asked');
 				}elseif($post_type=='A'){
-					$what = qa_lang('answered');
+					$what = qa_lang_html('cleanstrap/answered');
 				}elseif('C'){
-					$what = qa_lang('commented');
+					$what = qa_lang_html('cleanstrap/commented');
 				}
 				$handle = qa_post_userid_to_handle($p['userid']);
 				$avatar = cs_get_avatar($handle, 35, false);

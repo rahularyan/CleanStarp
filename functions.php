@@ -133,15 +133,15 @@ function cs_post_status($item){
 	// this will return a notice whether question is open, closed, duplicate or solved
 	
 	if (@$item['answer_selected'] || @$item['raw']['selchildid']){	
-		$notice =   '<span class="post-status selected">'._cs_lang('Solved').'</span>' ;
+		$notice =   '<span class="post-status selected">'.qa_lang_html('cleanstrap/solved').'</span>' ;
 	}elseif(@$item['raw']['closedbyid']){
 		$type = cs_post_type(@$item['raw']['closedbyid']);
 		if($type == 'Q')
-			$notice =   '<span class="post-status duplicate">'._cs_lang('Duplicate').'</span>' ;	
+			$notice =   '<span class="post-status duplicate">'.qa_lang_html('cleanstrap/duplicate').'</span>' ;	
 		else
-			$notice =   '<span class="post-status closed">'._cs_lang('Closed').'</span>' ;	
+			$notice =   '<span class="post-status closed">'.qa_lang_html('cleanstrap/closed').'</span>' ;	
 	}else{
-		$notice =   '<span class="post-status open">'._cs_lang('Open').'</span>' ;	
+		$notice =   '<span class="post-status open">'.qa_lang_html('cleanstrap/open').'</span>' ;	
 	}
 	return $notice;
 }
@@ -262,11 +262,11 @@ function cs_post_list($type, $limit, $return = false){
 	while($p = mysql_fetch_array($post)){
 
 		if($type=='Q'){
-			$what = _cs_lang('asked');
+			$what = qa_lang_html('cleanstrap/asked');
 		}elseif($type=='A'){
-			$what = _cs_lang('answered');
+			$what = qa_lang_html('cleanstrap/answered');
 		}elseif('C'){
-			$what = _cs_lang('commented');
+			$what = qa_lang_html('cleanstrap/commented');
 		}
 		
 		$handle = qa_post_userid_to_handle($p['userid']);

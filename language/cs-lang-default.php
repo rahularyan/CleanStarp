@@ -3,8 +3,13 @@
 		'open' => 'Open',
 		'closed' => 'Closed',
 		'duplicate' => 'Duplicate',
-		'Closed' => 'Closed',
+		'closed' => 'Closed',
 		'solved' => 'Solved',
+		'asked' => 'asked',
+		'answered' => 'answered',
+		'commented' => 'commented',
+		'answers' => 'answers',
+		'votes' => 'votes',
 	);
 	
 

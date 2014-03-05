@@ -629,7 +629,11 @@ $(document).ready(function(){
 		cs_ajax_item_resize();
 		cs_float_left()
 	}); */
-
+	
+	//uncomment this code if you want to use default editor
+/* 	if ((typeof qa_wysiwyg_editor_config == 'object') && $('body').hasClass('qa-template-question'))
+		qa_ckeditor_a_content=CKEDITOR.replace('a_content', window.qa_wysiwyg_editor_config); */
+		
 	$('#featured-slider').carousel({
 		interval: 10000
 	})

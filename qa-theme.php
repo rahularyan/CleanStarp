@@ -58,14 +58,11 @@
 						'Right' => 'Right side of content', 
 						'Bottom' => 'Below content and before footer',
 						'Home Slide' => 'Home Top',
-						'Home Left' => 'Home left',
-						'Home Left Right' => 'Home inner right',
-						'Home Left Bottom 1' => 'Home bottom',
-						'Home Left Bottom 2' => 'Home bottom',
-						'Home Left Bottom 3' => 'Home bottom',
-						'Home Right' => 'Top content in home',
-						'Top Users' => 'Home right tab',
-						'New Users' => 'Home right tab',
+						'Home 1 Left' => 'Home position 1',
+						'Home 1 Center' => 'Home position 1',
+						'Home 1 Right' => 'Home position 1',
+						'Home 2' => 'Home position 2',
+						'Question Right' => 'Right side of question',
 						'User Content' => 'On user page'
 					)
 				);

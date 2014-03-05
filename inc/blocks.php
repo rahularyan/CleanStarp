@@ -142,31 +142,6 @@
 			elseif($this->cs_position_active('Header') && ($this->cs_position_active('Header Left') || $this->cs_position_active('Header Right'))){
 				$class= 5;
 			}
-			
-			if($this->cs_position_active('Header')){
-				$this->output('<div class="header-position-c container">');	
-				
-				$this->output('<h1 class="intro-title">Do you have questions ? We got the answers!</h1>');
-				
-				if($this->cs_position_active('Header Left')){
-					$this->output('<div class="col-md-'.$class.'">');	
-					$this->cs_position('Header Left');
-					$this->output('</div>');	
-				}
-				
-				if($this->cs_position_active('Header')){
-					$this->output('<div class="col-md-'.(12-@$class).'">');
-					$this->cs_position('Header');
-					$this->output('</div>');
-				}				
-				if($this->cs_position_active('Header Right')){
-					$this->output('<div class="col-md-'.$class.'">');	
-					$this->cs_position('Header Right');
-					$this->output('</div>');
-				}	
-				$this->output('</div>');
-			}
-			
 			$this->output('<div id="ajax-item">');				
 			$this->output('<div id="site-body" class="container">');			
 			$this->left_sidebar();
@@ -404,7 +379,7 @@
 		
 		function sidepanel() {			
 			if($this->cs_position_active('Right')){
-				$this->output('<div class="col-sm-3 side-c">');
+				$this->output('<div class="col-sm-4 side-c">');
 				$this->output('<div class="qa-sidepanel">');
 					$this->cs_position('Right');
 				$this->output('</div>', '');
@@ -546,8 +521,9 @@
 			$content=$this->content;	
 			
 			$this->output('<div class="clearfix qa-main'.(@$this->content['hidden'] ? ' qa-main-hidden' : '').'">');
-
-			$this->output('<div class="col-sm-'.($this->cs_position_active('Right') ? '9' : '12').' list-c">');
+			$col_width = ($this->cs_position_active('Right') && $this->template != 'question');
+			
+			$this->output('<div class="col-sm-'.( $col_width ? '8' : '12').' list-c">');
 			
 			if($this->template != 'user-answers' && $this->template != 'user-questions' && $this->template != 'user-activity' && $this->template != 'user-wall' && $this->template != 'question' && $this->template != 'user' && (!strlen(qa_request(1)) == 0) && (!empty($this->content['title']))){
 				$this->output(
@@ -556,6 +532,29 @@
 				);
 				$this->feed();
 				$this->output('</h1>');	
+			}
+						if($this->cs_position_active('Header')){
+				$this->output('<div class="header-position-c clearfix">');	
+				
+				$this->output('<h1 class="intro-title">Do you have questions ? We got the answers!</h1>');
+				
+				if($this->cs_position_active('Header Left')){
+					$this->output('<div class="col-md-'.$class.'">');	
+					$this->cs_position('Header Left');
+					$this->output('</div>');	
+				}
+				
+				if($this->cs_position_active('Header')){
+					$this->output('<div class="col-md-'.(12-@$class).'">');
+					$this->cs_position('Header');
+					$this->output('</div>');
+				}				
+				if($this->cs_position_active('Header Right')){
+					$this->output('<div class="col-md-'.$class.'">');	
+					$this->cs_position('Header Right');
+					$this->output('</div>');
+				}	
+				$this->output('</div>');
 			}
 			$this->cs_position('Content Top');
 			
@@ -609,7 +608,7 @@
 			
 			$this->output('</div>');
 			
-			if($this->cs_position_active('Right')){
+			if($col_width){
 				$this->sidepanel();
 			}
 			$this->output('</div>');
@@ -628,63 +627,56 @@
 		}
 		
 		function home(){
-			$this->output('<div class="row">');
-			$this->output('<div class="col-md-9 home-left-inner">');
-				$this->output('<div class="row">');
+			$this->output('<div class="home-left-inner">');
+				$this->cs_position('Home Slide');
+				$this->output('<div class="row">');				
+					$this->output('<div class="col-md-4">');
+						$this->cs_position('Home 1 Left');
+					$this->output('</div>');
+					$this->output('<div class="col-md-4">');
+						$this->cs_position('Home 1 Center');
+					$this->output('</div>');
+					$this->output('<div class="col-md-4">');
+						$this->cs_position('Home 1 Right');
+					$this->output('</div>');
+				$this->output('</div>');
+				$this->output('<div class="row">');				
 					$this->output('<div class="col-md-12">');
-						$this->cs_position('Home Slide');
-					$this->output('</div>');
-					
-					$this->output('<div class="col-md-8">');
-						$this->cs_position('Home Left');
-					$this->output('</div>');
-					
-					$this->output('<div class="col-md-4">');
-					$this->cs_position('Home Left Right');
+						$this->cs_position('Home 2');
 					$this->output('</div>');
 				$this->output('</div>');
-				
-				$this->output('<div class="row">');
-					$this->output('<div class="col-md-4">');
-					$this->cs_position('Home Left Bottom 1');
-					$this->output('</div>');
-					
-					$this->output('<div class="col-md-4">');
-					$this->cs_position('Home Left Bottom 2');
-					$this->output('</div>');
-					
-					$this->output('<div class="col-md-4">');
-					$this->cs_position('Home Left Bottom 3');
-					$this->output('</div>');
-				$this->output('</div>');
-				
-			$this->output('</div>');
-			
-			$this->output('<div class="col-md-3">');
-			$this->right_tabs();
-			$this->cs_position('Home Right');
-			$this->output('</div>');
 			$this->output('</div>');
 		}
 		
 		function question_view($content){
-			$this->output('<div class="row">');
-				$this->output('<div class="col-md-9 home-left-inner">');
-					$this->output('<div class="row">');
-						$this->output('<div class="col-md-12">');
-							$this->cs_position('Content Top');
-						$this->output('</div>');
-						
-						$this->output('<div class="col-md-12">');
-							$this->main_parts($content);
-						$this->output('</div>');
+			$q_view = $content['q_view'];
+			$this->output('<div class="question-main">');
+				$this->cs_position('Content Top');
+				$this->output(
+				'<div class="question-head">',
+					'<h2 class="question-title">',
+						$q_view['raw']['title'],
+					'</h2>',
+					'<div class="question-meta">',
+						cs_post_status($q_view),
+						(is_featured($q_view['raw']['postid']) ? '<span class="featured-sticker">Featured</span>' : ''),
+						//'<span class="q-view-a-count">'.$q_view['raw']['acount'].' Answers</span>',
+						'<span class="icon-eye-open q-view-v-count">'.$q_view['raw']['views'].' Views</span>
+						<a class="cat-in icon-folder-close-alt" href="'.cs_cat_path($q_view['raw']['categorybackpath']).'">'.$q_view['raw']['categoryname'].'</a>');
+					$this->output('<div class="icon-tags2 question-tags">');	
+					$this->post_tags($q_view, 'qa-q-view');
+					$this->output('</div>');
+					$this->favorite();					
+				$this->output('</div></div>');
+				$this->output('<div class="row">');
+					$this->output('<div class="col-md-8">');
+						$this->main_parts($content);
+					$this->output('</div>');
+					$this->output('<div class="col-md-4">');
+						$this->cs_position('Question Right');
 					$this->output('</div>');
 				$this->output('</div>');
-			
-				$this->output('<div class="col-md-3">');
-				$this->cs_position('Right Inset');
-				$this->output('</div>');
-			$this->output('</div>');
+			$this->output('</div>');	
 		}
 
 		function q_list_item($q_item)
@@ -745,7 +737,7 @@
 		
 		function footer()
 		{			
-			$this->output('<footer id="site-footer" class="container clearfix">');			
+			$this->output('<footer id="site-footer" class="clearfix">');			
 			//$this->attribution();	
 			
 			if ((bool)qa_opt('cs_footer_copyright'))
@@ -991,22 +983,7 @@
 			$this->question_meta_form();
 			$this->output(get_featured_image($q_view['raw']['postid']));
 			$this->output('</div>');
-			$this->output(
-				'<div class="question-head">',
-					'<h2 class="question-title">',
-						$q_view['raw']['title'],
-					'</h2>',
-					'<div class="question-meta">',
-						cs_post_status($q_view),
-						(is_featured($q_view['raw']['postid']) ? '<span class="featured-sticker">Featured</span>' : ''),
-						//'<span class="q-view-a-count">'.$q_view['raw']['acount'].' Answers</span>',
-						'<span class="icon-eye-open q-view-v-count">'.$q_view['raw']['views'].' Views</span>
-						<a class="cat-in icon-folder-close-alt" href="'.cs_cat_path($q_view['raw']['categorybackpath']).'">'.$q_view['raw']['categoryname'].'</a>');
-					$this->output('<div class="icon-tags2 question-tags">');	
-					$this->post_tags($q_view, 'qa-q-view');
-					$this->output('</div>');
-					$this->favorite();					
-				$this->output('</div></div>');
+
 				
 				$this->output(base64_decode( qa_opt('cs_ads_below_question_title') ));
 

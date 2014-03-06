@@ -361,9 +361,13 @@ function cs_get_template_array(){
 
 function cs_social_icons(){
 	return array(
-		'icon-facebook' => 'Facebook',
-		'icon-twitter' => 'Twitter',
-		'icon-google' => 'Google',
+		'icon-facebook' 	=> 'Facebook',
+		'icon-twitter' 		=> 'Twitter',
+		'icon-googleplus' 	=> 'Google',
+		'icon-pinterest' 	=> 'Pinterest',
+		'icon-linkedin' 	=> 'Linkedin',
+		'icon-github' 		=> 'Github',
+		'icon-stumbleupon' 	=> 'Stumbleupon',
 	);
 }
 

@@ -1988,10 +1988,13 @@ table.page-users-list {
 }
 
 #site-footer {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-left: 1px solid #DADADA;
+    border-top: 2px solid #DFDFDF;
     color: #999999;
     font-size: 13px;
-    margin: 10px auto;
-    padding: 0;
+    margin: 20px 0 0;
+    padding: 20px;
     text-align: right;
 }
 
@@ -2613,9 +2616,8 @@ input[type=checkbox].on-off-checkbox {
 
 /* Social links */
 .ra-social-links {
-    display: table;
+    display: block;
     list-style: none outside none;
-    margin: 10px auto 0;
     padding: 0;
 }
 
@@ -2627,8 +2629,9 @@ input[type=checkbox].on-off-checkbox {
     border-radius: 2px;
     color: #FFFFFF;
     display: block;
-    font-size: 20px;
+    font-size: 16px;
     height: 25px;
+    line-height: 26px;
     text-align: center;
     width: 25px;
 }

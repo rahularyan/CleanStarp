@@ -15,6 +15,7 @@
 		'selected_an_answer' 	=> 'selected an answer',
 		'earned_a_badge' 	=> 'earned a badge',
 		'points' 	=> 'points',
+		'tagged' 	=> 'tagged',
 	);
 	
 

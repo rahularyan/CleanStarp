@@ -130,8 +130,7 @@ function cs_post_type($id){
 }
 
 function cs_post_status($item){
-	// this will return a notice whether question is open, closed, duplicate or solved
-	
+
 	if (@$item['answer_selected'] || @$item['raw']['selchildid']){	
 		$notice =   '<span class="post-status selected">'.qa_lang_html('cleanstrap/solved').'</span>' ;
 	}elseif(@$item['raw']['closedbyid']){
@@ -362,9 +361,13 @@ function cs_get_template_array(){
 
 function cs_social_icons(){
 	return array(
-		'icon-facebook' => 'Facebook',
-		'icon-twitter' => 'Twitter',
-		'icon-google' => 'Google',
+		'icon-facebook' 	=> 'Facebook',
+		'icon-twitter' 		=> 'Twitter',
+		'icon-googleplus' 	=> 'Google',
+		'icon-pinterest' 	=> 'Pinterest',
+		'icon-linkedin' 	=> 'Linkedin',
+		'icon-github' 		=> 'Github',
+		'icon-stumbleupon' 	=> 'Stumbleupon',
 	);
 }
 

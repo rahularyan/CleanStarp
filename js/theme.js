@@ -611,6 +611,8 @@ $(document).ready(function(){
 		});
 	}
 	
+	$('#site-body').css('min-height', $(window).height());
+	
 	$('.question-label').click(function(){
 		$(this).next().slideToggle()
 	});

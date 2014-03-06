@@ -66,17 +66,19 @@
 		function output_widget($region, $place, $themeobject, $template, $request, $qa_content)
 		{
 			$widget_opt = @$themeobject->current_widget['param']['options'];
-			$content = cs_get_cache_question_activity((int)$widget_opt['cs_qa_count']);
-			if(@$themeobject->current_widget['Question Activity']['locations']['show_title'])
-				$themeobject->output('<h3 class="widget-title">Recent Activity <a href="'.qa_path_html('activity').'">View All</a></h3>');
-				
-			$themeobject->output('<div class="ra-question-activity-widget">');
+			$selectsort='created';
+			$userid = qa_get_logged_in_userid();
+			$questions = cs_get_cache_select_selectspec(qa_db_recent_c_qs_selectspec(null, 0, null, null, false, true,(int)$widget_opt['cs_qa_count']));
 
-			$q_list = $content['q_list']['qs'];
+			if(@$themeobject->current_widget['Question Activity']['locations']['show_title'])
+				$themeobject->output('<h3 class="widget-title">Recent Questions <a href="'.qa_path_html('questions').'">View All</a></h3>');
+				
+			$themeobject->output('<div class="ra-questions-widget">');
 			
-			$themeobject->output('<ul class="activity-list">');
-			foreach ($q_list as $list){
-				$themeobject->output('<li><span class="fav-star icon-heart'.(@$list['raw']['userfavoriteq'] ? ' active' : '').'"></span><a'.(is_featured($list['raw']['postid']) ? ' class="featured" ' : '').' href="'.$list['url'].'">'.cs_truncate($list['title'], 50).'<span class="time">'.implode(' ', $list['when']).'</span><span class="ans-count total-'.$list['raw']['acount'].'">'.$list['raw']['acount'].'</span></a></li>');
+			$themeobject->output('<ul class="questions-list">');
+			foreach ($questions as $post){
+				$when = qa_when_to_html($post['created'], 7); // 7 days
+				$themeobject->output('<li><span class=""></span><a href="'. qa_q_path_html($post['postid'], $post['title'],true, 'C',$post['opostid']) .'">'.cs_truncate($post['ocontent'], 50).'<span class="time">'.implode(' ', $when).'</span><span class="ans-count total-'.$post['acount'].'">'.$post['acount'].'</span></a></li>');
 			}
 			$themeobject->output('</ul>');
 			$themeobject->output('</div>');

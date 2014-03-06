@@ -482,7 +482,6 @@ class qa_html_theme extends qa_html_theme_base
         
         $this->cs_position('Left');
         
-        $this->get_social_links();
         
         if ((qa_opt('cs_enble_back_to_top')) && (qa_opt('cs_back_to_top_location') == 'nav'))
             $this->output('<a id="back-to-top" class="back-to-top-nav icon-angle-up t-bg" href="#"></a>');
@@ -1583,7 +1582,7 @@ class qa_html_theme extends qa_html_theme_base
         if (qa_get_logged_in_level() >= QA_USER_LEVEL_ADMIN) {
             $position     = strip_tags($_REQUEST['position']);
             $widget_names = json_decode($_REQUEST['widget_names'], true);
-            
+            $newid = array();
             if (isset($widget_names) && is_array($widget_names))
                 foreach ($widget_names as $k => $w) {
                     $param = array(
@@ -1591,10 +1590,12 @@ class qa_html_theme extends qa_html_theme_base
                         'options' => $w['options']
                     );
                     if (isset($w['id']) && $w['id'] > 0)
-                        widget_opt($k, $position, $w['order'], serialize($param), $w['id']);
+                        $newid[] = widget_opt($w['name'], $position, $k, serialize($param), $w['id']);
                     else
-                        widget_opt($k, $position, $w['order'], serialize($param));
+                        $newid[] = widget_opt($w['name'], $position, $k, serialize($param));
                 }
+
+				echo json_encode($newid);
         }
         die();
     }

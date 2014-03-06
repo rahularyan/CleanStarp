@@ -28,26 +28,28 @@ function get_widgets_by_position($position)
 function widget_opt($name, $position=false, $order = false, $param = false, $id= false)
 {		
 	if($position && $param){
-		widget_opt_update($name, $position, $order, $param, $id);
+		return widget_opt_update($name, $position, $order, $param, $id);		
 	}else{
-		$widgets = qa_db_read_one_value(qa_db_query_sub('SELECT * FROM ^ra_widgets WHERE name = $',$name ), true);
-		return $widgets;
+		qa_db_read_one_value(qa_db_query_sub('SELECT * FROM ^ra_widgets WHERE name = $',$name ), true);		
 	}
 }
 
 
 function widget_opt_update($name, $position, $order, $param, $id = false){
 
-	if($id)
+	if($id){
 		qa_db_query_sub(
 			'UPDATE ^ra_widgets SET name = $, position = $, widget_order = #, param = $ WHERE id=#',
 			$name, $position, $order, $param, $id
 		);
-	else
+		return $id;
+	}else{
 		qa_db_query_sub(
 			'INSERT ^ra_widgets (name, position, widget_order, param) VALUES ($, $, #, $)',
 			$name, $position, $order, $param
 		);
+		return qa_db_last_insert_id();
+	}
 }
 function widget_opt_delete($id ){
 	qa_db_query_sub('DELETE FROM ^ra_widgets WHERE id=#', $id);

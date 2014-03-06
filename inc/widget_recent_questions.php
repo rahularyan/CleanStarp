@@ -68,7 +68,7 @@
 			$widget_opt = @$themeobject->current_widget['param']['options'];
 			$selectsort='created';
 			$userid = qa_get_logged_in_userid();
-			$questions = qa_db_select_with_pending(qa_db_qs_selectspec($userid, $selectsort, 0, null, null, false, false, (int)$widget_opt['cs_qa_count'] ));
+			$questions = cs_get_cache_select_selectspec(qa_db_qs_selectspec($userid, $selectsort, 0, null, null, false, false, (int)$widget_opt['cs_qa_count'] ));
 
 			if(@$themeobject->current_widget['Question Activity']['locations']['show_title'])
 				$themeobject->output('<h3 class="widget-title">Recent Questions <a href="'.qa_path_html('questions').'">View All</a></h3>');

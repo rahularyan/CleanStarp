@@ -74,7 +74,6 @@
 				$themeobject->output('<h3 class="widget-title">Recent Questions <a href="'.qa_path_html('questions').'">View All</a></h3>');
 				
 			$themeobject->output('<div class="ra-questions-widget">');
-var_dump($questions);
 			
 			$themeobject->output('<ul class="questions-list">');
 			foreach ($questions as $post){

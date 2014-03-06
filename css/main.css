@@ -3300,6 +3300,13 @@ input[type=checkbox].on-off-checkbox {
     margin: 0;
     padding: 0;
 }
+.ra-question-activity-widget ul li {
+	padding: 10px 0;
+}
+.ra-question-activity-widget ul  .post-status{
+    display: inline;
+    font-size: 11px;
+}
 
 .activity-list > li:nth-child(2n) {
     background: rgba(0, 0, 0, 0.02);
@@ -3307,10 +3314,9 @@ input[type=checkbox].on-off-checkbox {
 
 .ra-question-activity-widget ul li a {
     color: #777777;
-    display: block;
+    display: inline;
     font-size: 13px;
     font-weight: 300;
-    padding: 13px 15px;
 }
 
 .ra-question-activity-widget ul li .ans-count {
@@ -3343,11 +3349,9 @@ input[type=checkbox].on-off-checkbox {
 }
 
 .ra-question-activity-widget ul li .fav-star {
-    color: #ddd;
-    display: block;
-    float: left;
+    color: #DDDDDD;
+    display: inline;
     font-size: 17px;
-    line-height: 48px;
     margin-left: 20px;
     margin-right: 25px;
 }

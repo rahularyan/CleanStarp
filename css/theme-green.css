@@ -23,8 +23,9 @@ a:hover{
 	color:#fff;
 }
 .card-metas ,#site-header #nav-ask-btn, .on-off-checkbox-container label, #ra-widgets .widget-canvas .widget-save.active, .ra-tags-widget .widget-tag:hover, .t-bg, .face.back, .qa-form-tall-button-login, .qa-form-tall-button-send, .qa-form-tall-button-register, input[type="radio"]:checked + label, .question-list .question-item .big-ans-count  {
-	background:#d6313a;
+	background:#e45840;
 }
+
 #site-header .site-logo {
     
 }
@@ -42,7 +43,7 @@ a:hover{
 }
 
 
-.t-bg2, .qa-main .qa-nav-sub ul li a.qa-nav-sub-selected, .ra-ask-widget .ui-helper-hidden-accessible, .ra-tags-widget .widget-tag, .t-bg:hover, .top-users-list .top-user-data .points, #left-position .ra-tags-widget .widget-tag span, .navbar-default .navbar-nav.category-nav .category-list-drop li a span, .carousel .slider-item .big-ans-count, .featured-sticker, .cs-category-widget-list li a span{
+.t-bg2, .qa-main .qa-nav-sub ul li a.qa-nav-sub-selected, .ra-ask-widget .ui-helper-hidden-accessible, .ra-tags-widget .widget-tag, .t-bg:hover, .top-users-list .top-user-data .points, #left-position .ra-tags-widget .widget-tag span, .navbar-default .navbar-nav.category-nav .category-list-drop li a span, .carousel .slider-item .big-ans-count, .featured-sticker, .cs-category-widget-list li a span, .ra-activity .event-icon{
     background: none repeat scroll 0 0 #FDAB0C;
 }
 

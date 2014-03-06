@@ -76,7 +76,7 @@
 			
 			$themeobject->output('<ul class="activity-list">');
 			foreach ($q_list as $list){
-				$themeobject->output('<li><span class="fav-star icon-heart'.(@$list['raw']['userfavoriteq'] ? ' active' : '').'"></span><a'.(is_featured($list['raw']['postid']) ? ' class="featured" ' : '').' href="'.$list['url'].'">'.$list['title'].'<span class="time">'.implode(' ', $list['when']).'</span><span class="ans-count total-'.$list['raw']['acount'].'">'.$list['raw']['acount'].'</span></a></li>');
+				$themeobject->output('<li class="clearfix"><span class="fav-star icon-heart'.(@$list['raw']['userfavoriteq'] ? ' active' : '').'"></span><span class="post-status open">'.cs_get_post_status($list).'</span><a'.(is_featured($list['raw']['postid']) ? ' class="featured" ' : '').' href="'.$list['url'].'">'.$list['title'].'<span class="time">'.implode(' ', $list['when']).'</span><span class="ans-count total-'.$list['raw']['acount'].'">'.$list['raw']['acount'].'</span></a></li>');
 			}
 			$themeobject->output('</ul>');
 			$themeobject->output('</div>');

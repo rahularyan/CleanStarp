@@ -71,14 +71,17 @@
 			$questions = cs_get_cache_select_selectspec(qa_db_recent_c_qs_selectspec(null, 0, null, null, false, true,(int)$widget_opt['cs_qa_count']));
 
 			if(@$themeobject->current_widget['Question Activity']['locations']['show_title'])
-				$themeobject->output('<h3 class="widget-title">Recent Questions <a href="'.qa_path_html('questions').'">View All</a></h3>');
+				$themeobject->output('<h3 class="widget-title">Recent Comments</h3>');
 				
 			$themeobject->output('<div class="ra-questions-widget">');
 			
 			$themeobject->output('<ul class="questions-list">');
 			foreach ($questions as $post){
 				$when = qa_when_to_html($post['created'], 7); // 7 days
-				$themeobject->output('<li><span class=""></span><a href="'. qa_q_path_html($post['postid'], $post['title'],true, 'C',$post['opostid']) .'">'.cs_truncate($post['ocontent'], 50).'<span class="time">'.implode(' ', $when).'</span><span class="ans-count total-'.$post['acount'].'">'.$post['acount'].'</span></a></li>');
+				$content = cs_truncate(strip_tags($post['ocontent']), 50);
+				if (strlen($content)<1)
+					$content = cs_truncate($post['title'], 50);
+				$themeobject->output('<li><span class=""></span><a href="'. qa_q_path_html($post['postid'], $post['title'],true, 'C',$post['opostid']) .'">'. $content .'<span class="time">'.implode(' ', $when).'</span><span class="ans-count total-'.$post['acount'].'">'.$post['acount'].'</span></a></li>');
 			}
 			$themeobject->output('</ul>');
 			$themeobject->output('</div>');

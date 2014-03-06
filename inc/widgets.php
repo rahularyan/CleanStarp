@@ -46,10 +46,10 @@ class qa_html_theme_layer extends qa_html_theme_base {
 			
 			$cs_page = '
 				<div id="ra-widgets">
-					<div class="widget-list col-sm-4">
+					<div class="widget-list col-sm-5">
 						'. $this->cs_get_widgets() .'
 					</div>
-					<div class="widget-postions col-sm-8">
+					<div class="widget-postions col-sm-7">
 						'.$this->cs_get_widgets_positions().'
 					</div>
 				</div>

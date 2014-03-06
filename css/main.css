@@ -2265,12 +2265,13 @@ input[type=checkbox].on-off-checkbox {
 
 /* widget options */
 #ra-widgets .draggable-widget {
-    background: #FFFFFF;
+    background: none repeat scroll 0 0 #FFFFFF;
     border: 1px solid #CCCCCC;
-    box-shadow: 0 0 5px #E9E9E9;
+    display: inline-block;
     font-size: 15px;
     margin-bottom: 12px;
     padding: 7px 10px;
+    width: 48%;
     z-index: 99;
 }
 
@@ -3707,7 +3708,6 @@ input[type=checkbox].on-off-checkbox {
 .cs-category-widget-list li a {
     color: #8F8F8F;
     display: block;
-    font-family: 'open sans',arial;
     font-size: 14px;
     padding: 5px;
 }
@@ -3923,4 +3923,11 @@ input[type=checkbox].on-off-checkbox {
 }
 .qa-form-tall-data .cke_toolgroup {
     border: medium none;
+}
+
+#left-position {
+    padding: 0 5px;
+}
+#left-position .cs-category-widget-list li a {
+    font-size: 12px;
 }

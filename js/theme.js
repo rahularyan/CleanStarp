@@ -380,8 +380,8 @@ function cs_save_widget($elm){
 	$elm.find('.draggable-widget').each(function(){		
 		var name = $(this).data('name');
 		var id = typeof $(this).data('id') == 'undefined' ? 0 : $(this).data('id') ;
-		
-		widget[name] = {'id' : id, 'order' : $(this).index(), 'locations':'', 'options':''};
+		var order = $(this).index();
+		widget[order] = {'name' : name, 'id' : id, 'locations':'', 'options':''};
 		
 		$(this).find('.select-template input').each(function(){
 			locations[$(this).attr('name')] = $(this).is(':checked') ? true : false;
@@ -390,11 +390,10 @@ function cs_save_widget($elm){
 			options[$(this).attr('name')] = $(this).val();
 		});
 		
-		widget[name]['locations'] = locations;
-		widget[name]['options'] = options;
+		widget[order]['locations'] = locations;
+		widget[order]['options'] = options;
 		
 	});
-
 
 	 $.ajax({
 		data: {
@@ -404,9 +403,12 @@ function cs_save_widget($elm){
 			widget_names: JSON.stringify(widget),
 			action: 'save_widget_position',
 		},
-		dataType: 'html',
+		dataType: 'json',
 		context: $elm,
 		success: function (response) {
+			$.each(response, function(index, item) {
+				$elm.find('.draggable-widget').eq(index).data('id', item);
+			});
 			$elm.closest('.widget-canvas').find('.widget-save').removeClass('active');
 		},
 	});

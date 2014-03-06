@@ -610,7 +610,7 @@ h1,h2,h3,h4,h5,h6, .qa-q-item-title {
 .qa-q-item-title > a {
     color: #5D5D5D;
     display: block;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: bold;
 }
 
@@ -711,13 +711,11 @@ h1,h2,h3,h4,h5,h6, .qa-q-item-title {
 }
 
 .page-title {
-    background: none repeat scroll 0 0 #FFFFFF;
-    border-radius: 2px;
-    color: #565655;
-    font-size: 25px;
-    font-weight: 400;
+    color: #333333;
+    font-size: 18px;
+    font-weight: bold;
     line-height: 30px;
-    margin: 0 0 15px;
+    margin: 0;
     padding: 10px;
 }
 
@@ -2494,7 +2492,7 @@ input[type=checkbox].on-off-checkbox {
 .ra-ask-widget .input-group-btn button {
     border-radius: 0;
     color: #FFFFFF;
-    font-size: 20px;
+    font-size: 17px;
     height: auto;
     padding: 9px 20px;
 }

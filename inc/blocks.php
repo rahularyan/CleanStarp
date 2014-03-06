@@ -91,7 +91,6 @@
 				$this->output('<link rel="stylesheet" type="text/css" href="'.Q_THEME_URL.'/css/dynamic.css"/>');	
 			}
 
-			$this->output("<link href='http://fonts.googleapis.com/css?family=Open+Sans:300,600,700' rel='stylesheet' type='text/css'>");
 			$googlefonts = json_decode(qa_opt('typo_googlefonts'),true);
 			if(isset($googlefonts) && !empty($googlefonts))
 				foreach($googlefonts as $font_name){
@@ -720,7 +719,7 @@
 				$this->output(cs_post_status($q_item));	
 				$this->post_meta($q_item, 'qa-q-item');
 				if(qa_opt('cs_show_tags_list')){
-					$this->output('<span>Tagged:</span>');
+					$this->output('<span>'.qa_lang('cleanstrap/tagged').': </span>');
 					$this->post_tag_list($q_item, 'list-tag');
 				}
 				$this->output('</div>');

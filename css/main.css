@@ -63,7 +63,7 @@ body {
 }
 
 h1,h2,h3,h4,h5,h6, .qa-q-item-title {
-    font-family: 'Open Sans',Helvetica,Arial,sans-serif;
+
 }
 
 .no-overflow {
@@ -159,7 +159,6 @@ h1,h2,h3,h4,h5,h6, .qa-q-item-title {
     border-radius: 2px;
     box-shadow: none;
     display: inline-block;
-    font-family: 'open sans',arial,helvetica;
     font-size: 13px;
     font-weight: 300;
     height: 30px;
@@ -532,7 +531,6 @@ h1,h2,h3,h4,h5,h6, .qa-q-item-title {
 /* Main title */
 .main-title {
     float: left;
-    font-family: 'open sans',arial,serif,helvetica;
     font-size: 16px;
     font-weight: 300;
     line-height: 30px;
@@ -547,10 +545,11 @@ h1,h2,h3,h4,h5,h6, .qa-q-item-title {
     background: none repeat scroll 0 0 #FFFFFF;
 }
 .qa-q-list .qa-q-list-item {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.03);
     padding: 10px 15px;
 }
-
+.qa-q-list .qa-q-list-item:nth-child(2n) {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.02);
+}
 .qa-q-list .qa-q-list-item .asker-avatar {
     float: left;
     margin-right: 15px;
@@ -609,9 +608,10 @@ h1,h2,h3,h4,h5,h6, .qa-q-item-title {
 }
 
 .qa-q-item-title > a {
-    color: #747474;
+    color: #5D5D5D;
     display: block;
-    margin-bottom: 1px;
+    font-size: 13px;
+    font-weight: bold;
 }
 
 .qa-q-item-tags ul {
@@ -756,7 +756,6 @@ h1,h2,h3,h4,h5,h6, .qa-q-item-title {
 .qa-nav-cat-list li .qa-nav-cat-link {
     color: #555555;
     display: block;
-    font-family: 'open sans',arial,helvetica,serif;
     font-weight: 400;
     padding: 8px 10px;
 }
@@ -964,7 +963,6 @@ a.feed-link {
 .voting-vertical .count {
     display: block;
     float: left;
-    font-family: 'open sans',arial;
     font-size: 12px;
     height: 22px;
     line-height: 22px;
@@ -1094,7 +1092,6 @@ a.feed-link {
 .question-head .question-meta {
     background: rgba(0, 0, 0, 0);
     border: medium none;
-    font-family: 'open sans',arial,serif;
     font-size: 16px;
     font-weight: 300;
     margin: 0;
@@ -1167,7 +1164,6 @@ a.feed-link {
 }
 
 .qa-q-view-inner .qa-q-view-head h1 {
-    font-family: 'open sans',arial,helvetica,serif;
     font-size: 22px;
     margin: 0 0 10px;
     padding: 0;
@@ -1227,7 +1223,6 @@ a.feed-link {
 }
 
 .qa-c-wrap .qa-c-item-content {
-    font-family: 'open sans',arial,serif;
     font-size: 13px;
     font-weight: 300;
     line-height: 25px;
@@ -2267,14 +2262,15 @@ input[type=checkbox].on-off-checkbox {
 #ra-widgets .draggable-widget {
     background: none repeat scroll 0 0 #FFFFFF;
     border: 1px solid #CCCCCC;
-    display: inline-block;
     font-size: 15px;
     margin-bottom: 12px;
-    padding: 7px 10px;
-    width: 48%;
+    padding: 7px 10px;    
     z-index: 99;
 }
-
+#ra-widgets .widget-list .draggable-widget{
+	display: inline-block;
+	width: 48%;
+}
 #ra-widgets .draggable-widget .widget-title {
     font-size: 12px;
     font-weight: bold;
@@ -2481,7 +2477,6 @@ input[type=checkbox].on-off-checkbox {
 .header-position-c .ra-ask-widget input[type="text"] {
     background: none repeat scroll 0 0 #FFFFFF;
     border: 2px solid #8B8B8B;
-    font-family: 'open sans',arial,helvetica;
     font-size: 16px;
     font-weight: 300;
 }
@@ -2913,7 +2908,6 @@ input[type=checkbox].on-off-checkbox {
 .user-cols-right .about-me {
     background: none repeat scroll 0 0 #FFFFFF;
     border-radius: 4px;
-    font-family: 'open sans',arial,helvetica,serif;
     font-size: 15px;
     margin-bottom: 15px;
     padding: 15px;
@@ -2931,7 +2925,6 @@ input[type=checkbox].on-off-checkbox {
     border-right: 1px solid #EEEEEE;
     display: block;
     float: left;
-    font-family: 'open sans',arial;
     font-size: 25px;
     font-weight: 300;
     overflow: hidden;
@@ -2956,7 +2949,6 @@ input[type=checkbox].on-off-checkbox {
     border-radius: 3px;
     color: #AAAAAA;
     display: inline-block;
-    font-family: 'open sans',arial,helvetica;
     font-size: 12px;
     font-weight: 300;
     margin-left: 16px;
@@ -3392,7 +3384,6 @@ input[type=checkbox].on-off-checkbox {
 
 .navbar-default .navbar-nav.category-nav .category-list-drop li a {
     color: #999999;
-    font-family: 'open sans',arial,serif;
     font-size: 14px;
     padding: 8px 14px;
     white-space: normal;
@@ -3535,7 +3526,6 @@ input[type=checkbox].on-off-checkbox {
 
 #login-modal .login-desc {
     color: #AAAAAA;
-    font-family: 'open sans',arial;
     font-size: 20px;
     margin-bottom: 30px;
     text-align: center;
@@ -3663,7 +3653,6 @@ input[type=checkbox].on-off-checkbox {
     background: rgba(0, 0, 0, 0);
     border-radius: 0;
     color: #666666;
-    font-family: 'open sans',arial,serif;
     font-size: 14px;
     font-weight: 400;
     padding: 2px 10px;
@@ -3722,7 +3711,6 @@ input[type=checkbox].on-off-checkbox {
 }
 
 .login-to-answer {
-    font-family: 'open sans',arial;
     font-size: 20px;
     font-weight: 300;
     padding: 17px;
@@ -3770,13 +3758,11 @@ input[type=checkbox].on-off-checkbox {
 }
 .user-activities .what{
     color: #777777;
-    font-family: 'open sans',arial;
     font-size: 15px;
     font-weight: 300;
 }
 .user-activities .what-task{
     display: inline-block;
-    font-family: open sans;
     margin-right: 15px;
     min-width: 80px;
     text-transform: capitalize;
@@ -3806,7 +3792,6 @@ input[type=checkbox].on-off-checkbox {
     line-height: 45px;
 }
 .question-list .no-post-found{
-    font-family: 'open sans',arial;
     font-size: 17px;
     font-weight: 300;
     padding: 10px;
@@ -3838,12 +3823,12 @@ input[type=checkbox].on-off-checkbox {
 }
 .list-tag-tag-list li{
     display: inline;
-    margin-right: 8px;
+    margin-right: 3px;
 }
 .qa-q-list-item .post-status{
     font-size: 11px;
     margin-right: 5px;
-    padding: 1px 5px;
+    padding: 0 5px;
     vertical-align: top;
 }
 .qa-q-item-when, .qa-q-item-where, .qa-q-item-where, .qa-q-item-who{
@@ -3852,10 +3837,11 @@ input[type=checkbox].on-off-checkbox {
     padding-right: 5px;
 }
 .list-meta{
-	color:#aaa;
+    color: #AAAAAA;
+    line-height: 16px;
 }
 .list-meta a{
-	color:#777;
+	color:#888;
 }
 .qa-template-ask .qa-part-form {
     background: none repeat scroll 0 0 #FFFFFF;
@@ -3880,7 +3866,6 @@ input[type=checkbox].on-off-checkbox {
     color: #fff;
     display: block;
     float: left;
-    font-family: open sans,arial;
     font-size: 11px;
     font-weight: 300;
     text-align: center;

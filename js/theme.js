@@ -638,6 +638,9 @@ $(document).ready(function(){
 /* 	if ((typeof qa_wysiwyg_editor_config == 'object') && $('body').hasClass('qa-template-question'))
 		qa_ckeditor_a_content=CKEDITOR.replace('a_content', window.qa_wysiwyg_editor_config); */
 		
+	$('#left-position .widget-title').click(function(){
+		$(this).next().slideToggle(200);
+	});
 	$('#featured-slider').carousel({
 		interval: 10000
 	})

@@ -482,7 +482,6 @@ class qa_html_theme extends qa_html_theme_base
         
         $this->cs_position('Left');
         
-        $this->get_social_links();
         
         if ((qa_opt('cs_enble_back_to_top')) && (qa_opt('cs_back_to_top_location') == 'nav'))
             $this->output('<a id="back-to-top" class="back-to-top-nav icon-angle-up t-bg" href="#"></a>');

@@ -3296,8 +3296,11 @@ input[type=checkbox].on-off-checkbox {
 .ra-question-activity-widget ul li {
 	padding: 10px 0;
 }
+.ra-question-activity-widget ul  .post-status-c{
+    display: inline-block;
+    min-width: 70px;
+}
 .ra-question-activity-widget ul  .post-status{
-    display: inline;
     font-size: 11px;
 }
 

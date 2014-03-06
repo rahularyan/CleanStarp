@@ -130,8 +130,7 @@ function cs_post_type($id){
 }
 
 function cs_post_status($item){
-	// this will return a notice whether question is open, closed, duplicate or solved
-	
+
 	if (@$item['answer_selected'] || @$item['raw']['selchildid']){	
 		$notice =   '<span class="post-status selected">'.qa_lang_html('cleanstrap/solved').'</span>' ;
 	}elseif(@$item['raw']['closedbyid']){

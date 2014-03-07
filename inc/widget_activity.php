@@ -173,8 +173,10 @@
 						$event_icon = 'icon-badge badge-icon '.@$badge_type;
 					}
 
-					$timeCode = implode('', qa_when_to_html( strtotime($row['datetime']), qa_opt('show_full_date_days')));
-					$time = '<span class="time">'.$timeCode.'</span>';
+					//$timeCode = implode('', qa_when_to_html( strtotime($row['datetime']), qa_opt('show_full_date_days')));
+					//$time = '<span class="time">'.$timeCode.'</span>';
+					$timeCode = qa_when_to_html( $row['datetime'],7);
+					$time = '<span class="time">'. @$timeCode['prefix'] . @$timeCode['data'] . @$timeCode['suffix'] .'</span>';
 					
 					// if question title is empty, question got possibly deleted, do not show frontend!
 					if($qTitle=='') {
@@ -212,7 +214,7 @@
 				$events_type = array('q_post', 'a_post', 'c_post', 'a_select', 'badge_awarded');
 			
 			// query last 3 events
-			$query = qa_db_query_sub("SELECT datetime,ipaddress,handle,event,params FROM `^eventlog` WHERE `event`='q_post' OR `event`='a_post' OR `event`='c_post' OR `event`='a_select' OR `event`='badge_awarded' ORDER BY datetime DESC LIMIT $limit");
+			$query = qa_db_query_sub("SELECT  UNIX_TIMESTAMP(datetime) AS datetime,ipaddress,handle,event,params FROM `^eventlog` WHERE `event`='q_post' OR `event`='a_post' OR `event`='c_post' OR `event`='a_select' OR `event`='badge_awarded' ORDER BY datetime DESC LIMIT $limit");
 
 			$recentEvents = '';
 

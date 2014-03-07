@@ -10,20 +10,20 @@
 					'cs_feed_title_field' => array(
 						'label' => 'Widget Title:',
 						'type' => 'string',
-						'value' => qa_opt('cs_feed_title'),
+						'value' => 'Feed Widget',
 						'tags' => 'NAME="cs_feed_title_field"',
 					),
 					'cs_feed_url_field' => array(
 						'label' => 'Feed URL:',
 						'type' => 'string',
-						'value' => qa_opt('cs_feed_url'),
+						'value' => '',
 						'tags' => 'NAME="cs_feed_url_field"',
 					),
 					'cs_feed_count_field' => array(
 						'label' => 'number of recent feeds:',
 						'suffix' => 'item',
 						'type' => 'number',
-						'value' => (int)qa_opt('cs_feed_count'),
+						'value' => 10,
 						'tags' => 'NAME="cs_feed_count_field"',
 					),
 				),
@@ -87,15 +87,16 @@
 					return;
 				}
 			}
+			$widget_opt = @$themeobject->current_widget['param']['options'];
 			
-			$url = qa_opt('cs_feed_url');
-			$count=(int)qa_opt('cs_feed_count');
-			$title=qa_opt('cs_feed_title');
+			$url = $widget_opt['cs_feed_url_field'];
+			$count=(int)$widget_opt['cs_feed_count_field'];
+			$title=$widget_opt['cs_feed_title_field'];
 			//$url = 'http://qa-themes.com/?feed=rss';
 			//$count=10;
 			//$title='Blog Feed';
-
 			// read live content
+			
 			$content = file_get_contents($url);
 			$x = new SimpleXmlElement($content);  
 			$output ='<aside class="qa-feed-widget">';
@@ -112,7 +113,7 @@
 			$output .= "</ul>";  
 			$output .= '</aside>';
 			$themeobject->output($output);
-			
+		
 			$cache['feed']['content'] =  $output;
 			$cache['feed']['age'] = time();
 			$cache['changed'] = true;	

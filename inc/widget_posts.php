@@ -71,7 +71,7 @@ class cs_widget_posts
     function cs_post_list($type, $limit, $return = false)
     {
 
-        $posts = qa_db_read_all_assoc(qa_db_query_sub('SELECT ^posts.*, ^users.handle FROM ^posts, ^users WHERE ^posts.userid=^users.userid AND ^posts.type=$ ORDER BY ^posts.created DESC LIMIT #', $type, $limit));
+        $posts = qa_db_read_all_assoc(qa_db_query_sub('SELECT ^posts.* , ^users.handle FROM ^posts, ^users WHERE ^posts.userid=^users.userid AND ^posts.type=$ ORDER BY ^posts.created DESC LIMIT #', $type, $limit));
         
         $output = '<ul class="posts-list">';
         foreach($posts as $p) {
@@ -86,8 +86,8 @@ class cs_widget_posts
 
             $handle = $p['handle'];
 
-			$when = qa_when_to_html(strtotime($p['created']), qa_opt('fulldatedays'));
-			//print_r( cs_ago(strtotime($p['created'])));
+			$timeCode = qa_when_to_html(  strtotime( $p['created'] ) ,7);
+			$when = @$timeCode['prefix'] . @$timeCode['data'] . @$timeCode['suffix'];
 
             $output .= '<li>';
             $output .= cs_get_post_avatar($p, $p['userid'], 30, true);
@@ -107,7 +107,7 @@ class cs_widget_posts
 			if ($type == 'Q')
                 $output .= '<span>' . qa_lang_sub('cleanstrap/answers_count', $p['acount']) . '</span>';
             
-            $output .= '<span class="time icon-time">' . implode(' ', $when) . '</span>';
+            $output .= '<span class="time icon-time">' .  $when . '</span>';
             $output .= '<span class="vote-count icon-thumbs-up2">' . qa_lang_sub('cleanstrap/votes_count', $p['netvotes']) . '</span>';
             
 			

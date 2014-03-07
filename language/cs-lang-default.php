@@ -9,6 +9,8 @@
 		'answered' 		=> 'answered',
 		'commented' 	=> 'commented',
 		'answers' 		=> 'answers',
+		'questions' 		=> 'questions',
+		'comments' 		=> 'comments',
 		'votes' 		=> 'votes',
 		'vote_disabled_level' => 'votes',
 		'anonymous' 	=> 'anonymous',
@@ -16,6 +18,11 @@
 		'earned_a_badge' 	=> 'earned a badge',
 		'points' 	=> 'points',
 		'tagged' 	=> 'tagged',
+		'recent_answers' 	=> 'Recent Answers',
+		'votes_count' 	=> '^ votes',
+		'time_ago' 	=> '^ ago',
+		'recent_posts' 	=> 'Recent ^',
+		'answers_count' 	=> '^ answers',
 	);
 	
 

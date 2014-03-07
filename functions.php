@@ -39,8 +39,8 @@ function widget_opt_update($name, $position, $order, $param, $id = false){
 
 	if($id){
 		qa_db_query_sub(
-			'UPDATE ^ra_widgets SET name = $, position = $, widget_order = #, param = $ WHERE id=#',
-			$name, $position, $order, $param, $id
+			'UPDATE ^ra_widgets SET position = $, widget_order = #, param = $ WHERE id=#',
+			$position, $order, $param, $id
 		);
 		return $id;
 	}else{
@@ -115,7 +115,7 @@ function cs_get_avatar($handle, $size = 40, $html =true){
 	elseif(isset($match[1]))
 		return $match[1];
 }
-function cs_get_post_avatar($post, $userid ,$size = 40){
+function cs_get_post_avatar($post, $userid ,$size = 40, $html=false){
 	if(defined('QA_WORDPRESS_INTEGRATE_PATH')){
 		$avatar = get_avatar( qa_get_user_email($userid), $size);
 	}if (QA_FINAL_EXTERNAL_USERS)
@@ -123,6 +123,9 @@ function cs_get_post_avatar($post, $userid ,$size = 40){
 	else
 		$avatar = qa_get_user_avatar_html(@$post['flags'], @$post['email'], @$post['handle'],
 			@$post['avatarblobid'], @$post['avatarwidth'], @$post['avatarheight'], $size);
+	if($html)
+		return '<div class="avatar" data-id="'.$userid.'" data-handle="'.$post['handle'].'">'.$avatar.'</div>';
+	
 	return $avatar;
 }
 
@@ -254,53 +257,6 @@ function cs_tag_list($limit = 20){
 	}
 }
 
-// output the list of selected post type
-function cs_post_list($type, $limit, $return = false){
-	require_once QA_INCLUDE_DIR.'qa-app-posts.php';
-	$post = qa_db_query_sub('SELECT * FROM ^posts WHERE ^posts.type=$ ORDER BY ^posts.created DESC LIMIT #', $type, $limit);	
-	
-	$output = '<ul class="question-list">';
-	while($p = mysql_fetch_array($post)){
-
-		if($type=='Q'){
-			$what = qa_lang_html('cleanstrap/asked');
-		}elseif($type=='A'){
-			$what = qa_lang_html('cleanstrap/answered');
-		}elseif('C'){
-			$what = qa_lang_html('cleanstrap/commented');
-		}
-		
-		$handle = qa_post_userid_to_handle($p['userid']);
-
-		$output .= '<li id="q-list-'.$p['postid'].'" class="question-item">';
-		$output .= '<div class="pull-left avatar" data-handle="'.$handle.'" data-id="'. qa_handle_to_userid($handle).'">'.cs_get_avatar($handle, 35).'</div>';
-		$output .= '<div class="list-right">';
-		
-		if($type=='Q'){
-			$output .= '<a class="title" href="'. qa_q_path_html($p['postid'], $p['title']) .'" title="'. $p['title'] .'">'.qa_html($p['title']).'</a>';
-		}elseif($type=='A'){
-			$output .= '<p><a href="'.cs_post_link($p['parentid']).'#a'.$p['postid'].'">'. substr(strip_tags($p['content']), 0, 50).'</a></p>';
-		}else{
-			$output .= '<p><a href="'.cs_post_link($p['parentid']).'#c'.$p['postid'].'">'. substr(strip_tags($p['content']), 0, 50).'</a></p>';
-		}
-		
-		
-		if ($type=='Q'){
-			$output .= '<div class="counts"><div class="vote-count"><span>'.$p['netvotes'].'</span></div>';
-			$output .= '<div class="ans-count"><span>'.$p['acount'].'</span></div></div>';
-		}elseif($type=='A'){
-			$output .= '<div class="counts"><div class="vote-count"><span>'.$p['netvotes'].'</span></div>';
-		}
-		$output .= '<h5><a href="'.qa_path_html('user/'.$handle).'">'.cs_name($handle).'</a> '.$what.'</h5>';
-
-		$output .= '</div>';	
-		$output .= '</li>';
-	}
-	$output .= '</ul>';
-	if($return)
-		return $output;
-	echo $output;
-}
 function cs_url_grabber($str) {
 	preg_match_all(
 	  '#<a\s

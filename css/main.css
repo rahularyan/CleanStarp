@@ -3938,3 +3938,39 @@ input[type=checkbox].on-off-checkbox {
 #left-position .widget-title{
 	
 }
+
+
+.ra-post-list-widget .posts-list{
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+}
+.ra-post-list-widget .posts-list li{
+	margin-bottom:10px;
+}
+.ra-post-list-widget .posts-list .avatar{
+    float: left;
+    margin-right: 15px;
+    margin-top: 7px;
+}
+.ra-post-list-widget .posts-list .post-content {
+    overflow: hidden;
+}
+.ra-post-list-widget .post-content .title{
+    color: #747474;
+    font-size: 12px;
+}
+.ra-post-list-widget .post-content .title.question{
+	font-weight:bold;
+}
+.ra-post-list-widget .posts-list .meta{
+	display: block;
+	color: #AAAAAA;
+    font-size: 11px;
+}
+.ra-post-list-widget .posts-list .meta span:before{
+	padding-right:5px;
+}
+.ra-post-list-widget .posts-list .meta span:nth-child(2), .ra-post-list-widget .posts-list .meta span:nth-child(3) {
+    margin-left: 10px;
+}

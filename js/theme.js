@@ -307,7 +307,7 @@ function cs_float_left(){
 
 function cs_widgets(){
 	$('.position-toggler').click(function(){
-		//$('.position-canvas').not($(this).parent().next()).hide();
+		$('.position-canvas').not($(this).parent().next()).hide();
 		$(this).parent().next().toggle(0);
 		$(this).toggleClass('icon-angle-up icon-angle-down');
 	});	
@@ -381,6 +381,8 @@ function cs_save_widget($elm){
 		var name = $(this).data('name');
 		var id = typeof $(this).data('id') == 'undefined' ? 0 : $(this).data('id') ;
 		var order = $(this).index();
+		var locations = {};
+		var options = {};
 		widget[order] = {'name' : name, 'id' : id, 'locations':'', 'options':''};
 		
 		$(this).find('.select-template input').each(function(){
@@ -394,7 +396,7 @@ function cs_save_widget($elm){
 		widget[order]['options'] = options;
 		
 	});
-
+console.log(widget);
 	 $.ajax({
 		data: {
 			cs_ajax: true,

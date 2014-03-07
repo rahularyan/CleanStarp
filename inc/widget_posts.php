@@ -70,12 +70,12 @@ class cs_widget_posts
     }
     function cs_post_list($type, $limit, $return = false)
     {
-        require_once QA_INCLUDE_DIR . 'qa-app-posts.php';
-        $posts = qa_db_read_all_assoc(qa_db_query_sub('SELECT * FROM ^posts INNER JOIN ^users ON ^posts.userid=^users.userid WHERE ^posts.type=$ ORDER BY ^posts.created DESC LIMIT #', $type, $limit));
+
+        $posts = qa_db_read_all_assoc(qa_db_query_sub('SELECT ^posts.*, ^users.handle FROM ^posts, ^users WHERE ^posts.userid=^users.userid AND ^posts.type=$ ORDER BY ^posts.created DESC LIMIT #', $type, $limit));
         
         $output = '<ul class="posts-list">';
         foreach($posts as $p) {
-            
+
             if ($type == 'Q') {
                 $what = qa_lang_html('cleanstrap/asked');
             } elseif ($type == 'A') {
@@ -85,7 +85,10 @@ class cs_widget_posts
             }
 
             $handle = $p['handle'];
-            $when    = qa_time_to_string($p['created']);
+
+			$when = qa_when_to_html(strtotime($p['created']), qa_opt('fulldatedays'));
+			//print_r( cs_ago(strtotime($p['created'])));
+
             $output .= '<li>';
             $output .= cs_get_post_avatar($p, $p['userid'], 30, true);
             $output .= '<div class="post-content">';
@@ -104,7 +107,7 @@ class cs_widget_posts
 			if ($type == 'Q')
                 $output .= '<span>' . qa_lang_sub('cleanstrap/answers_count', $p['acount']) . '</span>';
             
-            $output .= '<span class="time icon-time">' . qa_lang_sub('cleanstrap/time_ago', $when) . '</span>';
+            $output .= '<span class="time icon-time">' . implode(' ', $when) . '</span>';
             $output .= '<span class="vote-count icon-thumbs-up2">' . qa_lang_sub('cleanstrap/votes_count', $p['netvotes']) . '</span>';
             
 			

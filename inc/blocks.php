@@ -221,6 +221,8 @@ class qa_html_theme extends qa_html_theme_base
             $LoggedinUserAvatar = cs_get_avatar(qa_get_logged_in_handle(), 30, false);
             if (!empty($LoggedinUserAvatar))
                 echo '<img src="' . $LoggedinUserAvatar . '" />'; // in case there is no Avatar image and theme doesn't use a default avatar
+			else
+				echo '<span class="profile-name">'.qa_get_logged_in_handle().'</span>';
 ?>
 						</a>
 						<ul class="user-nav dropdown-menu">
@@ -230,7 +232,7 @@ class qa_html_theme extends qa_html_theme_base
 							<li><a class="icon-profile" href="<?php
             echo qa_path_html('user/' . qa_get_logged_in_handle());
 ?>"><?php
-            qa_lang('Profile');
+            echo qa_lang_html('cleanstrap/profile');
 ?></a></li>
 							<?php
             foreach ($this->content['navigation']['user'] as $a) {

@@ -384,7 +384,10 @@ h1,h2,h3,h4,h5,h6, .qa-q-item-title {
 #menuLogin .profile-link.dropdown-toggle {
     padding: 0;
 }
-
+#profile-link .profile-name {
+    display: inline-block;
+    margin: 5px;
+}
 .nav-userbox .dropdown-menu.login-form {
     min-width: 180px;
 }

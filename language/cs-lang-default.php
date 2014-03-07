@@ -25,6 +25,7 @@
 		'answers_count' 	=> '^ answers',
 		'recent_activities' 	=> 'Recent activities',
 		'view_all' 	=> 'View all',
+		'profile' => 'Profile',
 	);
 	
 

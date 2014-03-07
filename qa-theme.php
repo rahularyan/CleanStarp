@@ -63,8 +63,10 @@
 						'Home Slide' => 'Home Top',
 						'Home 1 Left' => 'Home position 1',
 						'Home 1 Center' => 'Home position 1',
-						'Home Right' => 'Home right side',
 						'Home 2' => 'Home position 2',
+						'Home 3 Left' => 'Home position 3',
+						'Home 3 Center' => 'Home position 3',
+						'Home Right' => 'Home right side',						
 						'Question Right' => 'Right side of question',
 						'User Content' => 'On user page'
 					)

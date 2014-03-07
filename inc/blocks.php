@@ -658,6 +658,14 @@ class qa_html_theme extends qa_html_theme_base
         $this->output('<div class="row">');
         $this->cs_position('Home 2');
         $this->output('</div>');
+		$this->output('<div class="row">');
+        $this->output('<div class="col-md-6">');
+        $this->cs_position('Home 3 Left');
+        $this->output('</div>');
+        $this->output('<div class="col-md-6">');
+        $this->cs_position('Home 3 Center');
+        $this->output('</div>');
+        $this->output('</div>');
         $this->output('</div>');
         $this->output('<div class="col-md-4">');
         $this->cs_position('Home Right');

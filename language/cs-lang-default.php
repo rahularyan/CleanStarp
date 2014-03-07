@@ -23,6 +23,8 @@
 		'time_ago' 	=> '^ ago',
 		'recent_posts' 	=> 'Recent ^',
 		'answers_count' 	=> '^ answers',
+		'recent_activities' 	=> 'Recent activities',
+		'view_all' 	=> 'View all',
 	);
 	
 

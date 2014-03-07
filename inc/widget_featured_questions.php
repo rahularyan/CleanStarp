@@ -75,7 +75,7 @@
 		// output the list of selected post type
 		function carousel_item($type, $limit, $col_item = 1){
 			require_once QA_INCLUDE_DIR.'qa-app-posts.php';
-			$post = qa_db_query_sub('SELECT * FROM ^postmetas, ^posts  WHERE ^posts.type=$ and ( ^postmetas.postid = ^posts.postid and ^postmetas.title = "featured_question" ) ORDER BY ^posts.created DESC LIMIT #', $type, $limit);	
+			$post = qa_db_query_sub('SELECT * FROM ^postmetas, ^posts INNER JOIN ^users ON ^posts.userid=^users.userid WHERE ^posts.type=$ and ( ^postmetas.postid = ^posts.postid and ^postmetas.title = "featured_question" ) ORDER BY ^posts.created DESC LIMIT #', $type, $limit);	
 			$output ='<div class="item"><div class="row">';
 			$i = 1;
 			while($p = mysql_fetch_array($post)){
@@ -87,7 +87,7 @@
 					$what = qa_lang('cleanstrap/commented');
 				}
 				
-				$handle = qa_post_userid_to_handle($p['userid']);
+				$handle = $p['handle'];
 
 				$output .= '<div class="slider-item col-sm-'.(12/$col_item).'">';
 				$output .= '<div class="slider-item-inner">';
@@ -105,9 +105,9 @@
 				}else{
 					$output .= '<h5><a href="'.cs_post_link($p['parentid']).'#c'.$p['postid'].'">'. cs_truncate(strip_tags($p['content']), 50).'</a></h5>';
 				}
-				
-					
-				$output .= '<div class="meta"><img src="'.cs_get_avatar($handle, 15, false).'" /><span class="icon-calendar-2">'.date('d M Y', strtotime($p['created'])).'</span>';	
+
+				$when = qa_when_to_html(strtotime($p['created']), 7);
+				$output .= '<div class="meta"><img src="'.cs_get_avatar($handle, 15, false).'" /><span class="icon-time">'.implode(' ', $when).'</span>';	
 				$output .= '<span class="vote-count">'.$p['netvotes'].' '.qa_lang('cleanstrap/votes').'</span></div>';	
 				
 				$output .= '</div>';

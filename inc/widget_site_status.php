@@ -68,7 +68,7 @@
 			$o = '<div class="site-status-inner clearfix">';
 			
 			if($type == 'bar'){
-			$o .='<div class="bar-float"><div class="sparkline" data-type="bar" data-bar-color="#8e98a9" data-bar-width="30" data-height="80">
+			$o .='<div class="bar-float"><div class="sparkline" data-type="bar" data-bar-color="#E45840" data-bar-width="30" data-height="80">
 					<!--'.qa_opt('cache_qcount').','.qa_opt('cache_acount').','.qa_opt('cache_ccount').','.qa_opt('cache_unaqcount').','.qa_opt('cache_unselqcount').'--></div>
                     <ul class="list-inline text-muted axis">
 						<li>Que</li><li>Ans</li><li>Com</li><li>UA</li><li>US</li>

@@ -163,7 +163,7 @@ class qa_html_theme extends qa_html_theme_base
         //$this->nav('sub');	
         //$this->nav('user');
         
-        $this->output('<a id="nav-ask-btn" href="' . qa_path_html('ask') . '" class="btn btn-sm">Ask Question</a>');
+        $this->output('<a id="nav-ask-btn" href="' . qa_path_html('ask') . '" class="btn btn-sm">' . qa_lang_html('cleanstrap/ask_question') . '</a>');
         $this->cat_drop_nav();
         $this->user_drop_nav();
         $this->search();
@@ -177,7 +177,7 @@ class qa_html_theme extends qa_html_theme_base
         if (qa_is_logged_in()) { // output user avatar to login bar
             $this->output('<div class="qa-logged-in-avatar">', QA_FINAL_EXTERNAL_USERS ? qa_get_external_avatar_html(qa_get_logged_in_userid(), 24, true) : qa_get_user_avatar_html(qa_get_logged_in_flags(), qa_get_logged_in_email(), qa_get_logged_in_handle(), qa_get_logged_in_user_field('avatarblobid'), qa_get_logged_in_user_field('avatarwidth'), qa_get_logged_in_user_field('avatarheight'), 24, true), '</div>');
         } else {
-            $this->output('<ul class="pull-right top-buttons clearfix">', '<li><a href="#" class="btn">Login</a></li>', '<li><a href="#" class="btn">Register</a></li>', '</ul>');
+            $this->output('<ul class="pull-right top-buttons clearfix">', '<li><a href="#" class="btn">' . qa_lang_html('cleanstrap/login') . '</a></li>', '<li><a href="#" class="btn">' . qa_lang_html('cleanstrap/register') . '</a></li>', '</ul>');
         }
         $this->output('</div>');
     }
@@ -195,7 +195,7 @@ class qa_html_theme extends qa_html_theme_base
 ?>
 			<ul class="nav navbar-nav category-nav pull-left">
 				<li class="dropdown pull-left">
-					<a data-toggle="dropdown" href="#" class="category-toggle icon-folder-close-alt">Categories</a>
+					<a data-toggle="dropdown" href="#" class="category-toggle icon-folder-close-alt"><?php echo qa_lang_html('cleanstrap/categories'); ?></a>
 					<ul class="category-list-drop dropdown-menu">
 						<?php
         $this->cs_full_categories_list();
@@ -243,7 +243,7 @@ class qa_html_theme extends qa_html_theme_base
             }
             if (!isset($this->content['navigation']['user']['logout']['url'])) {
                 $link = qa_opt('site_url') . "logout";
-                echo "<li><a class='icon-switch' href = '$link'> Logout </a></li>";
+                echo "<li><a class='icon-switch' href = '$link'> " . qa_lang_html('cleanstrap/logout') . " </a></li>";
             }
 ?>
 						</ul>
@@ -253,7 +253,7 @@ class qa_html_theme extends qa_html_theme_base
 			<?php
         } else {
 ?>				
-				<a class="btn login-register icon-lock"  href="#" data-toggle="modal" data-target="#login-modal" title="Login or register"></a>
+				<a class="btn login-register icon-lock"  href="#" data-toggle="modal" data-target="#login-modal" title="<?php echo qa_lang_html('cleanstrap/login_register'); ?>"></a>
 
 				
 				<!-- Modal -->
@@ -264,8 +264,8 @@ class qa_html_theme extends qa_html_theme_base
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>	
 					  <div class="modal-body">
-						<h3>Login or Register</h3>
-						<p class="login-desc">Get access to your account and question</p>
+						<h3><?php echo qa_lang_html('cleanstrap/login_register'); ?></h3>
+						<p class="login-desc"><?php echo qa_lang_html('cleanstrap/access_account'); ?></p>
 						<div class="social-logins">
 						<?php
             
@@ -373,7 +373,7 @@ class qa_html_theme extends qa_html_theme_base
     }
     function search_field($search)
     {
-        $this->output('<span class="icon-search"></span>', '<input type="text" ' . $search['field_tags'] . ' value="' . @$search['value'] . '" class="form-control search-query" placeholder="search" autocomplete="off" />', '');
+        $this->output('<span class="icon-search"></span>', '<input type="text" ' . $search['field_tags'] . ' value="' . @$search['value'] . '" class="form-control search-query" placeholder="' . qa_lang_html('cleanstrap/search') . '" autocomplete="off" />', '');
     }
     
     function search_button($search)
@@ -399,8 +399,8 @@ class qa_html_theme extends qa_html_theme_base
 ?>
 				<div class="user-tabs">
 					<ul class="nav nav-tabs">
-					  <li class="active"><a href="#right-top-users" data-toggle="tab">Top Users</a></li>
-					  <li><a href="#right-new-user" data-toggle="tab">New Users</a></li>
+					  <li class="active"><a href="#right-top-users" data-toggle="tab"><?php echo qa_lang_html('cleanstrap/top_users'); ?></a></li>
+					  <li><a href="#right-new-user" data-toggle="tab"><?php echo qa_lang_html('cleanstrap/new_users'); ?></a></li>
 					</ul>
 
 					<!-- Tab panes -->
@@ -430,11 +430,11 @@ class qa_html_theme extends qa_html_theme_base
               <div class="line pull-in"></div>
               <div class="acti-indicators">
 				<ul>
-					<li><i class="fa fa-circle text-info" style="color:#233445"></i> Questions <span>' . qa_opt('cache_qcount') . '</span></li>
-					<li><i class="fa fa-circle text-info" style="color:#3fcf7f"></i> Answers <span>' . qa_opt('cache_acount') . '</span></li>
-					<li><i class="fa fa-circle text-info" style="color:#FF5F5F"></i> Comments <span>' . qa_opt('cache_ccount') . '</span></li>
-					<li><i class="fa fa-circle text-info" style="color:#13C4A5"></i> Unanswered <span>' . qa_opt('cache_unaqcount') . '</span></li>
-					<li><i class="fa fa-circle text-info" style="color:#F4C414"></i> Unselected <span>' . qa_opt('cache_unselqcount') . '</span></li>
+					<li><i class="fa fa-circle text-info" style="color:#233445"></i> ' . qa_lang_html('cleanstrap/questions') . ' <span>' . qa_opt('cache_qcount') . '</span></li>
+					<li><i class="fa fa-circle text-info" style="color:#3fcf7f"></i> ' . qa_lang_html('cleanstrap/answers') . ' <span>' . qa_opt('cache_acount') . '</span></li>
+					<li><i class="fa fa-circle text-info" style="color:#FF5F5F"></i> ' . qa_lang_html('cleanstrap/comments') . ' <span>' . qa_opt('cache_ccount') . '</span></li>
+					<li><i class="fa fa-circle text-info" style="color:#13C4A5"></i> ' . qa_lang_html('cleanstrap/unanswered') . ' <span>' . qa_opt('cache_unaqcount') . '</span></li>
+					<li><i class="fa fa-circle text-info" style="color:#F4C414"></i> ' . qa_lang_html('cleanstrap/unselected') . ' <span>' . qa_opt('cache_unselqcount') . '</span></li>
 				</ul>
               </div>
             </div>
@@ -464,7 +464,7 @@ class qa_html_theme extends qa_html_theme_base
         }
         if (!isset($this->content['navigation']['user']['logout']['url'])) {
             $link = qa_opt('site_url') . "logout";
-            echo "<li><a class='icon-switch' href = '$link'> Logout </a></li>";
+            echo "<li><a class='icon-switch' href = '$link'> " . qa_lang_html('cleanstrap/logout') . " </a></li>";
         }
 ?>
 				</ul>
@@ -553,7 +553,7 @@ class qa_html_theme extends qa_html_theme_base
         if ($this->cs_position_active('Header')) {
             $this->output('<div class="header-position-c clearfix">');
             
-            $this->output('<h1 class="intro-title">Do you have questions ? We got the answers!</h1>');
+            $this->output('<h1 class="intro-title"> ' . qa_lang_html('cleanstrap/got_questions') . '</h1>');
             
             if ($this->cs_position_active('Header Left')) {
                 $this->output('<div class="col-md-' . $class . '">');
@@ -681,9 +681,9 @@ class qa_html_theme extends qa_html_theme_base
         $q_view = $content['q_view'];
         $this->output('<div class="question-main">');
         $this->cs_position('Content Top');
-        $this->output('<div class="question-head">', '<h2 class="question-title">', $q_view['raw']['title'], '</h2>', '<div class="question-meta">', cs_post_status($q_view), (is_featured($q_view['raw']['postid']) ? '<span class="featured-sticker">Featured</span>' : ''), 
+        $this->output('<div class="question-head">', '<h2 class="question-title">', $q_view['raw']['title'], '</h2>', '<div class="question-meta">', cs_post_status($q_view), (is_featured($q_view['raw']['postid']) ? '<span class="featured-sticker">' . qa_lang_html('cleanstrap/featured') . '</span>' : ''), 
         //'<span class="q-view-a-count">'.$q_view['raw']['acount'].' Answers</span>',
-            '<span class="icon-eye-open q-view-v-count">' . $q_view['raw']['views'] . ' Views</span>
+            '<span class="icon-eye-open q-view-v-count">' . $q_view['raw']['views'] . ' ' . qa_lang_html('cleanstrap/views') . '</span>
 						<a class="cat-in icon-folder-close-alt" href="' . cs_cat_path($q_view['raw']['categorybackpath']) . '">' . $q_view['raw']['categoryname'] . '</a>');
         $this->output('<div class="icon-tags2 question-tags">');
         $this->post_tags($q_view, 'qa-q-view');
@@ -1046,8 +1046,8 @@ class qa_html_theme extends qa_html_theme_base
         if (($this->template == 'question') && (qa_get_logged_in_level() >= QA_USER_LEVEL_ADMIN) && (!empty($q_view)))
             $buttons['featured'] = array(
                 'tags' => 'id="set_featured"',
-                'label' => 'Featured',
-                'popup' => 'Set this question as featured',
+                'label' => qa_lang_html('cleanstrap/featured'),
+                'popup' => qa_lang_html('cleanstrap/set_featured'),
                 'class' => 'icon-star'
             );
         
@@ -1255,7 +1255,7 @@ class qa_html_theme extends qa_html_theme_base
         $this->cs_user_nav($handle);
         $this->output('<div class="user-cols-right">');
         if (isset($about) && strlen($about))
-            $this->output('<div class="about-me widget">', '<h3 class="widget-title">About Me</h3>', $about, '</div>');
+            $this->output('<div class="about-me widget">', '<h3 class="widget-title">' . qa_lang_html('cleanstrap/about_me') . '</h3>', $about, '</div>');
         $this->cs_user_activity_count($handle);
         $this->cs_user_qa($handle);
         $this->output('</div>');
@@ -1285,7 +1285,7 @@ class qa_html_theme extends qa_html_theme_base
         if (qa_get_logged_in_level() >= QA_USER_LEVEL_ADMIN) {
             $this->output('<a id="edit-user" class="btn btn-xs btn-success edit-profile" href="' . qa_path_absolute('user/' . $handle, array(
                 'state' => 'edit'
-            )) . '">Edit User</a>');
+            )) . '">' . qa_lang_html('cleanstrap/edit_user') . '</a>');
         }
         $this->nav('sub');
         $this->output('</div>');
@@ -1296,7 +1296,7 @@ class qa_html_theme extends qa_html_theme_base
     function cs_user_activity_count($handle)
     {
         $user = cs_user_data($handle);
-        $this->output('<div class="user-activity-count clearfix">', '<div class="points">', $user[2]['points'], '<span>Points</span>', '</div>', '<div class="counts">', '<div class="a-counts">', '<span>' . $user[2]['aposts'] . '</span>', 'Answers', '</div>', '<div class="q-counts">', '<span>' . $user[2]['qposts'] . '</span>', 'Questions', '</div>', '<div class="c-counts">', '<span>' . $user[2]['cposts'] . '</span>', 'Comments', '</div>', '</div>', '
+        $this->output('<div class="user-activity-count clearfix">', '<div class="points">', $user[2]['points'], '<span>' . qa_lang_html('cleanstrap/points') . '</span>', '</div>', '<div class="counts">', '<div class="a-counts">', '<span>' . $user[2]['aposts'] . '</span>', qa_lang_html('cleanstrap/answers') , '</div>', '<div class="q-counts">', '<span>' . $user[2]['qposts'] . '</span>', 'Questions', '</div>', '<div class="c-counts">', '<span>' . $user[2]['cposts'] . '</span>', qa_lang_html('cleanstrap/comments'), '</div>', '</div>', '
 				<div class="bar-chart">	
 					<div class="sparkline" data-type="bar" data-bar-color="#FDAB0C" data-bar-width="20" data-height="28"><!--' . $user[2]['aposts'] . ',' . $user[2]['qposts'] . ',' . $user[2]['cposts'] . '--></div>
                     <ul class="list-inline text-muted axis"><li>A</li><li>Q</li><li>C</li></ul>
@@ -1430,22 +1430,22 @@ class qa_html_theme extends qa_html_theme_base
 											<img class="avatar" height="150" src="' . $avatar . '" />
 										</div>
 										<div class="back face center">
-											<span class="activity q"><i>' . $data[2]['qposts'] . '</i> Questions</span>
-											<span class="activity a"><i>' . $data[2]['aposts'] . '</i> Answers</span>
-											<span class="activity c"><i>' . $data[2]['cposts'] . '</i> Comments</span>
+											<span class="activity q"><i>' . $data[2]['qposts'] . '</i>' . qa_lang_html('cleanstrap/questions') . ' </span>
+											<span class="activity a"><i>' . $data[2]['aposts'] . '</i>' . qa_lang_html('cleanstrap/answers') . ' </span>
+											<span class="activity c"><i>' . $data[2]['cposts'] . '</i>' . qa_lang_html('cleanstrap/comments') . ' </span>
 										</div>
 									</div>
 									' : '
 									<div class="card-metas center">
-										<span class="activity q"><i>' . $data[2]['qposts'] . '</i> Questions</span>
-										<span class="activity a"><i>' . $data[2]['aposts'] . '</i> Answers</span>
-										<span class="activity c"><i>' . $data[2]['cposts'] . '</i> Comments</span>
+										<span class="activity q"><i>' . $data[2]['qposts'] . '</i>' . qa_lang_html('cleanstrap/questions') . ' </span>
+										<span class="activity a"><i>' . $data[2]['aposts'] . '</i>' . qa_lang_html('cleanstrap/answers') . ' </span>
+										<span class="activity c"><i>' . $data[2]['cposts'] . '</i>' . qa_lang_html('cleanstrap/comments') . ' </span>
 									</div>													
 								') . '
 								</div>	
 								<div class="card-bottom">
 								<a class="user-name" href="' . qa_path_html('user/' . $handle) . '">' . cs_name($handle) . '</a>								
-								<span class="score">' . $data[0]['points'] . ' Points</span>
+								<span class="score">' . $data[0]['points'] . qa_lang_html('cleanstrap/points') .' </span>
 								</div>');
                     if (qa_opt('badge_active') && function_exists('qa_get_badge_list'))
                         $this->output('<td class="badge-list">' . cs_user_badge($handle) . '</td>');
@@ -1455,8 +1455,8 @@ class qa_html_theme extends qa_html_theme_base
                 } else
                 $this->output('
 							<div class="no-items">
-								<h3 class="icon-sad">No users found!</h3>
-								<p>Sorry we cannot display anything, query returns nothings.</p>
+								<h3 class="icon-sad">' .  qa_lang_html('cleanstrap/no_users') . '</h3>
+								<p>' .  qa_lang_html('cleanstrap/edit_user_detail') . '</p>
 							</div>');
             
             
@@ -1524,8 +1524,8 @@ class qa_html_theme extends qa_html_theme_base
             } else
                 $this->output('
 						<div class="no-items">
-							<h3 class="icon-sad">No results found!</h3>
-							<p>Sorry we cannot display anything, query returns nothings.</p>
+							<h3 class="icon-sad">' . qa_lang_html('cleanstrap/no_results') . '</h3>
+							<p>' . qa_lang_html('cleanstrap/no_results_detail') . '</p>
 						</div>');
         }
     }
@@ -1572,7 +1572,7 @@ class qa_html_theme extends qa_html_theme_base
         if ($this->template != 'admin' && $height > 0) {
             $height = ($height > 10) ? 10 : $height;
             $this->output('<div class="panel">');
-            $this->output('<div class="panel-heading">Latest Answers</div>');
+            $this->output('<div class="panel-heading">' . qa_lang_html('cleanstrap/latest_answers') . '</div>');
             cs_post_list('A', $height);
             $this->output('</div>');
         }
@@ -1581,7 +1581,7 @@ class qa_html_theme extends qa_html_theme_base
             $height = floor($height / 60);
             $height = ($height > 10) ? 10 : $height;
             $this->output('<div class="panel">');
-            $this->output('<div class="panel-heading">Latest Comments</div>');
+            $this->output('<div class="panel-heading">' . qa_lang_html('cleanstrap/latest_comments') . '</div>');
             cs_post_list('C', $height);
             $this->output('</div>');
         }
@@ -1679,10 +1679,10 @@ class qa_html_theme extends qa_html_theme_base
     function cs_cat_item($navlink, $class)
     {
         if (isset($navlink['url']))
-            $this->output('<h4>' . (strlen(@$navlink['note']) ? '<span>' . cs_url_grabber($navlink['note']) . '</span>' : '') . '<a href="' . $navlink['url'] . '" class="ra-' . $class . '-link' . (@$navlink['selected'] ? (' ra-' . $class . '-selected') : '') . (@$navlink['favorited'] ? (' ra-' . $class . '-favorited') : '') . '"' . (strlen(@$navlink['popup']) ? (' title="' . $navlink['popup'] . '"') : '') . (isset($navlink['target']) ? (' target="' . $navlink['target'] . '"') : '') . '>' . (@$navlink['favorited'] ? '<i class="icon-star" title="You have added this category to your favourite"></i>' : '') . $navlink['label'] . '</a>' . '</h4>');
+            $this->output('<h4>' . (strlen(@$navlink['note']) ? '<span>' . cs_url_grabber($navlink['note']) . '</span>' : '') . '<a href="' . $navlink['url'] . '" class="ra-' . $class . '-link' . (@$navlink['selected'] ? (' ra-' . $class . '-selected') : '') . (@$navlink['favorited'] ? (' ra-' . $class . '-favorited') : '') . '"' . (strlen(@$navlink['popup']) ? (' title="' . $navlink['popup'] . '"') : '') . (isset($navlink['target']) ? (' target="' . $navlink['target'] . '"') : '') . '>' . (@$navlink['favorited'] ? '<i class="icon-star" title="' . qa_lang_html('cleanstrap/category_favourited') . '"></i>' : '') . $navlink['label'] . '</a>' . '</h4>');
         
         else
-            $this->output('<h4 class="ra-' . $class . '-nolink' . (@$navlink['selected'] ? (' ra-' . $class . '-selected') : '') . (@$navlink['favorited'] ? (' ra-' . $class . '-favorited') : '') . '"' . (strlen(@$navlink['popup']) ? (' title="' . $navlink['popup'] . '"') : '') . '>' . (strlen(@$navlink['note']) ? '<span>' . cs_url_grabber($navlink['note']) . '</span>' : '') . (@$navlink['favorited'] ? '<i class="icon-star" title="You have added this category to your favourite"></i>' : '') . $navlink['label'] . '</h4>');
+            $this->output('<h4 class="ra-' . $class . '-nolink' . (@$navlink['selected'] ? (' ra-' . $class . '-selected') : '') . (@$navlink['favorited'] ? (' ra-' . $class . '-favorited') : '') . '"' . (strlen(@$navlink['popup']) ? (' title="' . $navlink['popup'] . '"') : '') . '>' . (strlen(@$navlink['note']) ? '<span>' . cs_url_grabber($navlink['note']) . '</span>' : '') . (@$navlink['favorited'] ? '<i class="icon-star" title="' . qa_lang_html('cleanstrap/category_favourited') . '"></i>' : '') . $navlink['label'] . '</h4>');
         
         if (strlen(@$navlink['note']))
             $this->output('<span class="ra-' . $class . '-note">' . str_replace('-', '', preg_replace('/<a[^>]*>(.*)<\/a>/iU', '', $navlink['note'])) . '</span>');
@@ -1795,8 +1795,8 @@ class qa_html_theme extends qa_html_theme_base
         } else
             $this->output('
 					<div class="no-items">
-						<h3 class="icon-sad">No users found!</h3>
-						<p>Sorry we cannot display anything, query returns nothings.</p>
+						<h3 class="icon-sad">' . qa_lang_html('cleanstrap/no_users') . '</h3>
+						<p>' . qa_lang_html('cleanstrap/no_results_detail') . '.</p>
 					</div>');
     }
     function q_list_items($q_items)
@@ -1817,8 +1817,8 @@ class qa_html_theme extends qa_html_theme_base
             
             $this->output('
 					<div class="question-image" id="question-meta">
-						<btn data-args="' . qa_get_form_security_code('delete-image') . '_' . $postid . '" id="q_meta_remove_featured_image" class="qa-form-light-button qa-form-light-button-features " title="Remove featured image" type="submit" name="q_meta_remove_featured_image">Delete</btn>
-						<div id="fileuploader">Upload</div>
+						<btn data-args="' . qa_get_form_security_code('delete-image') . '_' . $postid . '" id="q_meta_remove_featured_image" class="qa-form-light-button qa-form-light-button-features " title="Remove featured image" type="submit" name="q_meta_remove_featured_image">' . qa_lang_html('cleanstrap/delete') . '</btn>
+						<div id="fileuploader">' . qa_lang_html('cleanstrap/upload') . '</div>
 					
 					</div>
 				');

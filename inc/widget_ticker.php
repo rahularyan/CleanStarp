@@ -90,6 +90,7 @@
 					$categories = explode("/", $slug);
 					if (count($categories)){
 						$category_bread_crup = implode(" > ", $categories);
+						$category_link = implode("/", $categories);
 						$categories = array_reverse($categories);
 						$slug = implode("/", $categories);
 					}
@@ -99,7 +100,7 @@
 							ORDER BY ^posts.created DESC LIMIT #',
 							'Q', $slug, $limit);
 					
-					$title = 'Questions in <a href="'.qa_path_html('questions/'.qa_strtolower($slug)).'">'.$category_bread_crup.'</a>';
+					$title = 'Questions in <a href="'.qa_path_html('questions/'.qa_strtolower($category_link)).'">'.$category_bread_crup.'</a>';
 				}elseif($type=='Tags'){
 					$post_type='Q';
 					$title = 'Questions in <a href="'.qa_path_html('tag/'.qa_strtolower($slug)).'">'.$slug.'</a>';

@@ -3295,7 +3295,7 @@ input[type=checkbox].on-off-checkbox {
     padding: 0;
 }
 .ra-question-activity-widget ul li {
-	padding: 10px 0;
+	padding: 10px;
 }
 .ra-question-activity-widget ul  .post-status-c{
     display: inline-block;
@@ -3341,16 +3341,16 @@ input[type=checkbox].on-off-checkbox {
     text-align: right;
 }
 
-.ra-question-activity-widget ul li .featured {
+.ra-question-activity-widget ul li.featured {
     background: #FFFAE5;
 }
 
 .ra-question-activity-widget ul li .fav-star {
     color: #DDDDDD;
     display: inline;
-    font-size: 17px;
-    margin-left: 20px;
-    margin-right: 25px;
+    font-size: 15px;
+    margin-left: 5px;
+    margin-right: 20px;
 }
 
 .ra-question-activity-widget ul li .fav-star.active {

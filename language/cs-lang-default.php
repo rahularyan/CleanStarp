@@ -54,6 +54,7 @@
 		'delete' => 'Delete',
 		'upload' => 'Upload',
 		'categories' => 'Categories',
+		'no_tags' => 'No tags found!',
 	);
 	
 

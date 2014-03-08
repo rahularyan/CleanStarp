@@ -25,7 +25,7 @@ class qa_html_theme extends qa_html_theme_base
             $this->content['navigation']['main']['hot']['icon']          = 'icon-fire';
             $this->content['navigation']['main']['tag']['icon']          = 'icon-tags2';
             $this->content['navigation']['main']['categories']['icon']   = 'icon-folder-close';
-            $this->content['navigation']['main']['user']['icon']         = 'icon-group';
+            $this->content['navigation']['main']['user']['icon']         = 'icon-users';
             $this->content['navigation']['main']['widgets']['icon']      = 'icon-puzzle';
             $this->content['navigation']['main']['admin']['icon']        = 'icon-wrench';
             $this->content['navigation']['main']['themeoptions']['icon'] = 'icon-wrench';
@@ -262,7 +262,7 @@ class qa_html_theme extends qa_html_theme_base
 			<?php
         } else {
 ?>				
-				<a class="btn login-register icon-lock"  href="#" data-toggle="modal" data-target="#login-modal" title="<?php
+				<a class="btn login-register icon-login"  href="#" data-toggle="modal" data-target="#login-modal" title="<?php
             echo qa_lang_html('cleanstrap/login_register');
 ?>"></a>
 
@@ -291,7 +291,7 @@ class qa_html_theme extends qa_html_theme_base
                     if ($k == 'facebook')
                         $icon = 'class="' . $class[1] . ' icon-facebook"';
                     elseif ($k == 'google')
-                        $icon = 'class="' . $class[1] . ' icon-google"';
+                        $icon = 'class="' . $class[1] . ' icon-googleplus"';
                     elseif ($k == 'twitter')
                         $icon = 'class="' . $class[1] . ' icon-twitter"';
                     
@@ -307,13 +307,13 @@ class qa_html_theme extends qa_html_theme_base
             echo $this->content['navigation']['user']['login']['url'];
 ?>" method="post">
 							<div class="input-group">
-							  <span class="input-group-addon"><i class="icon-email2"></i></span>
+							  <span class="input-group-addon"><i class="icon-user"></i></span>
 							  <input type="text" class="form-control" id="qa-userid" name="emailhandle" placeholder="<?php
             echo trim(qa_lang_html('users/email_handle_label'), ':');
 ?>" />
 							</div>
 							<div class="input-group">
-							  <span class="input-group-addon"><i class="icon-password"></i></span>
+							  <span class="input-group-addon"><i class="icon-key"></i></span>
 							  <input type="password" class="form-control" id="qa-password" name="password" placeholder="<?php
             echo trim(qa_lang_html('users/password_label'), ':');
 ?>" />
@@ -343,13 +343,13 @@ class qa_html_theme extends qa_html_theme_base
 ?>" />
 								</div>
 								<div class="input-group">
-									<span class="input-group-addon"><i class="icon-password"></i></span>
+									<span class="input-group-addon"><i class="icon-key"></i></span>
 									<input type="password" class="form-control" id="qa-password" name="password" placeholder="<?php
             echo trim(qa_lang_html('users/password_label'), ':');
 ?>" />
 								</div>
 								<div class="input-group">
-									<span class="input-group-addon"><i class="icon-email2"></i></span>
+									<span class="input-group-addon"><i class="icon-envelope"></i></span>
 									<input type="text" id="email" class="form-control" name="email" 	placeholder="<?php
             echo trim(qa_lang_html('users/email_label'), ':');
 ?>">
@@ -804,11 +804,13 @@ class qa_html_theme extends qa_html_theme_base
     function footer()
     {
         $this->output('<footer id="site-footer" class="clearfix">');
+		$this->nav('main');
+		$this->nav('footer');
         $this->get_social_links();
         
         if ((bool) qa_opt('cs_footer_copyright'))
-            $this->output('<div class="qa-attribution-right pull-right">' . qa_opt('cs_footer_copyright') . '</div>');
-        $this->nav('footer');
+            $this->output('<div class="qa-attribution-right">' . qa_opt('cs_footer_copyright') . '</div>');
+        
         $this->output('</footer>');
     }
     
@@ -1324,8 +1326,6 @@ class qa_html_theme extends qa_html_theme_base
 				
 				');
         
-        $this->favorite();
-        
         $this->output('</div>');
         if (qa_get_logged_in_level() >= QA_USER_LEVEL_ADMIN) {
             $this->output('<a id="edit-user" class="btn btn-xs btn-success edit-profile" href="' . qa_path_absolute('user/' . $handle, array(
@@ -1333,6 +1333,7 @@ class qa_html_theme extends qa_html_theme_base
             )) . '">' . qa_lang_html('cleanstrap/edit_user') . '</a>');
         }
         $this->nav('sub');
+		$this->favorite();
         $this->output('</div>');
         $this->output('</div>');
     }

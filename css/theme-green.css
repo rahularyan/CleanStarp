@@ -18,11 +18,8 @@ a:hover{
 	background:#7AAA40;
 	color:#fff;
 }
-.question-list .question-item .big-ans-count.icon-comment{
-	background:#ffdb3d;
-	color:#fff;
-}
-.card-metas ,#site-header #nav-ask-btn, .on-off-checkbox-container label, #ra-widgets .widget-canvas .widget-save.active, .ra-tags-widget .widget-tag:hover, .t-bg, .face.back, .qa-form-tall-button-login, .qa-form-tall-button-send, .qa-form-tall-button-register, input[type="radio"]:checked + label, .question-list .question-item .big-ans-count, .pagination > li > .qa-page-selected, .pagination > li:hover > a, .form-button-holder, .qa-template-tags .qa-part-ranking .list-group-item span{
+
+.card-metas ,#site-header #nav-ask-btn, .on-off-checkbox-container label, #ra-widgets .widget-canvas .widget-save.active, .ra-tags-widget .widget-tag:hover, .t-bg, .face.back, .qa-form-tall-button-login, .qa-form-tall-button-send, .qa-form-tall-button-register, input[type="radio"]:checked + label, .question-list .question-item .big-ans-count, .pagination > li > .qa-page-selected, .pagination > li:hover > a, .form-button-holder, .qa-template-tags .qa-part-ranking .list-group-item span, .fav-parent .fav-btn{
 	background:#e45840;
 }
 

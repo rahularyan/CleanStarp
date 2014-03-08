@@ -97,14 +97,15 @@
 
 					$output .= '<li id="q-list-'.$p['postid'].'" class="question-item">';
 					if ($type=='Q'){
-						$output .= '<div class="big-ans-count pull-left">'.$p['acount'].'<span>'.qa_lang_html('cleanstrap/answers').'</span></div>';
+						$output .= '<div class="big-ans-count pull-left">'.$p['acount'].'<span>'.qa_lang_html('cleanstrap/ans').'</span></div>';
 					}elseif($type=='A'){
-						$output .= '<div class="big-ans-count pull-left icon-chat"></div>';
+						$output .= '<div class="big-ans-count pull-left icon-answer"></div>';
 					}elseif($type=='C'){
 						$output .= '<div class="big-ans-count pull-left icon-comment"></div>';
 					}
 					$output .= '<div class="list-right">';
-
+					$timeCode = qa_when_to_html(  strtotime( $p['created'] ) ,7);
+					$when = @$timeCode['prefix'] . @$timeCode['data'] . @$timeCode['suffix'];
 					if($type=='Q'){
 						$output .= '<h5><a href="'. qa_q_path_html($p['postid'], $p['title']) .'" title="'. $p['title'] .'">'.qa_html($p['title']).'</a></h5>';
 					}elseif($type=='A'){
@@ -113,8 +114,8 @@
 						$output .= '<h5><a href="'.cs_post_link($p['parentid']).'#c'.$p['postid'].'">'. cs_truncate(strip_tags($p['content']), 300).'</a></h5>';
 					}
 					
-					$output .= '<div class="list-date"><span class="icon-clock">'.date('d M Y', strtotime($p['created'])).'</span>';	
-					$output .= '<span class="icon-thumbs-up2">'.$p['netvotes'].' '.qa_lang_html('cleanstrap/votes').'</span></div>';	
+					$output .= '<div class="list-date"><span class="icon-clock">'.$when.'</span>';	
+					$output .= '<span class="icon-thumbs-up2">'.qa_lang_sub('cleanstrap/x_votes', $p['netvotes']).'</span></div>';	
 					$output .= '</div>';	
 					$output .= '</li>';
 				}

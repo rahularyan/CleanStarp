@@ -1,10 +1,10 @@
 @font-face {
 	font-family: 'ra';
-	src:url('../fonts/ra.eot?7mu5z6');
-	src:url('../fonts/ra.eot?#iefix7mu5z6') format('embedded-opentype'),
-		url('../fonts/ra.woff?7mu5z6') format('woff'),
-		url('../fonts/ra.ttf?7mu5z6') format('truetype'),
-		url('../fonts/ra.svg?7mu5z6#ra') format('svg');
+	src:url('../fonts/ra.eot?88a0dg');
+	src:url('../fonts/ra.eot?#iefix88a0dg') format('embedded-opentype'),
+		url('../fonts/ra.woff?88a0dg') format('woff'),
+		url('../fonts/ra.ttf?88a0dg') format('truetype'),
+		url('../fonts/ra.svg?88a0dg#ra') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -196,6 +196,12 @@
 }
 .icon-switch:before {
 	content: "\e60d";
+}
+.icon-key:before {
+	content: "\e617";
+}
+.icon-envelope:before {
+	content: "\e61a";
 }
 .icon-thumbs-up2:before {
 	content: "\e64f";

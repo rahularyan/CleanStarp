@@ -130,18 +130,25 @@ $(document).ready(function(){
 	});
 	
 	// Scroll
+	function scroll_check(){
+		if ($(document).height() <= $(window).scrollTop() + $(window).height() + 120) {
+			$('.form-button-holder').css({"position":"inherit"});
+			$('.form-button-holder').css({"width" : "auto"});
+		} else {
+			$('.form-button-holder').css({"position":"fixed"});
+			var width= $('.form-button-sticky-footer').css("width");
+			$('.form-button-holder').css({"width" : width});
+			$('.form-button-holder').css({"bottom":"0"});
+		}
+	}
+	scroll_check();
 	$(function () {
 		$(window).scroll(function () {
-			if ($(document).height() <= $(window).scrollTop() + $(window).height() + 120) {
-				$('.form-button-holder').css({"position":"inherit"});
-				$('.form-button-holder').css({"width" : "auto"});
-			} else {
-				$('.form-button-holder').css({"position":"fixed"});
-				var width= $('.form-button-sticky-footer').css("width");
-				$('.form-button-holder').css({"width" : width});
-				$('.form-button-holder').css({"bottom":"0"});
-			}
+			scroll_check();
 		});
+	});
+	$('.ra-option-tabs').on('click', function(e){
+		scroll_check();
 	});
 	
 	// Styling

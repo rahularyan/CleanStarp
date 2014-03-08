@@ -4061,3 +4061,26 @@ input[type=checkbox].on-off-checkbox {
     color: #777777;
     font-size: 15px;
 }
+
+.float-nav .qa-nav-sub {
+    width: 180px;
+}
+.float-nav .qa-nav-sub .qa-nav-sub-link:before {
+    border-right: 1px solid rgba(0, 0, 0, 0.03);
+    display: inline-block;
+    font-size: 14px;
+    height: 38px;
+    margin: -10px 10px -5px -5px;
+    padding: 9px;
+    text-align: center;
+    vertical-align: baseline;
+    width: 40px;
+}
+.float-nav .qa-nav-sub .qa-nav-sub-link{
+    border-bottom: 1px solid rgba(0, 0, 0, 0.02);
+    color: #969696;
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px;
+}

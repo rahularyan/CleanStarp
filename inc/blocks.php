@@ -1862,7 +1862,7 @@ class qa_html_theme extends qa_html_theme_base
             
             $this->output('
 					<div class="question-image" id="question-meta">
-						<btn data-args="' . qa_get_form_security_code('delete-image') . '_' . $postid . '" id="q_meta_remove_featured_image" class="qa-form-light-button qa-form-light-button-features " title="Remove featured image" type="submit" name="q_meta_remove_featured_image">' . qa_lang_html('cleanstrap/delete') . '</btn>
+						<btn data-args="' . qa_get_form_security_code('delete-image') . '_' . $postid . '" ' . ((isset( $featured_image_name ))? '':'style="display:none;"') . ' id="q_meta_remove_featured_image" class="qa-form-light-button qa-form-light-button-features " title="Remove featured image" type="submit" name="q_meta_remove_featured_image">' . qa_lang_html('cleanstrap/delete') . '</btn>
 						<div id="fileuploader">' . qa_lang_html('cleanstrap/upload') . '</div>
 					
 					</div>

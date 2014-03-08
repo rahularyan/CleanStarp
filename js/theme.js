@@ -27,7 +27,9 @@ function cs_question_meta(){
 			},
 			context:this,
 			success: function (response) {
-				$(this).closest('.question-image-container').find('.featured-image').remove();
+				//$(this).closest('.question-image-container').find('.featured-image').remove();
+				$('.image-preview').hide();
+				$('#q_meta_remove_featured_image').hide();
 			},
 		});	
 	});
@@ -503,7 +505,7 @@ function cs_save_image(image){
 		},
 		dataType: 'html',
 		success: function (response) {
-			$('.question-image-container').append('<img src="'+response+'" />');
+			//$('.question-image-container').append('<img src="'+response+'" />');
 		},
 	});	
 }
@@ -582,7 +584,8 @@ $(document).ready(function(){
 	
 	$("#q_meta_remove_featured_image").click(function(e){
 		$("#featured_image").val("");
-		$("#image-preview").attr("src",theme_url + "/images/featured-preview.jpg");
+		//$("#image-preview").attr("src",theme_url + "/images/featured-preview.jpg");
+		$("#image-preview").hide(500);
 	});
 	if($("#fileuploader").length){
 		$("#fileuploader").uploadFile({
@@ -592,7 +595,11 @@ $(document).ready(function(){
 
 			maxFileCount:1,
 			multiple:false,
-			showDelete: true,
+			showDelete: false,
+			showAbort:false,
+			showDone:false,
+			showStatusAfterSuccess:false,
+			showProgress :false,
 			onSuccess:function(files,data,xhr){
 				var u_files = $.parseJSON( data );
 				if($('#question-meta').length)
@@ -600,17 +607,8 @@ $(document).ready(function(){
 					
 				$("#featured_image").val(u_files[0]);
 				$("#image-preview").attr("src",theme_url + "/uploads/"+u_files[0]);
-			},
-			deleteCallback:function(data, pd) {
-				var data = $.parseJSON( data );
-				for (var i = 0; i < data.length; i++) {
-					$.post(theme_url + "/inc/upload-delete.php", {op: "delete",name: data[i]},
-							function (resp,textStatus, jqXHR) {
-									$("#image-preview").attr("src",theme_url + "/images/featured-preview.jpg");
-									$("#featured_image").val("");
-							});
-				}
-				pd.statusbar.hide(500); //You choice.		
+				$("#image-preview").show(500);
+				$("#q_meta_remove_featured_image").show(500);
 			},
 		});
 	}

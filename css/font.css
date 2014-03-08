@@ -1,10 +1,10 @@
 @font-face {
 	font-family: 'ra';
-	src:url('../fonts/ra.eot?3cdagf');
-	src:url('../fonts/ra.eot?#iefix3cdagf') format('embedded-opentype'),
-		url('../fonts/ra.woff?3cdagf') format('woff'),
-		url('../fonts/ra.ttf?3cdagf') format('truetype'),
-		url('../fonts/ra.svg?3cdagf#ra') format('svg');
+	src:url('../fonts/ra.eot?htnw96');
+	src:url('../fonts/ra.eot?#iefixhtnw96') format('embedded-opentype'),
+		url('../fonts/ra.woff?htnw96') format('woff'),
+		url('../fonts/ra.ttf?htnw96') format('truetype'),
+		url('../fonts/ra.svg?htnw96#ra') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -118,12 +118,6 @@
 }
 .icon-folder-close:before {
 	content: "\e665";
-}
-.icon-comment-alt:before {
-	content: "\e608";
-}
-.icon-comments-alt:before {
-	content: "\e61a";
 }
 .icon-sad:before {
 	content: "\e624";
@@ -331,4 +325,7 @@
 }
 .icon-trash2:before {
 	content: "\e666";
+}
+.icon-search:before {
+	content: "\e608";
 }

@@ -120,7 +120,7 @@
 				$category_detail = $this->get_category_detail($category['label'],$raw_categories);
 				//$sub_categories = qa_category_navigation(qa_db_select_with_pending(qa_db_category_nav_selectspec($categoryslugs, false, false, true)));
 				$sub_categories = qa_db_select_with_pending(qa_db_category_sub_selectspec($category['categoryid']));
-				$output .= '<li><a class="icon-folder-close-alt" href="' . $category['url'] . '">' . $category['label'] . '<span>'.filter_var($category['note'], FILTER_SANITIZE_NUMBER_INT).'</span></a>';
+				$output .= '<li><a class="icon-folder-close" href="' . $category['url'] . '">' . $category['label'] . '<span>'.filter_var($category['note'], FILTER_SANITIZE_NUMBER_INT).'</span></a>';
 				$output .= $this->cs_category_navigation_sub($sub_categories,$depth,$category_detail['tags']);
 				$output .= '</li>';
 			}

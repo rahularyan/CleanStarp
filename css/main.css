@@ -148,10 +148,10 @@ h1,h2,h3,h4,h5,h6, .qa-q-item-title {
 
 .navbar-default .navbar-form .icon-search {
     display: block;
-    font-size: 13px;
+    font-size: 15px;
     left: 10px;
     position: absolute;
-    top: 1px;
+    top: 4px;
 }
 
 #site-header .navbar-form .form-control {

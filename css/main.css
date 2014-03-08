@@ -545,13 +545,13 @@ h1,h2,h3,h4,h5,h6, .qa-q-item-title {
 }
 
 .qa-q-list {
-    background: none repeat scroll 0 0 #FFFFFF;
+    background: #FFFFFF;
 }
 .qa-q-list .qa-q-list-item {
     padding: 10px 15px;
 }
 .qa-q-list .qa-q-list-item:nth-child(2n) {
-    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.02);
+    background: rgba(0, 0, 0, 0.02);
 }
 .qa-q-list .qa-q-list-item .asker-avatar {
     float: left;
@@ -690,7 +690,7 @@ h1,h2,h3,h4,h5,h6, .qa-q-item-title {
 
 
 .qa-main {
-    background: none repeat scroll 0 0 #FFFFFF;
+    background: #FFFFFF;
     margin: 20px auto 0;
     max-width: 1200px;
     min-height: 420px;
@@ -817,7 +817,7 @@ ul.qa-nav-cat-list-4  > li.qa-nav-cat-item:first-child {
 
 /* main */
 .qa-main .qa-nav-sub {
-    background: none repeat scroll 0 0 #F8F8F8;
+    background: #F8F8F8;
     padding: 10px;
 }
 
@@ -999,7 +999,7 @@ a.feed-link {
     padding: 15px;
 }
 .qa-a-form {
-    background: none repeat scroll 0 0 #F9F9F9;
+    background: #F9F9F9;
 }
 
 .asker-detail .voting-vertical {
@@ -1472,7 +1472,7 @@ a.feed-link {
 }
 
 .qa-part-ranking, .qa-part-ranking-users {
-    background: none repeat scroll 0 0 #FFFFFF;
+    background: #FFFFFF;
     margin-bottom: 10px;
 }
 
@@ -1714,7 +1714,7 @@ table.page-users-list {
 }
 
 .messages{
-    background: none repeat scroll 0 0 #FFFFFF;
+    background: #FFFFFF;
     border-radius: 4px;
     display: table;
     margin-bottom: 20px;
@@ -1722,7 +1722,7 @@ table.page-users-list {
     width: 100%;
 }
 .qa-message-list-form {
-    background: none repeat scroll 0 0 #F9F9F9;
+    background: #F9F9F9;
     border-bottom: 1px solid #ECECEC;
     margin-bottom: 20px;
     padding: 15px;
@@ -1989,7 +1989,7 @@ table.page-users-list {
 }
 
 #site-footer {
-    background: none repeat scroll 0 0 #FFFFFF;
+    background: #FFFFFF;
     border-left: 1px solid #DADADA;
     border-top: 2px solid #DFDFDF;
     color: #999999;
@@ -2087,7 +2087,7 @@ table.page-users-list {
 }
 
 #edit-user {
-    background: none repeat scroll 0 0 #333333;
+    background: #333333;
     display: block;
     font-size: 11px;
     font-weight: 400;
@@ -2264,7 +2264,7 @@ input[type=checkbox].on-off-checkbox {
 
 /* widget options */
 #ra-widgets .draggable-widget {
-    background: none repeat scroll 0 0 #FFFFFF;
+    background: #FFFFFF;
     border: 1px solid #CCCCCC;
     font-size: 15px;
     margin-bottom: 12px;
@@ -2332,7 +2332,7 @@ input[type=checkbox].on-off-checkbox {
 }
 
 #ra-widgets .position-canvas {
-    background: none repeat scroll 0 0 #F6F6F6;
+    background: #F6F6F6;
     border: 1px solid #DDDDDD;
     box-shadow: 0 5px 5px #DDDDDD;
     display: none;
@@ -2479,7 +2479,7 @@ input[type=checkbox].on-off-checkbox {
 }
 
 .header-position-c .ra-ask-widget input[type="text"] {
-    background: none repeat scroll 0 0 #FFFFFF;
+    background: #FFFFFF;
     border: 2px solid #8B8B8B;
     font-size: 16px;
     font-weight: 300;
@@ -2505,7 +2505,7 @@ input[type=checkbox].on-off-checkbox {
 }
 
 .ui-autocomplete {
-    background: none repeat scroll 0 0 #FFFFFF;
+    background: #FFFFFF;
     border-radius: 4px;
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
     list-style: none outside none;
@@ -2910,7 +2910,7 @@ input[type=checkbox].on-off-checkbox {
     
 }
 .user-cols-right .about-me {
-    background: none repeat scroll 0 0 #FFFFFF;
+    background: #FFFFFF;
     border-radius: 4px;
     font-size: 15px;
     margin-bottom: 15px;
@@ -2924,7 +2924,7 @@ input[type=checkbox].on-off-checkbox {
 }
 
 .user-activity-count .points {
-    background: none repeat scroll 0 0 #FFFFFF;
+    background: #FFFFFF;
     border-radius: 3px;
     border-right: 1px solid #EEEEEE;
     display: block;
@@ -2949,7 +2949,7 @@ input[type=checkbox].on-off-checkbox {
 }
 
 .user-activity-count .counts > div {
-    background: none repeat scroll 0 0 #FFFFFF;
+    background: #FFFFFF;
     border-radius: 3px;
     color: #AAAAAA;
     display: inline-block;
@@ -3813,7 +3813,7 @@ input[type=checkbox].on-off-checkbox {
     font-size: 11px;
 }
 .widget .user-post-title a {
-    background: none repeat scroll 0 0 #333333;
+    background: #333333;
     border-radius: 2px;
     color: #FFFFFF;
     margin-right: -5px;
@@ -3850,13 +3850,13 @@ input[type=checkbox].on-off-checkbox {
 	color:#888;
 }
 .qa-template-ask .qa-part-form {
-    background: none repeat scroll 0 0 #FFFFFF;
+    background: #FFFFFF;
     border-radius: 4px;
     padding: 15px;
 }
 
 .user-popover{
-    background: none repeat scroll 0 0 #FFFFFF;
+    background: #FFFFFF;
     border-radius: 5px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
     display: block;
@@ -3897,7 +3897,7 @@ input[type=checkbox].on-off-checkbox {
 	margin-bottom:5px;
 }
 .user-popover .bottom .level{
-    background: none repeat scroll 0 0 #EEEEEE;
+    background: #EEEEEE;
     border-radius: 2px;
     display: table;
     font-size: 10px;
@@ -3922,19 +3922,28 @@ input[type=checkbox].on-off-checkbox {
 #left-position .cs-category-widget-list li a {
     font-size: 12px;
 }
+
 .pagination {
+    background: none repeat scroll 0 0 #F6F6F6;
+    border-radius: 4px;
+    display: table;
     margin-bottom: 0;
+    padding: 5px;
 }
+
 .pagination > li > a, .pagination > li > span {
-    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 0;
-    color: #FFFFFF;
+    background: #FFFFFF;
+    border: medium none;
+    font-size: 13px;
+    font-weight: bold;
+    margin-right: 5px;
+	color:#777;
+}
+.pagination > li:last-child > a, .pagination > li:last-child > span{
+	margin-right: 0;
 }
 .pagination > li > .qa-page-selected , .pagination > li:hover > a{
-    background: none repeat scroll 0 0 #FFFFFF;
-    color: inherit;
-    font-weight: bold;
+    color: #FFFFFF;
 }
 
 #left-position .widget-title{

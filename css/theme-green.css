@@ -22,7 +22,7 @@ a:hover{
 	background:#ffdb3d;
 	color:#fff;
 }
-.card-metas ,#site-header #nav-ask-btn, .on-off-checkbox-container label, #ra-widgets .widget-canvas .widget-save.active, .ra-tags-widget .widget-tag:hover, .t-bg, .face.back, .qa-form-tall-button-login, .qa-form-tall-button-send, .qa-form-tall-button-register, input[type="radio"]:checked + label, .question-list .question-item .big-ans-count, .pagination > li > a, .pagination > li > span  {
+.card-metas ,#site-header #nav-ask-btn, .on-off-checkbox-container label, #ra-widgets .widget-canvas .widget-save.active, .ra-tags-widget .widget-tag:hover, .t-bg, .face.back, .qa-form-tall-button-login, .qa-form-tall-button-send, .qa-form-tall-button-register, input[type="radio"]:checked + label, .question-list .question-item .big-ans-count, .pagination > li > .qa-page-selected, .pagination > li:hover > a{
 	background:#e45840;
 }
 
@@ -60,8 +60,8 @@ a:hover{
     color:    #aaa;
 }
 
-.on-off-checkbox-container {
-	border-color:#90BD59;
+.on-off-checkbox-container, .pagination {
+	border-color:#e45840;
 }
 
 .ra-ask-widget .input-group-btn button, .carousel-control.left, .carousel-control.right, .ajax-file-upload-bar{

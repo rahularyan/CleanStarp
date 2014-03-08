@@ -20,11 +20,11 @@ class qa_html_theme extends qa_html_theme_base
                 $this->$action();
         } else {
             $this->output('<!DOCTYPE html>');
-            $this->content['navigation']['main']['questions']['icon']    = 'icon-comment';
+            $this->content['navigation']['main']['questions']['icon']    = 'icon-question';
             $this->content['navigation']['main']['unanswered']['icon']   = 'icon-sad';
             $this->content['navigation']['main']['hot']['icon']          = 'icon-fire';
             $this->content['navigation']['main']['tag']['icon']          = 'icon-tags2';
-            $this->content['navigation']['main']['categories']['icon']   = 'icon-folder-close-alt';
+            $this->content['navigation']['main']['categories']['icon']   = 'icon-folder-close';
             $this->content['navigation']['main']['user']['icon']         = 'icon-group';
             $this->content['navigation']['main']['widgets']['icon']      = 'icon-puzzle';
             $this->content['navigation']['main']['admin']['icon']        = 'icon-wrench';
@@ -855,7 +855,7 @@ class qa_html_theme extends qa_html_theme_base
     function page_links_list($page_items)
     {
         if (!empty($page_items)) {
-            $this->output('<ul class="pagination">');
+            $this->output('<ul class="pagination clearfix">');
             
             $index = 0;
             

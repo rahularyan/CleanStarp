@@ -80,7 +80,7 @@
 				$i++;
 			}
 
-			$posts = qa_db_read_all_assoc(qa_db_query_sub('SELECT ^posts.* , ^users.handle FROM ^posts, ^users WHERE (^posts.userid=^users.userid AND ^posts.postid IN ('.$postids.')) AND ^posts.type IN ("Q", "A", "C") ORDER BY ^posts.created'));
+			$posts = qa_db_read_all_assoc(qa_db_query_sub('SELECT ^posts.* , ^users.handle FROM ^posts, ^users WHERE (^posts.userid=^users.userid AND ^posts.postid IN ('.$postids.')) AND ^posts.type IN ("Q", "A", "C") ORDER BY ^posts.created DESC'));
 			$o = '<ul class="ra-activity">';
 			foreach($posts as $p){
 				$event_name = '';

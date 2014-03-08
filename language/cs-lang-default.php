@@ -25,6 +25,7 @@
 		'x_questions' 	=> '^ questions',
 		'x_answers' 	=> '^ answers',
 		'x_comments' 	=> '^ comments',
+		'x_votes' 	=> '^ votes',
 		'recent_activities' 	=> 'Recent activities',
 		'view_all' 	=> 'View all',
 		'profile' => 'Profile',
@@ -63,6 +64,8 @@
 		'recent_activity' => 'Recent Activity',
 		'all_questions' => 'All questions',
 		'all_answers' => 'All answers',
+		'x_activities' => '^\'s activities',
+		'ans' => 'ans',
 	);
 	
 

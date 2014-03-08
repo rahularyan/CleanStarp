@@ -103,9 +103,9 @@
 			if(isset($qa_content)){
 				foreach ($qa_content as $qs){
 					$icon = 'icon-time undefined';					
-					$output .='<li class="activity-item">';
-					$output .= '<div class="type pull-left '.$icon.'"></div>';
+					$output .='<li class="activity-item">';					
 					$output .= '<div class="list-right">';
+					$output .= '<div class="type pull-left '.$icon.'"></div>';					
 					$output .= '<a class="what-task" href="'.@$qs['url'].'">'.$qs['what'].'</a>';
 					$output .= '<a class="what" href="'.$qs['url'].'">'.$qs['title'].'</a>';
 					$output .= '<strong class="when">'.implode(' ', $qs['when']).'</strong>';					
@@ -126,7 +126,7 @@
 			$handle = $qa_content['raw']['account']['handle'];
 			
 			if(@$themeobject->current_widget['param']['locations']['show_title'])
-				$themeobject->output('<h3 class="widget-title">'.cs_name($handle).'\'s '.qa_lang('activities').'</h3>');
+				$themeobject->output('<h3 class="widget-title">'.qa_lang_sub('cleanstrap/x_activities', $handle).'</h3>');
 				
 			$themeobject->output('<div class="ra-ua-widget">');
 			$themeobject->output($this->get_user_activity($handle, (int)$widget_opt['cs_ua_count']));

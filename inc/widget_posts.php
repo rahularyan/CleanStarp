@@ -105,10 +105,10 @@ class cs_widget_posts
 			//$output .= '<span><a href="' . qa_path_html('user/' . $handle) . '">' . cs_name($handle) . '</a> ' . $what . '</span>';
             
 			if ($type == 'Q')
-                $output .= '<span>' . qa_lang_sub('cleanstrap/answers_count', $p['acount']) . '</span>';
+                $output .= '<span>' . qa_lang_sub('cleanstrap/x_answers', $p['acount']) . '</span>';
             
             $output .= '<span class="time icon-time">' .  $when . '</span>';
-            $output .= '<span class="vote-count icon-thumbs-up2">' . qa_lang_sub('cleanstrap/votes_count', $p['netvotes']) . '</span>';
+            $output .= '<span class="vote-count icon-thumbs-up2">' . qa_lang_sub('cleanstrap/x_votes', $p['netvotes']) . '</span>';
             
 			
 			$output .= '</div>';

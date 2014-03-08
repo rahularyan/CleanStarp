@@ -811,7 +811,7 @@ ul.qa-nav-cat-list-4  > li.qa-nav-cat-item:first-child {
     border: 1px solid rgba(0, 0, 0, 0.05);
     border-radius: 3px;
     list-style: none outside none;
-    margin: 0;
+    margin: 0 0 25px;
     overflow: hidden;
     padding: 0;
 }
@@ -1044,7 +1044,7 @@ a.feed-link {
 }
 
 .fav-parent .fav-btn.active {
-    background: #fcb034;
+    background: #777;
     color: #fff;
 }
 
@@ -1959,19 +1959,16 @@ table.page-users-list {
 }
 
 .qa-suggest-next {
-    background: #7A68AE;
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: none repeat scroll 0 0 #F9F9F9;
     border-radius: 2px;
-    color: #FFFFFF;
+    color: #555555;
+    margin-top: 20px;
     padding: 10px;
     text-align: center;
 }
 
 .qa-suggest-next a {
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 2px;
-    color: #FFFFFF;
-    padding: 0 11px;
+
 }
 
 .qa-suggest-next a:hover {
@@ -1979,26 +1976,38 @@ table.page-users-list {
 }
 
 #site-footer {
-    background: #FFFFFF;
-    border-left: 1px solid #DADADA;
-    border-top: 2px solid #DFDFDF;
-    color: #999999;
-    font-size: 13px;
     margin: 20px 0 0;
     padding: 20px;
-    text-align: right;
+    text-align: center;
 }
 
 #site-footer .copyright, #site-footer .qa-nav-footer {
-    float: right;
+
 }
 
 #site-footer .qa-nav-footer {
+    margin-right: 0;
+}
+.qa-nav-footer .qa-nav-footer-list {
+    padding: 0;
+}
+#site-footer .qa-nav-main .qa-nav-main-link:before {
+	display:none;
+}
+#site-footer .qa-nav-main-list {
+    padding: 0;
+    text-align: center;
+}
+#site-footer .qa-nav-main-list li {
+    display: inline-block;
     margin-right: 15px;
 }
-
+#site-footer .qa-nav-main .qa-nav-main-link{
+    color: #777777;
+    font-weight: bold;
+}
 #site-footer .qa-nav-footer a {
-    float: right;
+    color: #888888;
 }
 
 #site-footer .qa-attribution {
@@ -3369,7 +3378,7 @@ input[type=checkbox].on-off-checkbox {
     border: medium none;
     box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
     margin-top: 10px;
-    min-width: 350px;
+    min-width: 275px;
     padding: 5px;
 }
 
@@ -3380,8 +3389,8 @@ input[type=checkbox].on-off-checkbox {
 
 .navbar-default .navbar-nav.category-nav .category-list-drop li a {
     color: #999999;
-    font-size: 14px;
-    padding: 8px 14px;
+    font-size: 12px;
+    padding: 6px 10px;
     white-space: normal;
 }
 
@@ -3506,7 +3515,7 @@ input[type=checkbox].on-off-checkbox {
 }
 
 .modal-backdrop.in {
-    opacity: 0.95;
+   opacity: 1;
 }
 
 #login-modal .modal-content {
@@ -3516,13 +3525,13 @@ input[type=checkbox].on-off-checkbox {
 }
 
 #login-modal h3 {
-    font-size: 35px;
+    font-size: 30px;
     text-align: center;
 }
 
 #login-modal .login-desc {
     color: #AAAAAA;
-    font-size: 20px;
+    font-size: 18px;
     margin-bottom: 30px;
     text-align: center;
 }
@@ -3747,21 +3756,29 @@ input[type=checkbox].on-off-checkbox {
 }
 .user-activities .type{
     color: #B3B3B3;
+    display: table-cell;
     font-size: 20px;
-    margin-right: 20px;
+    margin-right: 5px;
     text-align: center;
     width: 26px;
+	vertical-align: top;
 }
 .user-activities .what{
     color: #777777;
-    font-size: 15px;
-    font-weight: 300;
+    display: table-cell;
+	vertical-align: top;
 }
 .user-activities .what-task{
-    display: inline-block;
+    display: table-cell;
+    font-size: 12px;
     margin-right: 15px;
-    min-width: 80px;
     text-transform: capitalize;
+    vertical-align: top;
+    width: 80px;
+}
+.user-activities .list-right{
+    display: table;
+    width: 100%;
 }
 .user-activities .when{
     color: #AAAAAA;
@@ -3769,6 +3786,8 @@ input[type=checkbox].on-off-checkbox {
     font-size: 13px;
     font-style: italic;
     font-weight: 300;
+    text-align: right;
+    width: 80px;
 }
 
 .users-post-widget .question-item .list-right h5{
@@ -3782,7 +3801,7 @@ input[type=checkbox].on-off-checkbox {
     font-size: 14px;
     line-height: 24px;
 }
-.question-list .question-item .big-ans-count.icon-chat{
+.question-list .question-item .big-ans-count.icon-answer{
     border-radius: 50%;
     font-size: 24px;
     line-height: 45px;
@@ -3795,8 +3814,9 @@ input[type=checkbox].on-off-checkbox {
 }
 .question-list .question-item .big-ans-count.icon-comment{
     border-radius: 50%;
-    font-size: 18px;
-    line-height: 37px;
+    font-size: 20px;
+    line-height: 43px;
+    text-align: center;
 }
 .users-post-widget .question-item .list-right .list-date span{
     color: #AAAAAA;
@@ -4033,7 +4053,7 @@ input[type=checkbox].on-off-checkbox {
 }
 .qa-q-list.clean .status-c{
     display: inline-block;
-    width: 50px;
+    width: 60px;
 }
 
 
@@ -4095,4 +4115,10 @@ input[type=checkbox].on-off-checkbox {
 }
 .dropdown-menu.user-nav > li.active > a{
 	background:#eee;
+}
+
+.jqstooltip {
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
 }

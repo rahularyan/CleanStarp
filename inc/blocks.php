@@ -580,7 +580,7 @@ class qa_html_theme extends qa_html_theme_base
         if ($this->template == 'user' && !(isset($_REQUEST['state']) && $_REQUEST['state'] == 'edit')) {
             $this->profile_page();
         } elseif (strlen(qa_request(1)) == 0) {
-            $this->home();
+			$this->home($content);
         } elseif ($this->template == 'question') {
             $this->question_view($content);
         } elseif ($this->template == 'user-wall') {
@@ -643,7 +643,7 @@ class qa_html_theme extends qa_html_theme_base
             $this->output('<a href="' . $feed['url'] . '" title="' . @$feed['label'] . '"><img src="' . $this->rooturl . 'images/rss.jpg" alt="" width="16" height="16" border="0" class="qa-rss-icon"/></a>');
     }
     
-    function home()
+    function home($content)
     {
         $this->output('<div class="home-left-inner">');
         $this->cs_position('Home Slide');
@@ -658,7 +658,11 @@ class qa_html_theme extends qa_html_theme_base
         $this->output('</div>');
         $this->output('</div>');
         $this->output('<div class="row">');
-        $this->cs_position('Home 2');
+		if(!(bool)qa_opt('cs_enable_default_home'))
+			$this->cs_position('Home 2');
+		else
+			$this->main_parts($content);
+			
         $this->output('</div>');
 		$this->output('<div class="row">');
         $this->output('<div class="col-md-6">');
@@ -675,7 +679,7 @@ class qa_html_theme extends qa_html_theme_base
         $this->output('</div>');
         $this->output('</div>');
     }
-    
+   
     function question_view($content)
     {
         $q_view = $content['q_view'];

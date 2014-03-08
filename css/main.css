@@ -3216,7 +3216,6 @@ input[type=checkbox].on-off-checkbox {
     height: 30px;
     line-height: 34px;
     text-align: center;
-    top: 25px;
     width: 30px;
 }
 
@@ -3249,9 +3248,8 @@ input[type=checkbox].on-off-checkbox {
     overflow: hidden;
 }
 
-.ra-activity .avatar {
+.ra-activity .event-icon {
     margin-right: 15px;
-    margin-top: 4px;
     position: relative;
 }
 

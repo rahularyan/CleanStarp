@@ -396,7 +396,7 @@ function cs_save_widget($elm){
 		widget[order]['options'] = options;
 		
 	});
-console.log(widget);
+
 	 $.ajax({
 		data: {
 			cs_ajax: true,

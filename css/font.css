@@ -1,10 +1,10 @@
 @font-face {
 	font-family: 'ra';
-	src:url('../fonts/ra.eot?htnw96');
-	src:url('../fonts/ra.eot?#iefixhtnw96') format('embedded-opentype'),
-		url('../fonts/ra.woff?htnw96') format('woff'),
-		url('../fonts/ra.ttf?htnw96') format('truetype'),
-		url('../fonts/ra.svg?htnw96#ra') format('svg');
+	src:url('../fonts/ra.eot?7mu5z6');
+	src:url('../fonts/ra.eot?#iefix7mu5z6') format('embedded-opentype'),
+		url('../fonts/ra.woff?7mu5z6') format('woff'),
+		url('../fonts/ra.ttf?7mu5z6') format('truetype'),
+		url('../fonts/ra.svg?7mu5z6#ra') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -44,12 +44,6 @@
 .icon-rss:before {
 	content: "\e610";
 }
-.icon-double-angle-right:before {
-	content: "\e611";
-}
-.icon-double-angle-left:before {
-	content: "\e612";
-}
 .icon-angle-left:before {
 	content: "\e613";
 }
@@ -62,17 +56,8 @@
 .icon-angle-down:before {
 	content: "\e616";
 }
-.icon-folder-close-alt:before {
-	content: "\e61b";
-}
-.icon-folder-open-alt:before {
-	content: "\e61c";
-}
 .icon-trash:before {
 	content: "\e61d";
-}
-.icon-group:before {
-	content: "\e61e";
 }
 .icon-edit:before {
 	content: "\e61f";
@@ -119,17 +104,14 @@
 .icon-folder-close:before {
 	content: "\e665";
 }
+.icon-signal:before {
+	content: "\e604";
+}
 .icon-sad:before {
 	content: "\e624";
 }
 .icon-fire:before {
 	content: "\e633";
-}
-.icon-error:before {
-	content: "\e646";
-}
-.icon-minus3:before {
-	content: "\e648";
 }
 .icon-answers:before {
 	content: "\e625";
@@ -152,9 +134,6 @@
 .icon-best-answer:before {
 	content: "\e64e";
 }
-.icon-top-answer:before {
-	content: "\e62c";
-}
 .icon-flag:before {
 	content: "\e626";
 }
@@ -166,6 +145,12 @@
 }
 .icon-add-answer:before {
 	content: "\e618";
+}
+.icon-user:before {
+	content: "\e606";
+}
+.icon-users:before {
+	content: "\e60c";
 }
 .icon-picture:before {
 	content: "\e634";
@@ -208,21 +193,6 @@
 }
 .icon-badge3:before {
 	content: "\e644";
-}
-.icon-checked:before {
-	content: "\e645";
-}
-.icon-add:before {
-	content: "\e647";
-}
-.icon-chat:before {
-	content: "\e649";
-}
-.icon-chat2:before {
-	content: "\e64a";
-}
-.icon-file:before {
-	content: "\e60c";
 }
 .icon-switch:before {
 	content: "\e60d";
@@ -278,12 +248,6 @@
 .icon-mixi:before {
 	content: "\e65f";
 }
-.icon-behance:before {
-	content: "\e660";
-}
-.icon-circles:before {
-	content: "\e661";
-}
 .icon-star:before {
 	content: "\e662";
 }
@@ -292,15 +256,6 @@
 }
 .icon-clock:before {
 	content: "\e603";
-}
-.icon-ellipsis:before {
-	content: "\e604";
-}
-.icon-dots:before {
-	content: "\e606";
-}
-.icon-dot:before {
-	content: "\e617";
 }
 .icon-checkmark3:before {
 	content: "\e600";
@@ -326,6 +281,12 @@
 .icon-trash2:before {
 	content: "\e666";
 }
+.icon-vcard:before {
+	content: "\e611";
+}
 .icon-search:before {
 	content: "\e608";
+}
+.icon-comment:before {
+	content: "\e612";
 }

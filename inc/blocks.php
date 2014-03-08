@@ -1480,40 +1480,40 @@ class qa_html_theme extends qa_html_theme_base
             
             $this->output('</div>');
             
-            /*}elseif(@$ranking['type']=='tags'){
+        }elseif(@$ranking['type']=='tags'){
             
             if ($rows>0) {
-            $this->output('<div class="row '.$class.'">');
-            
-            $columns=ceil(count($ranking['items'])/$rows);
-            
-            for ($column=0; $column<$columns; $column++) {
-            $this->set_context('ranking_column', $column);					
-            $this->output('<div class="col-lg-'.ceil(12/$columns).'">');
-            $this->output('<ul class="list-group">');
-            
-            for ($row=0; $row<$rows; $row++) {
-            $this->set_context('ranking_row', $row);
-            $this->cs_tags_item(@$ranking['items'][$column*$rows+$row], $class, $column>0);
-            }
-            
-            $this->clear_context('ranking_column');
-            
-            $this->output('</ul>');
-            $this->output('</div>');
-            }
-            
-            $this->clear_context('ranking_row');
-            
-            $this->output('</div>');
+				$this->output('<div class="row '.$class.'">');
+				
+				$columns=ceil(count($ranking['items'])/$rows);
+				
+				for ($column=0; $column<$columns; $column++) {
+				$this->set_context('ranking_column', $column);					
+				$this->output('<div class="col-lg-'.ceil(12/$columns).'">');
+				$this->output('<ul>');
+				
+				for ($row=0; $row<$rows; $row++) {
+				$this->set_context('ranking_row', $row);
+				$this->cs_tags_item(@$ranking['items'][$column*$rows+$row], $class, $column>0);
+				}
+				
+				$this->clear_context('ranking_column');
+				
+				$this->output('</ul>');
+				$this->output('</div>');
+				}
+				
+				$this->clear_context('ranking_row');
+				
+				$this->output('</div>');
             }else
-            $this->output('
-            <div class="no-items">
-            <h3 class="icon-sad">No tags found!</h3>
-            <p>Sorry we cannot display anything, query returns nothings.</p>
-            </div>'
-            );
-            */
+				$this->output('
+					<div class="no-items">
+					<h3 class="icon-sad">No tags found!</h3>
+					<p>Sorry we cannot display anything, query returns nothings.</p>
+					</div>'
+				);
+            
         } else {
             
             

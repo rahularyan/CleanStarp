@@ -1918,6 +1918,8 @@ table.page-users-list {
 }
 
 .qa-template-tags .qa-part-ranking .list-group-item {
+    border-bottom: 1px solid #F9F9F9;
+    margin-bottom: 0;
     padding: 0;
 }
 
@@ -1927,15 +1929,14 @@ table.page-users-list {
 }
 
 .qa-template-tags .qa-part-ranking .list-group-item span {
-    background: #B1B5B9;
-    border-radius: 8px;
+    border-radius: 2px;
     color: #FFFFFF;
     float: right;
     font-size: 11px;
-    line-height: 18px;
+    line-height: 15px;
     margin-right: 10px;
     margin-top: 11px;
-    padding: 0 8px;
+    padding: 1px 5px;
     position: absolute;
     right: 0;
     top: 0;
@@ -1947,7 +1948,7 @@ table.page-users-list {
 }
 
 .qa-template-tags .qa-part-ranking .list-group-item:hover {
-    background: #F1F5F9;
+    background: #f7f7f7;
 }
 
 .qa-main .qa-part-custom, .qa-main .qa-part-custom2 {
@@ -4047,4 +4048,16 @@ input[type=checkbox].on-off-checkbox {
 .qa-q-list.clean .status-c{
     display: inline-block;
     width: 50px;
+}
+
+
+.qa-top-tags ul{
+	padding:0;
+}
+.qa-top-tags .list-group-item {
+    border: medium none;
+}
+.qa-top-tags .list-group-item a {
+    color: #777777;
+    font-size: 15px;
 }

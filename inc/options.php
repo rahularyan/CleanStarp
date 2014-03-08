@@ -378,36 +378,7 @@ class qa_html_theme_layer extends qa_html_theme_base
 					</td>
 				</tr>
 			</tbody>
-			<tbody>
-				<tr>
-					<th class="qa-form-tall-label">
-						Collapsible comments
-						<span class="description">ADD DETAIL.</span>
-					</th>
-					<td class="qa-form-tall-label">
-						<div class="on-off-checkbox-container">
-								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('cs_colla_comm') ? ' checked=""' : '') . ' id="on-off-checkbox" name="cs_colla_comm">
-							<label for="on-off-checkbox">
-							</label>
-						</div>
-					</td>
-				</tr>
-			</tbody>
-			<tbody>
-				<tr>
-					<th class="qa-form-tall-label">
-						Show Real name
-						<span class="description">ADD DETAIL.</span>
-					</th>
-					<td class="qa-form-tall-label">
-						<div class="on-off-checkbox-container">
-								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('cs_show_real_name') ? ' checked=""' : '') . ' id="cs_show_real_name" name="cs_show_real_name">
-							<label for="cs_show_real_name">
-							</label>
-						</div>
-					</td>
-				</tr>
-			</tbody>
+
 			<tbody>
 				<tr>
 					<th class="qa-form-tall-label">
@@ -564,8 +535,8 @@ class qa_html_theme_layer extends qa_html_theme_base
 				<tr><td><h3>Home Page</h3></td></tr>
 				<tr>
 					<th class="qa-form-tall-label">
-						Default Home Page Layout
-						<span class="description">Turn on to load default home page layout.</span>
+						Toggle question list in home
+						<span class="description">Toggle if you want to show default question list in home page</span>
 					</th>
 					<td class="qa-form-tall-label">
 						<div class="on-off-checkbox-container">

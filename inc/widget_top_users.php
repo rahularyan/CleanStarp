@@ -72,10 +72,10 @@
 		/* top users widget */
 		function cs_top_users($limit = 5, $size){
 
-			$users = qa_db_read_all_assoc(qa_db_query_sub('SELECT * FROM ^users JOIN ^userpoints ON ^users.userid=^userpoints.userid '));
+			$users = qa_db_read_all_assoc(qa_db_query_sub('SELECT * FROM ^users JOIN ^userpoints ON ^users.userid=^userpoints.userid ORDER BY ^userpoints.points DESC LIMIT #', $limit));
 			
 			$output = '<ul class="top-users-list clearfix">';
-			$i = 1;
+
 			foreach($users as $u){
 				if(defined('QA_WORDPRESS_INTEGRATE_PATH')){
 					require_once QA_INCLUDE_DIR.'qa-app-posts.php';
@@ -83,7 +83,7 @@
 				}
 	
 				$output .= '<li class="top-user clearfix">';
-				$output .= cs_get_post_avatar( $u, $u['userid'] ,30, true);
+				$output .= cs_get_post_avatar( $u, $u['userid'] ,$size, true);
 				$output .= '<div class="top-user-data">';
 				
 				$output .= '<span class="points">'.$u['points'].' '.qa_lang('cleanstrap/points').'</span>';
@@ -91,9 +91,6 @@
 				$output .= '<p class="counts"><span>'.qa_lang_sub('cleanstrap/x_questions', $u['aposts']).'</span> <span>'.qa_lang_sub('cleanstrap/x_answers', $u['qposts']).'</span><span>'.qa_lang_sub('cleanstrap/x_comments', $u['cposts']).'</span></p>';
 				$output .= '</div>';
 				$output .= '</li>';
-				if($i==$limit)break;
-				$i++;
-			
 			}
 			$output .= '</ul>';
 			return $output;

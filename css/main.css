@@ -148,10 +148,10 @@ h1,h2,h3,h4,h5,h6, .qa-q-item-title {
 
 .navbar-default .navbar-form .icon-search {
     display: block;
-    font-size: 13px;
+    font-size: 15px;
     left: 10px;
     position: absolute;
-    top: 1px;
+    top: 4px;
 }
 
 #site-header .navbar-form .form-control {
@@ -312,20 +312,6 @@ h1,h2,h3,h4,h5,h6, .qa-q-item-title {
     background: 0 0 rgba(0, 0, 0, 0.04);
 }
 
-.dropdown-menu li a:before {
-    background: #aaa;
-    border-radius: 2px;
-    color: #eee;
-    display: block;
-    float: left;
-    font-size: 11px;
-    height: 19px;
-    line-height: 15px;
-    margin-right: 10px;
-    min-width: 19px;
-    padding: 0 3px;
-    text-align: center;
-}
 
 /*User login logout button styling */
 
@@ -4060,4 +4046,53 @@ input[type=checkbox].on-off-checkbox {
 .qa-top-tags .list-group-item a {
     color: #777777;
     font-size: 15px;
+}
+
+.float-nav .qa-nav-sub {
+    width: 180px;
+}
+.float-nav .qa-nav-sub .qa-nav-sub-link:before {
+    border-right: 1px solid rgba(0, 0, 0, 0.03);
+    display: inline-block;
+    font-size: 14px;
+    height: 38px;
+    margin: -10px 10px -5px -5px;
+    padding: 9px;
+    text-align: center;
+    vertical-align: baseline;
+    width: 40px;
+}
+.float-nav .qa-nav-sub .qa-nav-sub-link{
+    border-bottom: 1px solid rgba(0, 0, 0, 0.02);
+    color: #969696;
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px;
+}
+.dropdown-menu.user-nav li a:before {
+    border-radius: 2px;
+    color: #aaa;
+    display: block;
+    float: left;
+    font-size: 11px;
+    height: 19px;
+    line-height: 15px;
+    margin-right: 10px;
+    min-width: 19px;
+    padding: 0 3px;
+    text-align: center;
+}
+.dropdown-menu.user-nav > li > a {
+    clear: both;
+    color: #777777;
+    display: block;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.42857;
+    padding: 5px 3px;
+    white-space: nowrap;
+}
+.dropdown-menu.user-nav > li.active > a{
+	background:#eee;
 }

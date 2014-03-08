@@ -55,6 +55,14 @@
 		'upload' => 'Upload',
 		'categories' => 'Categories',
 		'no_tags' => 'No tags found!',
+		'follow' => 'Follow',
+		'unfollow' => 'Unfollow',
+		'account' => 'Account',
+		'favorites' => 'Favorites',
+		'wall' => 'Wall',
+		'recent_activity' => 'Recent Activity',
+		'all_questions' => 'All questions',
+		'all_answers' => 'All answers',
 	);
 	
 

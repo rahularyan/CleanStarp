@@ -228,25 +228,32 @@ class qa_html_theme extends qa_html_theme_base
 ?>
 						</a>
 						<ul class="user-nav dropdown-menu">
-							<li class="points"><?php
-            echo qa_get_logged_in_points();
-?></li>
-							<li><a class="icon-profile" href="<?php
+							
+							<li><a class="icon-vcard" href="<?php
             echo qa_path_html('user/' . qa_get_logged_in_handle());
 ?>"><?php
             echo qa_lang_html('cleanstrap/profile');
 ?></a></li>
 							<?php
-            foreach ($this->content['navigation']['user'] as $a) {
-                if (isset($a['url'])) {
+			$this->content['navigation']['user']['updates']['icon'] = 'icon-signal';
+			$this->content['navigation']['user']['account'] = array('label' => qa_lang('cleanstrap/account'), 'url' => qa_path_html('account'), 'icon' => 'icon-cog');
+			$this->content['navigation']['user']['favorites'] = array('label' => qa_lang('cleanstrap/favorites'), 'url' => qa_path_html('favorites'), 'icon' =>'icon-heart');
+			$this->content['navigation']['user']['wall'] = array('label' => qa_lang('cleanstrap/wall'), 'url' => qa_path_html('user/'.qa_get_logged_in_handle().'/wall'), 'icon' =>'icon-comment');
+			$this->content['navigation']['user']['recent_activity'] = array('label' => qa_lang('cleanstrap/recent_activity'), 'url' => qa_path_html('user/'.qa_get_logged_in_handle().'/activity'), 'icon' =>'icon-time');
+			$this->content['navigation']['user']['all_questions'] = array('label' => qa_lang('cleanstrap/all_questions'), 'url' => qa_path_html('user/'.qa_get_logged_in_handle().'/questions'), 'icon' =>'icon-question');
+			$this->content['navigation']['user']['all_answers'] = array('label' => qa_lang('cleanstrap/all_answers'), 'url' => qa_path_html('user/'.qa_get_logged_in_handle().'/answers'), 'icon' =>'icon-answer');
+			
+            foreach ($this->content['navigation']['user'] as $k => $a) {
+                if (isset($a['url']) && $k != 'logout') {
                     $icon = (isset($a['icon']) ? ' class="' . $a['icon'] . '" ' : '');
                     echo '<li' . (isset($a['selected']) ? ' class="active"' : '') . '><a' . $icon . ' href="' . @$a['url'] . '" title="' . @$a['label'] . '">' . @$a['label'] . '</a></li>';
                 }
             }
-            if (!isset($this->content['navigation']['user']['logout']['url'])) {
+			
+           // if (isset($this->content['navigation']['user']['logout']['url'])) {
                 $link = qa_opt('site_url') . "logout";
                 echo "<li><a class='icon-switch' href = '$link'> " . qa_lang_html('cleanstrap/logout') . " </a></li>";
-            }
+           // }
 ?>
 						</ul>
 					</li>
@@ -837,8 +844,9 @@ class qa_html_theme extends qa_html_theme_base
     }
     function nav_link($navlink, $class)
     {
+		$icon = isset($navlink['icon']) ? $navlink['icon'] : ($this->template == 'admin' ? 'icon-cog' : '');
         if (isset($navlink['url']))
-            $this->output('<a href="' . $navlink['url'] . '" class="' . @$navlink['icon'] . ' qa-' . $class . '-link' . (@$navlink['selected'] ? (' qa-' . $class . '-selected') : '') . (@$navlink['favorited'] ? (' qa-' . $class . '-favorited') : '') . '"' . (strlen(@$navlink['popup']) ? (' title="' . $navlink['popup'] . '"') : '') . (isset($navlink['target']) ? (' target="' . $navlink['target'] . '"') : '') . '>' . $navlink['label'] . (strlen(@$navlink['note']) ? '<span class="qa-' . $class . '-note">' . filter_var($navlink['note'], FILTER_SANITIZE_NUMBER_INT) . '</span>' : '') . '</a>');
+            $this->output('<a href="' . $navlink['url'] . '" class="' . $icon . ' qa-' . $class . '-link' . (@$navlink['selected'] ? (' qa-' . $class . '-selected') : '') . (@$navlink['favorited'] ? (' qa-' . $class . '-favorited') : '') . '"' . (strlen(@$navlink['popup']) ? (' title="' . $navlink['popup'] . '"') : '') . (isset($navlink['target']) ? (' target="' . $navlink['target'] . '"') : '') . '>' . $navlink['label'] . (strlen(@$navlink['note']) ? '<span class="qa-' . $class . '-note">' . filter_var($navlink['note'], FILTER_SANITIZE_NUMBER_INT) . '</span>' : '') . '</a>');
         
         else
             $this->output('<span class="qa-' . $class . '-nolink' . (@$navlink['selected'] ? (' qa-' . $class . '-selected') : '') . (@$navlink['favorited'] ? (' qa-' . $class . '-favorited') : '') . '"' . (strlen(@$navlink['popup']) ? (' title="' . $navlink['popup'] . '"') : '') . '>' . @$navlink['label'] . (strlen(@$navlink['note']) ? '<span class="qa-' . $class . '-note">' . filter_var($navlink['note'], FILTER_SANITIZE_NUMBER_INT) . '</span>' : '') . '</span>');
@@ -1409,7 +1417,7 @@ class qa_html_theme extends qa_html_theme_base
         
         if (isset($tags)) {
             if ($this->template == 'user')
-                $text = isset($favorite['favorite_add_tags']) ? qa_lang('Follow') : qa_lang('Unfollow');
+                $text = isset($favorite['favorite_add_tags']) ? qa_lang('cleanstrap/follow') : qa_lang('cleanstrap/unfollow');
             $code_icon = explode(',', $class);
             $data      = str_replace('name', 'data-id', @$tags);
             $data      = str_replace('onclick="return qa_favorite_click(this);"', '', @$data);

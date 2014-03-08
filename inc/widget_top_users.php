@@ -71,29 +71,26 @@
 		}
 		/* top users widget */
 		function cs_top_users($limit = 5, $size){
-			$users = cs_get_cache_select_selectspec(qa_db_top_users_selectspec(qa_get_start()));
+
+			$users = qa_db_read_all_assoc(qa_db_query_sub('SELECT * FROM ^users JOIN ^userpoints ON ^users.userid=^userpoints.userid ORDER BY ^userpoints.points DESC LIMIT #', $limit));
 			
 			$output = '<ul class="top-users-list clearfix">';
-			$i = 1;
+
 			foreach($users as $u){
 				if(defined('QA_WORDPRESS_INTEGRATE_PATH')){
 					require_once QA_INCLUDE_DIR.'qa-app-posts.php';
 					$u['handle'] = qa_post_userid_to_handle($u['userid']);
 				}
-				$data = cs_user_data($u['handle']);
+	
 				$output .= '<li class="top-user clearfix">';
-				$output .= '<div class="avatar pull-left" data-handle="'.$u['handle'].'" data-id="'. qa_handle_to_userid($u['handle']).'">';
-				$output .= '<img src="'.cs_get_avatar($u['handle'], $size, false).'" /></div>';
+				$output .= cs_get_post_avatar( $u, $u['userid'] ,$size, true);
 				$output .= '<div class="top-user-data">';
 				
 				$output .= '<span class="points">'.$u['points'].' '.qa_lang('cleanstrap/points').'</span>';
-				$output .= '<a href="'.qa_path_html('user/'.$u['handle']).'" class="name">'.cs_name($u['handle']).'</a>';
-				$output .= '<p class="counts"><span>'.$data[2]['aposts'].' Answers</span> <span>'.$data[2]['qposts'].' Questions</span></p>';
+				$output .= '<a href="'.qa_path_html('user/'.$u['handle']).'" class="name">'.$u['handle'].'</a>';
+				$output .= '<p class="counts"><span>'.qa_lang_sub('cleanstrap/x_questions', $u['aposts']).'</span> <span>'.qa_lang_sub('cleanstrap/x_answers', $u['qposts']).'</span><span>'.qa_lang_sub('cleanstrap/x_comments', $u['cposts']).'</span></p>';
 				$output .= '</div>';
 				$output .= '</li>';
-				if($i==$limit)break;
-				$i++;
-			
 			}
 			$output .= '</ul>';
 			return $output;

@@ -195,7 +195,9 @@ class qa_html_theme extends qa_html_theme_base
 ?>
 			<ul class="nav navbar-nav category-nav pull-left">
 				<li class="dropdown pull-left">
-					<a data-toggle="dropdown" href="#" class="category-toggle icon-folder-close-alt"><?php echo qa_lang_html('cleanstrap/categories'); ?></a>
+					<a data-toggle="dropdown" href="#" class="category-toggle icon-folder-close-alt"><?php
+        echo qa_lang_html('cleanstrap/categories');
+?></a>
 					<ul class="category-list-drop dropdown-menu">
 						<?php
         $this->cs_full_categories_list();
@@ -221,8 +223,8 @@ class qa_html_theme extends qa_html_theme_base
             $LoggedinUserAvatar = cs_get_avatar(qa_get_logged_in_handle(), 30, false);
             if (!empty($LoggedinUserAvatar))
                 echo '<img src="' . $LoggedinUserAvatar . '" />'; // in case there is no Avatar image and theme doesn't use a default avatar
-			else
-				echo '<span class="profile-name">'.qa_get_logged_in_handle().'</span>';
+            else
+                echo '<span class="profile-name">' . qa_get_logged_in_handle() . '</span>';
 ?>
 						</a>
 						<ul class="user-nav dropdown-menu">
@@ -253,7 +255,9 @@ class qa_html_theme extends qa_html_theme_base
 			<?php
         } else {
 ?>				
-				<a class="btn login-register icon-lock"  href="#" data-toggle="modal" data-target="#login-modal" title="<?php echo qa_lang_html('cleanstrap/login_register'); ?>"></a>
+				<a class="btn login-register icon-lock"  href="#" data-toggle="modal" data-target="#login-modal" title="<?php
+            echo qa_lang_html('cleanstrap/login_register');
+?>"></a>
 
 				
 				<!-- Modal -->
@@ -264,8 +268,12 @@ class qa_html_theme extends qa_html_theme_base
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>	
 					  <div class="modal-body">
-						<h3><?php echo qa_lang_html('cleanstrap/login_register'); ?></h3>
-						<p class="login-desc"><?php echo qa_lang_html('cleanstrap/access_account'); ?></p>
+						<h3><?php
+            echo qa_lang_html('cleanstrap/login_register');
+?></h3>
+						<p class="login-desc"><?php
+            echo qa_lang_html('cleanstrap/access_account');
+?></p>
 						<div class="social-logins">
 						<?php
             
@@ -399,8 +407,12 @@ class qa_html_theme extends qa_html_theme_base
 ?>
 				<div class="user-tabs">
 					<ul class="nav nav-tabs">
-					  <li class="active"><a href="#right-top-users" data-toggle="tab"><?php echo qa_lang_html('cleanstrap/top_users'); ?></a></li>
-					  <li><a href="#right-new-user" data-toggle="tab"><?php echo qa_lang_html('cleanstrap/new_users'); ?></a></li>
+					  <li class="active"><a href="#right-top-users" data-toggle="tab"><?php
+        echo qa_lang_html('cleanstrap/top_users');
+?></a></li>
+					  <li><a href="#right-new-user" data-toggle="tab"><?php
+        echo qa_lang_html('cleanstrap/new_users');
+?></a></li>
 					</ul>
 
 					<!-- Tab panes -->
@@ -580,7 +592,7 @@ class qa_html_theme extends qa_html_theme_base
         if ($this->template == 'user' && !(isset($_REQUEST['state']) && $_REQUEST['state'] == 'edit')) {
             $this->profile_page();
         } elseif (strlen(qa_request(1)) == 0) {
-			$this->home($content);
+            $this->home($content);
         } elseif ($this->template == 'question') {
             $this->question_view($content);
         } elseif ($this->template == 'user-wall') {
@@ -658,13 +670,13 @@ class qa_html_theme extends qa_html_theme_base
         $this->output('</div>');
         $this->output('</div>');
         $this->output('<div class="row">');
-		if(!(bool)qa_opt('cs_enable_default_home'))
-			$this->cs_position('Home 2');
-		else
-			$this->main_parts($content);
-			
+        if (!(bool) qa_opt('cs_enable_default_home'))
+            $this->cs_position('Home 2');
+        else
+            $this->main_parts($content);
+        
         $this->output('</div>');
-		$this->output('<div class="row">');
+        $this->output('<div class="row">');
         $this->output('<div class="col-md-6">');
         $this->cs_position('Home 3 Left');
         $this->output('</div>');
@@ -679,7 +691,7 @@ class qa_html_theme extends qa_html_theme_base
         $this->output('</div>');
         $this->output('</div>');
     }
-   
+    
     function question_view($content)
     {
         $q_view = $content['q_view'];
@@ -712,7 +724,7 @@ class qa_html_theme extends qa_html_theme_base
             $status_class = ' qa-q-status-' . $status;
         else
             $status_class = '';
-        $this->output('<div class="qa-q-list-item' . rtrim(' ' . @$q_item['classes']) . $status_class .(is_featured($q_item['raw']['postid']) ? ' featured' : '').' clearfix" ' . @$q_item['tags'] . '>');
+        $this->output('<div class="qa-q-list-item' . rtrim(' ' . @$q_item['classes']) . $status_class . (is_featured($q_item['raw']['postid']) ? ' featured' : '') . ' clearfix" ' . @$q_item['tags'] . '>');
         
         
         $this->q_item_main($q_item);
@@ -731,37 +743,44 @@ class qa_html_theme extends qa_html_theme_base
     
     function q_item_main($q_item)
     {
-		$avatar_arg = array('flags' => $q_item['raw']['flags'], 'email' => $q_item['raw']['email'], 'handle' => $q_item['raw']['handle'], 'avatarblobid' => $q_item['raw']['avatarblobid'], 'avatarwidth' => $q_item['raw']['avatarwidth'], 'avatarheight' => $q_item['raw']['avatarheight']);
-		
-		$avatar_size = ((bool)qa_opt('cs_enable_clean_qlist') ? 20 : 30);
-		$timeCode = $q_item['when'];
-		$when = @$timeCode['prefix'] . @$timeCode['data'] . @$timeCode['suffix'];
-			
+        $avatar_arg = array(
+            'flags' => $q_item['raw']['flags'],
+            'email' => $q_item['raw']['email'],
+            'handle' => $q_item['raw']['handle'],
+            'avatarblobid' => $q_item['raw']['avatarblobid'],
+            'avatarwidth' => $q_item['raw']['avatarwidth'],
+            'avatarheight' => $q_item['raw']['avatarheight']
+        );
+        
+        $avatar_size = ((bool) qa_opt('cs_enable_clean_qlist') ? 20 : 30);
+        $timeCode    = $q_item['when'];
+        $when        = @$timeCode['prefix'] . @$timeCode['data'] . @$timeCode['suffix'];
+        
         if (isset($q_item['avatar'])) {
             $this->output('<div class="asker-avatar">');
-            $this->output(cs_get_post_avatar($avatar_arg , $q_item['raw']['userid'] ,$avatar_size, true));
+            $this->output(cs_get_post_avatar($avatar_arg, $q_item['raw']['userid'], $avatar_size, true));
             $this->output('</div>');
         }
         $this->output('<div class="qa-q-item-main">');
         
         $this->output('<div class="q-item-head">');
-		if((bool)qa_opt('cs_enable_clean_qlist')){
-			$this->output('<div class="count-time"><span class="time">'.$when.'</span><span class="ans-count total-'.$q_item['raw']['acount'].'">'.$q_item['raw']['acount'].'</span></div>');		
-		
-			$this->output('<span class="status-c">'.cs_post_status($q_item).'</span>');
-		}
-		
+        if ((bool) qa_opt('cs_enable_clean_qlist')) {
+            $this->output('<div class="count-time"><span class="time">' . $when . '</span><span class="ans-count total-' . $q_item['raw']['acount'] . '">' . $q_item['raw']['acount'] . '</span></div>');
+            
+            $this->output('<span class="status-c">' . cs_post_status($q_item) . '</span>');
+        }
+        
         $this->q_item_title($q_item);
-		if(!(bool)qa_opt('cs_enable_clean_qlist')){
-			$this->output('<div class="list-meta">');
-			$this->output(cs_post_status($q_item));
-			$this->post_meta($q_item, 'qa-q-item');
-			if (qa_opt('cs_show_tags_list')) {
-				$this->output('<span>' . qa_lang('cleanstrap/tagged') . ': </span>');
-				$this->post_tag_list($q_item, 'list-tag');
-			}
-			$this->output('</div>');
-		}
+        if (!(bool) qa_opt('cs_enable_clean_qlist')) {
+            $this->output('<div class="list-meta">');
+            $this->output(cs_post_status($q_item));
+            $this->post_meta($q_item, 'qa-q-item');
+            if (qa_opt('cs_show_tags_list')) {
+                $this->output('<span>' . qa_lang('cleanstrap/tagged') . ': </span>');
+                $this->post_tag_list($q_item, 'list-tag');
+            }
+            $this->output('</div>');
+        }
         $this->output('</div>');
         
         $this->q_item_content($q_item);
@@ -1314,7 +1333,7 @@ class qa_html_theme extends qa_html_theme_base
     function cs_user_activity_count($handle)
     {
         $user = cs_user_data($handle);
-        $this->output('<div class="user-activity-count clearfix">', '<div class="points">', $user[2]['points'], '<span>' . qa_lang_html('cleanstrap/points') . '</span>', '</div>', '<div class="counts">', '<div class="a-counts">', '<span>' . $user[2]['aposts'] . '</span>', qa_lang_html('cleanstrap/answers') , '</div>', '<div class="q-counts">', '<span>' . $user[2]['qposts'] . '</span>', 'Questions', '</div>', '<div class="c-counts">', '<span>' . $user[2]['cposts'] . '</span>', qa_lang_html('cleanstrap/comments'), '</div>', '</div>', '
+        $this->output('<div class="user-activity-count clearfix">', '<div class="points">', $user[2]['points'], '<span>' . qa_lang_html('cleanstrap/points') . '</span>', '</div>', '<div class="counts">', '<div class="a-counts">', '<span>' . $user[2]['aposts'] . '</span>', qa_lang_html('cleanstrap/answers'), '</div>', '<div class="q-counts">', '<span>' . $user[2]['qposts'] . '</span>', 'Questions', '</div>', '<div class="c-counts">', '<span>' . $user[2]['cposts'] . '</span>', qa_lang_html('cleanstrap/comments'), '</div>', '</div>', '
 				<div class="bar-chart">	
 					<div class="sparkline" data-type="bar" data-bar-color="#FDAB0C" data-bar-width="20" data-height="28"><!--' . $user[2]['aposts'] . ',' . $user[2]['qposts'] . ',' . $user[2]['cposts'] . '--></div>
                     <ul class="list-inline text-muted axis"><li>A</li><li>Q</li><li>C</li></ul>
@@ -1463,7 +1482,7 @@ class qa_html_theme extends qa_html_theme_base
 								</div>	
 								<div class="card-bottom">
 								<a class="user-name" href="' . qa_path_html('user/' . $handle) . '">' . cs_name($handle) . '</a>								
-								<span class="score">' . $data[0]['points'] . qa_lang_html('cleanstrap/points') .' </span>
+								<span class="score">' . $data[0]['points'] . qa_lang_html('cleanstrap/points') . ' </span>
 								</div>');
                     if (qa_opt('badge_active') && function_exists('qa_get_badge_list'))
                         $this->output('<td class="badge-list">' . cs_user_badge($handle) . '</td>');
@@ -1473,46 +1492,45 @@ class qa_html_theme extends qa_html_theme_base
                 } else
                 $this->output('
 							<div class="no-items">
-								<h3 class="icon-sad">' .  qa_lang_html('cleanstrap/no_users') . '</h3>
-								<p>' .  qa_lang_html('cleanstrap/edit_user_detail') . '</p>
+								<h3 class="icon-sad">' . qa_lang_html('cleanstrap/no_users') . '</h3>
+								<p>' . qa_lang_html('cleanstrap/edit_user_detail') . '</p>
 							</div>');
             
             
             $this->output('</div>');
             
-        }elseif(@$ranking['type']=='tags'){
+        } elseif (@$ranking['type'] == 'tags') {
             
-            if ($rows>0) {
-				$this->output('<div class="row '.$class.'">');
-				
-				$columns=ceil(count($ranking['items'])/$rows);
-				
-				for ($column=0; $column<$columns; $column++) {
-				$this->set_context('ranking_column', $column);					
-				$this->output('<div class="col-lg-'.ceil(12/$columns).'">');
-				$this->output('<ul>');
-				
-				for ($row=0; $row<$rows; $row++) {
-				$this->set_context('ranking_row', $row);
-				$this->cs_tags_item(@$ranking['items'][$column*$rows+$row], $class, $column>0);
-				}
-				
-				$this->clear_context('ranking_column');
-				
-				$this->output('</ul>');
-				$this->output('</div>');
-				}
-				
-				$this->clear_context('ranking_row');
-				
-				$this->output('</div>');
-            }else
-				$this->output('
+            if ($rows > 0) {
+                $this->output('<div class="row ' . $class . '">');
+                
+                $columns = ceil(count($ranking['items']) / $rows);
+                
+                for ($column = 0; $column < $columns; $column++) {
+                    $this->set_context('ranking_column', $column);
+                    $this->output('<div class="col-lg-' . ceil(12 / $columns) . '">');
+                    $this->output('<ul>');
+                    
+                    for ($row = 0; $row < $rows; $row++) {
+                        $this->set_context('ranking_row', $row);
+                        $this->cs_tags_item(@$ranking['items'][$column * $rows + $row], $class, $column > 0);
+                    }
+                    
+                    $this->clear_context('ranking_column');
+                    
+                    $this->output('</ul>');
+                    $this->output('</div>');
+                }
+                
+                $this->clear_context('ranking_row');
+                
+                $this->output('</div>');
+            } else
+                $this->output('
 					<div class="no-items">
-					<h3 class="icon-sad">No tags found!</h3>
-					<p>Sorry we cannot display anything, query returns nothings.</p>
-					</div>'
-				);
+					<h3 class="icon-sad">' . qa_lang('cleanstrap/no_tags') . '</h3>
+					<p>' . qa_lang('no_results_detail') . '</p>
+					</div>');
             
         } else {
             
@@ -1610,7 +1628,7 @@ class qa_html_theme extends qa_html_theme_base
         if (qa_get_logged_in_level() >= QA_USER_LEVEL_ADMIN) {
             $position     = strip_tags($_REQUEST['position']);
             $widget_names = json_decode($_REQUEST['widget_names'], true);
-            $newid = array();
+            $newid        = array();
             if (isset($widget_names) && is_array($widget_names))
                 foreach ($widget_names as $k => $w) {
                     $param = array(
@@ -1622,8 +1640,8 @@ class qa_html_theme extends qa_html_theme_base
                     else
                         $newid[] = widget_opt($w['name'], $position, $k, serialize($param));
                 }
-
-				echo json_encode($newid);
+            
+            echo json_encode($newid);
         }
         die();
     }
@@ -1639,45 +1657,46 @@ class qa_html_theme extends qa_html_theme_base
     
     function nav_list($navigation, $class, $level = null)
     {
-        /*
-        if($class == 'browse-cat'){
-        $row=ceil(count($navigation)/2);
-        $this->output('<div class="category-list-page">');
-        $this->output('<div class="row"><div class="col-lg-6"><ul class="page-cat-list">');
         
-        $index=0; $i=1;
-        foreach ($navigation as $key => $navlink) {
-        $this->set_context('nav_key', $key);
-        $this->set_context('nav_index', $index++);
-        $this->cs_cat_items($key, $navlink, '');
-        if($row == $i)
-        $this->output('</ul></div><div class="col-lg-6"><ul class="page-cat-list">');
-        
-        $i++;
+        if ($class == 'browse-cat') {
+            $row = ceil(count($navigation) / 2);
+            $this->output('<div class="category-list-page">');
+            $this->output('<div class="row"><div class="col-lg-6"><ul class="page-cat-list">');
+            
+            $index = 0;
+            $i     = 1;
+            foreach ($navigation as $key => $navlink) {
+                $this->set_context('nav_key', $key);
+                $this->set_context('nav_index', $index++);
+                $this->cs_cat_items($key, $navlink, '');
+                if ($row == $i)
+                    $this->output('</ul></div><div class="col-lg-6"><ul class="page-cat-list">');
+                
+                $i++;
+            }
+            
+            $this->clear_context('nav_key');
+            $this->clear_context('nav_index');
+            
+            $this->output('</ul></div></div></div>');
+            
+        } else {
+            
+            $this->output('<ul class="qa-' . $class . '-list' . (isset($level) ? (' qa-' . $class . '-list-' . $level) : '') . '">');
+            
+            $index = 0;
+            
+            foreach ($navigation as $key => $navlink) {
+                $this->set_context('nav_key', $key);
+                $this->set_context('nav_index', $index++);
+                $this->nav_item($key, $navlink, $class, $level);
+            }
+            
+            $this->clear_context('nav_key');
+            $this->clear_context('nav_index');
+            
+            $this->output('</ul>');
         }
-        
-        $this->clear_context('nav_key');
-        $this->clear_context('nav_index');			
-        
-        $this->output('</ul></div></div></div>');
-        
-        }else{
-        */
-        $this->output('<ul class="qa-' . $class . '-list' . (isset($level) ? (' qa-' . $class . '-list-' . $level) : '') . '">');
-        
-        $index = 0;
-        
-        foreach ($navigation as $key => $navlink) {
-            $this->set_context('nav_key', $key);
-            $this->set_context('nav_index', $index++);
-            $this->nav_item($key, $navlink, $class, $level);
-        }
-        
-        $this->clear_context('nav_key');
-        $this->clear_context('nav_index');
-        
-        $this->output('</ul>');
-        //}
     }
     function cs_cat_items($key, $navlink, $class, $level = null)
     {
@@ -1798,7 +1817,7 @@ class qa_html_theme extends qa_html_theme_base
                     foreach ($q_list['qs'] as $index => $question) {
                         $thispost = @$postinfo[$question['raw']['postid']];
                         if (isset($thispost)) {
-                            $text  = qa_viewer_text($thispost['content'], $thispost['format'], array(
+                            $text                            = qa_viewer_text($thispost['content'], $thispost['format'], array(
                                 'blockwordspreg' => $blockwordspreg
                             ));
                             $text                            = qa_shorten_string_line($text, $maxlength);
@@ -1807,7 +1826,7 @@ class qa_html_theme extends qa_html_theme_base
                     }
                 }
             }
-            $this->output('<div class="qa-q-list' . ($this->list_vote_disabled($q_list['qs']) ? ' qa-q-list-vote-disabled' : '') .((bool)qa_opt('cs_enable_clean_qlist') ? ' clean' : ''). '">', '');
+            $this->output('<div class="qa-q-list' . ($this->list_vote_disabled($q_list['qs']) ? ' qa-q-list-vote-disabled' : '') . ((bool) qa_opt('cs_enable_clean_qlist') ? ' clean' : '') . '">', '');
             $this->q_list_items($q_list['qs']);
             $this->output('</div> <!-- END qa-q-list -->', '');
         } else

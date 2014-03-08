@@ -712,12 +712,12 @@ class qa_html_theme extends qa_html_theme_base
             $status_class = ' qa-q-status-' . $status;
         else
             $status_class = '';
-        $this->output('<div class="qa-q-list-item' . rtrim(' ' . @$q_item['classes']) . $status_class . ' clearfix" ' . @$q_item['tags'] . '>');
+        $this->output('<div class="qa-q-list-item' . rtrim(' ' . @$q_item['classes']) . $status_class .(is_featured($q_item['raw']['postid']) ? ' featured' : '').' clearfix" ' . @$q_item['tags'] . '>');
         
         
         $this->q_item_main($q_item);
         
-        $this->output('</div> <!-- END qa-q-list-item -->', '');
+        $this->output('</div> <!-- END question list item -->', '');
     }
     
     
@@ -731,23 +731,37 @@ class qa_html_theme extends qa_html_theme_base
     
     function q_item_main($q_item)
     {
+		$avatar_arg = array('flags' => $q_item['raw']['flags'], 'email' => $q_item['raw']['email'], 'handle' => $q_item['raw']['handle'], 'avatarblobid' => $q_item['raw']['avatarblobid'], 'avatarwidth' => $q_item['raw']['avatarwidth'], 'avatarheight' => $q_item['raw']['avatarheight']);
+		
+		$avatar_size = ((bool)qa_opt('cs_enable_clean_qlist') ? 20 : 30);
+		$timeCode = $q_item['when'];
+		$when = @$timeCode['prefix'] . @$timeCode['data'] . @$timeCode['suffix'];
+			
         if (isset($q_item['avatar'])) {
             $this->output('<div class="asker-avatar">');
-            $this->output($q_item['avatar']);
+            $this->output(cs_get_post_avatar($avatar_arg , $q_item['raw']['userid'] ,$avatar_size, true));
             $this->output('</div>');
         }
         $this->output('<div class="qa-q-item-main">');
         
         $this->output('<div class="q-item-head">');
+		if((bool)qa_opt('cs_enable_clean_qlist')){
+			$this->output('<div class="count-time"><span class="time">'.$when.'</span><span class="ans-count total-'.$q_item['raw']['acount'].'">'.$q_item['raw']['acount'].'</span></div>');		
+		
+			$this->output('<span class="status-c">'.cs_post_status($q_item).'</span>');
+		}
+		
         $this->q_item_title($q_item);
-        $this->output('<div class="list-meta">');
-        $this->output(cs_post_status($q_item));
-        $this->post_meta($q_item, 'qa-q-item');
-        if (qa_opt('cs_show_tags_list')) {
-            $this->output('<span>' . qa_lang('cleanstrap/tagged') . ': </span>');
-            $this->post_tag_list($q_item, 'list-tag');
-        }
-        $this->output('</div>');
+		if(!(bool)qa_opt('cs_enable_clean_qlist')){
+			$this->output('<div class="list-meta">');
+			$this->output(cs_post_status($q_item));
+			$this->post_meta($q_item, 'qa-q-item');
+			if (qa_opt('cs_show_tags_list')) {
+				$this->output('<span>' . qa_lang('cleanstrap/tagged') . ': </span>');
+				$this->post_tag_list($q_item, 'list-tag');
+			}
+			$this->output('</div>');
+		}
         $this->output('</div>');
         
         $this->q_item_content($q_item);
@@ -1784,7 +1798,7 @@ class qa_html_theme extends qa_html_theme_base
                     foreach ($q_list['qs'] as $index => $question) {
                         $thispost = @$postinfo[$question['raw']['postid']];
                         if (isset($thispost)) {
-                            $text                            = qa_viewer_text($thispost['content'], $thispost['format'], array(
+                            $text  = qa_viewer_text($thispost['content'], $thispost['format'], array(
                                 'blockwordspreg' => $blockwordspreg
                             ));
                             $text                            = qa_shorten_string_line($text, $maxlength);
@@ -1793,7 +1807,7 @@ class qa_html_theme extends qa_html_theme_base
                     }
                 }
             }
-            $this->output('<div class="qa-q-list' . ($this->list_vote_disabled($q_list['qs']) ? ' qa-q-list-vote-disabled' : '') . '">', '');
+            $this->output('<div class="qa-q-list' . ($this->list_vote_disabled($q_list['qs']) ? ' qa-q-list-vote-disabled' : '') .((bool)qa_opt('cs_enable_clean_qlist') ? ' clean' : ''). '">', '');
             $this->q_list_items($q_list['qs']);
             $this->output('</div> <!-- END qa-q-list -->', '');
         } else

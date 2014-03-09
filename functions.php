@@ -423,8 +423,10 @@ function get_featured_image($postid){
 	$img =  qa_db_postmeta_get($postid, 'featured_image');
 
 	if (!empty($img))
-		return '<img class="featured-image" src="'.Q_THEME_URL . '/uploads/' . $img.'" />';
-	
+		return '<img class="image-preview" id="image-preview" src="'.Q_THEME_URL . '/uploads/' . $img.'" />';
+	else
+		return '<img class="image-preview" id="image-preview" style="display:none;" src="" />';
+		
 	return false;
 }
 function cs_cat_path($categorybackpath){

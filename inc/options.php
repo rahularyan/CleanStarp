@@ -126,9 +126,12 @@ class qa_html_theme_layer extends qa_html_theme_base
                     qa_opt('typo_options_style_' . $k, $options['style']);
                     qa_opt('typo_options_size_' . $k, $options['size']);
                     qa_opt('typo_options_linehight_' . $k, $options['linehight']);
-                    qa_opt('typo_options_backup_' . $k, $options['backup']);
-                    if ((isset($google_webfonts[$options['family']])) && (!(in_array($options['family'], $google_fonts))))
+                    if ((isset($google_webfonts[$options['family']])) && (!(in_array($options['family'], $google_fonts)))){
                         $google_fonts[] = $options['family'];
+						qa_opt('typo_options_backup_' . $k, $options['backup']);
+					}else{
+						qa_opt('typo_options_backup_' . $k, '');
+					}
                 }
                 qa_opt('typo_googlefonts', json_encode($google_fonts));
                 
@@ -1021,6 +1024,109 @@ class qa_html_theme_layer extends qa_html_theme_base
 						<span class="font-demo"><blockquote>The quick brown fox jumps over the lazy dog.</blockquote></span>
 					</td>
 				</tr>
+			</tbody>
+				<tr>
+					<th class="qa-form-tall-label">
+						Question Title
+					</th>
+					<td class="qa-form-tall-label">
+						<select data-placeholder="Choose a font" class="chosen-select font-family" data-font-option-type="qtitle" name="typo_option[qtitle][family]" id="typo_family">' . $this->get_font_options(qa_opt('typo_options_family_qtitle')) . '</select>
+						<select data-placeholder="font style" id="typo_style" name="typo_option[qtitle][style]" class="chosen-select font-style" data-font-option-type="qtitle">
+						' . $this->get_font_style_options(qa_opt('typo_options_family_qtitle'), qa_opt('typo_options_style_qtitle')) . '
+						</select>
+						<div class="input-group font-input" title="Font Size">
+							<span class="input-group-addon">Font Size</span>
+							<input value="' . qa_opt('typo_options_size_qtitle') . '" id="typo_size" name="typo_option[qtitle][size]" type="text" class="form-control font-size" data-font-option-type="qtitle">
+							<span class="input-group-addon">px</span>
+						</div>						
+						<div class="input-group font-input" title="Line Height" >
+							<span class="input-group-addon">Line Height</span>
+							<input value="' . qa_opt('typo_options_linehight_qtitle') . '" id="typo_lineheight" name="typo_option[qtitle][linehight]" type="text" class="form-control font-linehight" data-font-option-type="qtitle">
+							<span class="input-group-addon">px</span>
+						</div>
+						<select data-placeholder="Font Backup" name="typo_option[qtitle][backup]" id="typo_backup" class="chosen-select font-family-backup" data-font-option-type="qtitle">' . $this->get_normal_font_options(qa_opt('typo_options_backup_qtitle')) . '</select>
+						<span class="font-demo"><h2 class="question-title">The quick brown fox jumps over the lazy dog.</h2></span>
+					</td>
+				</tr>
+				<tr>
+					<th class="qa-form-tall-label">
+						Question Title Link
+					</th>
+					<td class="qa-form-tall-label">
+						<select data-placeholder="Choose a font" class="chosen-select font-family" data-font-option-type="qtitlelink" name="typo_option[qtitlelink][family]" id="typo_family">' . $this->get_font_options(qa_opt('typo_options_family_qtitlelink')) . '</select>
+						<select data-placeholder="font style" id="typo_style" name="typo_option[qtitlelink][style]" class="chosen-select font-style" data-font-option-type="qtitlelink">
+						' . $this->get_font_style_options(qa_opt('typo_options_family_qtitlelink'), qa_opt('typo_options_style_qtitlelink')) . '
+						</select>
+						<div class="input-group font-input" title="Font Size">
+							<span class="input-group-addon">Font Size</span>
+							<input value="' . qa_opt('typo_options_size_qtitlelink') . '" id="typo_size" name="typo_option[qtitlelink][size]" type="text" class="form-control font-size" data-font-option-type="qtitlelink">
+							<span class="input-group-addon">px</span>
+						</div>						
+						<div class="input-group font-input" title="Line Height" >
+							<span class="input-group-addon">Line Height</span>
+							<input value="' . qa_opt('typo_options_linehight_qtitlelink') . '" id="typo_lineheight" name="typo_option[qtitlelink][linehight]" type="text" class="form-control font-linehight" data-font-option-type="qtitlelink">
+							<span class="input-group-addon">px</span>
+						</div>
+						<select data-placeholder="Font Backup" name="typo_option[qtitlelink][backup]" id="typo_backup" class="chosen-select font-family-backup" data-font-option-type="qtitlelink">' . $this->get_normal_font_options(qa_opt('typo_options_backup_qtitlelink')) . '</select>
+						<span class="font-demo"><div class="qa-q-item-title" style="font-size: inherit ! important; font-family: inherite ! important; font-style: inherit ! important; line-height: inherit ! important; font-weight: inherit ! important;"><a href="#" style="font-size: inherit ! important;">The quick brown fox jumps over the lazy dog.</a></div></span>
+					</td>
+				</tr>
+				<tr>
+					<th class="qa-form-tall-label">
+						Post Content
+					</th>
+					<td class="qa-form-tall-label">
+						<select data-placeholder="Choose a font" class="chosen-select font-family" data-font-option-type="pcontent" name="typo_option[pcontent][family]" id="typo_family">' . $this->get_font_options(qa_opt('typo_options_family_pcontent')) . '</select>
+						<select data-placeholder="font style" id="typo_style" name="typo_option[pcontent][style]" class="chosen-select font-style" data-font-option-type="pcontent">
+						' . $this->get_font_style_options(qa_opt('typo_options_family_pcontent'), qa_opt('typo_options_style_pcontent')) . '
+						</select>
+						<div class="input-group font-input" title="Font Size">
+							<span class="input-group-addon">Font Size</span>
+							<input value="' . qa_opt('typo_options_size_pcontent') . '" id="typo_size" name="typo_option[pcontent][size]" type="text" class="form-control font-size" data-font-option-type="pcontent">
+							<span class="input-group-addon">px</span>
+						</div>						
+						<div class="input-group font-input" title="Line Height" >
+							<span class="input-group-addon">Line Height</span>
+							<input value="' . qa_opt('typo_options_linehight_pcontent') . '" id="typo_lineheight" name="typo_option[pcontent][linehight]" type="text" class="form-control font-linehight" data-font-option-type="pcontent">
+							<span class="input-group-addon">px</span>
+						</div>
+						<select data-placeholder="Font Backup" name="typo_option[pcontent][backup]" id="typo_backup" class="chosen-select font-family-backup" data-font-option-type="pcontent">' . $this->get_normal_font_options(qa_opt('typo_options_backup_pcontent')) . '</select>
+						<span class="font-demo"><div class="entry-content">The quick brown fox jumps over the lazy dog.</div></span>
+					</td>
+				</tr>
+				<tr>
+					<th class="qa-form-tall-label">
+						Navigation Links
+					</th>
+					<td class="qa-form-tall-label">
+						<select data-placeholder="Choose a font" class="chosen-select font-family" data-font-option-type="mainnav" name="typo_option[mainnav][family]" id="typo_family">' . $this->get_font_options(qa_opt('typo_options_family_mainnav')) . '</select>
+						<select data-placeholder="font style" id="typo_style" name="typo_option[mainnav][style]" class="chosen-select font-style" data-font-option-type="mainnav">
+						' . $this->get_font_style_options(qa_opt('typo_options_family_mainnav'), qa_opt('typo_options_style_mainnav')) . '
+						</select>
+						<div class="input-group font-input" title="Font Size">
+							<span class="input-group-addon">Font Size</span>
+							<input value="' . qa_opt('typo_options_size_mainnav') . '" id="typo_size" name="typo_option[mainnav][size]" type="text" class="form-control font-size" data-font-option-type="mainnav">
+							<span class="input-group-addon">px</span>
+						</div>						
+						<div class="input-group font-input" title="Line Height" >
+							<span class="input-group-addon">Line Height</span>
+							<input value="' . qa_opt('typo_options_linehight_mainnav') . '" id="typo_lineheight" name="typo_option[mainnav][linehight]" type="text" class="form-control font-linehight" data-font-option-type="mainnav">
+							<span class="input-group-addon">px</span>
+						</div>
+						<select data-placeholder="Font Backup" name="typo_option[mainnav][backup]" id="typo_backup" class="chosen-select font-family-backup" data-font-option-type="mainnav">' . $this->get_normal_font_options(qa_opt('typo_options_backup_mainnav')) . '</select>
+						<span class="font-demo">
+							<div class="left-sidebar">
+								<ul class="qa-nav-main-list" style="font-style: inherit; font-weight: inherit;">
+									<li class="qa-nav-main-item qa-nav-main-questions">
+										<a class="icon-question qa-nav-main-link" href="#" style="font-style: inherit !important;font-size: inherit ! important;font-weight: inherit !important;">Questions</a>
+									</li>
+								</ul>
+							</div>						
+						</span>
+					</td>
+				</tr>
+
+			<tbody>
 			</tbody>
 		</table>
 	</div>

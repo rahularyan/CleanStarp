@@ -38,6 +38,11 @@ $(document).ready(function(){
 	});
 	
 	// Typography
+
+	$(".font-family").chosen({width: "370px",allow_single_deselect: true ,no_results_text: "There is no font with this name!"});
+	$(".font-style").chosen({width: "200px",allow_single_deselect: true});
+	$(".font-family-backup").chosen({width: "260px",allow_single_deselect: true});
+
 	$.each( $( ".font-family" ), function( index, elem ){
 		demo = $(elem).parent().find('.font-demo');
 		var font=demo.parent().children('#typo_family').val();
@@ -62,11 +67,12 @@ $(document).ready(function(){
 		demo.children().css('line-height', font_height + 'px');
 		demo.css('font-size', font_size + 'px');
 		demo.children().css('font-size', font_size + 'px');
+		font_option = $(elem).find('option:selected');
+		if(font_option.attr("font-data-type")!='googlefont'){
+			demo.parent().children('#typo_backup_chosen').hide();
+		}
 	});
 	
-	$(".font-family").chosen({width: "370px",allow_single_deselect: true ,no_results_text: "There is no font with this name!"});
-	$(".font-style").chosen({width: "200px",allow_single_deselect: true});
-	$(".font-family-backup").chosen({width: "260px",allow_single_deselect: true});
 	$( ".font-family, .font-style, .font-family-backup" ).on('change keyup paste',function(){
 		var font=$(this).parent().children('#typo_family').val();
 		var font_backup=$(this).parent().children('#typo_backup').val();

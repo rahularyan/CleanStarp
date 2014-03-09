@@ -67,13 +67,18 @@ if(!(bool)qa_opt('cs_custom_style_created')){
 		$css.= '::selection {background: ' . $color . ';} ::-moz-selection {background: ' . $color . ';}';
 
 	// Typography
-	$typo_elements= array('body', 'h1', 'h2', 'h3', 'h4', 'h5', 'p', 'span', 'quote');
-	foreach ($typo_elements as $elem){
-		$family = qa_opt('typo_options_family_' . $elem);
-		$backup = qa_opt('typo_options_backup_' . $elem);
-		$style = qa_opt('typo_options_style_' . $elem);
-		$size = qa_opt('typo_options_size_' . $elem );
-		$height = qa_opt('typo_options_linehight_' . $elem);
+	$typo_elements= array(
+		'body' => 'body', 'h1' => 'h1', 'h2' => 'h2', 'h3' => 'h3', 'h4' => 'h4', 'h5' => 'h5', 'p' => 'p', 'span' => 'span', 'quote' => 'quote',
+		'qtitle' => '.question-title', 'qtitlelink' => '.qa-q-item-title','pcontent' => '.entry-content', 'mainnav' => '.left-sidebar .qa-nav-main-list .qa-nav-main-item .qa-nav-main-link, .left-sidebar .qa-nav-sub-list .qa-nav-sub-item .qa-nav-sub-link, .qa-nav-main-link',
+	);
+
+	foreach ($typo_elements as $key => $elem){
+
+		$family = qa_opt('typo_options_family_' . $key);
+		$backup = qa_opt('typo_options_backup_' . $key);
+		$style = qa_opt('typo_options_style_' . $key);
+		$size = qa_opt('typo_options_size_' . $key );
+		$height = qa_opt('typo_options_linehight_' . $key);
 		
 		if(($family == '') || ($backup=='')){$connector = '';}else{$connector = ', ';}
 		$font_family = $family . $connector . $backup;

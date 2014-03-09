@@ -13,6 +13,7 @@ function cs_question_meta(){
 			context:this,
 			success: function (response) {				
 				qa_hide_waiting(this);
+				location.reload();
 			},
 		});		
 	});

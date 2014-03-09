@@ -231,7 +231,7 @@ $(document).ready(function(){
 			scrollTop: $(".th_" + adv_count).offset().top
 		}, 800);
 	});
-	$( ".advremove" ).on('click', function(e){
+	$( document ).delegate( ".advremove", "click", function(e) {
 		e.preventDefault();
 		var adv_frame = $(this).parent().parent();
 		adv_list_count =  Number($("#adv_number").val()) - 1;
@@ -293,8 +293,7 @@ $(document).ready(function(){
 		else 
 			$('.social_icon_file_' + $(this).attr('sociallistid')).hide(500);
 	});
-	
-	$( ".social_remove" ).on('click', function(e){
+	$( document ).delegate( ".social_remove", "click", function(e) {
 		e.preventDefault();
 		var social_frame = $(this).parent().parent();
 		social_list_count =  Number($("#social_count").val()) - 1;

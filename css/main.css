@@ -640,8 +640,11 @@ h1,h2,h3,h4,h5,h6, .qa-q-item-title {
 }
 
 .left-sidebar .float-nav {
+    background: none repeat scroll 0 0 #FFFFFF;
 }
-
+.left-sidebar .cs-category-widget, .left-sidebar .ra-tags-widget{
+	display:none;
+}
 .left-sidebar .qa-nav-main {
     background: #fff;
     width: 180px;
@@ -679,7 +682,7 @@ h1,h2,h3,h4,h5,h6, .qa-q-item-title {
     background: #FFFFFF;
     margin: 20px auto 0;
     max-width: 1200px;
-    min-height: 420px;
+    min-height: 800px;
     padding: 15px 0;
 }
 .list-c > .row {
@@ -845,6 +848,9 @@ ul.qa-nav-cat-list-4  > li.qa-nav-cat-item:first-child {
 }
 
 /* ----------Widgets -------------*/
+.widget-c{
+	margin-bottom:20px;
+}
 .widget {
 }
 
@@ -987,8 +993,13 @@ a.feed-link {
     border-bottom: 1px solid rgba(0, 0, 0, 0.04);
     padding: 15px;
 }
+.answer-form .asker-detail {
+	border-bottom:none;
+    margin-bottom: 15px;
+	padding:0;
+}
 .qa-a-form {
-    background: #F9F9F9;
+
 }
 
 .asker-detail .voting-vertical {
@@ -1080,12 +1091,11 @@ a.feed-link {
 }
 
 .question-head .question-meta {
-    background: rgba(0, 0, 0, 0);
     border: medium none;
     font-size: 16px;
     font-weight: 300;
     margin: 0;
-    padding: 0 15px 15px;
+    padding: 0;
 }
 
 .question-head .question-meta > * {
@@ -1114,7 +1124,6 @@ a.feed-link {
     font-size: 26px;
     line-height: 35px;
     margin: 0 0 8px;
-    padding: 15px 15px 0;
 }
 
 .featured-sticker {
@@ -1345,8 +1354,7 @@ a.feed-link {
 }
 
 .answer-f-wrap {
-    background: rgba(0, 0, 0, 0.02);
-    padding: 15px;
+
 }
 
 .answer-f-wrap > h3 {
@@ -2812,15 +2820,21 @@ input[type=checkbox].on-off-checkbox {
 
 
 /* Buttons */
-.qa-form-tall-button-login, .qa-form-tall-button-send, .qa-form-tall-button-register {
-    background: #333333;
+.qa-form-tall-button-login, .qa-form-tall-button-register {
+    background: none repeat scroll 0 0 #333333;
+    border: medium none;
     color: #FFFFFF;
     display: block;
+    margin-top: 20px;
     padding: 12px;
     width: 100%;
-    margin-top: 20px;
 }
-
+.qa-form-tall-button-send{
+    border: medium none;
+    color: #FFFFFF;
+    display: table;
+    padding: 7px 20px;
+}
 /* user page */
 .user-cols {
     display: table;
@@ -4121,4 +4135,7 @@ input[type=checkbox].on-off-checkbox {
   -webkit-box-sizing: content-box;
   -moz-box-sizing: content-box;
   box-sizing: content-box;
+}
+.qa-form-tall-data .cke_toolgroup {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
 }

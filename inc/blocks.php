@@ -121,6 +121,7 @@ class qa_html_theme extends qa_html_theme_base
         $this->output('<script type="text/javascript" src="' . Q_THEME_URL . '/js/jquery.sparkline.min.js"></script>');
         
         $this->output('<script type="text/javascript" src="' . Q_THEME_URL . '/js/jquery-ui.min.js"></script>');
+
         
         if (($this->template == 'question') && (qa_get_logged_in_level() >= QA_USER_LEVEL_ADMIN))
             $this->output('<script type="text/javascript" src="' . Q_THEME_URL . '/js/jquery.uploadfile.min.js"></script>');
@@ -549,6 +550,7 @@ class qa_html_theme extends qa_html_theme_base
         $this->output('<li class="qa-nav-cat-item">');
         $this->nav_link($navlink, $class);
         $this->output('</li>');
+		
         if (count(@$navlink['subnav']) && $show_sub)
             $this->nav_list($navlink['subnav'], $class, 1 + $level);
         
@@ -669,10 +671,10 @@ class qa_html_theme extends qa_html_theme_base
         $this->output('<div class="row home-pos-one">');
         $this->output('<div class="col-md-8">');
         $this->output('<div class="row">');
-        $this->output('<div class="col-md-6">');
+        $this->output('<div class="col-sm-6">');
         $this->cs_position('Home 1 Left');
         $this->output('</div>');
-        $this->output('<div class="col-md-6">');
+        $this->output('<div class="col-sm-6">');
         $this->cs_position('Home 1 Center');
         $this->output('</div>');
         $this->output('</div>');
@@ -684,10 +686,10 @@ class qa_html_theme extends qa_html_theme_base
         
         $this->output('</div>');
         $this->output('<div class="row">');
-        $this->output('<div class="col-md-6">');
+        $this->output('<div class="col-sm-6">');
         $this->cs_position('Home 3 Left');
         $this->output('</div>');
-        $this->output('<div class="col-md-6">');
+        $this->output('<div class="col-sm-6">');
         $this->cs_position('Home 3 Center');
         $this->output('</div>');
         $this->output('</div>');
@@ -983,7 +985,7 @@ class qa_html_theme extends qa_html_theme_base
         
         $state     = @$post['vote_state'];
         $code      = qa_get_form_security_code('vote');
-        $vote_text = ($post['raw']['netvotes'] > 1 || $post['raw']['netvotes'] < (-1)) ? qa_lang('votes') : qa_lang('vote');
+        $vote_text = ($post['raw']['netvotes'] > 1 || $post['raw']['netvotes'] < (-1)) ? qa_lang('cleanstrap/votes') : qa_lang('cleanstrap/vote');
         
         if (isset($post['vote_up_tags']))
             $this->output('<a ' . @$up_tags . ' href="#" data-code="' . $code . '" class=" icon-thumbs-up2 enabled vote-up ' . $state . '"></a>');
@@ -1666,7 +1668,7 @@ class qa_html_theme extends qa_html_theme_base
     
     function nav_list($navigation, $class, $level = null)
     {
-        
+
         if ($class == 'browse-cat') {
             $row = ceil(count($navigation) / 2);
             $this->output('<div class="category-list-page">');
@@ -1716,9 +1718,8 @@ class qa_html_theme extends qa_html_theme_base
         
         $this->output('<li class="panel ra-cat-item' . (@$navlink['opposite'] ? '-opp' : '') . (@$navlink['state'] ? (' ra-cat-' . $navlink['state']) : '') . ' ra-cat-' . $suffix . '">');
         $this->cs_cat_item($navlink, 'cat');
-        
         if (count(@$navlink['subnav']))
-            $this->nav_list($navlink['subnav'], $class, 1 + $level);
+            $this->nav_list($navlink['subnav'], $class, 2);
         
         $this->output('</li>');
     }
@@ -1760,6 +1761,7 @@ class qa_html_theme extends qa_html_theme_base
         $position_active = multi_array_key_exists($position, $widgets);
         
         if (isset($widgets) && $position_active) {
+			$this->output('<div id="' . str_replace(' ', '-', strtolower($position)) . '-position">');
             foreach ($widgets as $w) {
                 
                 if (($w['position'] == $position) && isset($w['param']['locations'][$this->template]) && (bool) $w['param']['locations'][$this->template]) {
@@ -1767,6 +1769,7 @@ class qa_html_theme extends qa_html_theme_base
                     $this->cs_get_widget($w['name'], @$w['param']['locations']['show_title'], $position);
                 }
             }
+			$this->output('</div>');
         }
     }
     
@@ -1776,10 +1779,9 @@ class qa_html_theme extends qa_html_theme_base
         $module = qa_load_module('widget', ltrim($name));
         if (is_object($module)) {
             ob_start();
-            echo '<div id="' . str_replace(' ', '-', strtolower($position)) . '-position" class="widget">';
-            
-            $module->output_widget('side', 'top', $this, $this->template, $this->request, $this->content);
-            echo '</div>';
+			echo '<div class="widget '.strtolower(str_replace(' ', '_', $name)).'">';
+            $module->output_widget('side', 'top', $this, $this->template, $this->request, $this->content);  
+			echo '</div>';			
             $this->output(ob_get_clean());
         }
         return;

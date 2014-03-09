@@ -68,6 +68,9 @@ class qa_html_theme extends qa_html_theme_base
         qa_html_theme_base::head_css();
         $this->output('<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 			<meta http-equiv="X-UA-Compatible" content="IE=edge"> ');
+		$fav = qa_opt('cs_favicon_url');
+		if( $fav )
+			$this->output('<link rel="shortcut icon" href="' .  $fav . '" type="image/x-icon">');
         $this->output('
 
 				<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->

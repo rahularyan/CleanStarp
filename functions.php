@@ -387,7 +387,7 @@ function reset_theme_options(){
 	qa_opt('cs_highlight_bg_color', '');
 	
 	// Typography
-	$typo = array('h1','h2','h3','h4','h5','p','span','quote');
+	$typo = array('h1','h2','h3','h4','h5','p','span','quote','qtitle','qtitlelink','pcontent','mainnav');
 	foreach($typo as $k ){
 		qa_opt('typo_options_family_' . $k , '');
 		qa_opt('typo_options_style_' . $k , '');

@@ -57,11 +57,11 @@ a:hover{
     color:    #aaa;
 }
 
-.on-off-checkbox-container, .pagination {
+.on-off-checkbox-container, .pagination, .question-tags .tags-tag-list li a:hover {
 	border-color:#e45840;
 }
 
-.ra-ask-widget .input-group-btn button, .carousel-control.left, .carousel-control.right, .ajax-file-upload-bar{
+.ra-ask-widget .input-group-btn button, .carousel-control.left, .carousel-control.right, .ajax-file-upload-bar {
     background: none repeat scroll 0 0 #d6313a;
 }
 

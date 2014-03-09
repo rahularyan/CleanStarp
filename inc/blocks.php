@@ -704,24 +704,50 @@ class qa_html_theme extends qa_html_theme_base
     function question_view($content)
     {
         $q_view = $content['q_view'];
+		
+		$featured_image = get_featured_image($q_view['raw']['postid']);
         $this->output('<div class="question-main">');
         $this->cs_position('Content Top');
-        $this->output('<div class="question-head">', '<h2 class="question-title">', $q_view['raw']['title'], '</h2>', '<div class="question-meta">', cs_post_status($q_view), (is_featured($q_view['raw']['postid']) ? '<span class="featured-sticker">' . qa_lang_html('cleanstrap/featured') . '</span>' : ''), 
-        //'<span class="q-view-a-count">'.$q_view['raw']['acount'].' Answers</span>',
-            '<span class="icon-eye-open q-view-v-count">' . $q_view['raw']['views'] . ' ' . qa_lang_html('cleanstrap/views') . '</span>
-						<a class="cat-in icon-folder-close-alt" href="' . cs_cat_path($q_view['raw']['categorybackpath']) . '">' . $q_view['raw']['categoryname'] . '</a>');
-        $this->output('<div class="icon-tags2 question-tags">');
-        $this->post_tags($q_view, 'qa-q-view');
+        $this->output('<div class="question-head">');
+		
+		$this->output('<h2 class="question-title">');
+		$this->favorite();
+		$this->output($q_view['raw']['title']);			
+		$this->output('</h2>'); 
+        
+		$this->output('<div class="question-meta">', cs_post_status($q_view), (is_featured($q_view['raw']['postid']) ? '<span class="featured-sticker icon-star">' . qa_lang_html('cleanstrap/featured') . '</span>' : ''), 
+			'<span class="q-view-a-count">'.$q_view['raw']['acount'].' Answers</span>',
+				'<span class="icon-eye-open q-view-v-count">' . $q_view['raw']['views'] . ' ' . qa_lang_html('cleanstrap/views') . '</span>
+			<a class="cat-in icon-folder-close" href="' . cs_cat_path($q_view['raw']['categorybackpath']) . '">' . $q_view['raw']['categoryname'] . '</a>');
+			
+		$this->output('</div>');
+		
         $this->output('</div>');
-        $this->favorite();
-        $this->output('</div></div>');
         $this->output('<div class="row">');
         $this->output('<div class="col-md-8">');
+		
+		if(!empty($featured_image)){
+			$this->output('<div class="question-image-container">');           
+			$this->output(get_featured_image($q_view['raw']['postid']));
+			$this->output('</div>');
+		}
+		
         $this->main_parts($content);
         $this->output('</div>');
-        $this->output('<div class="col-md-4">');
-        $this->cs_position('Question Right');
+		
+        $this->output('<div class="col-md-4 question-sidebar">');
+			
+			if (!empty($q_view['q_tags'])) {
+				$this->output('<div class="question-tags">');
+				$this->output('<h3 class="tags-label">'.qa_lang('cleanstrap/tags').'</h3>');	
+				$this->post_tag_list($q_view, 'tags');			
+				$this->output('</div>');
+			}
+			$this->question_meta_form();
+						
+			$this->cs_position('Question Right');
         $this->output('</div>');
+		
         $this->output('</div>');
         $this->output('</div>');
     }
@@ -1037,12 +1063,6 @@ class qa_html_theme extends qa_html_theme_base
         
         // this will prevent showing extra sections while Question Edit, close or other action forms
         if (strpos($this->content['title'], $q_view['raw']['title'])) {
-            $this->output('<div class="question-image-container">');
-            $this->question_meta_form();
-            $this->output(get_featured_image($q_view['raw']['postid']));
-            $this->output('</div>');
-            
-            
             $this->output(base64_decode(qa_opt('cs_ads_below_question_title')));
             
             $this->output('<div class="qa-q-view-main">');
@@ -1095,8 +1115,8 @@ class qa_html_theme extends qa_html_theme_base
         if (($this->template == 'question') && (qa_get_logged_in_level() >= QA_USER_LEVEL_ADMIN) && (!empty($q_view)))
             $buttons['featured'] = array(
                 'tags' => 'id="set_featured"',
-                'label' => qa_lang_html('cleanstrap/featured'),
-                'popup' => qa_lang_html('cleanstrap/set_featured'),
+                'label' => !is_featured($q_view['raw']['postid']) ? qa_lang_html('cleanstrap/featured') : qa_lang_html('cleanstrap/unfeatured'),
+                'popup' => !is_featured($q_view['raw']['postid']) ? qa_lang_html('cleanstrap/set_featured') : qa_lang_html('cleanstrap/remove_featured'),
                 'class' => 'icon-star'
             );
         
@@ -1115,13 +1135,13 @@ class qa_html_theme extends qa_html_theme_base
             if ($k == 'unflag')
                 $btn['class'] = 'icon-flag';
             if ($k == 'close')
-                $btn['class'] = 'icon-remove';
+                $btn['class'] = 'icon-cancel';
             if ($k == 'hide')
-                $btn['class'] = 'icon-error';
+                $btn['class'] = 'icon-eye-open';
             if ($k == 'answer')
                 $btn['class'] = 'icon-answer';
             if ($k == 'comment')
-                $btn['class'] = 'icon-comments';
+                $btn['class'] = 'icon-comment';
             if ($k == 'follow')
                 $btn['class'] = 'icon-add-answer';
             
@@ -1180,11 +1200,11 @@ class qa_html_theme extends qa_html_theme_base
             if ($k == 'unflag')
                 $btn['class'] = 'icon-flag';
             if ($k == 'hide')
-                $btn['class'] = 'icon-error';
+                $btn['class'] = 'icon-cancel';
             if ($k == 'reshow')
                 $btn['class'] = 'icon-eye-open';
             if ($k == 'comment')
-                $btn['class'] = 'icon-comments';
+                $btn['class'] = 'icon-answers';
             
             $this->output('<button ' . $btn['tags'] . ' class="btn ' . @$btn['class'] . '" title="' . @$btn['popup'] . '" type="submit">' . @$btn['label'] . '</button>');
         }

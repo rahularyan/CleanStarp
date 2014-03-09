@@ -83,6 +83,8 @@ class qa_html_theme_layer extends qa_html_theme_base
                 qa_opt('cs_users_table_layout', (bool) qa_post_text('cs_users_table_layout'));
                 qa_opt('cs_nav_fixed', (bool) qa_post_text('cs_nav_fixed'));
                 qa_opt('cs_show_icon', (bool) qa_post_text('cs_show_icon'));
+                qa_opt('cs_enable_category_nav', (bool) qa_post_text('cs_enable_category_nav'));
+                qa_opt('cs_enable_ask_button', (bool) qa_post_text('cs_enable_ask_button'));
                 qa_opt('cs_enable_clean_qlist', (bool) qa_post_text('cs_enable_clean_qlist'));
                 qa_opt('cs_enable_default_home', (bool) qa_post_text('cs_enable_default_home'));
                 qa_opt('cs_enable_except', (bool) qa_post_text('cs_enable_except'));
@@ -527,6 +529,30 @@ class qa_html_theme_layer extends qa_html_theme_base
 						<div class="on-off-checkbox-container">
 								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('cs_show_icon') ? ' checked=""' : '') . ' id="cs_show_icon" name="cs_show_icon">
 								<label for="cs_show_icon"></label>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th class="qa-form-tall-label">
+						Ask Button
+						<span class="description">Enable to show Ask Button in header.</span>
+					</th>
+					<td class="qa-form-tall-label">
+						<div class="on-off-checkbox-container">
+								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('cs_enable_ask_button') ? ' checked=""' : '') . ' id="cs_enable_ask_button" name="cs_enable_ask_button">
+								<label for="cs_enable_ask_button"></label>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th class="qa-form-tall-label">
+						Categories Drop down
+						<span class="description">Enable to show Categories List in drop down menu in header.</span>
+					</th>
+					<td class="qa-form-tall-label">
+						<div class="on-off-checkbox-container">
+								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('cs_enable_category_nav') ? ' checked=""' : '') . ' id="cs_enable_category_nav" name="cs_enable_category_nav">
+								<label for="cs_enable_category_nav"></label>
 						</div>
 					</td>
 				</tr>

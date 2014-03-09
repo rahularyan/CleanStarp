@@ -224,7 +224,7 @@ function cs_sparkline(elm){
 	generateSparkline(false);
 
   }
-  
+ /*  
 function cs_load_items(){
 	var winwidth 	= $(window).width(),
 		contwidth 	= $('#site-body').width(),
@@ -249,8 +249,8 @@ function cs_load_items(){
 		
 	}
 
-}
-function cs_ajax_item_resize(){
+} */
+/* function cs_ajax_item_resize(){
 	var winwidth 	= $(window).width(),
 		contwidth 	= $('#site-body').width(),
 		ajaxblockwidth 	= winwidth - contwidth;
@@ -261,7 +261,7 @@ function cs_ajax_item_resize(){
 		$('#ajax-item #ajax-blocks').hide();
 	}
 
-}
+} */
 
 function cs_slide_menu(){
 	$('#slide-mobile-menu').toggle(
@@ -281,7 +281,6 @@ function cs_float_left(){
 	else
 	$(window).scroll(function(){
 		var st = $(this).scrollTop();
-		
 		
 		if(winwidth > 980){
 			$('.left-sidebar').each(function(){
@@ -615,11 +614,13 @@ $(document).ready(function(){
 		});
 	}
 	
-	$('#site-body').css('min-height', $(window).height());
+	//$('#ajax-item').css('min-height', $(window).height());
 	
 	$('.question-label').click(function(){
 		$(this).next().slideToggle()
 	});
+	
+
 /* 	cs_ajax_sub_menu('.qa-nav-sub-recent a');
 	cs_ajax_sub_menu('.qa-nav-sub-hot a');
 	cs_ajax_sub_menu('.qa-nav-sub-votes a');
@@ -641,7 +642,9 @@ $(document).ready(function(){
 	//uncomment this code if you want to use default editor
 /* 	if ((typeof qa_wysiwyg_editor_config == 'object') && $('body').hasClass('qa-template-question'))
 		qa_ckeditor_a_content=CKEDITOR.replace('a_content', window.qa_wysiwyg_editor_config); */
-		
+	//$('.float-nav').css('min-height', $(window).height());
+	//$('#left-sidebar').css('min-height', $(window).height());
+	
 	$('#left-position .widget-title').click(function(){
 		$(this).next().slideToggle(200);
 	});

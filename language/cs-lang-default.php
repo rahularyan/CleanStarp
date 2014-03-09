@@ -66,6 +66,7 @@
 		'all_answers' => 'All answers',
 		'x_activities' => '^\'s activities',
 		'ans' => 'ans',
+		'related_questions' => 'Related questions',
 	);
 	
 

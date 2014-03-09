@@ -7,10 +7,10 @@
 			return array(
 				'style' => 'wide',
 				'fields' => array(
-					'cs_qa_count' => array(
+					'count' => array(
 						'label' => 'Numbers of questions',
 						'type' => 'number',
-						'tags' => 'name="cs_qa_count"',
+						'tags' => 'name="count"',
 						'value' => '10',
 					)
 				),
@@ -51,6 +51,8 @@
 		}
 		function output_widget($region, $place, $themeobject, $template, $request, $qa_content)
 		{
+			$widget_opt = @$themeobject->current_widget['param']['options'];
+
 			require_once QA_INCLUDE_DIR.'qa-db-selects.php';
 			
 			if (@$qa_content['q_view']['raw']['type']!='Q') // question might not be visible, etc...
@@ -61,7 +63,7 @@
 			$userid=qa_get_logged_in_userid();
 			$cookieid=qa_cookie_get();
 			
-			$questions=qa_db_single_select(qa_db_related_qs_selectspec($userid, $questionid, qa_opt('page_size_related_qs')));
+			$questions=qa_db_single_select(qa_db_related_qs_selectspec($userid, $questionid, (int)$widget_opt['count']));
 				
 			$minscore=qa_match_to_min_score(qa_opt('match_related_qs'));
 			
@@ -71,51 +73,33 @@
 
 			$titlehtml=qa_lang_html(count($questions) ? 'main/related_qs_title' : 'main/no_related_qs_title');
 			
-			if ($region=='side') {
-				$themeobject->output(
-					'<div class="qa-related-qs">',
-					'<h2 style="margin-top:0; padding-top:0;">',
-					$titlehtml,
-					'</h2>'
-				);
-				
-				$themeobject->output('<ul class="qa-related-q-list">');
 
-				foreach ($questions as $question)
-					$themeobject->output('<li class="qa-related-q-item"><a href="'.qa_q_path_html($question['postid'], $question['title']).'">'.qa_html($question['title']).'</a></li>');
+			if(@$themeobject->current_widget['param']['locations']['show_title'])
+				$themeobject->output('<h3 class="widget-title">'.qa_lang('cleanstrap/related_questions').'</h3>');
+			
+			$themeobject->output('<div class="ra-rq-widget">');
+				$themeobject->output('<ul>');
 
-				$themeobject->output(
-					'</ul>',
-					'</div>'
-				);
-
-			} else {
-				$themeobject->output(
-					'<h2>',
-					$titlehtml,
-					'</h2>'
-				);
-
-				$q_list=array(
-					'form' => array(
-						'tags' => 'method="post" action="'.qa_self_html().'"',
-
-						'hidden' => array(
-							'code' => qa_get_form_security_code('vote'),
-						),
-					),
+				foreach ($questions as $p){
+					$timeCode = qa_when_to_html(  $p['created']  ,7);
+					$when = @$timeCode['prefix'] . @$timeCode['data'] . @$timeCode['suffix'];
 					
-					'qs' => array(),
-				);
+					$themeobject->output('<li>'.cs_get_post_avatar($p, $p['userid'] ,30, true));
+					
+					$themeobject->output('<div class="post-content">');
+					$themeobject->output('<a class="title" href="'.qa_q_path_html($p['postid'], $p['title']).'">'.qa_html($p['title']).'</a>');
+					$themeobject->output('<div class="meta">');
+					$themeobject->output('<span>' . qa_lang_sub('cleanstrap/x_answers', $p['acount']) . '</span>');     
+					$themeobject->output('<span class="time icon-time">' .  $when . '</span>');
+					$themeobject->output('<span class="vote-count icon-thumbs-up2">' . qa_lang_sub('cleanstrap/x_votes', $p['netvotes']) . '</span>');		
+					$themeobject->output('</div>');
+					$themeobject->output('</div>');
+					
+					$themeobject->output('</li>');
+				}
 				
-				$defaults=qa_post_html_defaults('Q');
-				$usershtml=qa_userids_handles_html($questions);
-				
-				foreach ($questions as $question)
-					$q_list['qs'][]=qa_post_html_fields($question, $userid, $cookieid, $usershtml, null, qa_post_html_options($question, $defaults));
-
-				$themeobject->q_list_and_form($q_list);
-			}
+				$themeobject->output('</ul>');
+			$themeobject->output('</div>');
 		}
 	}
 /*

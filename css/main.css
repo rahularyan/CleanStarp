@@ -4139,3 +4139,38 @@ input[type=checkbox].on-off-checkbox {
 .qa-form-tall-data .cke_toolgroup {
     background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
+
+.ra-rq-widget ul{
+    list-style: none outside none;
+    padding: 0;
+}
+.ra-rq-widget ul li .avatar{
+    float: left;
+    margin-right: 15px;
+    margin-top: 5px;
+}
+.ra-rq-widget ul li{
+	margin-bottom: 10px;
+}
+.ra-rq-widget ul li .post-content{
+	overflow:hidden;
+}
+.ra-rq-widget ul li .post-content .title{
+    font-weight: bold;
+    color: #747474;
+    font-size: 12px;
+}
+.ra-rq-widget ul li a{
+	display:block;
+}
+.ra-rq-widget ul li .post-content .meta {
+    color: #AAAAAA;
+    display: block;
+    font-size: 11px;
+}
+.ra-rq-widget ul li .post-content .meta span{
+	margin-right:10px;
+}
+.ra-rq-widget ul li .post-content .meta span:before{
+	margin-right:5px;
+}

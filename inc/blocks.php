@@ -1760,7 +1760,7 @@ class qa_html_theme extends qa_html_theme_base
         $widgets         = $this->widgets;
         $position_active = multi_array_key_exists($position, $widgets);
         
-        if (isset($widgets) && $position_active) {
+        if (isset($widgets) && $position_active && $this->cs_position_active($position)) {
 			$this->output('<div id="' . str_replace(' ', '-', strtolower($position)) . '-position">');
             foreach ($widgets as $w) {
                 

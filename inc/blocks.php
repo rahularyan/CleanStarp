@@ -815,6 +815,7 @@ class qa_html_theme extends qa_html_theme_base
             $this->output('<div class="list-meta">');
             $this->output(cs_post_status($q_item));
             $this->post_meta($q_item, 'qa-q-item');
+			qa_html_theme_base::view_count($q_item);
             if (qa_opt('cs_show_tags_list')) {
                 $this->output('<span>' . qa_lang('cleanstrap/tagged') . ': </span>');
                 $this->post_tag_list($q_item, 'list-tag');

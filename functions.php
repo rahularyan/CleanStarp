@@ -385,6 +385,7 @@ function reset_theme_options(){
 	qa_opt('cs_link_hover_color', '');
 	qa_opt('cs_highlight_color', '');
 	qa_opt('cs_highlight_bg_color', '');
+	qa_opt('cs_custom_css', '');
 	
 	// Typography
 	$typo = array('h1','h2','h3','h4','h5','p','span','quote','qtitle','qtitlelink','pcontent','mainnav');
@@ -407,7 +408,6 @@ function reset_theme_options(){
 	qa_opt('cs_ads_after_question_content','');
 
 	// footer							
-	qa_opt('cs_ticker_data', '');				
 	qa_opt('cs_footer_copyright', 'Copyright © 2014');
 }
 

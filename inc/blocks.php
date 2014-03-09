@@ -91,7 +91,12 @@ class qa_html_theme extends qa_html_theme_base
             $this->output('<link rel="stylesheet" type="text/css" href="' . Q_THEME_URL . '/css/responsive.css"/>');
             $this->output('<link rel="stylesheet" type="text/css" href="' . Q_THEME_URL . '/css/theme-green.css"/>');
         }
-		$this->output('<link rel="stylesheet" type="text/css" href="' . Q_THEME_URL . '/css/dynamic.css"/>');
+		if (qa_opt('cs_custom_style_created')){
+			$this->output('<link rel="stylesheet" type="text/css" href="' . Q_THEME_URL . '/css/dynamic.css"/>');
+		}else{
+			$css = qa_opt('cs_custom_css');
+			$this->output('<style>' . $css . '</style>');
+		}
 		
         $googlefonts = json_decode(qa_opt('typo_googlefonts'), true);
         if (isset($googlefonts) && !empty($googlefonts))

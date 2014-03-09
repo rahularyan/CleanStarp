@@ -102,8 +102,13 @@ if(!(bool)qa_opt('cs_custom_style_created')){
 		if((!empty($insider)))
 			$css.= $elem . '{' . $insider . '}';
 	}
-	file_put_contents(Q_THEME_DIR.'/css/dynamic.css', $css);
-	qa_opt('cs_custom_style_created', true);
+	$result = file_put_contents(Q_THEME_DIR.'/css/dynamic.css', $css);
+	if ($result){
+		qa_opt('cs_custom_style_created', true);
+	}else{
+		qa_opt('cs_custom_style_created', false);
+		qa_opt('cs_custom_css', $css);
+	}
 }
 
 

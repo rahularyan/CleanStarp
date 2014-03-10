@@ -1069,7 +1069,14 @@ a.feed-link {
     text-transform: lowercase;
     vertical-align: top;
 }
-
+.page-title .fav-parent {
+    float: right;
+    margin-right: 10px;
+}
+.page-title .fav-btn.icon-heart {
+    color: #FFFFFF;
+    width: 28px;
+}
 .entry-content blockquote {
     margin-left: 15px;
 }

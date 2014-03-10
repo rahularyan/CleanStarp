@@ -619,7 +619,10 @@ $(document).ready(function(){
 		$(this).next().slideToggle()
 	});
 	
-
+	$('.form-search .icon-search').click(function(){
+		$('.search-query').focus();
+	});
+	
 /* 	cs_ajax_sub_menu('.qa-nav-sub-recent a');
 	cs_ajax_sub_menu('.qa-nav-sub-hot a');
 	cs_ajax_sub_menu('.qa-nav-sub-votes a');

@@ -578,6 +578,7 @@ class qa_html_theme extends qa_html_theme_base
         if ($this->template != 'user-answers' && $this->template != 'user-questions' && $this->template != 'user-activity' && $this->template != 'user-wall' && $this->template != 'question' && $this->template != 'user' && (!strlen(qa_request(1)) == 0) && (!empty($this->content['title']))) {
             $this->output('<h1 class="page-title">', $this->content['title']);
             $this->feed();
+			$this->favorite();
             $this->output('</h1>');
         }
         if ($this->cs_position_active('Header')) {

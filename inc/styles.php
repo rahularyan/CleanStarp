@@ -5,7 +5,6 @@ if (!defined('QA_VERSION')) {
 		exit;
 }
 
-if(!(bool)qa_opt('cs_custom_style_created')){
 	// Background customizations
 	$p_url = $this->theme_url . '/images/patterns/';
 	$css = '';
@@ -65,7 +64,10 @@ if(!(bool)qa_opt('cs_custom_style_created')){
 	$color = qa_opt('cs_highlight_bg_color');
 	if (!(empty($color)))
 		$css.= '::selection {background: ' . $color . ';} ::-moz-selection {background: ' . $color . ';}';
-
+	// ask button color
+	$color = qa_opt('cs_ask_btn_bg');
+	if (!(empty($color)))
+		$css.= '#nav-ask-btn{background-color: ' . $color . ' !important;}';
 	// Typography
 	$typo_elements= array(
 		'body' => 'body', 'h1' => 'h1', 'h2' => 'h2', 'h3' => 'h3', 'h4' => 'h4', 'h5' => 'h5', 'p' => 'p', 'span' => 'span', 'quote' => 'quote',
@@ -109,7 +111,6 @@ if(!(bool)qa_opt('cs_custom_style_created')){
 		qa_opt('cs_custom_style_created', false);
 		qa_opt('cs_custom_css', $css);
 	}
-}
 
 
 /*

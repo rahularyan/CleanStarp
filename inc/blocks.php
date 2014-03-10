@@ -1736,11 +1736,13 @@ class qa_html_theme extends qa_html_theme_base
             $this->output('<ul class="qa-' . $class . '-list' . (isset($level) ? (' qa-' . $class . '-list-' . $level) : '') . '">');
             
             $index = 0;
-            
+
             foreach ($navigation as $key => $navlink) {
-                $this->set_context('nav_key', $key);
-                $this->set_context('nav_index', $index++);
-                $this->nav_item($key, $navlink, $class, $level);
+				if (count($navlink)>1){
+					$this->set_context('nav_key', $key);
+					$this->set_context('nav_index', $index++);
+					$this->nav_item($key, $navlink, $class, $level);
+				}
             }
             
             $this->clear_context('nav_key');

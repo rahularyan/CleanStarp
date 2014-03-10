@@ -101,7 +101,9 @@ h1,h2,h3,h4,h5,h6, .qa-q-item-title {
 
 .navbar-site-logo {
 }
-
+.navbar-default > .btn.header-ask-button {
+    display: none;
+}
 .site-logo {
     float: left;
     height: 45px;

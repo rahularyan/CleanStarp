@@ -13,7 +13,6 @@
 		bottom: 0;
 		max-width: 0;
 		overflow: hidden;
-		position: fixed;
 		top: 47px;
 	}
 	.carousel .carousel-inner .row > .col-sm-3{

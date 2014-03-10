@@ -1847,6 +1847,19 @@ table.page-users-list {
 .qa-part-form-profile table, .qa-part-form-password table {
     width: 100%;
 }
+.qa-form-wide-table {
+    width: 98%;
+}
+.qa-form-wide-label {
+    width: 40%;
+}
+input.qa-form-wide-number{
+    display: inline-block;
+    width: auto;
+}
+.qa-form-wide-data {
+    padding: 2px 0;
+}
 
 .qa-part-form-profile .qa-form-wide-label, .qa-part-form-password .qa-form-wide-label {
     font-weight: 600;

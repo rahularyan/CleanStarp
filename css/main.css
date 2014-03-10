@@ -566,7 +566,7 @@ h1,h2,h3,h4,h5,h6, .qa-q-item-title {
 .qa-q-list .qa-q-list-item .qa-q-item-title {
     font-size: 16px;
     font-weight: 400;
-    line-height: 28px;
+    line-height: 22px;
 }
 
 .qa-q-list .qa-q-list-item .qa-q-item-stats {
@@ -1455,21 +1455,25 @@ a.feed-link {
 }
 
 #ra-alert {
-    background: #FF4F4F;
-    color: #FFFFFF;
-    font-size: 18px;
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-top: 3px solid #FF4F4F;
+    color: #333333;
+    font-size: 14px;
     position: fixed;
     text-shadow: none;
     top: 0;
 }
 
 .qa-error {
-    background: #FF4F4F;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 2px;
-    color: #FFFFFF;
-    font-size: 16px;
-    padding: 15px;
+    border-color: #FF4F4F rgba(0, 0, 0, 0) #EEEEEE;
+    border-image: none;
+    border-radius: 0;
+    border-style: solid none;
+    border-width: 3px medium 19px;
+    color: #777777;
+    font-size: 14px;
+    margin: -15px -15px 16px;
+    padding: 8px;
     text-align: center;
 }
 
@@ -3858,12 +3862,11 @@ input[type=checkbox].on-off-checkbox {
 	vertical-align: top;
 }
 .user-activities .what-task{
-    display: table-cell;
+    color: #777777;
     font-size: 12px;
+    font-weight: bold;
     margin-right: 15px;
     text-transform: capitalize;
-    vertical-align: top;
-    width: 80px;
 }
 .user-activities .list-right{
     display: table;
@@ -4089,7 +4092,7 @@ input[type=checkbox].on-off-checkbox {
 	border-top: 1px solid #F8F8F8;
 }
 .qa-q-list.clean .qa-q-list-item {
-    padding: 5px 0;
+    padding: 5px 10px;
 }
 .qa-q-list.clean .list-meta{
 	display:none;
@@ -4248,4 +4251,10 @@ input[type=checkbox].on-off-checkbox {
 }
 .ra-rq-widget ul li .post-content .meta span:before{
 	margin-right:5px;
+}
+
+.slide-mobile-menu.icon-list {
+    float: left;
+    font-size: 45px;
+	display:none;
 }

@@ -1664,7 +1664,6 @@ class qa_html_theme extends qa_html_theme_base
         }
         die();
     }
-    
     function cs_ajax_delete_widget()
     {
         if (qa_get_logged_in_level() >= QA_USER_LEVEL_ADMIN) {
@@ -1673,24 +1672,33 @@ class qa_html_theme extends qa_html_theme_base
         }
         die();
     }
-    
+	
     function nav_list($navigation, $class, $level = null)
     {
-        
+     
+
         if ($class == 'browse-cat') {
             $row = ceil(count($navigation) / 2);
-            $this->output('<div class="category-list-page">');
-            $this->output('<div class="row"><div class="col-lg-6"><ul class="page-cat-list">');
-            
+            $this->output('<div class="category-list-page"><div class="row">');
+            if($level < 2)
+    $this->output('<div class="col-lg-6"><ul class="page-cat-list">');
+   else
+    $this->output('<div class="col-lg-12"><ul class="page-cat-list">');
+
             $index = 0;
             $i     = 1;
             foreach ($navigation as $key => $navlink) {
                 $this->set_context('nav_key', $key);
                 $this->set_context('nav_index', $index++);
-                $this->cs_cat_items($key, $navlink, '');
-                if ($row == $i)
-                    $this->output('</ul></div><div class="col-lg-6"><ul class="page-cat-list">');
-                
+                $this->cs_cat_items($key, $navlink, $class, $level);
+                if ($row == $i){
+                    $this->output('</ul></div>');
+                     if($level < 2)
+      $this->output('<div class="col-lg-6"><ul class="page-cat-list">');
+     else
+      $this->output('<div class="col-lg-12"><ul class="page-cat-list">');
+    }
+
                 $i++;
             }
             

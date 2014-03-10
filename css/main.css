@@ -3087,8 +3087,7 @@ input[type=checkbox].on-off-checkbox {
 }
 
 .image-preview {
-    margin: 10px;
-    max-width: 285px;
+	width: 100%;
 }
 
 .ajax-file-upload-statusbar {
@@ -3833,7 +3832,6 @@ input[type=checkbox].on-off-checkbox {
     margin-top: 5px;
 }
 .question-image-container {
-    border: 1px solid #F0F0F0;
     margin-bottom: 25px;
     min-height: 60px;
 }
@@ -4270,4 +4268,23 @@ input[type=checkbox].on-off-checkbox {
     float: left;
     font-size: 45px;
 	display:none;
+}
+
+.page-cat-list .page-cat-list li{
+    box-shadow: 0 0;
+    margin: 0;
+    padding: 0;	
+}
+.page-cat-list .page-cat-list li h4{
+    color: #333333;
+    font-size: 13px;
+    font-weight: bold;
+}
+.page-cat-list .page-cat-list .ra-cat-item h4 span{
+    background: none repeat scroll 0 0 #EEEEEE;
+    font-weight: normal;
+    padding: 4px 5px;
+}
+.page-cat-list .page-cat-list .ra-cat-item h4 span a{
+	color: #777777;
 }

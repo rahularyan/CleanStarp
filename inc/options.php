@@ -1340,7 +1340,7 @@ class qa_html_theme_layer extends qa_html_theme_base
                 $this->q_list_item($q_item);
                 if (isset($advertisments[$i])) {
                     foreach ($advertisments[$i] as $k => $adv) {
-                        $this->output('<div class="qm-advertisement">');
+                        $this->output('<div class="cs-advertisement">');
                         if (isset($adv['adv_adsense']))
                             $this->output($adv['adv_adsense']);
                         else {

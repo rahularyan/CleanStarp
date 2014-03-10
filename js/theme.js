@@ -270,10 +270,10 @@ function cs_slide_menu(){
 	$('.slide-mobile-menu').toggle(
 		function() {
 			$('.left-sidebar').animate({'max-width':180}, 200);
-			//$('.qa-main').animate({'width': $('.qa-main').width(), 'margin-left':190},200);
+			$('.qa-main').animate({'width': $('.qa-main').width()},200);
 		}, function() {			
-			$('.left-sidebar').animate({'max-width':0}, 200);
-			//$('.qa-main').animate({'width': 'auto', 'margin-left':10}, 200, function(){$(this).removeAttr('style')});
+			$('.left-sidebar').animate({'max-width':0}, 200, function(){$(this).removeAttr('style')});
+			$('.qa-main').animate({'width': 'auto'}, 200, function(){$(this).removeAttr('style')});
 		}
 	);
 }

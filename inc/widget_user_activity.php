@@ -106,8 +106,8 @@
 					$output .='<li class="activity-item">';					
 					$output .= '<div class="list-right">';
 					$output .= '<div class="type pull-left '.$icon.'"></div>';					
-					$output .= '<a class="what-task" href="'.@$qs['url'].'">'.$qs['what'].'</a>';
-					$output .= '<a class="what" href="'.$qs['url'].'">'.$qs['title'].'</a>';
+					$output .= '<div class="what"><a class="what-task" href="'.@$qs['url'].'">'.$qs['what'].'</a>';
+					$output .= '<a href="'.$qs['url'].'">'.$qs['title'].'</a> </div>';
 					$output .= '<strong class="when">'.implode(' ', $qs['when']).'</strong>';					
 					$output .= '</div>';
 					$output .='</li>';

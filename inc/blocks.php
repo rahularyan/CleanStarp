@@ -166,11 +166,8 @@ class qa_html_theme extends qa_html_theme_base
         $this->cs_position('Top');
         
         $this->output('<header id="site-header" class="clearfix">', '<div class="navbar-default" role="navigation">');
-        $this->output('<a href="#" id="slide-mobile-menu"></a>');
+        $this->output('<a href="#" class="slide-mobile-menu icon-list"></a>');
         $this->logo();
-        
-        //$this->nav('sub');	
-        //$this->nav('user');
         
         if (qa_opt('cs_enable_ask_button'))
 			$this->output('<a id="nav-ask-btn" href="' . qa_path_html('ask') . '" class="btn btn-sm">' . qa_lang_html('cleanstrap/ask_question') . '</a>');
@@ -1571,7 +1568,7 @@ class qa_html_theme extends qa_html_theme_base
                 $this->output('
 					<div class="no-items">
 					<h3 class="icon-sad">' . qa_lang('cleanstrap/no_tags') . '</h3>
-					<p>' . qa_lang('no_results_detail') . '</p>
+					<p>' . qa_lang('cleanstrap/no_results_detail') . '</p>
 					</div>');
             
         } else {

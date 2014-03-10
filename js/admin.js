@@ -38,6 +38,11 @@ $(document).ready(function(){
 	});
 	
 	// Typography
+
+	$(".font-family").chosen({width: "370px",allow_single_deselect: true ,no_results_text: "There is no font with this name!"});
+	$(".font-style").chosen({width: "200px",allow_single_deselect: true});
+	$(".font-family-backup").chosen({width: "260px",allow_single_deselect: true});
+
 	$.each( $( ".font-family" ), function( index, elem ){
 		demo = $(elem).parent().find('.font-demo');
 		var font=demo.parent().children('#typo_family').val();
@@ -62,11 +67,12 @@ $(document).ready(function(){
 		demo.children().css('line-height', font_height + 'px');
 		demo.css('font-size', font_size + 'px');
 		demo.children().css('font-size', font_size + 'px');
+		font_option = $(elem).find('option:selected');
+		if(font_option.attr("font-data-type")!='googlefont'){
+			demo.parent().children('#typo_backup_chosen').hide();
+		}
 	});
 	
-	$(".font-family").chosen({width: "370px",allow_single_deselect: true ,no_results_text: "There is no font with this name!"});
-	$(".font-style").chosen({width: "200px",allow_single_deselect: true});
-	$(".font-family-backup").chosen({width: "260px",allow_single_deselect: true});
 	$( ".font-family, .font-style, .font-family-backup" ).on('change keyup paste',function(){
 		var font=$(this).parent().children('#typo_family').val();
 		var font_backup=$(this).parent().children('#typo_backup').val();
@@ -130,18 +136,25 @@ $(document).ready(function(){
 	});
 	
 	// Scroll
+	function scroll_check(){
+		if ($(document).height() <= $(window).scrollTop() + $(window).height() + 120) {
+			$('.form-button-holder').css({"position":"inherit"});
+			$('.form-button-holder').css({"width" : "auto"});
+		} else {
+			$('.form-button-holder').css({"position":"fixed"});
+			var width= $('.form-button-sticky-footer').css("width");
+			$('.form-button-holder').css({"width" : width});
+			$('.form-button-holder').css({"bottom":"0"});
+		}
+	}
+	scroll_check();
 	$(function () {
 		$(window).scroll(function () {
-			if ($(document).height() <= $(window).scrollTop() + $(window).height() + 120) {
-				$('.form-button-holder').css({"position":"inherit"});
-				$('.form-button-holder').css({"width" : "auto"});
-			} else {
-				$('.form-button-holder').css({"position":"fixed"});
-				var width= $('.form-button-sticky-footer').css("width");
-				$('.form-button-holder').css({"width" : width});
-				$('.form-button-holder').css({"bottom":"0"});
-			}
+			scroll_check();
 		});
+	});
+	$('.ra-option-tabs').on('click', function(e){
+		scroll_check();
 	});
 	
 	// Styling
@@ -218,7 +231,7 @@ $(document).ready(function(){
 			scrollTop: $(".th_" + adv_count).offset().top
 		}, 800);
 	});
-	$( ".advremove" ).on('click', function(e){
+	$( document ).delegate( ".advremove", "click", function(e) {
 		e.preventDefault();
 		var adv_frame = $(this).parent().parent();
 		adv_list_count =  Number($("#adv_number").val()) - 1;
@@ -280,8 +293,7 @@ $(document).ready(function(){
 		else 
 			$('.social_icon_file_' + $(this).attr('sociallistid')).hide(500);
 	});
-	
-	$( ".social_remove" ).on('click', function(e){
+	$( document ).delegate( ".social_remove", "click", function(e) {
 		e.preventDefault();
 		var social_frame = $(this).parent().parent();
 		social_list_count =  Number($("#social_count").val()) - 1;

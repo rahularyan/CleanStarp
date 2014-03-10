@@ -1455,9 +1455,9 @@ a.feed-link {
 }
 
 #ra-alert {
-    background: none repeat scroll 0 0 #FFFFFF;
-    border-top: 3px solid #FF4F4F;
-    color: #333333;
+    background:none repeat scroll 0 0 #FFFFFF;
+	border-top: 3px solid #FF4F4F;
+	color: #333333;
     font-size: 14px;
     position: fixed;
     text-shadow: none;
@@ -1846,6 +1846,19 @@ table.page-users-list {
 
 .qa-part-form-profile table, .qa-part-form-password table {
     width: 100%;
+}
+.qa-form-wide-table {
+    width: 98%;
+}
+.qa-form-wide-label {
+    width: 40%;
+}
+input.qa-form-wide-number{
+    display: inline-block;
+    width: auto;
+}
+.qa-form-wide-data {
+    padding: 2px 0;
 }
 
 .qa-part-form-profile .qa-form-wide-label, .qa-part-form-password .qa-form-wide-label {
@@ -3868,6 +3881,7 @@ input[type=checkbox].on-off-checkbox {
     margin-right: 15px;
     text-transform: capitalize;
 }
+
 .user-activities .list-right{
     display: table;
     width: 100%;
@@ -4252,7 +4266,6 @@ input[type=checkbox].on-off-checkbox {
 .ra-rq-widget ul li .post-content .meta span:before{
 	margin-right:5px;
 }
-
 .slide-mobile-menu.icon-list {
     float: left;
     font-size: 45px;

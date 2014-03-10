@@ -68,6 +68,9 @@ class qa_html_theme extends qa_html_theme_base
         qa_html_theme_base::head_css();
         $this->output('<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 			<meta http-equiv="X-UA-Compatible" content="IE=edge"> ');
+		$fav = qa_opt('cs_favicon_url');
+		if( $fav )
+			$this->output('<link rel="shortcut icon" href="' .  $fav . '" type="image/x-icon">');
         $this->output('
 
 				<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -87,9 +90,14 @@ class qa_html_theme extends qa_html_theme_base
             $this->output('<link rel="stylesheet" type="text/css" href="' . Q_THEME_URL . '/css/wide.css"/>');
             $this->output('<link rel="stylesheet" type="text/css" href="' . Q_THEME_URL . '/css/responsive.css"/>');
             $this->output('<link rel="stylesheet" type="text/css" href="' . Q_THEME_URL . '/css/theme-green.css"/>');
-            $this->output('<link rel="stylesheet" type="text/css" href="' . Q_THEME_URL . '/css/dynamic.css"/>');
         }
-        
+		if (qa_opt('cs_custom_style_created')){
+			$this->output('<link rel="stylesheet" type="text/css" href="' . Q_THEME_URL . '/css/dynamic.css"/>');
+		}else{
+			$css = qa_opt('cs_custom_css');
+			$this->output('<style>' . $css . '</style>');
+		}
+		
         $googlefonts = json_decode(qa_opt('typo_googlefonts'), true);
         if (isset($googlefonts) && !empty($googlefonts))
             foreach ($googlefonts as $font_name) {
@@ -161,8 +169,10 @@ class qa_html_theme extends qa_html_theme_base
         $this->output('<a href="#" class="slide-mobile-menu icon-list"></a>');
         $this->logo();
         
-        $this->output('<a id="nav-ask-btn" href="' . qa_path_html('ask') . '" class="btn btn-sm">' . qa_lang_html('cleanstrap/ask_question') . '</a>');
-        $this->cat_drop_nav();
+        if (qa_opt('cs_enable_ask_button'))
+			$this->output('<a id="nav-ask-btn" href="' . qa_path_html('ask') . '" class="btn btn-sm">' . qa_lang_html('cleanstrap/ask_question') . '</a>');
+        if ( (qa_opt('cs_enable_category_nav')) && (qa_using_categories()) )
+			$this->cat_drop_nav();
         $this->user_drop_nav();
         $this->search();
         $this->output('</div>', '</header>');
@@ -807,6 +817,7 @@ class qa_html_theme extends qa_html_theme_base
             $this->output('<div class="list-meta">');
             $this->output(cs_post_status($q_item));
             $this->post_meta($q_item, 'qa-q-item');
+			qa_html_theme_base::view_count($q_item);
             if (qa_opt('cs_show_tags_list')) {
                 $this->output('<span>' . qa_lang('cleanstrap/tagged') . ': </span>');
                 $this->post_tag_list($q_item, 'list-tag');
@@ -1685,21 +1696,30 @@ class qa_html_theme extends qa_html_theme_base
     
     function nav_list($navigation, $class, $level = null)
     {
+     
 
         if ($class == 'browse-cat') {
             $row = ceil(count($navigation) / 2);
-            $this->output('<div class="category-list-page">');
-            $this->output('<div class="row"><div class="col-lg-6"><ul class="page-cat-list">');
-            
+            $this->output('<div class="category-list-page"><div class="row">');
+            if($level < 2)
+    $this->output('<div class="col-lg-6"><ul class="page-cat-list">');
+   else
+    $this->output('<div class="col-lg-12"><ul class="page-cat-list">');
+
             $index = 0;
-            $i     = 1;
+            $i = 1;
             foreach ($navigation as $key => $navlink) {
                 $this->set_context('nav_key', $key);
                 $this->set_context('nav_index', $index++);
-                $this->cs_cat_items($key, $navlink, '');
-                if ($row == $i)
-                    $this->output('</ul></div><div class="col-lg-6"><ul class="page-cat-list">');
-                
+                $this->cs_cat_items($key, $navlink, $class, $level);
+                if ($row == $i){
+                    $this->output('</ul></div>');
+                     if($level < 2)
+      $this->output('<div class="col-lg-6"><ul class="page-cat-list">');
+     else
+      $this->output('<div class="col-lg-12"><ul class="page-cat-list">');
+    }
+
                 $i++;
             }
             
@@ -1726,6 +1746,7 @@ class qa_html_theme extends qa_html_theme_base
             $this->output('</ul>');
         }
     }
+
     function cs_cat_items($key, $navlink, $class, $level = null)
     {
         $suffix = strtr($key, array( // map special character in navigation key
@@ -1882,7 +1903,7 @@ class qa_html_theme extends qa_html_theme_base
             
             $this->output('
 					<div class="question-image" id="question-meta">
-						<btn data-args="' . qa_get_form_security_code('delete-image') . '_' . $postid . '" id="q_meta_remove_featured_image" class="qa-form-light-button qa-form-light-button-features " title="Remove featured image" type="submit" name="q_meta_remove_featured_image">' . qa_lang_html('cleanstrap/delete') . '</btn>
+						<btn data-args="' . qa_get_form_security_code('delete-image') . '_' . $postid . '" ' . ((isset( $featured_image_name ))? '':'style="display:none;"') . ' id="q_meta_remove_featured_image" class="qa-form-light-button qa-form-light-button-features " title="Remove featured image" type="submit" name="q_meta_remove_featured_image">' . qa_lang_html('cleanstrap/delete') . '</btn>
 						<div id="fileuploader">' . qa_lang_html('cleanstrap/upload') . '</div>
 					
 					</div>

@@ -332,23 +332,30 @@ function cs_social_icons(){
 
 
 function reset_theme_options(){
-	// General
 	qa_opt('cs_custom_style','');
-	qa_opt('cs_logo_show', true);
+	// General
 	qa_opt('logo_url', Q_THEME_URL . '/images/logo.png');
 	qa_opt('cs_favicon_url', '');
-	qa_opt('cs_google_analytics', '');	
-	qa_opt('cs_colla_comm', false);
-	qa_opt('cs_show_real_name', true);
+	qa_opt('cs_featured_image_width', 800);
+	qa_opt('cs_featured_image_height', 300);
+	qa_opt('cs_featured_thumbnail_width', 278);
+	qa_opt('cs_featured_thumbnail_height', 120);
+	qa_opt('cs_crop_x', 'c');
+	qa_opt('cs_crop_y', 'c');
+	
+	
+	
 	
 	// Layout
 	qa_opt('cs_theme_layout', 'boxed');
-	qa_opt('cs_users_table_layout', false);
 	qa_opt('cs_nav_fixed', true);	
 	qa_opt('cs_show_icon', true);	
+	qa_opt('cs_enable_ask_button', true);	
+	qa_opt('cs_enable_category_nav', true);	
+	qa_opt('cs_enable_clean_qlist', true);	
+	qa_opt('cs_enable_default_home', true);	
 	qa_opt('cs_enable_except', false);
 	qa_opt('cs_except_len', 240);
-	qa_opt('cs_enable_avatar_lists', false);
 	if ((int)qa_opt('avatar_q_list_size')>0){
 		qa_opt('avatar_q_list_size',35);
 		qa_opt('cs_enable_avatar_lists', true);
@@ -378,9 +385,11 @@ function reset_theme_options(){
 	qa_opt('cs_link_hover_color', '');
 	qa_opt('cs_highlight_color', '');
 	qa_opt('cs_highlight_bg_color', '');
+	qa_opt('cs_ask_btn_bg', '');
+	qa_opt('cs_custom_css', '');
 	
 	// Typography
-	$typo = array('h1','h2','h3','h4','h5','p','span','quote');
+	$typo = array('h1','h2','h3','h4','h5','p','span','quote','qtitle','qtitlelink','pcontent','mainnav');
 	foreach($typo as $k ){
 		qa_opt('typo_options_family_' . $k , '');
 		qa_opt('typo_options_style_' . $k , '');
@@ -400,7 +409,6 @@ function reset_theme_options(){
 	qa_opt('cs_ads_after_question_content','');
 
 	// footer							
-	qa_opt('cs_ticker_data', '');				
 	qa_opt('cs_footer_copyright', 'Copyright © 2014');
 }
 
@@ -423,8 +431,10 @@ function get_featured_image($postid){
 	$img =  qa_db_postmeta_get($postid, 'featured_image');
 
 	if (!empty($img))
-		return '<img class="featured-image" src="'.Q_THEME_URL . '/uploads/' . $img.'" />';
-	
+		return '<img class="image-preview" id="image-preview" src="'.Q_THEME_URL . '/uploads/' . $img.'" />';
+	else
+		return '<img class="image-preview" id="image-preview" style="display:none;" src="" />';
+		
 	return false;
 }
 function cs_cat_path($categorybackpath){

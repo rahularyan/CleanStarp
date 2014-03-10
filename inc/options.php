@@ -67,9 +67,6 @@ class qa_html_theme_layer extends qa_html_theme_base
                 // General
                 qa_opt('logo_url', qa_post_text('cs_logo_field'));
                 qa_opt('cs_favicon_url', qa_post_text('cs_favicon_field'));
-                qa_opt('cs_google_analytics', qa_post_text('cs_google_analytics'));
-                qa_opt('cs_colla_comm', (bool) qa_post_text('cs_colla_comm'));
-                qa_opt('cs_show_real_name', (bool) qa_post_text('cs_show_real_name'));
                 qa_opt('cs_enable_gzip', (bool) qa_post_text('cs_enable_gzip'));
                 qa_opt('cs_featured_image_width', (int) qa_post_text('cs_featured_image_width'));
                 qa_opt('cs_featured_image_height', (int) qa_post_text('cs_featured_image_height'));
@@ -80,9 +77,10 @@ class qa_html_theme_layer extends qa_html_theme_base
                 
                 // Layout
                 qa_opt('cs_theme_layout', qa_post_text('cs_theme_layout'));
-                qa_opt('cs_users_table_layout', (bool) qa_post_text('cs_users_table_layout'));
                 qa_opt('cs_nav_fixed', (bool) qa_post_text('cs_nav_fixed'));
                 qa_opt('cs_show_icon', (bool) qa_post_text('cs_show_icon'));
+                qa_opt('cs_enable_ask_button', (bool) qa_post_text('cs_enable_ask_button'));
+                qa_opt('cs_enable_category_nav', (bool) qa_post_text('cs_enable_category_nav'));
                 qa_opt('cs_enable_clean_qlist', (bool) qa_post_text('cs_enable_clean_qlist'));
                 qa_opt('cs_enable_default_home', (bool) qa_post_text('cs_enable_default_home'));
                 qa_opt('cs_enable_except', (bool) qa_post_text('cs_enable_except'));
@@ -97,11 +95,6 @@ class qa_html_theme_layer extends qa_html_theme_base
                 qa_opt('cs_horizontal_voting_btns', (bool) qa_post_text('cs_horizontal_voting_btns'));
                 qa_opt('cs_enble_back_to_top', (bool) qa_post_text('cs_enble_back_to_top'));
                 qa_opt('cs_back_to_top_location', qa_post_text('cs_back_to_top_location'));
-                
-                qa_opt('cs_home_layout', qa_post_text('cs_home_layout'));
-                qa_opt('cs_list_layout', qa_post_text('cs_list_layout'));
-                qa_opt('cs_nav_parent_font_size', qa_post_text('cs_nav_parent_font_size'));
-                qa_opt('cs_nav_child_font_size', qa_post_text('cs_nav_child_font_size'));
                 
                 // Styling
                 qa_opt('cs_styling_duplicate_question', (bool) qa_post_text('cs_styling_duplicate_question'));
@@ -122,7 +115,7 @@ class qa_html_theme_layer extends qa_html_theme_base
                 qa_opt('cs_link_hover_color', qa_post_text('cs_link_hover_color'));
                 qa_opt('cs_highlight_color', qa_post_text('cs_highlight_color'));
                 qa_opt('cs_highlight_bg_color', qa_post_text('cs_highlight_bg_color'));
-                qa_opt('cs_custom_style_created', false);
+                qa_opt('cs_ask_btn_bg', qa_post_text('cs_ask_btn_bg'));
                 require_once($this->theme_directory . '/inc/styles.php'); // Generate customized CSS styling				
                 
                 // Typography
@@ -133,9 +126,12 @@ class qa_html_theme_layer extends qa_html_theme_base
                     qa_opt('typo_options_style_' . $k, $options['style']);
                     qa_opt('typo_options_size_' . $k, $options['size']);
                     qa_opt('typo_options_linehight_' . $k, $options['linehight']);
-                    qa_opt('typo_options_backup_' . $k, $options['backup']);
-                    if ((isset($google_webfonts[$options['family']])) && (!(in_array($options['family'], $google_fonts))))
+                    if ((isset($google_webfonts[$options['family']])) && (!(in_array($options['family'], $google_fonts)))){
                         $google_fonts[] = $options['family'];
+						qa_opt('typo_options_backup_' . $k, $options['backup']);
+					}else{
+						qa_opt('typo_options_backup_' . $k, '');
+					}
                 }
                 qa_opt('typo_googlefonts', json_encode($google_fonts));
                 
@@ -370,18 +366,6 @@ class qa_html_theme_layer extends qa_html_theme_base
 			<tbody>
 				<tr>
 					<th class="qa-form-tall-label">
-						Analytics tracking
-						<span class="description">Paste your Google Analytics or other tracking code. This will be loaded in the footer.</span>
-					</th>
-					<td class="qa-form-tall-data">
-						<textarea class="form-control" cols="40" rows="3" name="cs_google_analytics">' . qa_opt('cs_google_analytics') . '</textarea>
-					</td>
-				</tr>
-			</tbody>
-
-			<tbody>
-				<tr>
-					<th class="qa-form-tall-label">
 						Compression
 						<span class="description">Use Gzip compression to increase loading speed</span>
 					</th>
@@ -493,23 +477,7 @@ class qa_html_theme_layer extends qa_html_theme_base
 			<tbody>
 				<tr>
 					<th class="qa-form-tall-label">
-						User list in table
-						<span class="description">ADD DETAIL.</span>
-					</th>
-					<td class="qa-form-tall-label">
-						<div class="on-off-checkbox-container">
-								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('cs_users_table_layout') ? ' checked=""' : '') . ' id="cs_users_table_layout" name="cs_users_table_layout">
-							<label for="cs_users_table_layout">
-							</label>
-						</div>
-					</td>
-				</tr>
-			</tbody>
-			<tbody>
-				<tr>
-					<th class="qa-form-tall-label">
 						Fixed Navigation
-						<span class="description">ADD DETAIL.</span>
 					</th>
 					<td class="qa-form-tall-label">
 						<div class="on-off-checkbox-container">
@@ -521,12 +489,35 @@ class qa_html_theme_layer extends qa_html_theme_base
 				<tr>
 					<th class="qa-form-tall-label">
 						Show menu Icon
-						<span class="description">ADD DETAIL.</span>
 					</th>
 					<td class="qa-form-tall-label">
 						<div class="on-off-checkbox-container">
 								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('cs_show_icon') ? ' checked=""' : '') . ' id="cs_show_icon" name="cs_show_icon">
 								<label for="cs_show_icon"></label>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th class="qa-form-tall-label">
+						Ask Button
+						<span class="description">Enable to show Ask Button in header.</span>
+					</th>
+					<td class="qa-form-tall-label">
+						<div class="on-off-checkbox-container">
+								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('cs_enable_ask_button') ? ' checked=""' : '') . ' id="cs_enable_ask_button" name="cs_enable_ask_button">
+								<label for="cs_enable_ask_button"></label>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th class="qa-form-tall-label">
+						Categories Drop down
+						<span class="description">Enable to show Categories List in drop down menu in header.</span>
+					</th>
+					<td class="qa-form-tall-label">
+						<div class="on-off-checkbox-container">
+								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('cs_enable_category_nav') ? ' checked=""' : '') . ' id="cs_enable_category_nav" name="cs_enable_category_nav">
+								<label for="cs_enable_category_nav"></label>
 						</div>
 					</td>
 				</tr>
@@ -798,7 +789,7 @@ class qa_html_theme_layer extends qa_html_theme_base
 				</tr>
 				<tr>
 					<th class="qa-form-tall-label">
-						Resolved Questions
+						Duplicate Questions
 						<span class="description">Color Duplicate Questions in question lists</span>
 					</th>
 					<td class="qa-form-tall-label">
@@ -1034,6 +1025,109 @@ class qa_html_theme_layer extends qa_html_theme_base
 					</td>
 				</tr>
 			</tbody>
+				<tr>
+					<th class="qa-form-tall-label">
+						Question Title
+					</th>
+					<td class="qa-form-tall-label">
+						<select data-placeholder="Choose a font" class="chosen-select font-family" data-font-option-type="qtitle" name="typo_option[qtitle][family]" id="typo_family">' . $this->get_font_options(qa_opt('typo_options_family_qtitle')) . '</select>
+						<select data-placeholder="font style" id="typo_style" name="typo_option[qtitle][style]" class="chosen-select font-style" data-font-option-type="qtitle">
+						' . $this->get_font_style_options(qa_opt('typo_options_family_qtitle'), qa_opt('typo_options_style_qtitle')) . '
+						</select>
+						<div class="input-group font-input" title="Font Size">
+							<span class="input-group-addon">Font Size</span>
+							<input value="' . qa_opt('typo_options_size_qtitle') . '" id="typo_size" name="typo_option[qtitle][size]" type="text" class="form-control font-size" data-font-option-type="qtitle">
+							<span class="input-group-addon">px</span>
+						</div>						
+						<div class="input-group font-input" title="Line Height" >
+							<span class="input-group-addon">Line Height</span>
+							<input value="' . qa_opt('typo_options_linehight_qtitle') . '" id="typo_lineheight" name="typo_option[qtitle][linehight]" type="text" class="form-control font-linehight" data-font-option-type="qtitle">
+							<span class="input-group-addon">px</span>
+						</div>
+						<select data-placeholder="Font Backup" name="typo_option[qtitle][backup]" id="typo_backup" class="chosen-select font-family-backup" data-font-option-type="qtitle">' . $this->get_normal_font_options(qa_opt('typo_options_backup_qtitle')) . '</select>
+						<span class="font-demo"><h2 class="question-title">The quick brown fox jumps over the lazy dog.</h2></span>
+					</td>
+				</tr>
+				<tr>
+					<th class="qa-form-tall-label">
+						Question Title Link
+					</th>
+					<td class="qa-form-tall-label">
+						<select data-placeholder="Choose a font" class="chosen-select font-family" data-font-option-type="qtitlelink" name="typo_option[qtitlelink][family]" id="typo_family">' . $this->get_font_options(qa_opt('typo_options_family_qtitlelink')) . '</select>
+						<select data-placeholder="font style" id="typo_style" name="typo_option[qtitlelink][style]" class="chosen-select font-style" data-font-option-type="qtitlelink">
+						' . $this->get_font_style_options(qa_opt('typo_options_family_qtitlelink'), qa_opt('typo_options_style_qtitlelink')) . '
+						</select>
+						<div class="input-group font-input" title="Font Size">
+							<span class="input-group-addon">Font Size</span>
+							<input value="' . qa_opt('typo_options_size_qtitlelink') . '" id="typo_size" name="typo_option[qtitlelink][size]" type="text" class="form-control font-size" data-font-option-type="qtitlelink">
+							<span class="input-group-addon">px</span>
+						</div>						
+						<div class="input-group font-input" title="Line Height" >
+							<span class="input-group-addon">Line Height</span>
+							<input value="' . qa_opt('typo_options_linehight_qtitlelink') . '" id="typo_lineheight" name="typo_option[qtitlelink][linehight]" type="text" class="form-control font-linehight" data-font-option-type="qtitlelink">
+							<span class="input-group-addon">px</span>
+						</div>
+						<select data-placeholder="Font Backup" name="typo_option[qtitlelink][backup]" id="typo_backup" class="chosen-select font-family-backup" data-font-option-type="qtitlelink">' . $this->get_normal_font_options(qa_opt('typo_options_backup_qtitlelink')) . '</select>
+						<span class="font-demo"><div class="qa-q-item-title" style="font-size: inherit ! important; font-family: inherite ! important; font-style: inherit ! important; line-height: inherit ! important; font-weight: inherit ! important;"><a href="#" style="font-size: inherit ! important;">The quick brown fox jumps over the lazy dog.</a></div></span>
+					</td>
+				</tr>
+				<tr>
+					<th class="qa-form-tall-label">
+						Post Content
+					</th>
+					<td class="qa-form-tall-label">
+						<select data-placeholder="Choose a font" class="chosen-select font-family" data-font-option-type="pcontent" name="typo_option[pcontent][family]" id="typo_family">' . $this->get_font_options(qa_opt('typo_options_family_pcontent')) . '</select>
+						<select data-placeholder="font style" id="typo_style" name="typo_option[pcontent][style]" class="chosen-select font-style" data-font-option-type="pcontent">
+						' . $this->get_font_style_options(qa_opt('typo_options_family_pcontent'), qa_opt('typo_options_style_pcontent')) . '
+						</select>
+						<div class="input-group font-input" title="Font Size">
+							<span class="input-group-addon">Font Size</span>
+							<input value="' . qa_opt('typo_options_size_pcontent') . '" id="typo_size" name="typo_option[pcontent][size]" type="text" class="form-control font-size" data-font-option-type="pcontent">
+							<span class="input-group-addon">px</span>
+						</div>						
+						<div class="input-group font-input" title="Line Height" >
+							<span class="input-group-addon">Line Height</span>
+							<input value="' . qa_opt('typo_options_linehight_pcontent') . '" id="typo_lineheight" name="typo_option[pcontent][linehight]" type="text" class="form-control font-linehight" data-font-option-type="pcontent">
+							<span class="input-group-addon">px</span>
+						</div>
+						<select data-placeholder="Font Backup" name="typo_option[pcontent][backup]" id="typo_backup" class="chosen-select font-family-backup" data-font-option-type="pcontent">' . $this->get_normal_font_options(qa_opt('typo_options_backup_pcontent')) . '</select>
+						<span class="font-demo"><div class="entry-content">The quick brown fox jumps over the lazy dog.</div></span>
+					</td>
+				</tr>
+				<tr>
+					<th class="qa-form-tall-label">
+						Navigation Links
+					</th>
+					<td class="qa-form-tall-label">
+						<select data-placeholder="Choose a font" class="chosen-select font-family" data-font-option-type="mainnav" name="typo_option[mainnav][family]" id="typo_family">' . $this->get_font_options(qa_opt('typo_options_family_mainnav')) . '</select>
+						<select data-placeholder="font style" id="typo_style" name="typo_option[mainnav][style]" class="chosen-select font-style" data-font-option-type="mainnav">
+						' . $this->get_font_style_options(qa_opt('typo_options_family_mainnav'), qa_opt('typo_options_style_mainnav')) . '
+						</select>
+						<div class="input-group font-input" title="Font Size">
+							<span class="input-group-addon">Font Size</span>
+							<input value="' . qa_opt('typo_options_size_mainnav') . '" id="typo_size" name="typo_option[mainnav][size]" type="text" class="form-control font-size" data-font-option-type="mainnav">
+							<span class="input-group-addon">px</span>
+						</div>						
+						<div class="input-group font-input" title="Line Height" >
+							<span class="input-group-addon">Line Height</span>
+							<input value="' . qa_opt('typo_options_linehight_mainnav') . '" id="typo_lineheight" name="typo_option[mainnav][linehight]" type="text" class="form-control font-linehight" data-font-option-type="mainnav">
+							<span class="input-group-addon">px</span>
+						</div>
+						<select data-placeholder="Font Backup" name="typo_option[mainnav][backup]" id="typo_backup" class="chosen-select font-family-backup" data-font-option-type="mainnav">' . $this->get_normal_font_options(qa_opt('typo_options_backup_mainnav')) . '</select>
+						<span class="font-demo">
+							<div class="left-sidebar">
+								<ul class="qa-nav-main-list" style="font-style: inherit; font-weight: inherit;">
+									<li class="qa-nav-main-item qa-nav-main-questions">
+										<a class="icon-question qa-nav-main-link" href="#" style="font-style: inherit !important;font-size: inherit ! important;font-weight: inherit !important;">Questions</a>
+									</li>
+								</ul>
+							</div>						
+						</span>
+					</td>
+				</tr>
+
+			<tbody>
+			</tbody>
 		</table>
 	</div>
 	<div class="qa-part-form-tc-social">
@@ -1246,7 +1340,7 @@ class qa_html_theme_layer extends qa_html_theme_base
                 $this->q_list_item($q_item);
                 if (isset($advertisments[$i])) {
                     foreach ($advertisments[$i] as $k => $adv) {
-                        $this->output('<div class="qm-advertisement">');
+                        $this->output('<div class="cs-advertisement">');
                         if (isset($adv['adv_adsense']))
                             $this->output($adv['adv_adsense']);
                         else {

@@ -86,8 +86,26 @@
 	.qa-q-view-tag-list{
 		display:none;
 	}
-	.category-nav, #site-header .navbar-form, #site-header #nav-ask-btn{
+	.category-nav,.btn-sm{
 		display:none;
+	}
+	.navbar-default > .btn.header-ask-button{
+		display:inline-block;
+	}
+	#site-header .navbar-form .form-control.search-query{
+		padding: 0 0 0 35px;
+		width: 35px;
+	}
+	#site-header .navbar-form .form-control.search-query:focus {
+		width: 200px;
+		padding: 0 0 0 30px;
+	}
+	#site-header .navbar-form:focus {
+		float: none;
+	}
+	#site-header .navbar-form {
+		float: right;
+		position: relative;
 	}
 	#site-header .nav.navbar-avatar {
 		margin: 0;

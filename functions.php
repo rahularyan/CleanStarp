@@ -385,6 +385,7 @@ function reset_theme_options(){
 	qa_opt('cs_link_hover_color', '');
 	qa_opt('cs_highlight_color', '');
 	qa_opt('cs_highlight_bg_color', '');
+	qa_opt('cs_ask_btn_bg', '');
 	qa_opt('cs_custom_css', '');
 	
 	// Typography

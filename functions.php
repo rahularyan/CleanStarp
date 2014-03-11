@@ -616,16 +616,16 @@ function cs_ajax_user_popover(){
 		<div id="<?php echo $userid;?>_popover" class="user-popover">
 			<div class="counts clearfix">
 				<div class="points">
-					<?php echo '<span>'.$data[2]['points'] .'</span>Points'; ?>
+					<?php echo '<span>'.$data['points'] .'</span>Points'; ?>
 				</div>
 				<div class="qcount">
-					<?php echo '<span>'.$data[2]['qposts'] .'</span>Questions'; ?>
+					<?php echo '<span>'.$data['qposts'] .'</span>Questions'; ?>
 				</div>
 				<div class="acount">
-					<?php echo '<span>'.$data[2]['aposts'] .'</span>Answers'; ?>
+					<?php echo '<span>'.$data['aposts'] .'</span>Answers'; ?>
 				</div>
 				<div class="ccount">
-					<?php echo '<span>'.$data[2]['cposts'] .'</span>Comments'; ?>
+					<?php echo '<span>'.$data['cposts'] .'</span>Comments'; ?>
 				</div>
 			</div>
 			<div class="bottom">	

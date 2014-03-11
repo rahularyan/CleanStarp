@@ -70,11 +70,10 @@ function cs_user_data($handle){
 		$user[] = 0;
 		$user[] = $u[1];
 	}else{
-		$user=cs_get_cache_select_selectspec( 
-			qa_db_user_account_selectspec($userid, true),
-			qa_db_user_rank_selectspec($handle),
-			qa_db_user_points_selectspec($identifier)
-		);
+		$user[0] = cs_get_cache_select_selectspec( qa_db_user_account_selectspec($userid, true) );
+		$user[1]['rank'] = cs_get_cache_select_selectspec( qa_db_user_rank_selectspec($handle) );
+		$user[2] = cs_get_cache_select_selectspec( qa_db_user_points_selectspec($identifier) );
+		$user = ($user[0]+ $user[1]+ $user[2]);
 	}
 	return $user;
 }	

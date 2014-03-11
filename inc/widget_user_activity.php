@@ -71,7 +71,7 @@
 			
 			$identifier=QA_FINAL_EXTERNAL_USERS ? $userid : $handle;
 
-			list($useraccount, $questions, $answerqs, $commentqs, $editqs)=qa_db_select_with_pending(
+			list($useraccount, $questions, $answerqs, $commentqs, $editqs)=cs_get_cache_select_selectspec(
 				QA_FINAL_EXTERNAL_USERS ? null : qa_db_user_account_selectspec($handle, false),
 				qa_db_user_recent_qs_selectspec($userid, $identifier, $limit),
 				qa_db_user_recent_a_qs_selectspec($userid, $identifier),

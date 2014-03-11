@@ -60,7 +60,7 @@ function cs_user_data($handle){
 	$identifier=QA_FINAL_EXTERNAL_USERS ? $userid : $handle;
 	if(defined('QA_WORDPRESS_INTEGRATE_PATH')){
 		
-		$u=qa_db_select_with_pending( 
+		$u=cs_get_cache_select_selectspec( 
 			qa_db_user_rank_selectspec($handle),
 			qa_db_user_points_selectspec($identifier)
 		);
@@ -70,7 +70,7 @@ function cs_user_data($handle){
 		$user[] = 0;
 		$user[] = $u[1];
 	}else{
-		$user=qa_db_select_with_pending( 
+		$user=cs_get_cache_select_selectspec( 
 			qa_db_user_account_selectspec($userid, true),
 			qa_db_user_rank_selectspec($handle),
 			qa_db_user_points_selectspec($identifier)
@@ -95,7 +95,7 @@ function cs_get_avatar($handle, $size = 40, $html =true){
 				$img_html = '';
 		}else{
 			$f = cs_user_data($handle);
-			if(empty($f[0]['avatarblobid'])){
+			if(empty($f['avatarblobid'])){
 				if (qa_opt('avatar_allow_gravatar'))
 					$img_html = qa_get_gravatar_html(qa_get_user_email($userid), $size);
 				else if ( qa_opt('avatar_allow_upload') && qa_opt('avatar_default_show') && strlen(qa_opt('avatar_default_blobid')) )
@@ -103,7 +103,7 @@ function cs_get_avatar($handle, $size = 40, $html =true){
 				else
 					$img_html = '';
 			} else
-				$img_html = qa_get_user_avatar_html($f[0]['flags'], $f[0]['email'], $handle, $f[0]['avatarblobid'], $size, $size, $size, true);
+				$img_html = qa_get_user_avatar_html($f['flags'], $f['email'], $handle, $f['avatarblobid'], $size, $size, $size, true);
 		}
 	}
 	if (empty($img_html))
@@ -184,7 +184,7 @@ function cs_user_profile($handle, $field =NULL){
 	if(defined('QA_WORDPRESS_INTEGRATE_PATH')){
 		return get_user_meta( $userid );
 	}else{
-		$query = qa_db_select_with_pending(qa_db_user_profile_selectspec($userid, true));
+		$query = cs_get_cache_select_selectspec(qa_db_user_profile_selectspec($userid, true));
 		
 		if(!$field) return $query;
 		if (isset($query[$field]))
@@ -482,7 +482,7 @@ function cs_get_site_cache(){
 
 function cs_get_cache_popular_tags($to_show){
 	global $cache;
-	$age = 60; // one minute
+	$age = 3600; // 1 hour
 
 	if (isset($cache['tags'])){
 		if ( ((int)$cache['tags']['age'] + $age) > time()) {
@@ -519,7 +519,7 @@ function cs_get_cache_question_activity($qcount){
 
 //	Get lists of recent activity in all its forms, plus category information
 	
-	list($questions1, $questions2, $questions3, $questions4)=qa_db_select_with_pending(
+	list($questions1, $questions2, $questions3, $questions4)=cs_get_cache_select_selectspec(
 		qa_db_qs_selectspec($userid, 'created', 0, $categoryslugs, null, false, false, $qcount),
 		qa_db_recent_a_qs_selectspec($userid, 0, $categoryslugs),
 		qa_db_recent_c_qs_selectspec($userid, 0, $categoryslugs),
@@ -550,8 +550,8 @@ function cs_get_cache_question_activity($qcount){
 }
 function cs_get_cache_select_selectspec($selectspec){
 	global $cache;
-	$age = 10; //one hour
-
+	$age = 10;
+	
 	$hash = md5(json_encode($selectspec));
 	if (isset($cache[$hash])){
 		if ( ((int)$cache[$hash]['age'] + $age) > time()) {
@@ -566,11 +566,11 @@ function cs_get_cache_select_selectspec($selectspec){
 	$cache['changed'] = true;
 	return $result ;	
 }
-function cs_get_cache($query){
+function cs_get_cache($query,$age = 10){
 	global $cache;
-	$age = 10; //one hour
 
 	$funcargs=func_get_args();
+	unset($funcargs[1]);
 	$query =  qa_db_apply_sub($query, array_slice($funcargs, 1));
 	$hash = md5($query);
 	if (isset($cache[$hash])){

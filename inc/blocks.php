@@ -1064,6 +1064,7 @@ class qa_html_theme extends qa_html_theme_base
             
             $this->output('<div class="qa-q-view-wrap">');
             $this->output('<div class="qa-q-view-inner">');
+            $this->output('<div class="clearfix">');
             			
             if(!empty($featured_image)){
 				$this->output('<div class="question-image-container">');           
@@ -1073,6 +1074,7 @@ class qa_html_theme extends qa_html_theme_base
 
 			$this->q_view_content($q_view);
 			
+            $this->output('</div>');
             $this->output('<div class="qa-post-meta">');
             $this->post_meta($q_view, 'qa-q-item');
 			if (!empty($q_view['q_tags'])) {

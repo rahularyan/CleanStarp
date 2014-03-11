@@ -631,7 +631,7 @@ function cs_ajax_user_popover(){
 			<div class="bottom">	
 				<div class="avatar pull-left"><?php echo cs_get_avatar($handle, 30); ?></div>
 				<span class="name"><?php echo cs_name($handle); ?></span>				
-				<span class="level"><?php echo qa_user_level_string($data[0]['level']); ?></span>				
+				<span class="level"><?php echo qa_user_level_string($data['level']); ?></span>				
 			</div>
 		</div>	
 		<?php

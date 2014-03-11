@@ -88,26 +88,35 @@
 				}
 				
 				$handle = $p['handle'];
-
+				
+				if($type=='Q'){
+					$link_header = '<a href="'. qa_q_path_html($p['postid'], $p['title']) .'" title="'. $p['title'] .'">';
+				}elseif($type=='A'){
+					$link_header = '<a href="'.cs_post_link($p['parentid']).'#a'.$p['postid'].'">';
+				}else{
+					$link_header = '<a href="'.cs_post_link($p['parentid']).'#c'.$p['postid'].'">';
+				}
+				
 				$output .= '<div class="slider-item col-sm-'.(12/$col_item).'">';
 				$output .= '<div class="slider-item-inner">';
-				$output .= '<div class="featured-image">'.get_featured_thumb($p['postid']).'</div>';
+				$featured_img = get_featured_thumb($p['postid']);
+				if ($featured_img)
+					$output .= $link_header . '<div class="featured-image">'.$featured_img.'</div></a>';
 				if ($type=='Q'){
 					$output .= '<div class="big-ans-count pull-left">'.$p['acount'].'<span> ans</span></div>';
 				}elseif($type=='A'){
 					$output .= '<div class="big-ans-count pull-left vote">'.$p['netvotes'].'<span>'.qa_lang('cleanstrap/vote').'</span></div>';
 				}
 
-				if($type=='Q'){
-					$output .= '<h5><a href="'. qa_q_path_html($p['postid'], $p['title']) .'" title="'. $p['title'] .'">'.cs_truncate(qa_html($p['title']), 50).'</a></h5>';
-				}elseif($type=='A'){
-					$output .= '<h5><a href="'.cs_post_link($p['parentid']).'#a'.$p['postid'].'">'. cs_truncate(strip_tags($p['content']), 50).'</a></h5>';
-				}else{
-					$output .= '<h5><a href="'.cs_post_link($p['parentid']).'#c'.$p['postid'].'">'. cs_truncate(strip_tags($p['content']), 50).'</a></h5>';
-				}
+				$output .= '<h5>' . $link_header . cs_truncate(qa_html($p['title']), 50).'</a></h5>';
 
+
+				$output .= '<div class="meta">';
 				$when = qa_when_to_html(strtotime($p['created']), 7);
-				$output .= '<div class="meta"><img src="'.cs_get_avatar($handle, 15, false).'" /><span class="icon-time">'.implode(' ', $when).'</span>';	
+				$avatar = cs_get_avatar($handle, 15, false);
+				if($avatar)
+					$output .= '<img src="'.$avatar.'" />';	
+				$output .= '<span class="icon-time">'.implode(' ', $when).'</span>';	
 				$output .= '<span class="vote-count">'.$p['netvotes'].' '.qa_lang('cleanstrap/votes').'</span></div>';	
 				
 				$output .= '</div>';

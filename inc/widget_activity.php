@@ -112,11 +112,14 @@
 				$o .= '<div class="event-content">';			
 				$o .= '<p class="title"><strong class="avatar" data-handle="'.$p['handle'].'" data-id="'. $p['userid'].'">'.@$usernameLink.'</strong> <span class="what">'.$event_name.'</span></p>';
 				
-				if($p['type'] == 'Q')
-					$o .= '<a class="event-title" href="'.qa_q_path_html($p['postid'], $p['title']).'">'.cs_truncate($p['title'],100).'</a>';
-				else
-					$o .= '<a class="event-title" href="'.qa_q_path_html($p['postid'], $p['title']).'">'.cs_truncate(strip_tags($p['content']),100).'</a>';
-				
+				if ($p['type'] == 'Q') {
+					$o .= '<a class="event-title" href="' . qa_q_path_html($p['postid'], $p['title']) . '" title="' . $p['title'] . '">' . cs_truncate($p['title'],100) . '</a>';
+				} elseif ($p['type'] == 'A') {
+					$o .= '<a class="event-title" href="' . cs_post_link($p['parentid']) . '#a' . $p['postid'] . '">' . cs_truncate(strip_tags($p['content']),100) . '</a>';
+				} else {
+					$o .= '<a class="event-title" href="' . cs_post_link($p['parentid']) . '#c' . $p['postid'] . '">' . cs_truncate(strip_tags($p['content']),100) . '</a>';
+				}
+			
 				$o .= '<span class="time">'.$time.'</span>';	
 				$o .= '</div>';	
 				$o .= '</div>';	

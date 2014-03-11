@@ -98,8 +98,7 @@
 							'SELECT * FROM ^posts WHERE ^posts.type=$
 							AND categoryid=(SELECT categoryid FROM ^categories WHERE ^categories.backpath=$ LIMIT 1) 
 							ORDER BY ^posts.created DESC LIMIT #',
-							'Q',900, $slug, $limit); //refresh every 15 minutes
-					
+							900,'Q', $slug, $limit); //refresh every 15 minutes
 					$title = 'Questions in <a href="'.qa_path_html('questions/'.qa_strtolower($category_link)).'">'.$category_bread_crup.'</a>';
 				}elseif($type=='Tags'){
 					$post_type='Q';
@@ -109,7 +108,7 @@
 						AND ^posts.postid IN (SELECT postid FROM ^posttags WHERE 
 							wordid=(SELECT wordid FROM ^words WHERE word=$ OR word=$ COLLATE utf8_bin LIMIT 1) ORDER BY postcreated DESC)
 						ORDER BY ^posts.created DESC LIMIT #',
-						'Q',900, $slug, qa_strtolower($slug), $limit);
+						900,'Q', $slug, qa_strtolower($slug), $limit);
 				}else{ // Relative to Keyword
 					require_once QA_INCLUDE_DIR.'qa-app-search.php';
 					$keyword=$slug;

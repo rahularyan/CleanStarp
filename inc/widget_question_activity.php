@@ -69,10 +69,10 @@
 			$content = cs_get_cache_question_activity((int)$widget_opt['cs_qa_count']);
 			if(@$themeobject->current_widget['param']['locations']['show_title'])
 				$themeobject->output('<h3 class="widget-title">'.qa_lang('cleanstrap/recent_activities').' <a href="'.qa_path_html('activity').'">'.qa_lang('cleanstrap/view_all').'</a></h3>');
-				
+
 			$themeobject->output('<div class="ra-question-activity-widget">');
 
-			$q_list = $content['q_list']['qs'];
+			$q_list = $content;
 			
 			$themeobject->output('<ul class="activity-list">');
 			foreach ($q_list as $list){

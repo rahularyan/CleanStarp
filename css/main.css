@@ -646,7 +646,7 @@ body {
 .left-sidebar .float-nav {
     background: none repeat scroll 0 0 #FFFFFF;
 }
-.left-sidebar .cs-category-widget, .left-sidebar .ra-tags-widget{
+.left-sidebar .ra-tags-widget{
 	display:none;
 }
 .left-sidebar .qa-nav-main {

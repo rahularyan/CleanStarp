@@ -62,7 +62,7 @@ body {
     line-height: 24px;
 }
 
-.question-title, .qa-q-view-content, .qa-a-item-content .entry-content, .comment-count {
+.question-title, .qa-q-view-content, .qa-a-item-content .entry-content, .comment-count, .qa-q-item-title > a, .intro-title, .qa-q-view-follows, .qa-q-view-closed {
 	font-family:'open sans', arial;
 }
 
@@ -600,11 +600,11 @@ body {
 }
 
 .qa-q-item-title > a {
-    color: #5D5D5D;
+	color: #5D5D5D;
     display: block;
-    font-size: 14px;
-    font-weight: bold;
-    margin-bottom: 2px;
+    font-size: 16px;
+    font-weight: 300;
+    margin-bottom: 5px;
 }
 
 .qa-q-item-tags ul {
@@ -1252,10 +1252,10 @@ a.feed-link {
     font-weight: 300;
     line-height: 30px;
     margin-bottom: 15px;
-    padding: 0 10px;
+    padding: 0 20px;
 }
 .qa-post-meta {
-    padding: 0 10px;
+    padding: 0 20px;
 }
 .qa-a-item-content .entry-content {
     color: #666666;
@@ -2582,6 +2582,7 @@ input[type=checkbox].on-off-checkbox {
 
 #ra-widgets .widget-option .qa-form-wide-label {
     color: #AAAAAA;
+    display: inline;
     font-size: 11px;
     font-weight: bold;
     margin-top: 4px;
@@ -3858,8 +3859,11 @@ input[type=checkbox].on-off-checkbox {
 .qa-c-wrap:hover .post-button {
     display: block;
 }
-.post-button .icon-edit, .post-button .icon-flag, .post-button .icon-remove, .post-button .icon-error {
+.post-button .btn {
     float: right;
+}
+.post-button #q_doanswer, .post-button .icon-chat{
+	float:left;
 }
 
 .theme-widgets > div {
@@ -4373,21 +4377,14 @@ input[type=checkbox].on-off-checkbox {
 	color: #777777;
 }
 
-.qa-q-view-follows {
-    background: none repeat scroll 0 0 #effff0;
-    border: 1px solid rgba(0, 0, 0, 0.05);
-	font-size: 14px;
-    margin: 10px;
-    padding: 10px;
+.qa-q-view-follows, .qa-q-view-closed {
+    font-size: 19px;
+    font-weight: 300;
+    margin: 10px 10px 27px;
+
 }
 
-.qa-q-view-closed {
-    background: none repeat scroll 0 0 #FFE0E0;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    font-size: 14px;
-    padding: 15px;
-}
+
 .comment-count:before {
     color: #AAAAAA;
     font-size: 22px;

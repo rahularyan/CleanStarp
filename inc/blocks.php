@@ -1093,6 +1093,32 @@ class qa_html_theme extends qa_html_theme_base
             $this->output('</div> <!-- END qa-q-view-main -->');
         }
     }
+	function q_view_follows($q_view)
+	{
+		if (!empty($q_view['follows']))
+			$this->output(
+				'<div class="qa-q-view-follows icon-question-sign">',
+				$q_view['follows']['label'],
+				'<a href="'.$q_view['follows']['url'].'" class="qa-q-view-follows-link">'.$q_view['follows']['title'].'</a>',
+				'</div>'
+			);
+	}
+		
+	function q_view_closed($q_view)
+	{
+		if (!empty($q_view['closed'])) {
+			$haslink=isset($q_view['closed']['url']);
+			
+			$this->output(
+				'<div class="qa-q-view-closed icon-cross">',
+				$q_view['closed']['label'],
+				($haslink ? ('<a href="'.$q_view['closed']['url'].'"') : '<span').' class="qa-q-view-closed-content">',
+				$q_view['closed']['content'],
+				$haslink ? '</a>' : '</span>',
+				'</div>'
+			);
+		}
+	}
     function ra_post_buttons($q_view)
     {
         $buttons = $q_view['form']['buttons'];
@@ -1111,7 +1137,7 @@ class qa_html_theme extends qa_html_theme_base
             $buttons['answer']['tags'] = $onclick;
         }
         
-        $this->output('<div class="post-button">');
+        $this->output('<div class="post-button clearfix">');
         foreach ($buttons as $k => $btn) {
             if ($k == 'edit')
                 $btn['class'] = 'icon-edit';
@@ -1126,7 +1152,7 @@ class qa_html_theme extends qa_html_theme_base
             if ($k == 'answer')
                 $btn['class'] = 'icon-answer';
             if ($k == 'comment')
-                $btn['class'] = 'icon-comment';
+                $btn['class'] = 'icon-chat';
             if ($k == 'follow')
                 $btn['class'] = 'icon-add-answer';
             
@@ -1518,6 +1544,7 @@ class qa_html_theme extends qa_html_theme_base
                         $handle = ltrim(strip_tags($user['label']));
                     
                     $data   = cs_user_data($handle);
+
                     $avatar = cs_get_avatar($handle, 150, false);
                     $this->output('
 							<div class="user-card">

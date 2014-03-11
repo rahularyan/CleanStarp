@@ -71,6 +71,7 @@
 		'unfeatured' => 'Un-feature',
 		'remove_featured' => 'Unfeature this question',
 		'select_answer' => 'Select answer',
+		'no_activity_yet' => 'No activity yet!',
 	);
 	
 

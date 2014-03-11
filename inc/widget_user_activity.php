@@ -113,7 +113,7 @@
 					$output .='</li>';
 				}
 			}else{
-				$output .='<li>'.qa_lang('No activity yet.').'</li>';
+				$output .='<li>'.qa_lang('cleanstrap/no_activity_yet').'</li>';
 			}
 			$output .= '</ul>';
 			$output .= '</div>';

@@ -1,10 +1,10 @@
 @font-face {
 	font-family: 'ra';
-	src:url('../fonts/ra.eot?88a0dg');
-	src:url('../fonts/ra.eot?#iefix88a0dg') format('embedded-opentype'),
-		url('../fonts/ra.woff?88a0dg') format('woff'),
-		url('../fonts/ra.ttf?88a0dg') format('truetype'),
-		url('../fonts/ra.svg?88a0dg#ra') format('svg');
+	src:url('../fonts/ra.eot?jox76k');
+	src:url('../fonts/ra.eot?#iefixjox76k') format('embedded-opentype'),
+		url('../fonts/ra.woff?jox76k') format('woff'),
+		url('../fonts/ra.ttf?jox76k') format('truetype'),
+		url('../fonts/ra.svg?jox76k#ra') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -203,6 +203,12 @@
 .icon-envelope:before {
 	content: "\e61a";
 }
+.icon-chat:before {
+	content: "\e612";
+}
+.icon-comments:before {
+	content: "\e61b";
+}
 .icon-thumbs-up2:before {
 	content: "\e64f";
 }
@@ -292,7 +298,4 @@
 }
 .icon-search:before {
 	content: "\e608";
-}
-.icon-comment:before {
-	content: "\e612";
 }

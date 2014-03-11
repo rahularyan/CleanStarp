@@ -70,6 +70,7 @@
 		'tags' => 'tags',
 		'unfeatured' => 'Un-feature',
 		'remove_featured' => 'Unfeature this question',
+		'select_answer' => 'Select answer',
 	);
 	
 

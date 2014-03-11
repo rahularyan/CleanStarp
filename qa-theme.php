@@ -1,4 +1,5 @@
 <?php
+	error_reporting(0);
 	/* don't allow this page to be requested directly from browser */	
 	if (!defined('QA_VERSION')) {
 			header('Location: /');

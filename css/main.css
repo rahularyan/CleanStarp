@@ -581,7 +581,7 @@ h1,h2,h3,h4,h5,h6, .qa-q-item-title {
 }
 
 .qa-q-item-meta, .qa-a-item-meta, .qa-c-item-meta {
-    font-size: 13px;
+    font-size: 11px;
     text-transform: lowercase;
 }
 
@@ -603,6 +603,7 @@ h1,h2,h3,h4,h5,h6, .qa-q-item-title {
     display: block;
     font-size: 14px;
     font-weight: bold;
+    margin-bottom: 2px;
 }
 
 .qa-q-item-tags ul {
@@ -1192,7 +1193,8 @@ a.feed-link {
     padding: 0;
 }
 .question-tags .tags-tag-list li{
-	display: inline-block;
+    display: inline-block;
+    margin-bottom: 10px;
 }
 .question-tags .tags-tag-list li a{
     border-color: #777777;
@@ -1212,6 +1214,7 @@ a.feed-link {
     padding: 0;
 }
 .qa-q-view-content, .qa-a-item-content .entry-content {
+    color: #666666;
     font-size: 14px;
     line-height: 27px;
     margin-bottom: 15px;
@@ -3841,8 +3844,7 @@ input[type=checkbox].on-off-checkbox {
     margin-top: 5px;
 }
 .question-image-container {
-    margin-bottom: 25px;
-    min-height: 60px;
+
 }
 .question-sidebar .question-meta{
 
@@ -3962,7 +3964,7 @@ input[type=checkbox].on-off-checkbox {
 }
 .qa-q-item-when, .qa-q-item-where, .qa-q-item-where, .qa-q-item-who{
     border-right: 1px solid #EEEEEE;
-    margin-right: 10px;
+    margin-right: 5px;
     padding-right: 5px;
 }
 .list-meta{

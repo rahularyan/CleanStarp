@@ -519,7 +519,7 @@ function cs_get_cache_question_activity($qcount){
 
 //	Get lists of recent activity in all its forms, plus category information
 	
-	list($questions1, $questions2, $questions3, $questions4)=cs_get_cache_select_selectspec(
+	list($questions1, $questions2, $questions3, $questions4)=qa_db_select_with_pending(
 		qa_db_qs_selectspec($userid, 'created', 0, $categoryslugs, null, false, false, $qcount),
 		qa_db_recent_a_qs_selectspec($userid, 0, $categoryslugs),
 		qa_db_recent_c_qs_selectspec($userid, 0, $categoryslugs),
@@ -543,10 +543,11 @@ function cs_get_cache_question_activity($qcount){
 		null, // page link params
 		null // category nav params
 	);
-	$cache['qactivity'] =  $content;
+	$result = $content['q_list']['qs'];
+	$cache['qactivity'] =  $result;
 	$cache['qactivity']['age'] = time();
 	$cache['changed'] = true;	
-	return $content;
+	return $result;
 }
 function cs_get_cache_select_selectspec($selectspec){
 	global $cache;

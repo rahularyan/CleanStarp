@@ -698,6 +698,16 @@ body {
 }
  .qa-part-q-view .q-cont-right{
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    overflow: visible;
+}
+.featured-image-btn{
+	float:left;
+}
+.featured-image-btn .dropdown-menu{
+    border: medium none;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    width: 240px;
 }
 .question-main .question-c-l {
     padding: 0 15px;
@@ -1265,7 +1275,7 @@ a.feed-link {
     margin-bottom: 15px;
 }
 .qa-q-view .qa-q-view-wrap {
-    overflow: hidden;
+
 }
 
 .qa-q-view-inner {
@@ -3909,7 +3919,6 @@ input[type=checkbox].on-off-checkbox {
 .question-image {
     background: none repeat scroll 0 0 #F9F9F9;
     border: 1px solid #EEEEEE;
-    margin-bottom: 20px;
     padding: 5px 10px;
 }
 #q_meta_remove_featured_image, #q_meta_save{
@@ -3920,7 +3929,9 @@ input[type=checkbox].on-off-checkbox {
     margin-top: 5px;
 }
 .question-image-container {
-
+    float: left;
+    margin: 10px 15px 10px 20px;
+    max-width: 505px;
 }
 .question-sidebar .question-meta{
 
@@ -4405,4 +4416,11 @@ input[type=checkbox].on-off-checkbox {
 .comment-items{
     border-left: 1px solid #EEEEEE;
     overflow: hidden;
+}
+.qa-q-view-inner > .row {
+    margin: 0;
+    padding: 0;
+}
+.qa-q-view-inner > .row > .col-sm-7 > .qa-q-view-content {
+    padding: 0;
 }

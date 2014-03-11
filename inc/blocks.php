@@ -714,9 +714,7 @@ class qa_html_theme extends qa_html_theme_base
     
     function question_view($content)
     {
-        $q_view = $content['q_view'];
 		
-		$featured_image = get_featured_image($q_view['raw']['postid']);
         $this->output('<div class="question-main">');
         $this->cs_position('Content Top');
 		$this->main_parts($content);
@@ -1033,7 +1031,7 @@ class qa_html_theme extends qa_html_theme_base
     }
     function q_view_main($q_view)
     {
-		
+		$featured_image = get_featured_image($q_view['raw']['postid']);
         $this->output('<div class="question-head">');
 		$this->output('<div class="big-s-avatar avatar">' . cs_get_avatar($q_view['raw']['handle'], 70) . '</div>');
 		
@@ -1066,14 +1064,27 @@ class qa_html_theme extends qa_html_theme_base
             
             $this->output('<div class="qa-q-view-wrap">');
             $this->output('<div class="qa-q-view-inner">');
-            
-            $this->q_view_content($q_view);
+            			
+            if(!empty($featured_image)){
+				$this->output('<div class="question-image-container">');           
+				$this->output($featured_image);
+				$this->output('</div>');
+			}
+
+			$this->q_view_content($q_view);
+			
             $this->output('<div class="qa-post-meta">');
             $this->post_meta($q_view, 'qa-q-item');
+			if (!empty($q_view['q_tags'])) {
+				$this->output('<div class="question-tags">');
+				$this->output('<h3 class="tags-label">'.qa_lang('cleanstrap/tags').'</h3>');	
+				$this->post_tag_list($q_view, 'tags');			
+				$this->output('</div>');
+			}
             $this->output('</div>');
             
             $this->q_view_extra($q_view);
-            $this->ra_post_buttons($q_view);
+            $this->ra_post_buttons($q_view, true);
             
             $this->output('</div>');
             $this->c_list(@$q_view['c_list'], 'qa-q-view');
@@ -1119,11 +1130,11 @@ class qa_html_theme extends qa_html_theme_base
 			);
 		}
 	}
-    function ra_post_buttons($q_view)
+    function ra_post_buttons($q_view, $show_feat_img=false)
     {
         $buttons = $q_view['form']['buttons'];
         
-        if (($this->template == 'question') && (qa_get_logged_in_level() >= QA_USER_LEVEL_ADMIN) && (!empty($q_view)))
+        if (($this->template == 'question') && (qa_get_logged_in_level() >= QA_USER_LEVEL_ADMIN) && (!empty($q_view)) && $show_feat_img)
             $buttons['featured'] = array(
                 'tags' => 'id="set_featured"',
                 'label' => !is_featured($q_view['raw']['postid']) ? qa_lang_html('cleanstrap/featured') : qa_lang_html('cleanstrap/unfeatured'),
@@ -1158,7 +1169,20 @@ class qa_html_theme extends qa_html_theme_base
             
             $this->output('<button ' . $btn['tags'] . ' class="btn ' . @$btn['class'] . '" title="' . $btn['popup'] . '" type="submit">' . $btn['label'] . '</button>');
         }
-        $this->output('</div>');
+		
+		if($show_feat_img){
+			$this->output('
+				<div class="btn-group featured-image-btn">
+					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+					Featured image <span class="caret"></span>
+					</button>
+					<div class="dropdown-menu">');
+					$this->question_meta_form();
+					$this->output('</div>
+				</div>
+			');
+		}
+		$this->output('</div>');
     }
     function post_tags($post, $class)
     {
@@ -1247,25 +1271,11 @@ class qa_html_theme extends qa_html_theme_base
         }
         $this->page_links();
         $this->answer_form();		
-		/* if(!empty($featured_image)){
-			$this->output('<div class="question-image-container">');           
-			$this->output(get_featured_image($q_view['raw']['postid']));
-			$this->output('</div>');
-		} */
-		
-        
+       
         $this->output('</div>');
 		
         $this->output('<div class="col-md-4 question-sidebar">');
-			
-			/* if (!empty($q_view['q_tags'])) {
-				$this->output('<div class="question-tags">');
-				$this->output('<h3 class="tags-label">'.qa_lang('cleanstrap/tags').'</h3>');	
-				$this->post_tag_list($q_view, 'tags');			
-				$this->output('</div>');
-			}
-			$this->question_meta_form(); */
-						
+	
 			$this->cs_position('Question Right');
         $this->output('</div>');
 		

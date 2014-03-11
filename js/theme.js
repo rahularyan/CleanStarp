@@ -31,6 +31,7 @@ function cs_question_meta(){
 				//$(this).closest('.question-image-container').find('.featured-image').remove();
 				$('.image-preview').hide();
 				$('#q_meta_remove_featured_image').hide();
+				location.reload();
 			},
 		});	
 	});

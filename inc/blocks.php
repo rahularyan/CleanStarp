@@ -1170,7 +1170,7 @@ class qa_html_theme extends qa_html_theme_base
             $this->output('<button ' . $btn['tags'] . ' class="btn ' . @$btn['class'] . '" title="' . $btn['popup'] . '" type="submit">' . $btn['label'] . '</button>');
         }
 		
-		if($show_feat_img){
+		if (($this->template == 'question') && (qa_get_logged_in_level() >= QA_USER_LEVEL_ADMIN) && (!empty($q_view)) && $show_feat_img){
 			$this->output('
 				<div class="btn-group featured-image-btn">
 					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">

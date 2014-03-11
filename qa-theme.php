@@ -1,5 +1,7 @@
 <?php
-	error_reporting(0);
+	if (qa_get_logged_in_level()>=QA_USER_LEVEL_ADMIN)
+		error_reporting(1);
+		
 	/* don't allow this page to be requested directly from browser */	
 	if (!defined('QA_VERSION')) {
 			header('Location: /');

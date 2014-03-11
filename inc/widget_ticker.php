@@ -98,7 +98,7 @@
 							'SELECT * FROM ^posts WHERE ^posts.type=$
 							AND categoryid=(SELECT categoryid FROM ^categories WHERE ^categories.backpath=$ LIMIT 1) 
 							ORDER BY ^posts.created DESC LIMIT #',
-							'Q', $slug, $limit);
+							'Q',900, $slug, $limit); //refresh every 15 minutes
 					
 					$title = 'Questions in <a href="'.qa_path_html('questions/'.qa_strtolower($category_link)).'">'.$category_bread_crup.'</a>';
 				}elseif($type=='Tags'){
@@ -109,7 +109,7 @@
 						AND ^posts.postid IN (SELECT postid FROM ^posttags WHERE 
 							wordid=(SELECT wordid FROM ^words WHERE word=$ OR word=$ COLLATE utf8_bin LIMIT 1) ORDER BY postcreated DESC)
 						ORDER BY ^posts.created DESC LIMIT #',
-						'Q', $slug, qa_strtolower($slug), $limit);
+						'Q',900, $slug, qa_strtolower($slug), $limit);
 				}else{ // Relative to Keyword
 					require_once QA_INCLUDE_DIR.'qa-app-search.php';
 					$keyword=$slug;
@@ -117,7 +117,7 @@
 					$title = 'Posts About <a href="'.qa_path_html('search/'.qa_strtolower($keyword)).'">'.$keyword.'</a>';
 					//$post=qa_get_search_results($keyword, 0, $limit, $userid , false, false);
 					$words=qa_string_to_words($keyword);
-					$posts=qa_db_select_with_pending(qa_db_search_posts_selectspec($userid, $words, $words, $words, $words, trim($keyword), 0, false, $limit));
+					$posts=cs_get_cache_select_selectspec(qa_db_search_posts_selectspec($userid, $words, $words, $words, $words, trim($keyword), 0, false, $limit));
 
 					$output = '<h3 class="widget-title">'.$title.'</h3>';
 					$output .= '<ul class="question-list">';

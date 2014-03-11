@@ -529,7 +529,7 @@ class qa_html_theme extends qa_html_theme_base
         
         if (!isset($navigation)) {
             $categoryslugs = qa_request_parts(1);
-            $cats          = qa_db_select_with_pending(qa_db_category_nav_selectspec($categoryslugs, false, false, true));
+            $cats          = cs_get_cache_select_selectspec(qa_db_category_nav_selectspec($categoryslugs, false, false, true));
             $navigation    = qa_category_navigation($cats);
         }
         if (count($navigation) > 1) { // if there are any categories (except 'all categories' navigation item)
@@ -1834,7 +1834,7 @@ class qa_html_theme extends qa_html_theme_base
     function cs_ajax_get_question_suggestion()
     {
         $query            = strip_tags($_REQUEST['start_with']);
-        $relatedquestions = qa_db_select_with_pending(qa_db_search_posts_selectspec(null, qa_string_to_words($query), null, null, null, null, 0, false, 10));
+        $relatedquestions = cs_get_cache_select_selectspec(qa_db_search_posts_selectspec(null, qa_string_to_words($query), null, null, null, null, 0, false, 10));
         //print_r($relatedquestions);
         
         if (isset($relatedquestions) && !empty($relatedquestions)) {

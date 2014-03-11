@@ -72,7 +72,7 @@
 		/* top users widget */
 		function cs_top_users($limit = 5, $size){
 
-			$users = qa_db_read_all_assoc(qa_db_query_sub('SELECT * FROM ^users JOIN ^userpoints ON ^users.userid=^userpoints.userid ORDER BY ^userpoints.points DESC LIMIT #', $limit));
+			$users = cs_get_cache('SELECT * FROM ^users JOIN ^userpoints ON ^users.userid=^userpoints.userid ORDER BY ^userpoints.points DESC LIMIT #',7200, $limit);
 			
 			$output = '<ul class="top-users-list clearfix">';
 

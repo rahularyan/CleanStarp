@@ -1862,8 +1862,14 @@ class qa_html_theme extends qa_html_theme_base
                         $postids[] = $question['raw']['postid'];
                 if (count($postids)) {
                     //	Retrieve the content for these questions from the database and put into an array
-                    $result         = qa_db_query_sub('SELECT postid, content, format FROM ^posts WHERE postid IN (#)', $postids);
-                    $postinfo       = qa_db_read_all_assoc($result, 'postid');
+                    //$result         = qa_db_query_sub('SELECT postid, content, format FROM ^posts WHERE postid IN (#)', $postids);
+                    //$postinfo       = qa_db_read_all_assoc($result, 'postid');
+					//cache and apply keys to array now that I can't use array key argument in qa_db_read_all_assoc
+					$posts = cs_get_cache('SELECT postid, content, format FROM ^posts WHERE postid IN (#)',50, $postids);
+					$postinfo= array();
+					foreach ($posts as $qitem) {
+						$postinfo[$qitem['postid']] = $qitem;
+					}
                     //	Get the regular expression fragment to use for blocked words and the maximum length of content to show
                     $blockwordspreg = qa_get_block_words_preg();
                     $maxlength      = qa_opt('cs_except_len');

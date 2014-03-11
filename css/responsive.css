@@ -98,6 +98,7 @@
 	#site-header .navbar-form .form-control.search-query{
 		padding: 0 0 0 35px;
 		width: 35px;
+		transition: all 1s ease 0s;
 	}
 	#site-header .navbar-form .form-control.search-query:focus {
 		width: 200px;
@@ -107,8 +108,8 @@
 		float: none;
 	}
 	#site-header .navbar-form {
-		float: right;
-		position: relative;
+		position: absolute;
+		right: 30px;
 	}
 	#site-header .nav.navbar-avatar {
 		margin: 0;
@@ -128,6 +129,17 @@
 @media only screen and (min-width : 320px) and (max-width : 480px){
 	.header-position-c, .ra-question-activity-widget ul li .fav-star, .ra-question-activity-widget ul li .ans-count, .qa-q-list.clean .q-item-head .ans-count, .question-title .fav-parent, .question-tags, #question-meta{
 		display:none;
+	}
+	.navbar-site-logo {
+		display: none;
+	}
+	#site-header .site-logo a {
+		background: url("../images/small-logo.png") repeat scroll 0 0 rgba(0, 0, 0, 0);
+		display: block;
+		height: 35px;
+		margin-right: 10px;
+		margin-top: 8px;
+		width: 55px;
 	}
 	.ra-question-activity-widget ul .post-status-c, .qa-q-list.clean .status-c{
 		min-width: 0;

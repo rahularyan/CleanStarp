@@ -69,7 +69,7 @@
 				$events_type = array('q_post', 'a_post', 'c_post', 'a_select', 'badge_awarded');
 			
 			// query last 3 events
-			$query = qa_db_read_all_assoc(qa_db_query_sub('SELECT datetime,ipaddress,handle,event,params FROM ^eventlog WHERE event IN ("q_post", "a_post", "c_post") ORDER BY datetime DESC LIMIT #', $limit));
+			$query = cs_get_cache('SELECT datetime,ipaddress,handle,event,params FROM ^eventlog WHERE event IN ("q_post", "a_post", "c_post") ORDER BY datetime DESC LIMIT #',120, $limit);
 			
 			$postids = '';
 			$i = 1;
@@ -80,7 +80,7 @@
 				$i++;
 			}
 
-			$posts = qa_db_read_all_assoc(qa_db_query_sub('SELECT ^posts.* , ^users.handle FROM ^posts, ^users WHERE (^posts.userid=^users.userid AND ^posts.postid IN ('.$postids.')) AND ^posts.type IN ("Q", "A", "C") ORDER BY ^posts.created DESC'));
+			$posts = cs_get_cache('SELECT ^posts.* , ^users.handle FROM ^posts, ^users WHERE (^posts.userid=^users.userid AND ^posts.postid IN ('.$postids.')) AND ^posts.type IN ("Q", "A", "C") ORDER BY ^posts.created DESC',120);
 			$o = '<ul class="ra-activity">';
 			foreach($posts as $p){
 				$event_name = '';

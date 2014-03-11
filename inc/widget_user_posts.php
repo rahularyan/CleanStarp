@@ -79,7 +79,7 @@
 		function cs_user_post_list($handle, $type, $limit){
 			$userid = qa_handle_to_userid($handle);
 			require_once QA_INCLUDE_DIR.'qa-app-posts.php';
-			$post = qa_db_read_all_assoc(qa_db_query_sub('SELECT * FROM ^posts INNER JOIN ^users ON ^posts.userid=^users.userid WHERE ^posts.type=$ and ^posts.userid=# ORDER BY ^posts.created DESC LIMIT #', $type, $userid, $limit));	
+			$post = cs_get_cache('SELECT * FROM ^posts INNER JOIN ^users ON ^posts.userid=^users.userid WHERE ^posts.type=$ and ^posts.userid=# ORDER BY ^posts.created DESC LIMIT #', 10 ,$type, $userid, $limit);	
 			
 			$output = '<ul class="question-list users-post-widget post-type-'.$type.'">';
 			
@@ -152,7 +152,7 @@
 				$themeobject->output('<h3 class="widget-title user-post-title">'.cs_name($handle).'\'s '.$type_title.@$type_link.'</h3>');
 				
 			$themeobject->output('<div class="ra-ua-widget">');
-			$themeobject->output($this->cs_user_post_list($handle, @$widget_opt['cs_up_type'],  (int)$widget_opt['cs_ua_count']));
+			$themeobject->output($this->cs_user_post_list($handle, @$widget_opt['cs_up_type'],  (int)$widget_opt['cs_up_count']));
 			$themeobject->output('</div>');
 		}
 	

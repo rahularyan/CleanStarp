@@ -4365,9 +4365,11 @@ input[type=checkbox].on-off-checkbox {
 	margin-right:5px;
 }
 .slide-mobile-menu.icon-list {
+    color: #333333;
+    display: none;
     float: left;
     font-size: 45px;
-	display:none;
+    margin-left: -24px;
 }
 
 .page-cat-list .page-cat-list li{

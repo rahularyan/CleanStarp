@@ -233,6 +233,9 @@
 	.user-activities .what {
 		display: block;
 	}
+	.qa-part-q-list .ans-count{
+		display:none;
+	}
 }
 
 /* iPads (portrait and landscape) ----------- */

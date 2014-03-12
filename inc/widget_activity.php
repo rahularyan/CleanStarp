@@ -69,11 +69,11 @@
 				$events_type = array('q_post', 'a_post', 'c_post', 'a_select', 'badge_awarded');
 			
 			// query last 3 events
-			$query = cs_get_cache('SELECT datetime,ipaddress,handle,event,params FROM ^eventlog WHERE event IN ("q_post", "a_post", "c_post") ORDER BY datetime DESC LIMIT #',120, $limit);
-			
+			$posts = cs_get_cache('SELECT datetime,ipaddress,handle,event,params FROM ^eventlog WHERE event IN ("q_post", "a_post", "c_post") ORDER BY datetime DESC LIMIT #',120, $limit);
+			if(empty($posts))return;
 			$postids = '';
 			$i = 1;
-			foreach($query as $post){
+			foreach($posts as $post){
 				$params = preg_replace('/\s+/','&',$post['params']);
 				parse_str($params, $data); 
 				$postids.= ($i != 1 ? ', ': '' ).$data['postid'];
@@ -132,6 +132,7 @@
 
 		function output_widget($region, $place, $themeobject, $template, $request, $qa_content)
 		{
+			if(!(qa_opt('event_logger_to_database'))) return;
 			$widget_opt = @$themeobject->current_widget['param']['options'];
 
 			if(@$themeobject->current_widget['param']['locations']['show_title'])

@@ -71,7 +71,7 @@ class cs_widget_posts
     function cs_post_list($type, $limit, $return = false)
     {
 
-        $posts = cs_get_cache('SELECT ^posts.* , ^users.handle FROM ^posts, ^users WHERE ^posts.userid=^users.userid AND ^posts.type=$ ORDER BY ^posts.created DESC LIMIT #',60, $type, $limit);
+        $posts = cs_get_cache('SELECT ^posts.* , ^users.* FROM ^posts, ^users WHERE ^posts.userid=^users.userid AND ^posts.type=$ ORDER BY ^posts.created DESC LIMIT #',60, $type, $limit);
         
         $output = '<ul class="posts-list">';
         foreach($posts as $p) {

@@ -120,8 +120,8 @@ function cs_get_post_avatar($post, $userid ,$size = 40, $html=false){
 	}if (QA_FINAL_EXTERNAL_USERS)
 		$avatar = qa_get_external_avatar_html($post['userid'], $size, false);
 	else
-		$avatar = qa_get_user_avatar_html(@$post['flags'], @$post['email'], @$post['handle'],
-			@$post['avatarblobid'], @$post['avatarwidth'], @$post['avatarheight'], $size);
+		$avatar = qa_get_user_avatar_html($post['flags'], $post['email'], $post['handle'],
+			$post['avatarblobid'], $post['avatarwidth'], $post['avatarheight'], $size);
 	if($html)
 		return '<div class="avatar" data-id="'.$userid.'" data-handle="'.$post['handle'].'">'.$avatar.'</div>';
 	

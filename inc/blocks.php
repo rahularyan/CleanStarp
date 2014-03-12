@@ -628,7 +628,7 @@ class qa_html_theme extends qa_html_theme_base
                 $handle = qa_get_logged_in_handle();
             }
             
-            $this->output('<section id="content" class="content-sidebar">');
+            $this->output('<section id="content" class="content-sidebar user-cols">');
             $this->cs_user_nav($handle);
             $this->main_parts($content);
             $this->output('</section>');
@@ -767,10 +767,15 @@ class qa_html_theme extends qa_html_theme_base
             $this->output('</div>');
         }
         $this->output('<div class="qa-q-item-main">');
-        
+        if (!(bool) qa_opt('cs_enable_clean_qlist')){
+			$this->output('<div class="ans-count total-' . $q_item['raw']['acount'] . '">' . $q_item['raw']['acount'] . '<span>'.qa_lang('cleanstrap/ans') . '</span></div>');
+		}
         $this->output('<div class="q-item-head">');
+		
+		
         if ((bool) qa_opt('cs_enable_clean_qlist')) {
-            $this->output('<div class="count-time"><span class="time">' . $when . '</span><span class="ans-count total-' . $q_item['raw']['acount'] . '">' . $q_item['raw']['acount'] . '</span></div>');
+            $this->output('<div class="count-time"><span class="time">' . $when . '</span>');
+			$this->output('<span class="ans-count total-' . $q_item['raw']['acount'] . '">' . $q_item['raw']['acount'] . '</span></div>');
             
             $this->output('<span class="status-c">' . cs_post_status($q_item) . '</span>');
         }
@@ -1392,7 +1397,7 @@ class qa_html_theme extends qa_html_theme_base
         $userid = $this->content['raw']['account']['userid'];
         $about  = cs_user_profile($handle, 'about');
         
-        $this->output('<div class="user-cols">');
+        $this->output('<div class="user-cols content-sidebar">');
         $this->cs_user_nav($handle);
         $this->output('<div class="user-cols-right">');
         if (isset($about) && strlen($about))

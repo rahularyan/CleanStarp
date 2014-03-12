@@ -38,11 +38,27 @@ class qa_html_theme_layer extends qa_html_theme_base {
 			//$this->content['custom']='';
 		
 			$saved=false;
-			if (qa_clicked('cs_save_button')) {	
-					
+			if (qa_clicked('cs_remove_all_button')) {	
+				qa_db_query_sub('TRUNCATE TABLE ^ra_widgets');
 				$saved=true;
 			}
-			$saved ? 'Settings saved' : null;
+			if (qa_clicked('cs_reset_widgets_button')) {	
+				$handle = fopen(Q_THEME_DIR.'/demo_content/widget_builder.sql', 'r');
+				$sql = '';
+								var_dump($handle);
+
+				if($handle) {
+					while(($line = fgets($handle, 4096)) !== false) {
+						$sql .= trim(' ' . trim($line));
+						if(substr($sql, -strlen(';')) == ';') {
+								qa_db_query_sub($sql);
+								$sql = '';
+						}
+					}
+					fclose($handle);
+				}					
+				$saved=true;
+			}
 			
 			$cs_page = '
 				<div id="ra-widgets">
@@ -52,6 +68,12 @@ class qa_html_theme_layer extends qa_html_theme_base {
 					<div class="widget-postions col-sm-7">
 						'.$this->cs_get_widgets_positions().'
 					</div>
+				</div>
+				<div class="form-widget-button-holder">
+					<form class="form-horizontal" method="post">
+						<input class="qa-form-tall-button btn-primary" type="submit" name="cs_remove_all_button" value="Remove All Widgets" title="">
+						<input class="qa-form-tall-button btn-primary" type="submit" name="cs_reset_widgets_button" value="Reset All Widgets To Theme Default" title="">
+					</form>
 				</div>
 			';
 			$this->content['custom'] = $cs_page;

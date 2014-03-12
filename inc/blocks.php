@@ -812,8 +812,11 @@ class qa_html_theme extends qa_html_theme_base
 		$this->nav('footer');
         $this->get_social_links();
         
-        if ((bool) qa_opt('cs_footer_copyright'))
-            $this->output('<div class="qa-attribution-right">' . qa_opt('cs_footer_copyright') . '</div>');
+        $this->output('<div class="qa-attribution-right">');
+			if ((bool) qa_opt('cs_footer_copyright'))
+				$this->output(qa_opt('cs_footer_copyright'));
+			$this->output('<p class="developer">Crafted by <a href="http://rahularyan.com">Rahul Aryan</a> & Team</p>');
+		$this->output('</div>');
         
         $this->output('</footer>');
     }

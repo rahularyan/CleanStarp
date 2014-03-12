@@ -45,7 +45,7 @@ class qa_html_theme_layer extends qa_html_theme_base {
 			if (qa_clicked('cs_reset_widgets_button')) {	
 				$handle = fopen(Q_THEME_DIR.'/demo_content/widget_builder.sql', 'r');
 				$sql = '';
-								var_dump($handle);
+								
 
 				if($handle) {
 					while(($line = fgets($handle, 4096)) !== false) {

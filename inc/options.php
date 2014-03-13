@@ -97,10 +97,6 @@ class qa_html_theme_layer extends qa_html_theme_base
                 qa_opt('cs_back_to_top_location', qa_post_text('cs_back_to_top_location'));
                 
                 // Styling
-                qa_opt('cs_styling_duplicate_question', (bool) qa_post_text('cs_styling_duplicate_question'));
-                qa_opt('cs_styling_solved_question', (bool) qa_post_text('cs_styling_solved_question'));
-                qa_opt('cs_styling_closed_question', (bool) qa_post_text('cs_styling_closed_question'));
-                qa_opt('cs_styling_open_question', (bool) qa_post_text('cs_styling_open_question'));
                 qa_opt('cs_bg_select', qa_post_text('cs_bg_select'));
                 qa_opt('cs_bg_color', qa_post_text('cs_bg_color'));
                 qa_opt('cs_text_color', qa_post_text('cs_text_color'));
@@ -667,7 +663,7 @@ class qa_html_theme_layer extends qa_html_theme_base
 				</tr>
 				<tr id="bg-color-container"' . ((qa_opt('cs_bg_select') == 'bg_color') ? '' : ' style="display:none;"') . '>
 					<th class="qa-form-tall-label">
-						Body Font Color
+						Body Background Color
 					</th>
 					<td class="qa-form-tall-label">
 						<input type="colorpicker" class="form-control" value="' . qa_opt('cs_bg_color') . '" id="cs_bg_color" name="cs_bg_color">
@@ -745,67 +741,11 @@ class qa_html_theme_layer extends qa_html_theme_base
 				</tr>
 			</tbody>
 		</table>
-		<h3>Background color of questions</h3>
 		<table class="qa-form-tall-table options-table">
 			<tbody>
 				<tr>
 					<th class="qa-form-tall-label">
-						Open Questions
-						<span class="description">Color Open Questions in question lists</span>
-					</th>
-					<td class="qa-form-tall-label">
-						<div class="on-off-checkbox-container">
-								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('cs_styling_open_question') ? ' checked=""' : '') . ' id="cs_styling_open_question" name="cs_styling_open_question">
-							<label for="cs_styling_open_question">
-							</label>
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<th class="qa-form-tall-label">
-						Closed Questions
-						<span class="description">Color Closed Questions in question lists</span>
-					</th>
-					<td class="qa-form-tall-label">
-						<div class="on-off-checkbox-container">
-								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('cs_styling_closed_question') ? ' checked=""' : '') . ' id="cs_styling_closed_question" name="cs_styling_closed_question">
-							<label for="cs_styling_closed_question">
-							</label>
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<th class="qa-form-tall-label">
-						Resolved Questions
-						<span class="description">Color Resolved Questions in question lists</span>
-					</th>
-					<td class="qa-form-tall-label">
-						<div class="on-off-checkbox-container">
-								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('cs_styling_solved_question') ? ' checked=""' : '') . ' id="cs_styling_solved_question" name="cs_styling_solved_question">
-							<label for="cs_styling_solved_question">
-							</label>
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<th class="qa-form-tall-label">
-						Duplicate Questions
-						<span class="description">Color Duplicate Questions in question lists</span>
-					</th>
-					<td class="qa-form-tall-label">
-						<div class="on-off-checkbox-container">
-								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('cs_styling_duplicate_question') ? ' checked=""' : '') . ' id="cs_styling_duplicate_question" name="cs_styling_duplicate_question">
-							<label for="cs_styling_duplicate_question">
-							</label>
-						</div>
-					</td>
-				</tr>
-			</tbody>
-			<tbody>
-				<tr>
-					<th class="qa-form-tall-label">
 						Ask button background
-						<span class="description">ADD DETAIL.</span>
 					</th>
 					<td class="qa-form-tall-label">
 						<input type="colorpicker" class="form-control" value="' . qa_opt('cs_ask_btn_bg') . '" id="cs_ask_btn_bg" name="cs_ask_btn_bg">
@@ -1222,7 +1162,7 @@ class qa_html_theme_layer extends qa_html_theme_base
 		<tbody>
 			<tr>
 				<th class="qa-form-tall-label">
-					Text at right side of footer
+					Footer Text
 					<span class="description">you can add links or images by entering html code</span>
 				</th>
 				<td class="qa-form-tall-label">

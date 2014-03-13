@@ -646,6 +646,7 @@ body {
 
 .left-sidebar .float-nav {
     background: none repeat scroll 0 0 #FFFFFF;
+    width: 180px;
 }
 .left-sidebar .ra-tags-widget{
 	display:none;
@@ -988,7 +989,7 @@ a.feed-link {
     float: left;
     font-size: 12px;
     height: 22px;
-    line-height: 22px;
+
     min-width: 30px;
     padding: 0 8px;
 }
@@ -1176,6 +1177,10 @@ a.feed-link {
     line-height: 35px;
     margin: 0 0 10px;
     padding: 0;
+}
+.question-title .voting {
+    float: right;
+    margin-right: 10px;
 }
 .question-title .fav-parent {
     float: right;

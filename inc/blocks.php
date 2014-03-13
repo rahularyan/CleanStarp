@@ -1045,7 +1045,9 @@ class qa_html_theme extends qa_html_theme_base
 		
 		$this->output('<div class="no-overflow">');
 		$this->output('<h2 class="question-title">');
+		
 		$this->favorite();
+		$this->voting($q_view);
 		$this->output($q_view['raw']['title']);			
 		$this->output('</h2>'); 
         

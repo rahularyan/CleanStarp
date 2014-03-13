@@ -88,7 +88,7 @@
 				
 				$output .= '<span class="points">'.$u['points'].' '.qa_lang('cleanstrap/points').'</span>';
 				$output .= '<a href="'.qa_path_html('user/'.$u['handle']).'" class="name">'.$u['handle'].'</a>';
-				$output .= '<p class="counts"><span>'.qa_lang_sub('cleanstrap/x_questions', $u['aposts']).'</span> <span>'.qa_lang_sub('cleanstrap/x_answers', $u['qposts']).'</span><span>'.qa_lang_sub('cleanstrap/x_comments', $u['cposts']).'</span></p>';
+				$output .= '<p class="counts"><span>'.qa_lang_sub('cleanstrap/x_questions', $u['qposts']).'</span> <span>'.qa_lang_sub('cleanstrap/x_answers', $u['aposts']).'</span><span>'.qa_lang_sub('cleanstrap/x_comments', $u['cposts']).'</span></p>';
 				$output .= '</div>';
 				$output .= '</li>';
 			}

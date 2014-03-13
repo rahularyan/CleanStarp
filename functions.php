@@ -369,10 +369,6 @@ function reset_theme_options(){
 	qa_opt('cs_enble_back_to_top', true);
 	qa_opt('cs_back_to_top_location', 'nav');
 	// Styling
-	qa_opt('cs_styling_duplicate_question', false);
-	qa_opt('cs_styling_solved_question', false);
-	qa_opt('cs_styling_closed_question', false);
-	qa_opt('cs_styling_open_question', false);
 	qa_opt('cs_bg_select', false);
 	qa_opt('cs_bg_color', '#F4F4F4');
 	qa_opt('cs_text_color', '');

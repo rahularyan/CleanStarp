@@ -29,7 +29,11 @@
 						'type' => 'text',
 						'tags' => 'name="cs_ticker_slug"',
 					),
-	
+					'cs_ticker_link_title' => array(
+						'label' => 'Link title',
+						'type' => 'text',
+						'tags' => 'name="cs_ticker_link_title"',
+					),
 				),
 
 			);
@@ -82,7 +86,7 @@
 		}
 		
 		// output the list of selected post type
-		function cs_relative_post_list($limit, $slug, $type, $return = false){
+		function cs_relative_post_list($limit, $slug, $linktitle, $type, $return = false){
 			require_once QA_INCLUDE_DIR.'qa-app-posts.php';
 			if(!empty($slug)){
 				if($type=='Category'){
@@ -99,10 +103,11 @@
 							AND categoryid=(SELECT categoryid FROM ^categories WHERE ^categories.backpath=$ LIMIT 1) 
 							ORDER BY ^posts.created DESC LIMIT #',
 							900,'Q', $slug, $limit); //refresh every 15 minutes
-					$title = 'Questions in <a href="'.qa_path_html('questions/'.qa_strtolower($category_link)).'">'.$category_bread_crup.'</a>';
+					if (empty($linktitle)) $linktitle = $category_bread_crup;
+					$title = 'Questions in <a href="'.qa_path_html('questions/'.qa_strtolower($category_link)).'">'.$linktitle.'</a>';
 				}elseif($type=='Tags'){
 					$post_type='Q';
-					$title = 'Questions in <a href="'.qa_path_html('tag/'.qa_strtolower($slug)).'">'.$slug.'</a>';
+					$title = 'Questions in <a href="'.qa_path_html('tag/'.qa_strtolower($slug)).'">'.$linktitle.'</a>';
 					$posts = cs_get_cache(
 						'SELECT * FROM ^posts WHERE ^posts.type=$
 						AND ^posts.postid IN (SELECT postid FROM ^posttags WHERE 
@@ -113,7 +118,7 @@
 					require_once QA_INCLUDE_DIR.'qa-app-search.php';
 					$keyword=$slug;
 					$userid = qa_get_logged_in_userid();
-					$title = 'Posts About <a href="'.qa_path_html('search/'.qa_strtolower($keyword)).'">'.$keyword.'</a>';
+					$title = 'Posts About <a href="'.qa_path_html('search/'.qa_strtolower($keyword)).'">'.$linktitle.'</a>';
 					//$post=qa_get_search_results($keyword, 0, $limit, $userid , false, false);
 					$words=qa_string_to_words($keyword);
 					$posts=cs_get_cache_select_selectspec(qa_db_search_posts_selectspec($userid, $words, $words, $words, $words, trim($keyword), 0, false, $limit));
@@ -221,14 +226,13 @@
 			$widget_opt = $themeobject->current_widget['param']['options'];
 
 			$count = (isset($widget_opt['cs_ticker_count']) && !empty($widget_opt['cs_ticker_count'])) ?(int)$widget_opt['cs_ticker_count'] : 10;
-			
 			$slug = $widget_opt['cs_ticker_slug'];
-
+			$title = $widget_opt['cs_ticker_link_title'];
 			$type = (isset($widget_opt['cs_ticker_data'])) ? $widget_opt['cs_ticker_data'] : 'Keyword';
 			
 			$themeobject->output('<div class="ra-ticker-widget">');
 			
-			$themeobject->output($this->cs_relative_post_list($count, $slug, $type, true));
+			$themeobject->output($this->cs_relative_post_list($count, $slug, $title, $type, true));
 			$themeobject->output('</div>');
 		}
 	

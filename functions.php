@@ -662,3 +662,11 @@ function cs_ago($time)
 
    return "$difference $periods[$j] 'ago' ";
 }
+
+function stripslashes2($string) {
+    //$string = str_replace("\\\"", "\"", $string);
+    //$string = str_replace("\\'", "'", $string);
+    //$string = str_replace("\\\\", "\\", $string);
+	str_replace("\'", "'", $string);
+    return $string;
+}

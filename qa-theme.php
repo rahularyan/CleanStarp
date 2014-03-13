@@ -45,9 +45,14 @@
 	
 	qa_register_phrases(Q_THEME_DIR . '/language/cs-lang-*.php', 'cleanstrap');
 
-	if(isset($_REQUEST['cs_ajax']))
-		include_once Q_THEME_DIR.'/inc/ajax.php';
-	else{
+	if(isset($_REQUEST['cs_ajax'])){	
+		if(isset($_REQUEST['cs_ajax'])){
+			$action = 'cs_ajax_'.$_REQUEST['action'];
+			if(function_exists($action))
+				$action();
+		}
+		
+	}else{
 		global $qa_request;
 		
 		if (qa_get_logged_in_level()>=QA_USER_LEVEL_ADMIN){

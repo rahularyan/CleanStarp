@@ -664,8 +664,9 @@ function cs_ago($time)
 }
 
 function stripslashes2($string) {
-    $string = str_replace("\\\"", "\"", $string);
-    $string = str_replace("\\'", "'", $string);
-    $string = str_replace("\\\\", "\\", $string);
+    //$string = str_replace("\\\"", "\"", $string);
+    //$string = str_replace("\\'", "'", $string);
+    //$string = str_replace("\\\\", "\\", $string);
+	str_replace("\'", "'", $string);
     return $string;
 }

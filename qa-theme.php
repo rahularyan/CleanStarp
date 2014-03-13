@@ -78,7 +78,7 @@
 				qa_opt('cs_init',true);
 			}
 
-			if(!qa_opt('ra_installed')){
+			if(!qa_opt('cs_installed')){
 			/* add some option when theme init first time */
 
 				//create table for builder
@@ -93,7 +93,7 @@
 						'UNIQUE KEY id (id)'.				
 					') ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;'
 				);
-				qa_opt('ra_installed', true); // update db, so that this code should not execute every time
+				qa_opt('cs_installed', true); // update db, so that this code should not execute every time
 
 			}
 			

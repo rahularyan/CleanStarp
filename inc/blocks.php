@@ -20,7 +20,7 @@ class qa_html_theme extends qa_html_theme_base
                 $this->$action();
         } else {
             $this->output('<!DOCTYPE html>');
-            $this->content['navigation']['main']['questions']['icon']    = 'icon-question';
+            $this->content['navigation']['main']['questions']['icon']    = 'icon-question-sign';
             $this->content['navigation']['main']['unanswered']['icon']   = 'icon-sad';
             $this->content['navigation']['main']['hot']['icon']          = 'icon-fire';
             $this->content['navigation']['main']['tag']['icon']          = 'icon-tags2';
@@ -249,7 +249,7 @@ class qa_html_theme extends qa_html_theme_base
 			$this->content['navigation']['user']['updates']['icon'] = 'icon-signal';
 			$this->content['navigation']['user']['account'] = array('label' => qa_lang('cleanstrap/account'), 'url' => qa_path_html('account'), 'icon' => 'icon-cog');
 			$this->content['navigation']['user']['favorites'] = array('label' => qa_lang('cleanstrap/favorites'), 'url' => qa_path_html('favorites'), 'icon' =>'icon-heart');
-			$this->content['navigation']['user']['wall'] = array('label' => qa_lang('cleanstrap/wall'), 'url' => qa_path_html('user/'.qa_get_logged_in_handle().'/wall'), 'icon' =>'icon-comment');
+			$this->content['navigation']['user']['wall'] = array('label' => qa_lang('cleanstrap/wall'), 'url' => qa_path_html('user/'.qa_get_logged_in_handle().'/wall'), 'icon' =>'icon-edit');
 			$this->content['navigation']['user']['recent_activity'] = array('label' => qa_lang('cleanstrap/recent_activity'), 'url' => qa_path_html('user/'.qa_get_logged_in_handle().'/activity'), 'icon' =>'icon-time');
 			$this->content['navigation']['user']['all_questions'] = array('label' => qa_lang('cleanstrap/all_questions'), 'url' => qa_path_html('user/'.qa_get_logged_in_handle().'/questions'), 'icon' =>'icon-question');
 			$this->content['navigation']['user']['all_answers'] = array('label' => qa_lang('cleanstrap/all_answers'), 'url' => qa_path_html('user/'.qa_get_logged_in_handle().'/answers'), 'icon' =>'icon-answer');

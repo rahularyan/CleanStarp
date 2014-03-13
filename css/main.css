@@ -4445,3 +4445,11 @@ input[type=checkbox].on-off-checkbox {
     display: block;
     font-size: 12px;
 }
+
+
+.ra-cc-widget{
+    font-family: 'open sans',arial;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 28px;
+}

@@ -172,10 +172,13 @@ function cs_truncate($string, $limit, $pad="...") {
 	if(strlen($string) <= $limit) 
 		return $string; 
 	else{ 
-		preg_match('/^.{1,'.$limit.'}\b/s', $string, $match);
-		return $match[0].$pad;
+		//preg_match('/^.{1,'.$limit.'}\b/s', $string, $match);
+		//return $match[0].$pad;
+		$text = $string.' ';
+		$text = substr($text,0,$limit);
+		$text = substr($text,0,strrpos($text,' '));
+		return $text.$pad;
 	} 
-
 }
 		
 function cs_user_profile($handle, $field =NULL){
@@ -661,4 +664,12 @@ function cs_ago($time)
    }
 
    return "$difference $periods[$j] 'ago' ";
+}
+
+function stripslashes2($string) {
+    //$string = str_replace("\\\"", "\"", $string);
+    //$string = str_replace("\\'", "'", $string);
+    //$string = str_replace("\\\\", "\\", $string);
+	str_replace("\'", "'", $string);
+    return $string;
 }

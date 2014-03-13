@@ -646,6 +646,7 @@ body {
 
 .left-sidebar .float-nav {
     background: none repeat scroll 0 0 #FFFFFF;
+    width: 180px;
 }
 .left-sidebar .ra-tags-widget{
 	display:none;

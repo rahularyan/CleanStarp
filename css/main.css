@@ -4458,3 +4458,15 @@ input[type=checkbox].on-off-checkbox {
     font-weight: 300;
     line-height: 28px;
 }
+
+#nav-top #site-header .qa-nav-main .qa-nav-main-list li a {
+    color: #777777;
+    font-size: 13px;
+    font-weight: normal;
+}
+#nav-top #site-header .qa-nav-main .qa-nav-main-list li a:hover , #nav-top #site-header .qa-nav-main .qa-nav-main-list li a.qa-nav-main-selected {
+   background:#fafafa;
+}
+#nav-top #site-header .qa-nav-main .qa-nav-main-list li a:before{
+	margin-right:7px;
+}

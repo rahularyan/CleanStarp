@@ -222,13 +222,16 @@
 
 			$count = (isset($widget_opt['cs_ticker_count']) && !empty($widget_opt['cs_ticker_count'])) ?(int)$widget_opt['cs_ticker_count'] : 10;
 			
-			$slug = $widget_opt['cs_ticker_slug'];
-
+			$slug = @$widget_opt['cs_ticker_slug'];
+			
 			$type = (isset($widget_opt['cs_ticker_data'])) ? $widget_opt['cs_ticker_data'] : 'Keyword';
 			
 			$themeobject->output('<div class="ra-ticker-widget">');
 			
-			$themeobject->output($this->cs_relative_post_list($count, $slug, $type, true));
+			if(isset($slug))
+				$themeobject->output($this->cs_relative_post_list($count, $slug, $type, true));
+			else
+				$themeobject->output('<p>'.qa_lang('cleanstrap/tag_slug_empty').'</p>');
 			$themeobject->output('</div>');
 		}
 	

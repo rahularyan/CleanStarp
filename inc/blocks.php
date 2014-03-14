@@ -31,6 +31,9 @@ class qa_html_theme extends qa_html_theme_base
             $this->content['navigation']['main']['themeoptions']['icon'] = 'icon-wrench';
             
             unset($this->content['navigation']['main']['ask']);
+			
+			if((bool)qa_opt('cs_enable_category_nav'))
+				unset($this->content['navigation']['main']['categories']);
         }
         
     }
@@ -52,7 +55,7 @@ class qa_html_theme extends qa_html_theme_base
     function body_tags()
     {
         
-        $this->output('id="' . qa_opt('cs_theme_layout') . '"');
+        $this->output('id="nav-' . qa_opt('cs_nav_position') . '"');
         qa_html_theme_base::body_tags();
     }
     function finish()
@@ -152,10 +155,13 @@ class qa_html_theme extends qa_html_theme_base
         }
         $this->output('<div id="ajax-item">');
         $this->output('<div id="site-body" class="container">');
-        $this->left_sidebar();
+		
+		if(qa_opt('cs_nav_position') == 'left')
+			$this->left_sidebar();
+			
         $this->main();
         $this->output('</div>');
-        $this->output('<div id="ajax-blocks"></div>');
+
         $this->output('</div>');
         
         $this->body_suffix();
@@ -174,13 +180,21 @@ class qa_html_theme extends qa_html_theme_base
 			$this->output('<a id="nav-ask-btn" href="' . qa_path_html('ask') . '" class="btn btn-sm">' . qa_lang_html('cleanstrap/ask_question') . '</a>');
 			$this->output('<a id="nav-ask-btn" href="' . qa_path_html('ask') . '" class="btn btn-sm header-ask-button icon-question-sign"></a>');
 		}
-        if ( (qa_opt('cs_enable_category_nav')) && (qa_using_categories()) )
+        			
+		$this->head_nav();
+		
+		if ( (qa_opt('cs_enable_category_nav')) && (qa_using_categories()) )
 			$this->cat_drop_nav();
+			
         $this->user_drop_nav();
         $this->search();
         $this->output('</div>', '</header>');
     }
-    
+    function head_nav(){
+		if(qa_opt('cs_nav_position') == 'top'){
+			$this->nav('main');
+		}
+	}
     function site_top()
     {
         $this->output('<div id="site-top" class="container">');
@@ -206,7 +220,7 @@ class qa_html_theme extends qa_html_theme_base
 ?>
 			<ul class="nav navbar-nav category-nav pull-left">
 				<li class="dropdown pull-left">
-					<a data-toggle="dropdown" href="#" class="category-toggle icon-folder-close-alt"><?php
+					<a data-toggle="dropdown" href="#" class="category-toggle icon-folder-close"><?php
         echo qa_lang_html('cleanstrap/categories');
 ?></a>
 					<ul class="category-list-drop dropdown-menu">
@@ -605,7 +619,9 @@ class qa_html_theme extends qa_html_theme_base
             }
             $this->output('</div>');
         }
-        $this->cs_position('Content Top');
+		
+		if ($this->template != 'question')
+			$this->cs_position('Content Top');
         
         if (isset($this->content['error']))
             $this->error(@$this->content['error']);
@@ -1481,7 +1497,7 @@ class qa_html_theme extends qa_html_theme_base
     {
         $this->output('<div class="qa-a-form"' . (isset($a_form['id']) ? (' id="' . $a_form['id'] . '"') : '') . '>');
         
-        if (qa_is_logged_in()) {
+        if (isset($a_form)) {
 			$this->output('<div class="big-s-avatar avatar">' . cs_get_avatar(qa_get_logged_in_handle(), 40) . '</div>');        
 			$this->output('<div class="q-cont-right">');
           //  $this->output('<h3 class="your-answer">' . $a_form['title'] . '</h3>');

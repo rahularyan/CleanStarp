@@ -9,7 +9,8 @@ function get_all_widgets()
 {		
 	$widgets = qa_db_read_all_assoc(qa_db_query_sub('SELECT * FROM ^ra_widgets ORDER BY widget_order'));
 	foreach($widgets as $k => $w){
-		$param = unserialize($w['param']);
+		$param = preg_replace('!s:(\d+):"(.*?)";!e', "'s:'.strlen('$2').':\"$2\";'", $w['param']);
+		$param = unserialize($param);
 		$widgets[$k]['param'] = $param;
 	}
 	return $widgets;

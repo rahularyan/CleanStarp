@@ -73,6 +73,7 @@
 		'select_answer' => 'Select answer',
 		'no_activity_yet' => 'No activity yet!',
 		'x_ans' => '^ ans',
+		'tag_slug_empty' => 'Slug/Keyword field is empty.',
 	);
 	
 

@@ -22,13 +22,14 @@ class qa_html_theme_layer extends qa_html_theme_base
     {
         // Setup Navigation
         global $qa_request;
-        $this->content['navigation']['main']['themeoptions'] = array(
+        $this->content['navigation']['user']['themeoptions'] = array(
             'label' => 'Theme Options',
-            'url' => qa_path_html('themeoptions')
+            'url' => qa_path_html('themeoptions'),
+            'icon' => 'icon-wrench'
         );
         if ($qa_request == 'themeoptions') {
-            $this->content['navigation']['main']['themeoptions']['selected'] = true;
-            $this->content['navigation']['main']['selected']                 = true;
+            $this->content['navigation']['user']['themeoptions']['selected'] = true;
+            $this->content['navigation']['user']['selected']                 = true;
             $this->template                                                  = "themeoptions";
             $this->content['site_title']                                     = "Theme Options";
             $this->content['error']                                          = "";
@@ -76,7 +77,7 @@ class qa_html_theme_layer extends qa_html_theme_base
                 qa_opt('cs_crop_y', qa_post_text('cs_crop_y'));
                 
                 // Layout
-                qa_opt('cs_theme_layout', qa_post_text('cs_theme_layout'));
+                qa_opt('cs_nav_position', qa_post_text('cs_nav_position'));
                 qa_opt('cs_nav_fixed', (bool) qa_post_text('cs_nav_fixed'));
                 qa_opt('cs_show_icon', (bool) qa_post_text('cs_show_icon'));
                 qa_opt('cs_enable_ask_button', (bool) qa_post_text('cs_enable_ask_button'));
@@ -463,14 +464,14 @@ class qa_html_theme_layer extends qa_html_theme_base
 			<tbody>
 				<tr>
 					<th class="qa-form-tall-label">
-						Site Layout
-						<span class="description">Select between wide or boxed site layout</span>
+						Navigation Position
+						<span class="description">Where to show navigation</span>
 					</th>
 					<td class="qa-form-tall-label">
-						<input class="theme-option-radio" type="radio"' . (qa_opt('cs_theme_layout') == 'wide' ? ' checked=""' : '') . ' id="cs_theme_layout_wide" name="cs_theme_layout" value="wide">
-						   <label for="cs_theme_layout_wide">Wide</label>
-						<input class="theme-option-radio" type="radio"' . (qa_opt('cs_theme_layout') == 'boxed' ? ' checked=""' : '') . ' id="cs_theme_layout_boxed" name="cs_theme_layout" value="boxed">
-						   <label for="cs_theme_layout_boxed">boxed</label> 
+						<input class="theme-option-radio" type="radio"' . (qa_opt('cs_nav_position') == 'left' ? ' checked=""' : '') . ' id="cs_nav_position" name="cs_nav_position" value="left">
+						   <label for="cs_nav_position">Left</label>
+						<input class="theme-option-radio" type="radio"' . (qa_opt('cs_nav_position') == 'top' ? ' checked=""' : '') . ' id="cs_nav_position_top" name="cs_nav_position" value="top">
+						   <label for="cs_nav_position_top">Top</label> 
 					</td>
 				</tr>
 			</tbody>

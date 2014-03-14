@@ -23,13 +23,14 @@ class qa_html_theme_layer extends qa_html_theme_base {
 		// Setup Navigation
 		global $qa_request;
 		//var_dump($qa_request);
-		$this->content['navigation']['main']['widgets'] = array(
+		$this->content['navigation']['user']['widgets'] = array(
 			'label' => 'Theme Widgets',
 			'url' => qa_path_html('widgets'),
+			'icon' => 'icon-puzzle',
 		);
 		if($qa_request == 'widgets') {
-			$this->content['navigation']['main']['widgets']['selected'] = true;
-			$this->content['navigation']['main']['selected'] = true;
+			$this->content['navigation']['user']['widgets']['selected'] = true;
+			$this->content['navigation']['user']['selected'] = true;
 			$this->template="widgets";
 			$this->content['site_title']="Theme Widgets";
 			$this->content['error']="";

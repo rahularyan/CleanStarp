@@ -52,7 +52,7 @@ class qa_html_theme extends qa_html_theme_base
     function body_tags()
     {
         
-        $this->output('id="' . qa_opt('cs_theme_layout') . '"');
+        $this->output('id="nav-' . qa_opt('cs_nav_position') . '"');
         qa_html_theme_base::body_tags();
     }
     function finish()
@@ -152,10 +152,13 @@ class qa_html_theme extends qa_html_theme_base
         }
         $this->output('<div id="ajax-item">');
         $this->output('<div id="site-body" class="container">');
-        $this->left_sidebar();
+		
+		if(qa_opt('cs_nav_position') == 'left')
+			$this->left_sidebar();
+			
         $this->main();
         $this->output('</div>');
-        $this->output('<div id="ajax-blocks"></div>');
+
         $this->output('</div>');
         
         $this->body_suffix();
@@ -176,11 +179,18 @@ class qa_html_theme extends qa_html_theme_base
 		}
         if ( (qa_opt('cs_enable_category_nav')) && (qa_using_categories()) )
 			$this->cat_drop_nav();
+			
+		$this->head_nav();
+		
         $this->user_drop_nav();
         $this->search();
         $this->output('</div>', '</header>');
     }
-    
+    function head_nav(){
+		if(qa_opt('cs_nav_position') == 'top'){
+			$this->nav('main');
+		}
+	}
     function site_top()
     {
         $this->output('<div id="site-top" class="container">');

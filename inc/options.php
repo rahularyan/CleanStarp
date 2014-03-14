@@ -22,13 +22,14 @@ class qa_html_theme_layer extends qa_html_theme_base
     {
         // Setup Navigation
         global $qa_request;
-        $this->content['navigation']['main']['themeoptions'] = array(
+        $this->content['navigation']['user']['themeoptions'] = array(
             'label' => 'Theme Options',
-            'url' => qa_path_html('themeoptions')
+            'url' => qa_path_html('themeoptions'),
+            'icon' => 'icon-wrench'
         );
         if ($qa_request == 'themeoptions') {
-            $this->content['navigation']['main']['themeoptions']['selected'] = true;
-            $this->content['navigation']['main']['selected']                 = true;
+            $this->content['navigation']['user']['themeoptions']['selected'] = true;
+            $this->content['navigation']['user']['selected']                 = true;
             $this->template                                                  = "themeoptions";
             $this->content['site_title']                                     = "Theme Options";
             $this->content['error']                                          = "";

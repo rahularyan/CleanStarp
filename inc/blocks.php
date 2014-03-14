@@ -31,6 +31,9 @@ class qa_html_theme extends qa_html_theme_base
             $this->content['navigation']['main']['themeoptions']['icon'] = 'icon-wrench';
             
             unset($this->content['navigation']['main']['ask']);
+			
+			if((bool)qa_opt('cs_enable_category_nav'))
+				unset($this->content['navigation']['main']['categories']);
         }
         
     }
@@ -177,11 +180,12 @@ class qa_html_theme extends qa_html_theme_base
 			$this->output('<a id="nav-ask-btn" href="' . qa_path_html('ask') . '" class="btn btn-sm">' . qa_lang_html('cleanstrap/ask_question') . '</a>');
 			$this->output('<a id="nav-ask-btn" href="' . qa_path_html('ask') . '" class="btn btn-sm header-ask-button icon-question-sign"></a>');
 		}
-        if ( (qa_opt('cs_enable_category_nav')) && (qa_using_categories()) )
-			$this->cat_drop_nav();
-			
+        			
 		$this->head_nav();
 		
+		if ( (qa_opt('cs_enable_category_nav')) && (qa_using_categories()) )
+			$this->cat_drop_nav();
+			
         $this->user_drop_nav();
         $this->search();
         $this->output('</div>', '</header>');
@@ -216,7 +220,7 @@ class qa_html_theme extends qa_html_theme_base
 ?>
 			<ul class="nav navbar-nav category-nav pull-left">
 				<li class="dropdown pull-left">
-					<a data-toggle="dropdown" href="#" class="category-toggle icon-folder-close-alt"><?php
+					<a data-toggle="dropdown" href="#" class="category-toggle icon-folder-close"><?php
         echo qa_lang_html('cleanstrap/categories');
 ?></a>
 					<ul class="category-list-drop dropdown-menu">

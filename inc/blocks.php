@@ -605,7 +605,9 @@ class qa_html_theme extends qa_html_theme_base
             }
             $this->output('</div>');
         }
-        $this->cs_position('Content Top');
+		
+		if ($this->template != 'question')
+			$this->cs_position('Content Top');
         
         if (isset($this->content['error']))
             $this->error(@$this->content['error']);

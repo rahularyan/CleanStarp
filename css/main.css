@@ -3887,7 +3887,9 @@ input[type=checkbox].on-off-checkbox {
 .post-button #q_doanswer, .post-button .icon-chat{
 	float:left;
 }
-
+.post-button #q_doanswer{
+	color:#fff;
+}
 .theme-widgets > div {
     background: #fff;
 }
@@ -4498,4 +4500,12 @@ input[type=checkbox].on-off-checkbox {
     display: block;
     font-weight: bold;
     padding: 5px 10px;
+}
+
+.dropdown-menu li.user-nav-themeoptions {
+    border-bottom: 1px solid #eee;
+	margin-bottom:3px;
+}
+.dropdown-menu li.user-nav-admin a,.dropdown-menu li.user-nav-widgets a, .dropdown-menu li.user-nav-themeoptions a {
+	font-weight:bold;
 }

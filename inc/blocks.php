@@ -31,6 +31,7 @@ class qa_html_theme extends qa_html_theme_base
             $this->content['navigation']['main']['themeoptions']['icon'] = 'icon-wrench';
             
             unset($this->content['navigation']['main']['ask']);
+            unset($this->content['navigation']['main']['admin']);
 			
 			if((bool)qa_opt('cs_enable_category_nav'))
 				unset($this->content['navigation']['main']['categories']);
@@ -180,12 +181,10 @@ class qa_html_theme extends qa_html_theme_base
 			$this->output('<a id="nav-ask-btn" href="' . qa_path_html('ask') . '" class="btn btn-sm">' . qa_lang_html('cleanstrap/ask_question') . '</a>');
 			$this->output('<a id="nav-ask-btn" href="' . qa_path_html('ask') . '" class="btn btn-sm header-ask-button icon-question-sign"></a>');
 		}
-        			
+        if ( (qa_opt('cs_enable_category_nav')) && (qa_using_categories()) )
+			$this->cat_drop_nav();			
 		$this->head_nav();
 		
-		if ( (qa_opt('cs_enable_category_nav')) && (qa_using_categories()) )
-			$this->cat_drop_nav();
-			
         $this->user_drop_nav();
         $this->search();
         $this->output('</div>', '</header>');
@@ -254,12 +253,9 @@ class qa_html_theme extends qa_html_theme_base
 						</a>
 						<ul class="user-nav dropdown-menu">
 							
-							<li><a class="icon-vcard" href="<?php
-            echo qa_path_html('user/' . qa_get_logged_in_handle());
-?>"><?php
-            echo qa_lang_html('cleanstrap/profile');
-?></a></li>
 							<?php
+			$this->content['navigation']['user']['admin'] = array('label' => qa_lang_html('cleanstrap/admin'), 'url' => qa_path_html('admin'), 'icon'=> 'icon-wrench');
+			$this->content['navigation']['user']['profile'] = array('label' => qa_lang_html('cleanstrap/profile'), 'url' => qa_path_html('user/' . qa_get_logged_in_handle()), 'icon'=> 'icon-vcard');
 			$this->content['navigation']['user']['updates']['icon'] = 'icon-signal';
 			$this->content['navigation']['user']['account'] = array('label' => qa_lang('cleanstrap/account'), 'url' => qa_path_html('account'), 'icon' => 'icon-cog');
 			$this->content['navigation']['user']['favorites'] = array('label' => qa_lang('cleanstrap/favorites'), 'url' => qa_path_html('favorites'), 'icon' =>'icon-heart');
@@ -268,10 +264,12 @@ class qa_html_theme extends qa_html_theme_base
 			$this->content['navigation']['user']['all_questions'] = array('label' => qa_lang('cleanstrap/all_questions'), 'url' => qa_path_html('user/'.qa_get_logged_in_handle().'/questions'), 'icon' =>'icon-question');
 			$this->content['navigation']['user']['all_answers'] = array('label' => qa_lang('cleanstrap/all_answers'), 'url' => qa_path_html('user/'.qa_get_logged_in_handle().'/answers'), 'icon' =>'icon-answer');
 			
-            foreach ($this->content['navigation']['user'] as $k => $a) {
+			$user_menu = array_merge(array_flip(array('admin', 'widgets', 'themeoptions', 'profile')), $this->content['navigation']['user']);
+
+            foreach ($user_menu as $k => $a) {
                 if (isset($a['url']) && $k != 'logout') {
                     $icon = (isset($a['icon']) ? ' class="' . $a['icon'] . '" ' : '');
-                    echo '<li' . (isset($a['selected']) ? ' class="active"' : '') . '><a' . $icon . ' href="' . @$a['url'] . '" title="' . @$a['label'] . '">' . @$a['label'] . '</a></li>';
+                    echo '<li class="user-nav-'.$k . (isset($a['selected']) ? ' active' : '') . '"><a' . $icon . ' href="' . @$a['url'] . '" title="' . @$a['label'] . '">' . @$a['label'] . '</a></li>';
                 }
             }
 			
@@ -584,7 +582,10 @@ class qa_html_theme extends qa_html_theme_base
     function main()
     {
         $content = $this->content;
-        
+       
+	   if ($this->template == 'admin' && qa_opt('cs_nav_position') == 'top')
+            $this->nav('sub');
+			
         $this->output('<div class="clearfix qa-main' . (@$this->content['hidden'] ? ' qa-main-hidden' : '') . '">');
         $col_width = ($this->cs_position_active('Right') && $this->template != 'question');
         
@@ -733,9 +734,29 @@ class qa_html_theme extends qa_html_theme_base
 		
         $this->output('<div class="question-main">');
         $this->cs_position('Content Top');
-		$this->main_parts($content);
-        
+		
+		$this->output('<div class="row">');
+			$this->output('<div class="col-md-8 question-c-l">');
+				$this->main_parts($content);        
+			$this->output('</div>');		
+			$this->output('<div class="col-md-4 question-sidebar">');
+
+				if(isset($content['q_view']['raw']['postid'])){
+					$featured_image = get_featured_image($content['q_view']['raw']['postid']);
+					if($featured_image){
+						$this->output('<div class="widget">');           
+						$this->output('<h3 class="widget-title">'.qa_lang('cleanstrap/featured_image').'</h3>');           
+						$this->output('<div class="question-image-container">');           
+						$this->output($featured_image);
+						$this->output('</div>');
+						$this->output('</div>');
+					}
+				}
+				$this->cs_position('Question Right');
+			$this->output('</div>');
+		
         $this->output('</div>');
+		$this->output('</div>');
     }
     
     function q_list_item($q_item)
@@ -1055,7 +1076,7 @@ class qa_html_theme extends qa_html_theme_base
     }
     function q_view_main($q_view)
     {
-		$featured_image = get_featured_image($q_view['raw']['postid']);
+		
         $this->output('<div class="question-head">');
 		$this->output('<div class="big-s-avatar avatar">' . cs_get_avatar($q_view['raw']['handle'], 70) . '</div>');
 		
@@ -1091,12 +1112,7 @@ class qa_html_theme extends qa_html_theme_base
             $this->output('<div class="qa-q-view-wrap">');
             $this->output('<div class="qa-q-view-inner">');
             $this->output('<div class="clearfix">');
-            			
-            if(!empty($featured_image)){
-				$this->output('<div class="question-image-container">');           
-				$this->output($featured_image);
-				$this->output('</div>');
-			}
+			
 
 			$this->q_view_content($q_view);
 			
@@ -1288,8 +1304,7 @@ class qa_html_theme extends qa_html_theme_base
     {
 		if (isset($a_list['title']) && (strlen(@$a_list['title']) || strlen(@$a_list['title_tags'])))
                 $this->output('<h3 class="answers-label icon-answer">' . @$a_list['title'] . '</h3>');
-		$this->output('<div class="row">');
-        $this->output('<div class="col-md-8 question-c-l">');
+		
 		if (!empty($a_list)) {
             
             $this->output('<div class="qa-a-list' . ($this->list_vote_disabled($a_list['as']) ? ' qa-a-list-vote-disabled' : '') . '" ' . @$a_list['tags'] . '>', '');
@@ -1298,17 +1313,7 @@ class qa_html_theme extends qa_html_theme_base
             $this->output('</div> <!-- END qa-a-list -->', '');
         }
         $this->page_links();
-        $this->answer_form();		
-       
-        $this->output('</div>');
-		
-        $this->output('<div class="col-md-4 question-sidebar">');
-	
-			$this->cs_position('Question Right');
-        $this->output('</div>');
-		
-        $this->output('</div>');
-        
+        $this->answer_form();	
     }
     function a_list_item($a_item)
     {

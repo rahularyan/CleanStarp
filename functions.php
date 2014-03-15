@@ -435,8 +435,6 @@ function get_featured_image($postid){
 
 	if (!empty($img))
 		return '<img class="image-preview" id="image-preview" src="'.Q_THEME_URL . '/uploads/' . $img.'" />';
-	else
-		return '<img class="image-preview" id="image-preview" style="display:none;" src="" />';
 		
 	return false;
 }
@@ -668,9 +666,7 @@ function cs_ago($time)
 }
 
 function stripslashes2($string) {
-    //$string = str_replace("\\\"", "\"", $string);
-    //$string = str_replace("\\'", "'", $string);
-    //$string = str_replace("\\\\", "\\", $string);
-	str_replace("\'", "'", $string);
+	str_replace('\\', '', $string);
     return $string;
 }
+

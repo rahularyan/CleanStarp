@@ -537,10 +537,10 @@ body {
 }
 .qa-q-list .qa-q-list-item {
     border-top: 1px solid #F7F7F7;
-    padding: 10px 15px;
+    padding: 15px 15px;
 }
 .qa-q-list .qa-q-list-item:nth-child(2n) {
-    background: rgba(0, 0, 0, 0.02);
+
 }
 .qa-q-list .qa-q-list-item .asker-avatar {
     float: left;
@@ -601,10 +601,10 @@ body {
 }
 
 .qa-q-item-title > a {
-	color: #5D5D5D;
+    color: #525252;
     display: block;
-    font-size: 16px;
-    font-weight: 300;
+    font-size: 14px;
+    font-weight: 600;
     margin-bottom: 5px;
 }
 
@@ -691,11 +691,12 @@ body {
     min-height: 800px;
     padding: 15px 0;
 }
-.qa-template-question .qa-main{
-
+.qa-template-question .qa-main {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+	padding:0;
 }
-.qa-part-q-view{
-    margin: -15px -15px 15px;
+.qa-part-q-view {
+    background: none repeat scroll 0 0 #FFFFFF;
     padding: 10px 10px 0;
 }
  .qa-part-q-view .q-cont-right{
@@ -1264,8 +1265,8 @@ a.feed-link {
 
 .qa-q-view-content {
     color: #666666;
-    font-size: 15px;
-    font-weight: 300;
+    font-size: 14px;
+    font-weight: 400;
     line-height: 30px;
     margin-bottom: 15px;
     padding: 0 20px;
@@ -1406,16 +1407,15 @@ a.feed-link {
 }
 
 .answers-label {
-    background: none repeat scroll 0 0 #F9F9F9;
+    background: none repeat scroll 0 0 #333333;
     border-bottom: 1px solid #F3F3F3;
-    color: #333333;
+    color: #FFFFFF;
     font-family: 'open sans',arial;
     font-size: 24px;
-    margin: -15px -15px 15px;
     padding: 20px;
 }
 .answers-label.icon-answer:before {
-    background: none repeat scroll 0 0 #FFFFFF;
+    background: none repeat scroll 0 0 #444;
     border-radius: 50%;
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
     color: #AAAAAA;
@@ -1431,6 +1431,7 @@ a.feed-link {
 }
 
 .qa-a-list .qa-a-list-item {
+    background: none repeat scroll 0 0 #FFFFFF;
     margin-bottom: 20px;
 }
 
@@ -1460,7 +1461,7 @@ a.feed-link {
 	border-top: 3px solid #00CCFF;
 }
 .a-item-wrap {
-
+    padding: 0 15px;
 }
 
 .qa-a-item-c-list {
@@ -2116,7 +2117,10 @@ input.qa-form-wide-number{
     padding: 15px;
     border-radius: 4px;
 }
-
+.question-sidebar{
+    background: none repeat scroll 0 0 #FFFFFF;
+    padding: 10px;
+}
 .qa-part-form {
 }
 
@@ -2125,10 +2129,11 @@ input.qa-form-wide-number{
 }
 
 .answer-form {
+    background: none repeat scroll 0 0 #FFFFFF;
     border-top: 3px solid #333333;
     margin-bottom: 20px;
     margin-top: 10px;
-    padding-top: 15px;
+    padding: 15px;
 }
 
 .qa-suggest-next {
@@ -2264,6 +2269,7 @@ input.qa-form-wide-number{
 }
 
 .answer-selected .a-item-wrap {
+    padding: 0 15px;
 }
 
 #edit-user {
@@ -3836,7 +3842,8 @@ input[type=checkbox].on-off-checkbox {
     width: 16px;
 }
 .a-item-wrap .post-button{
-	border-bottom: 1px solid #EEEEEE;
+    border-bottom: 1px solid #EEEEEE;
+    margin: 0 -15px;
 }
 .post-button {
     border-top: 1px solid #EEEEEE;
@@ -3880,7 +3887,9 @@ input[type=checkbox].on-off-checkbox {
 .post-button #q_doanswer, .post-button .icon-chat{
 	float:left;
 }
-
+.post-button #q_doanswer{
+	color:#fff;
+}
 .theme-widgets > div {
     background: #fff;
 }
@@ -3934,9 +3943,9 @@ input[type=checkbox].on-off-checkbox {
     margin-top: 5px;
 }
 .question-image-container {
-    float: left;
-    margin: 10px 15px 10px 20px;
-    max-width: 505px;
+    border: 1px solid #EEEEEE;
+    margin-bottom: 15px;
+    padding: 6px;
 }
 .question-sidebar .question-meta{
 
@@ -4434,6 +4443,7 @@ input[type=checkbox].on-off-checkbox {
 
 .qa-part-q-list .ans-count{
     background: none repeat scroll 0 0 #FFDB3D;
+    border: 1px solid rgba(0, 0, 0, 0.05);
     border-radius: 2px;
     display: block;
     float: right;
@@ -4442,8 +4452,8 @@ input[type=checkbox].on-off-checkbox {
     min-width: 50px;
     text-align: center;
 }
-.qa-part-q-list .ans-count.total-0{
-	background:#eee;
+.qa-part-q-list .ans-count.total-0 {
+    background: none repeat scroll 0 0 #FFFFFF;
 }
 .qa-part-q-list .ans-count span{
     display: block;
@@ -4468,4 +4478,34 @@ input[type=checkbox].on-off-checkbox {
 }
 #nav-top #site-header .qa-nav-main .qa-nav-main-list li a:before{
     margin-right: 7px;
+}
+#nav-top.qa-admin .qa-nav-sub {
+    background: none repeat scroll 0 0 #FFFFFF;
+    display: block;
+}
+#nav-top.qa-admin .qa-nav-sub ul {
+    display: table;
+    list-style: none outside none;
+    margin: 0 auto;
+    padding: 0;
+}
+#nav-top.qa-admin .qa-nav-sub li {
+    float: left;
+}
+
+#nav-top.qa-admin .qa-nav-sub li a:before {
+    margin-right: 5px;
+}
+#nav-top.qa-admin .qa-nav-sub li a{
+    display: block;
+    font-weight: bold;
+    padding: 5px 10px;
+}
+
+.dropdown-menu li.user-nav-themeoptions {
+    border-bottom: 1px solid #eee;
+	margin-bottom:3px;
+}
+.dropdown-menu li.user-nav-admin a,.dropdown-menu li.user-nav-widgets a, .dropdown-menu li.user-nav-themeoptions a {
+	font-weight:bold;
 }

@@ -584,7 +584,10 @@ class qa_html_theme extends qa_html_theme_base
     function main()
     {
         $content = $this->content;
-        
+       
+	   if ($this->template == 'admin' && qa_opt('cs_nav_position') == 'top')
+            $this->nav('sub');
+			
         $this->output('<div class="clearfix qa-main' . (@$this->content['hidden'] ? ' qa-main-hidden' : '') . '">');
         $col_width = ($this->cs_position_active('Right') && $this->template != 'question');
         
@@ -733,9 +736,29 @@ class qa_html_theme extends qa_html_theme_base
 		
         $this->output('<div class="question-main">');
         $this->cs_position('Content Top');
-		$this->main_parts($content);
-        
+		
+		$this->output('<div class="row">');
+			$this->output('<div class="col-md-8 question-c-l">');
+				$this->main_parts($content);        
+			$this->output('</div>');		
+			$this->output('<div class="col-md-4 question-sidebar">');
+
+				if(isset($content['q_view']['raw']['postid'])){
+					$featured_image = get_featured_image($content['q_view']['raw']['postid']);
+					if($featured_image){
+						$this->output('<div class="widget">');           
+						$this->output('<h3 class="widget-title">'.qa_lang('cleanstrap/featured_image').'</h3>');           
+						$this->output('<div class="question-image-container">');           
+						$this->output($featured_image);
+						$this->output('</div>');
+						$this->output('</div>');
+					}
+				}
+				$this->cs_position('Question Right');
+			$this->output('</div>');
+		
         $this->output('</div>');
+		$this->output('</div>');
     }
     
     function q_list_item($q_item)
@@ -1055,7 +1078,7 @@ class qa_html_theme extends qa_html_theme_base
     }
     function q_view_main($q_view)
     {
-		$featured_image = get_featured_image($q_view['raw']['postid']);
+		
         $this->output('<div class="question-head">');
 		$this->output('<div class="big-s-avatar avatar">' . cs_get_avatar($q_view['raw']['handle'], 70) . '</div>');
 		
@@ -1091,12 +1114,7 @@ class qa_html_theme extends qa_html_theme_base
             $this->output('<div class="qa-q-view-wrap">');
             $this->output('<div class="qa-q-view-inner">');
             $this->output('<div class="clearfix">');
-            			
-            if(!empty($featured_image)){
-				$this->output('<div class="question-image-container">');           
-				$this->output($featured_image);
-				$this->output('</div>');
-			}
+			
 
 			$this->q_view_content($q_view);
 			
@@ -1288,8 +1306,7 @@ class qa_html_theme extends qa_html_theme_base
     {
 		if (isset($a_list['title']) && (strlen(@$a_list['title']) || strlen(@$a_list['title_tags'])))
                 $this->output('<h3 class="answers-label icon-answer">' . @$a_list['title'] . '</h3>');
-		$this->output('<div class="row">');
-        $this->output('<div class="col-md-8 question-c-l">');
+		
 		if (!empty($a_list)) {
             
             $this->output('<div class="qa-a-list' . ($this->list_vote_disabled($a_list['as']) ? ' qa-a-list-vote-disabled' : '') . '" ' . @$a_list['tags'] . '>', '');
@@ -1298,17 +1315,7 @@ class qa_html_theme extends qa_html_theme_base
             $this->output('</div> <!-- END qa-a-list -->', '');
         }
         $this->page_links();
-        $this->answer_form();		
-       
-        $this->output('</div>');
-		
-        $this->output('<div class="col-md-4 question-sidebar">');
-	
-			$this->cs_position('Question Right');
-        $this->output('</div>');
-		
-        $this->output('</div>');
-        
+        $this->answer_form();	
     }
     function a_list_item($a_item)
     {

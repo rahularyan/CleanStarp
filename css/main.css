@@ -2169,6 +2169,12 @@ input.qa-form-wide-number{
 .qa-nav-footer .qa-nav-footer-list {
     padding: 0;
 }
+.qa-nav-footer .qa-nav-footer-list li{
+	display:inline-block;
+}
+.qa-nav-footer .qa-nav-footer-list li a{
+	padding: 0 10px;
+}
 #site-footer .qa-nav-main .qa-nav-main-link:before {
 	display:none;
 }

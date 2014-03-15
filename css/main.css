@@ -4479,24 +4479,24 @@ input[type=checkbox].on-off-checkbox {
 #nav-top #site-header .qa-nav-main .qa-nav-main-list li a:before{
     margin-right: 7px;
 }
-#nav-top.qa-admin .qa-nav-sub {
+#nav-top.qa-template-admin .qa-nav-sub {
     background: none repeat scroll 0 0 #FFFFFF;
     display: block;
 }
-#nav-top.qa-admin .qa-nav-sub ul {
+#nav-top.qa-template-admin .qa-nav-sub ul {
     display: table;
     list-style: none outside none;
     margin: 0 auto;
     padding: 0;
 }
-#nav-top.qa-admin .qa-nav-sub li {
+#nav-top.qa-template-admin .qa-nav-sub li {
     float: left;
 }
 
-#nav-top.qa-admin .qa-nav-sub li a:before {
+#nav-top.qa-template-admin .qa-nav-sub li a:before {
     margin-right: 5px;
 }
-#nav-top.qa-admin .qa-nav-sub li a{
+#nav-top.qa-template-admin .qa-nav-sub li a{
     display: block;
     font-weight: bold;
     padding: 5px 10px;

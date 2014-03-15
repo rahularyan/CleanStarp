@@ -31,6 +31,7 @@ class qa_html_theme extends qa_html_theme_base
             $this->content['navigation']['main']['themeoptions']['icon'] = 'icon-wrench';
             
             unset($this->content['navigation']['main']['ask']);
+            unset($this->content['navigation']['main']['admin']);
 			
 			if((bool)qa_opt('cs_enable_category_nav'))
 				unset($this->content['navigation']['main']['categories']);
@@ -255,6 +256,7 @@ class qa_html_theme extends qa_html_theme_base
 						<ul class="user-nav dropdown-menu">
 							
 							<?php
+			$this->content['navigation']['user']['admin'] = array('label' => qa_lang_html('cleanstrap/admin'), 'url' => qa_path_html('admin'), 'icon'=> 'icon-wrench');
 			$this->content['navigation']['user']['profile'] = array('label' => qa_lang_html('cleanstrap/profile'), 'url' => qa_path_html('user/' . qa_get_logged_in_handle()), 'icon'=> 'icon-vcard');
 			$this->content['navigation']['user']['updates']['icon'] = 'icon-signal';
 			$this->content['navigation']['user']['account'] = array('label' => qa_lang('cleanstrap/account'), 'url' => qa_path_html('account'), 'icon' => 'icon-cog');
@@ -269,7 +271,7 @@ class qa_html_theme extends qa_html_theme_base
             foreach ($user_menu as $k => $a) {
                 if (isset($a['url']) && $k != 'logout') {
                     $icon = (isset($a['icon']) ? ' class="' . $a['icon'] . '" ' : '');
-                    echo '<li' . (isset($a['selected']) ? ' class="active"' : '') . '><a' . $icon . ' href="' . @$a['url'] . '" title="' . @$a['label'] . '">' . @$a['label'] . '</a></li>';
+                    echo '<li class="user-nav-'.$k . (isset($a['selected']) ? ' active' : '') . '"><a' . $icon . ' href="' . @$a['url'] . '" title="' . @$a['label'] . '">' . @$a['label'] . '</a></li>';
                 }
             }
 			

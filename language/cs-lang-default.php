@@ -74,6 +74,8 @@
 		'no_activity_yet' => 'No activity yet!',
 		'x_ans' => '^ ans',
 		'tag_slug_empty' => 'Slug/Keyword field is empty.',
+		'featured_image' => 'Featured image',
+		'admin' => 'Admin',
 	);
 	
 

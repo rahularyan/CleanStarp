@@ -181,12 +181,10 @@ class qa_html_theme extends qa_html_theme_base
 			$this->output('<a id="nav-ask-btn" href="' . qa_path_html('ask') . '" class="btn btn-sm">' . qa_lang_html('cleanstrap/ask_question') . '</a>');
 			$this->output('<a id="nav-ask-btn" href="' . qa_path_html('ask') . '" class="btn btn-sm header-ask-button icon-question-sign"></a>');
 		}
-        			
+        if ( (qa_opt('cs_enable_category_nav')) && (qa_using_categories()) )
+			$this->cat_drop_nav();			
 		$this->head_nav();
 		
-		if ( (qa_opt('cs_enable_category_nav')) && (qa_using_categories()) )
-			$this->cat_drop_nav();
-			
         $this->user_drop_nav();
         $this->search();
         $this->output('</div>', '</header>');

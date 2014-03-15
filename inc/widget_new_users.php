@@ -86,8 +86,10 @@
 			}else{
 				if ( qa_opt('avatar_default_show') && strlen(qa_opt('avatar_default_blobid')) )
 					$users = cs_get_cache("SELECT * FROM ^users ORDER BY created DESC LIMIT #",600, $limit); //refresh every 10 minutes
-				else if ( qa_opt('avatar_allow_upload') )
+				elseif ( qa_opt('avatar_allow_upload') )
 					$users = cs_get_cache("SELECT * FROM ^users WHERE avatarblobid IS NOT NULL ORDER BY created DESC LIMIT #",600, $limit);	
+				else
+					$users = cs_get_cache("SELECT * FROM ^users ORDER BY created DESC LIMIT #",600, $limit);	
 				foreach($users as $u){
 					if (isset($u['handle'])){
 						$handle = $u['handle'];

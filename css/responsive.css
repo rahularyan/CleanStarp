@@ -1,7 +1,4 @@
-@media only screen and (min-width : 980px) and (max-width : 1024px) {
-
-}
-@media only screen and (min-width : 320px) and (max-width : 979px) {
+@media only screen and (min-width : 320px) and (max-width : 1024px) {
 	body{
 		margin-top:45px;
 	}
@@ -18,6 +15,48 @@
 		position: fixed;
 		top: 47px;
 	}
+	#site-header .navbar-form .form-control.search-query{
+		border-color: transparent;
+		padding: 0 0 0 35px;
+		transition: all 1s ease 0s;
+		width: 35px;
+	}
+	#site-header .navbar-form .form-control.search-query:focus {
+		border-color:#eee;
+		width: 200px;
+		padding: 0 0 0 30px;
+	}
+	#site-header .navbar-form:focus {
+		float: none;
+	}
+	#site-header .navbar-form {
+		position: absolute;
+		right: 30px;
+	}
+	
+	#site-header .qa-nav-main {
+		background: none repeat scroll 0 0 #FFFFFF;
+		bottom: 0;
+		float: none;
+		left: -180px;
+		position: fixed;
+		top: 45px;
+		width: 180px;
+		z-index: 999;
+		width:0;
+	}
+	
+	#site-header .qa-nav-main .qa-nav-main-list li {
+		border-bottom: 1px solid #F7F7F7;
+		float: none;
+		margin: 0;
+	}
+	.slide-mobile-menu.icon-list {
+		display:block;
+	}
+}
+@media only screen and (min-width : 320px) and (max-width : 979px) {
+
 	.carousel .carousel-inner .row > .col-sm-3{
 		width:50%;
 	}
@@ -37,9 +76,7 @@
 		clear: both;
 	}
 	
-	.slide-mobile-menu.icon-list {
-		display:block;
-	}
+	
 	.qa-main{
 		margin:10px;
 	}
@@ -95,22 +132,8 @@
 	.navbar-default > .btn.header-ask-button{
 		display:inline-block;
 	}
-	#site-header .navbar-form .form-control.search-query{
-		padding: 0 0 0 35px;
-		width: 35px;
-		transition: all 1s ease 0s;
-	}
-	#site-header .navbar-form .form-control.search-query:focus {
-		width: 200px;
-		padding: 0 0 0 30px;
-	}
-	#site-header .navbar-form:focus {
-		float: none;
-	}
-	#site-header .navbar-form {
-		position: absolute;
-		right: 30px;
-	}
+	
+	
 	#site-header .nav.navbar-avatar {
 		margin: 0;
 	}

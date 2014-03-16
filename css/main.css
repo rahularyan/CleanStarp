@@ -63,7 +63,7 @@ body {
 }
 
 .question-title, .qa-q-view-content, .qa-a-item-content .entry-content, .comment-count, .qa-q-item-title > a, .intro-title, .qa-q-view-follows, .qa-q-view-closed, .login-to-answer, .qa-part-q-list .ans-count {
-	font-family:'open sans', arial;
+
 }
 
 .no-overflow {
@@ -692,15 +692,12 @@ body {
     padding: 15px 0;
 }
 .qa-template-question .qa-main {
-    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
-	padding:0;
+
 }
 .qa-part-q-view {
-    background: none repeat scroll 0 0 #FFFFFF;
-    padding: 10px 10px 0;
+
 }
  .qa-part-q-view .q-cont-right{
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
     overflow: visible;
 }
 .featured-image-btn{
@@ -984,7 +981,28 @@ a.feed-link {
     display: inline;
     margin: 0;
 }
-
+.big-s-avatar .qa-voting-net{
+    display: table;
+    margin: 5px auto 0;
+}
+.big-s-avatar .qa-voting-net > a, .big-s-avatar .qa-voting-net > span{
+    background: none repeat scroll 0 0 #FBFBFB;
+    border-radius: 2px;
+    display: block;
+    float: none;
+    font-size: 16px;
+    margin: 0;
+    opacity: 1;
+    padding: 0;
+    text-align: center;
+    width: auto;
+}
+.big-s-avatar .qa-voting-net > span{
+	background:none;
+    color: #333333;
+    font-size: 12px;
+    font-weight: bold;
+}
 .voting-vertical .count {
     display: block;
     float: left;
@@ -1030,13 +1048,10 @@ a.feed-link {
 }
 
 .big-s-avatar{
-    background: none repeat scroll 0 0 #FFFFFF;
     border-radius: 2px;
     float: left;
-    margin-right: 10px;
+    margin-right: 20px;
     margin-top: 0;
-    position: relative;
-    top: 2px;
 }
 .qa-a-form {
 
@@ -1126,10 +1141,16 @@ a.feed-link {
 }
 
 .qa-q-view .fav-parent {
-    float: right;
-    margin-bottom: 5px;
-}
 
+}
+.qa-q-view .fav-parent .fav-btn{
+	background:none;
+    color: #333333;
+    font-size: 20px;
+    margin: 8px 0 0;
+    padding: 0;
+    text-align: center;
+}
 .qa-q-view {
 
 }
@@ -1168,16 +1189,31 @@ a.feed-link {
 }
 .question-head{
     border-top: 3px solid #E45840;
-    margin: -10px -10px 0;
     padding: 20px;
 }
 
 .question-title {
     color: #333333;
-    font-size: 30px;
+    font-size: 28px;
+    font-weight: bold;
     line-height: 35px;
-    margin: 0 0 10px;
-    padding: 0;
+    margin: 5px 0;
+}
+.question-main .question-meta {
+    margin-bottom: 30px;
+}
+#a_list .answer-selected .q-cont-right {
+    
+}
+.question-main .question-meta > *:before{
+	margin-right: 10px;
+}
+.q-view-body > .no-overflow{
+    border-top: 1px solid #EEEEEE;
+    padding: 10px 0;
+}
+.user-info{
+
 }
 .question-title .voting {
     float: right;
@@ -1257,9 +1293,7 @@ a.feed-link {
 	display:none;
 }
 .qa-q-view-main {
-    margin: 0 -10px;
-    padding: 0;
-    position: relative;
+
 }
 
 
@@ -1269,10 +1303,9 @@ a.feed-link {
     font-weight: 400;
     line-height: 30px;
     margin-bottom: 15px;
-    padding: 0 20px;
 }
 .qa-post-meta {
-    padding: 0 20px;
+
 }
 .qa-a-item-content .entry-content {
     color: #666666;
@@ -1407,12 +1440,11 @@ a.feed-link {
 }
 
 .answers-label {
-    background: none repeat scroll 0 0 #333333;
-    border-bottom: 1px solid #F3F3F3;
-    color: #FFFFFF;
-    font-family: 'open sans',arial;
+    color: #333333;
     font-size: 24px;
-    padding: 20px;
+    line-height: 40px;
+    margin-bottom: 25px;
+    padding: 1px;
 }
 .answers-label.icon-answer:before {
     background: none repeat scroll 0 0 #444;
@@ -1455,13 +1487,14 @@ a.feed-link {
 }
 
 .qa-a-item-main {
-	border-top: 3px solid #333;
+    border-top: 1px solid #EEEEEE;
+    padding-top: 10px;
 }
 .answer-selected .qa-a-item-main {
-	border-top: 3px solid #00CCFF;
+    border-top: 3px solid #00CCFF;
 }
 .a-item-wrap {
-    padding: 0 15px;
+
 }
 
 .qa-a-item-c-list {
@@ -2118,8 +2151,7 @@ input.qa-form-wide-number{
     border-radius: 4px;
 }
 .question-sidebar{
-    background: none repeat scroll 0 0 #FFFFFF;
-    padding: 10px;
+
 }
 .qa-part-form {
 }
@@ -2129,10 +2161,9 @@ input.qa-form-wide-number{
 }
 
 .answer-form {
-    background: none repeat scroll 0 0 #FFFFFF;
-    border-top: 3px solid #333333;
+    background: none repeat scroll 0 0 #FBFBFB;
     margin-bottom: 20px;
-    margin-top: 10px;
+    margin-top: 15px;
     padding: 15px;
 }
 
@@ -2265,7 +2296,7 @@ input.qa-form-wide-number{
 .qa-a-selection input.qa-a-unselect-button, .qa-a-selection .qa-a-selected {
     border: medium none;
     color: #FFFFFF;
-    margin-right: 10px;
+    margin-right: 0;
     margin-top: 8px;
 }
 
@@ -2275,7 +2306,7 @@ input.qa-form-wide-number{
 }
 
 .answer-selected .a-item-wrap {
-    padding: 0 15px;
+
 }
 
 #edit-user {
@@ -3848,11 +3879,10 @@ input[type=checkbox].on-off-checkbox {
     width: 16px;
 }
 .a-item-wrap .post-button{
-    border-bottom: 1px solid #EEEEEE;
-    margin: 0 -15px;
+	margin-bottom:5px;
 }
 .post-button {
-    border-top: 1px solid #EEEEEE;
+    background: none repeat scroll 0 0 #FDFDFD;
     margin-top: 15px;
     padding: 10px;
 }
@@ -4359,15 +4389,15 @@ input[type=checkbox].on-off-checkbox {
 }
 .ra-rq-widget ul li{
     border-bottom: 1px solid #F8F8F8;
-    margin-bottom: 5px;
+    padding: 10px 0;
 }
 .ra-rq-widget ul li .post-content{
 	overflow:hidden;
 }
 .ra-rq-widget ul li .post-content .title{
-    font-weight: bold;
     color: #747474;
-    font-size: 12px;
+    font-size: 13px;
+    font-weight: bold;
 }
 .ra-rq-widget ul li a{
 	display:block;
@@ -4409,27 +4439,30 @@ input[type=checkbox].on-off-checkbox {
 .page-cat-list .page-cat-list .ra-cat-item h4 span a{
 	color: #777777;
 }
-
+.qa-q-view-follows:before, .qa-q-view-closed:before {
+    background: none repeat scroll 0 0 #F4F4F4;
+    margin: -5px 5px -5px -5px;
+    padding: 10px;
+}
 .qa-q-view-follows, .qa-q-view-closed {
-    font-size: 19px;
+    border: 1px solid #EEEEEE;
     font-weight: 300;
-    padding: 20px;
-
+    line-height: 35px;
+    margin-top: 10px;
+    padding: 5px 10px;
 }
 
 
 .comment-count:before {
     color: #AAAAAA;
-    font-size: 22px;
     margin-right: 5px;
 }
 .comment-count{
     float: left;
-    font-size: 25px;
-    font-weight: 300;
+    font-size: 16px;
+    font-weight: bold;
     margin-right: 10px;
     padding: 10px;
-    text-align: center;
 }
 .comment-count span{
     display: block;
@@ -4468,7 +4501,7 @@ input[type=checkbox].on-off-checkbox {
 
 
 .ra-cc-widget{
-    font-family: 'open sans',arial;
+
     font-size: 16px;
     font-weight: 300;
     line-height: 28px;

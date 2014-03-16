@@ -92,6 +92,31 @@ a.feed-link {
     border-top-left-radius: 4px !important;
 }
 
+/* question page */
+.question-title .voting {
+    margin: -5px 0 0 10px !important;
+}
+.question-title .fav-parent {
+    float: left !important;
+}
+.big-s-avatar {
+    float: right !important;
+    margin: 0 0 0 10px !important;
+}
+.question-head .question-meta > *:before {
+    float: right !important;
+    margin: 5px 10px 0 5px !important;
+}
+.question-head .question-meta > .featured-sticker:before {
+    float: right !important;
+    margin: 2px 0 0 5px !important;
+}
+blockquote {
+    border-left: medium none !important;
+    border-right: 5px solid #EEEEEE !important;
+}
+
+
 /* tags and categories */
 .qa-template-tags .qa-part-ranking .list-group-item span {
     float: left !important;
@@ -113,7 +138,87 @@ a.feed-link {
 .qa-top-tags .col-lg-4 {
     float: right;
 }
-
+.qa-q-item-who-points-pad,.qa-q-item-who-points-pad,.qa-a-item-who-points-pad,.qa-a-item-who-points-pad.qa-c-item-who-points-pad,.qa-c-item-who-points-pad {
+	display:none;
+}
+.qa-q-item-who-points-data,.qa-a-item-who-points-data,.qa-c-item-who-points-data{
+    display: inline-block;
+}
+.post-button .btn:before {
+    margin-left: 5px !important;
+    margin-right: 0 !important;
+}
+#set_featured:before {
+    float: right;
+}
+.asker-avatar.avatar {
+    float: right !important;
+    margin: 0 0 5px 10px !important;
+}
+.user-info.no-overflow {
+    float: right !important;
+}
+.qa-voting-net {
+    float: left !important;
+    margin: 0 0 0 10px !important;
+}
+.asker-detail > form {
+    float: left !important;
+    margin: 14px 0 0 10px !important;
+}
+.comment-count {
+    border-left: 1px solid #DDDDDD;
+    float: right !important;
+    margin: 0 0 0 5px !important;
+}
+.asker-avatar {
+    float: right !important;
+    margin: 10px 0 0 10px !important;
+}
+.answers-label.icon-answer.answers-label:before {
+    float: right !important;
+    margin: 0 0 0 5px !important;
+}
+.question-tags .tags-tag-list li a {
+    border-left: 0 none !important;
+    border-right: 3px solid #777777 !important;
+}
+.post-content .meta > span {
+    float: right !important;
+}
+.post-content .meta > span:before {
+    float: right !important;
+    margin: 6px 0 0 2px !important;
+}
+/* Widgets */
+.list-inline.text-muted.axis {
+    padding: 0 !important;
+}
+.ra-rq-widget ul li .avatar {
+    float: right !important;
+    margin: 5px 0 0 10px !important;
+}
+.ra-tags-widget .widget-tag span {
+    float: right !important;
+}
+.ra-tags-widget .widget-tag {
+    float: right !important;
+}
+.ra-activity .event-icon {
+    float: right !important;
+    margin: 5px 0 0 5px !important;
+}
+.ra-new-users-widget .users-list li {
+    float: right !important;
+}
+.top-users-list .avatar {
+    float: right !important;
+    margin: 0 0 0 5px !important;
+}
+.top-users-list .avatar {
+    float: right !important;
+    margin: 0 0 0 5px !important;
+}
 /* users page */
 .page-users-list .user-card-inner .activity {
     text-align: right !important;

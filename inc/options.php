@@ -98,10 +98,7 @@ class qa_html_theme_layer extends qa_html_theme_base
                 qa_opt('cs_back_to_top_location', qa_post_text('cs_back_to_top_location'));
                 
                 // Styling
-                qa_opt('cs_styling_duplicate_question', (bool) qa_post_text('cs_styling_duplicate_question'));
-                qa_opt('cs_styling_solved_question', (bool) qa_post_text('cs_styling_solved_question'));
-                qa_opt('cs_styling_closed_question', (bool) qa_post_text('cs_styling_closed_question'));
-                qa_opt('cs_styling_open_question', (bool) qa_post_text('cs_styling_open_question'));
+                qa_opt('cs_styling_rtl', (bool) qa_post_text('cs_styling_rtl'));
                 qa_opt('cs_bg_select', qa_post_text('cs_bg_select'));
                 qa_opt('cs_bg_color', qa_post_text('cs_bg_color'));
                 qa_opt('cs_text_color', qa_post_text('cs_text_color'));
@@ -751,52 +748,13 @@ class qa_html_theme_layer extends qa_html_theme_base
 			<tbody>
 				<tr>
 					<th class="qa-form-tall-label">
-						Open Questions
-						<span class="description">Color Open Questions in question lists</span>
+						Enable RTL Styling
+						<span class="description">for Right to Left Languages</span>
 					</th>
 					<td class="qa-form-tall-label">
 						<div class="on-off-checkbox-container">
-								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('cs_styling_open_question') ? ' checked=""' : '') . ' id="cs_styling_open_question" name="cs_styling_open_question">
-							<label for="cs_styling_open_question">
-							</label>
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<th class="qa-form-tall-label">
-						Closed Questions
-						<span class="description">Color Closed Questions in question lists</span>
-					</th>
-					<td class="qa-form-tall-label">
-						<div class="on-off-checkbox-container">
-								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('cs_styling_closed_question') ? ' checked=""' : '') . ' id="cs_styling_closed_question" name="cs_styling_closed_question">
-							<label for="cs_styling_closed_question">
-							</label>
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<th class="qa-form-tall-label">
-						Resolved Questions
-						<span class="description">Color Resolved Questions in question lists</span>
-					</th>
-					<td class="qa-form-tall-label">
-						<div class="on-off-checkbox-container">
-								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('cs_styling_solved_question') ? ' checked=""' : '') . ' id="cs_styling_solved_question" name="cs_styling_solved_question">
-							<label for="cs_styling_solved_question">
-							</label>
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<th class="qa-form-tall-label">
-						Duplicate Questions
-						<span class="description">Color Duplicate Questions in question lists</span>
-					</th>
-					<td class="qa-form-tall-label">
-						<div class="on-off-checkbox-container">
-								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('cs_styling_duplicate_question') ? ' checked=""' : '') . ' id="cs_styling_duplicate_question" name="cs_styling_duplicate_question">
-							<label for="cs_styling_duplicate_question">
+								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('cs_styling_rtl') ? ' checked=""' : '') . ' id="cs_styling_rtl" name="cs_styling_rtl">
+							<label for="cs_styling_rtl">
 							</label>
 						</div>
 					</td>

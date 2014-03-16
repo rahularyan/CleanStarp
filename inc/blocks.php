@@ -96,6 +96,8 @@ class qa_html_theme extends qa_html_theme_base
             $this->output('<link rel="stylesheet" type="text/css" href="' . Q_THEME_URL . '/css/theme-green.css"/>');
             
         }
+		if (qa_opt('cs_styling_rtl'))
+			$this->output('<link rel="stylesheet" type="text/css" href="' . Q_THEME_URL . '/css/rtl.css"/>');
 		if (qa_opt('cs_custom_style_created')){
 			$this->output('<link rel="stylesheet" type="text/css" href="' . Q_THEME_URL . '/css/dynamic.css"/>');
 		}else{

@@ -178,7 +178,12 @@ class qa_html_theme_layer extends qa_html_theme_base {
 												?>
 											</div>
 											<div class="widget-option">
-												<?php $this->get_widget_form($w['name'], $w['param']['options']); ?>
+												<?php 
+													if ( isset($w['param']['options']['cs_t_text']) ){
+														$w['type']='textarea';
+													}
+													$this->get_widget_form($w['name'], $w['param']['options']);
+												?>
 											</div>
 										</div>									
 									<?php
@@ -208,11 +213,11 @@ class qa_html_theme_layer extends qa_html_theme_base {
 			$module	=	qa_load_module('widget', $name);							
 			if(is_object($module) && method_exists($module, 'cs_widget_form')){
 				$fields = $module->cs_widget_form();
-				
 				if($options){
 					foreach($options as $k => $opt){
-						if(isset($fields['fields'][$k]))
+						if(isset($fields['fields'][$k])){
 							$fields['fields'][$k]['value'] = $opt;
+						}
 					}
 				}
 				$this->form($fields); 

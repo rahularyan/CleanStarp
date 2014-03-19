@@ -2068,6 +2068,17 @@ class qa_html_theme extends qa_html_theme_base
         
         die();
     }
+	
+	function body_hidden()
+	{
+		if(qa_opt('cs_styling_rtl'))
+			$this->output('<div style="position:absolute; left:9999px; top:9999px;">');
+		else
+			$this->output('<div style="position:absolute; left:-9999px; top:-9999px;">');
+			
+		$this->waiting_template();
+		$this->output('</div>');
+	}
     
 }
 

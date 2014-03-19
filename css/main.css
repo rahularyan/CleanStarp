@@ -1803,6 +1803,12 @@ table.page-users-list {
     margin-right: 10px;
 }
 
+.question-list .question-item .big-ans-count.icon-comments {
+    background: none repeat scroll 0 0 #777777;
+    border-radius: 50%;
+    font-size: 23px;
+    line-height: 43px;
+}
 .question-list .question-item .big-ans-count {
     border-radius: 2px;
     color: #FFFFFF;

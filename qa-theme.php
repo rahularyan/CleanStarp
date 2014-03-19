@@ -37,6 +37,8 @@
 	define('Q_THEME_DIR', dirname( __FILE__ ));
 	define('Q_THEME_URL', get_base_url().'/qa-theme/'.qa_get_site_theme());
 	
+	qa_register_layer('/featured.php', 'Featured', Q_THEME_DIR , Q_THEME_URL );
+	
 	include_once Q_THEME_DIR.'/functions.php';
 	include_once Q_THEME_DIR.'/inc/blocks.php';
 	
@@ -106,7 +108,8 @@
 			qa_register_layer('/inc/options.php', 'Theme Options', Q_THEME_DIR , Q_THEME_URL );	
 			qa_register_layer('/inc/widgets.php', 'Theme Widgets', Q_THEME_DIR , Q_THEME_URL );
 		}		
-			
+		
+		
 		qa_register_module('widget', '/inc/widget_ask.php', 'cs_ask_widget', 'CS Ajax Ask', Q_THEME_DIR, Q_THEME_URL);
 		qa_register_module('widget', '/inc/widget_tags.php', 'cs_tags_widget', 'CS Tags', Q_THEME_DIR, Q_THEME_URL);
 		qa_register_module('widget', '/inc/widget_ticker.php', 'cs_ticker_widget', 'CS Ticker', Q_THEME_DIR, Q_THEME_URL);

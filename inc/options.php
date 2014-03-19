@@ -461,6 +461,21 @@ class qa_html_theme_layer extends qa_html_theme_base
 			<tbody>
 				<tr>
 					<th class="qa-form-tall-label">
+						Enable RTL Styling
+						<span class="description">for Right to Left Languages</span>
+					</th>
+					<td class="qa-form-tall-label">
+						<div class="on-off-checkbox-container">
+								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('cs_styling_rtl') ? ' checked=""' : '') . ' id="cs_styling_rtl" name="cs_styling_rtl">
+							<label for="cs_styling_rtl">
+							</label>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+			<tbody>
+				<tr>
+					<th class="qa-form-tall-label">
 						Navigation Position
 						<span class="description">Where to show navigation</span>
 					</th>
@@ -745,21 +760,7 @@ class qa_html_theme_layer extends qa_html_theme_base
 		</table>
 		<h3>Background color of questions</h3>
 		<table class="qa-form-tall-table options-table">
-			<tbody>
-				<tr>
-					<th class="qa-form-tall-label">
-						Enable RTL Styling
-						<span class="description">for Right to Left Languages</span>
-					</th>
-					<td class="qa-form-tall-label">
-						<div class="on-off-checkbox-container">
-								<input type="checkbox" class="on-off-checkbox" value="1"' . (qa_opt('cs_styling_rtl') ? ' checked=""' : '') . ' id="cs_styling_rtl" name="cs_styling_rtl">
-							<label for="cs_styling_rtl">
-							</label>
-						</div>
-					</td>
-				</tr>
-			</tbody>
+			
 			<tbody>
 				<tr>
 					<th class="qa-form-tall-label">

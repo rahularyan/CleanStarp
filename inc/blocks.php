@@ -11,6 +11,7 @@ class qa_html_theme extends qa_html_theme_base
     var $widgets;
     function doctype()
     {
+	
         global $widgets;
         $widgets       = get_all_widgets();
         $this->widgets = $widgets;
@@ -19,6 +20,9 @@ class qa_html_theme extends qa_html_theme_base
             if (method_exists($this, $action))
                 $this->$action();
         } else {
+			
+
+
             $this->output('<!DOCTYPE html>');
             $this->content['navigation']['main']['questions']['icon']    = 'icon-question-sign';
             $this->content['navigation']['main']['unanswered']['icon']   = 'icon-sad';
@@ -129,6 +133,7 @@ class qa_html_theme extends qa_html_theme_base
     }
     function head_script()
     {
+
         $this->output('<script> theme_url = "' . Q_THEME_URL . '";</script>');
         qa_html_theme_base::head_script();
         $this->output('<script type="text/javascript" src="' . Q_THEME_URL . '/js/bootstrap.js"></script>');
@@ -2068,6 +2073,17 @@ class qa_html_theme extends qa_html_theme_base
         
         die();
     }
+	
+	function body_hidden()
+	{
+		if(qa_opt('cs_styling_rtl'))
+			$this->output('<div style="position:absolute; left:9999px; bottom:9999px;">');
+		else
+			$this->output('<div style="position:absolute; left:-9999px; top:-9999px;">');
+			
+		$this->waiting_template();
+		$this->output('</div>');
+	}
     
 }
 

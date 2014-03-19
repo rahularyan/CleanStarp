@@ -11,7 +11,11 @@ html body {
 a:hover {
     text-decoration: none;
 }
-
+a:focus {
+    outline: medium none;
+    outline-offset: 0;
+    text-decoration: none;
+}
 textarea, input[type="text"], input[type="password"], select {
     background-color: #FFFFFF;
     background-image: none;
@@ -4562,4 +4566,124 @@ input[type=checkbox].on-off-checkbox {
     font-size: 20px;
     margin-bottom: 10px;
     padding-top: 15px;
+}
+
+
+.qa-main.qa-template-featured{
+	background:none;
+}
+ .tip {
+  display: none;
+}
+
+.tc_modal {
+  width: 890px;
+}
+
+.tc_body .tc_card .tc_inner_card .tc_click_target {
+    color: #888888;
+    font-family: 'open sans',arial;
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 30px;
+    max-height: 110px;
+    overflow: hidden;
+    padding: 10px;
+    text-align: left;
+}
+.tc_card .tc_inner_card {
+	height: 170px;
+}
+.tc_card:nth-child(1n+1) .tc_inner_card  {
+  border-bottom: 3px solid #1345ED;
+}
+
+.tc_card:nth-child(2n+2) .tc_inner_card  {
+  border-bottom: 3px solid #03A010;
+}
+
+.tc_card:nth-child(3n+3) .tc_inner_card  {
+  border-bottom: 3px solid #F8B00F;
+}
+
+.tc_card:nth-child(4n+4) .tc_inner_card {
+  border-bottom: 3px solid #DD4330;
+}
+
+
+.tc_back p {
+    color: #777777;
+    font-family: Open Sans,sans-serif;
+    font-size: 45px;
+    font-weight: 300;
+    line-height: 60px;
+    margin: 0 0 10px;
+    padding: 0 30px;
+    text-align: left;
+}
+.tc_inner_modal .tc_front {
+  min-height: 300px;
+}
+
+.tc_inner_modal .tc_front h1 {
+  margin-top: 20px;
+  font-size: 32px;
+  text-align: left;
+  margin-bottom: 35px;
+}
+
+.tc_inner_modal .tc_front p {
+  text-align: left;
+  min-height: 70px;
+  font-size: 24px;
+  line-height: 180%;
+}
+.tc_next, .tc_prev {
+  line-height: 90%;
+}
+.tc_inner_modal {
+  margin: 40px;
+}
+
+.tc_front .cat-in{
+    bottom: 5px;
+    font-family: 'open sans',arial;
+    font-size: 20px;
+    font-weight: 300;
+    position: absolute;
+    right: 15px;
+}
+.tc_front .cat-in:before{
+	margin-right:10px;
+}
+
+.tc_modal .control-btn{
+    padding: 0;
+    position: absolute;
+    right: 0;
+}
+.tc_modal .control-btn a{
+    color: #AAAAAA;
+    display: inline-block;
+    font-size: 16px;
+    margin-right: 10px;
+    margin-top: 13px;
+    padding: 0;
+}
+.tc_modal .cat-in{
+    display: block;
+    font-family: 'open sans',arial;
+    font-size: 25px;
+    font-weight: 300;
+    margin-top: 25px;
+    padding: 0 30px;
+}
+.tc_modal .cat-in:before{
+	margin-right:10px;
+}
+
+.tc_modal .bottom-line {
+    bottom: -65px;
+    position: absolute;
+    width: 100%;
 }

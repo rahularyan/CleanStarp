@@ -450,7 +450,7 @@ function cs_cat_path($categorybackpath){
  * @return bool
  */
 function multi_array_key_exists( $needle, $haystack ) {
- 
+	if(isset($haystack) && is_array($haystack))
     foreach ( $haystack as $key => $value ) :
 
         if ( $needle == $key )

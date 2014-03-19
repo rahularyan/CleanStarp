@@ -1432,6 +1432,17 @@ class qa_html_theme extends qa_html_theme_base
         $this->output('<div class="user-cols content-sidebar">');
         $this->cs_user_nav($handle);
         $this->output('<div class="user-cols-right">');
+		
+		if (qa_get_logged_in_level() >= QA_USER_LEVEL_ADMIN) {
+			$form = @$this->content['form_profile'];
+			if(isset($form)){
+				$this->output('<form class="user-buttons" '.$form['tags'].'>');
+				foreach($form['buttons'] as $btn)
+					$this->output('<button ' . $btn['tags'] . ' class="btn btn-xs btn-success" type="submit">' . $btn['label'] . '</button>');
+				$this->output('</form>');
+			}
+        }
+		
         if (isset($about) && strlen($about))
             $this->output('<div class="about-me widget">', '<h3 class="widget-title">' . qa_lang_html('cleanstrap/about_me') . '</h3>', $about, '</div>');
         $this->cs_user_activity_count($handle);
@@ -1458,11 +1469,7 @@ class qa_html_theme extends qa_html_theme_base
 				');
         
         $this->output('</div>');
-        if (qa_get_logged_in_level() >= QA_USER_LEVEL_ADMIN) {
-            $this->output('<a id="edit-user" class="btn btn-xs btn-success edit-profile" href="' . qa_path_absolute('user/' . $handle, array(
-                'state' => 'edit'
-            )) . '">' . qa_lang_html('cleanstrap/edit_user') . '</a>');
-        }
+        
         $this->nav('sub');
 		$this->favorite();
         $this->output('</div>');

@@ -4551,3 +4551,10 @@ input[type=checkbox].on-off-checkbox {
 .q-view-body {
     min-height: 115px;
 }
+
+.user-buttons .btn{
+    background: none repeat scroll 0 0 #888888;
+    border-radius: 1px;
+    margin-right: 9px;
+    padding: 3px 15px;
+}

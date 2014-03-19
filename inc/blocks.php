@@ -2072,7 +2072,7 @@ class qa_html_theme extends qa_html_theme_base
 	function body_hidden()
 	{
 		if(qa_opt('cs_styling_rtl'))
-			$this->output('<div style="position:absolute; left:9999px; top:9999px;">');
+			$this->output('<div style="position:absolute; left:9999px; bottom:9999px;">');
 		else
 			$this->output('<div style="position:absolute; left:-9999px; top:-9999px;">');
 			

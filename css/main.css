@@ -1200,7 +1200,9 @@ a.feed-link {
     margin: 5px 0;
 }
 .question-main .question-meta {
+    border-bottom: 1px solid #F9F9F9;
     margin-bottom: 30px;
+    padding-bottom: 15px;
 }
 #a_list .answer-selected .q-cont-right {
     
@@ -1208,9 +1210,8 @@ a.feed-link {
 .question-main .question-meta > *:before{
 	margin-right: 10px;
 }
-.q-view-body > .no-overflow{
-    border-top: 1px solid #EEEEEE;
-    padding: 10px 0;
+.q-view-body > .no-overflow {
+    padding: 0 0 10px;
 }
 .user-info{
 
@@ -2167,10 +2168,9 @@ input.qa-form-wide-number{
 }
 
 .answer-form {
-    background: none repeat scroll 0 0 #FBFBFB;
     margin-bottom: 20px;
     margin-top: 15px;
-    padding: 15px;
+    padding: 15px 0;
 }
 
 .qa-suggest-next {
@@ -4555,4 +4555,11 @@ input[type=checkbox].on-off-checkbox {
     border-radius: 1px;
     margin-right: 9px;
     padding: 3px 15px;
+}
+
+.your-answer-label{
+    border-top: 1px solid #EEEEEE;
+    font-size: 20px;
+    margin-bottom: 10px;
+    padding-top: 15px;
 }

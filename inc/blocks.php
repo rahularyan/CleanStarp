@@ -1516,7 +1516,8 @@ class qa_html_theme extends qa_html_theme_base
         $this->output('<div class="qa-a-form"' . (isset($a_form['id']) ? (' id="' . $a_form['id'] . '"') : '') . '>');
         
         if (isset($a_form)) {
-		//	$this->output('<div class="big-s-avatar avatar">' . cs_get_avatar(qa_get_logged_in_handle(), 40) . '</div>');        
+		//	$this->output('<div class="big-s-avatar avatar">' . cs_get_avatar(qa_get_logged_in_handle(), 40) . '</div>');
+			$this->output('<div class="your-answer-label">' . $a_form['title'] . '</div>');        
 			$this->output('<div class="q-cont-right">');
           //  $this->output('<h3 class="your-answer">' . $a_form['title'] . '</h3>');
 

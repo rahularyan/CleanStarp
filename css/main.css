@@ -4548,3 +4548,6 @@ input[type=checkbox].on-off-checkbox {
 .dropdown-menu li.user-nav-admin a,.dropdown-menu li.user-nav-widgets a, .dropdown-menu li.user-nav-themeoptions a {
 	font-weight:bold;
 }
+.q-view-body {
+    min-height: 115px;
+}

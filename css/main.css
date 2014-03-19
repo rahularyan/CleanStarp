@@ -79,17 +79,20 @@ body {
 }
 
 #site-header .container {
-    padding: 0;
+    background: none repeat scroll 0 0 #FFFFFF;
+    padding: 5px 0;
 }
 
 #site-header {
     background: #FFFFFF;
     border-bottom: 2px solid #333333;
-    height: 47px;
     padding: 0 5px;
     position: relative;
 }
-
+#site-header #header-top{
+    border-bottom: 1px solid #EEEEEE;
+    margin: 0 -5px;
+}
 #slide-mobile-menu {
     background: rgba(0, 0, 0, 0);
     color: #666666;
@@ -105,7 +108,7 @@ body {
 
 .navbar-site-logo {
 }
-.navbar-default > .btn.header-ask-button {
+.btn.header-ask-button {
     display: none;
 }
 .site-logo {
@@ -147,12 +150,12 @@ body {
 }
 
 #site-header .navbar-form {
-    margin: 7px 15px 0 0;
+    margin: 5px 0 0;
     padding: 0;
     position: relative;
 }
 
-.navbar-default .navbar-form .icon-search {
+#site-header  .icon-search {
     display: block;
     font-size: 15px;
     left: 10px;
@@ -178,21 +181,22 @@ body {
 
 #site-header .qa-nav-main .qa-nav-main-list {
     list-style: none outside none;
-    margin: 0;
+    margin: 0 20px 0 0;
     padding: 0;
 }
 
 #site-header .qa-nav-main .qa-nav-main-list li {
     float: left;
-    margin-right: 5px;
+    margin-right: 15px;
 }
 
 #site-header .qa-nav-main .qa-nav-main-list li a {
+    border-radius: 2px;
     color: #FFFFFF;
     display: block;
     font-size: 13px;
     font-weight: bold;
-    padding: 10px;
+    padding: 5px 10px;
 }
 
 #site-header .main-menu li a {
@@ -208,11 +212,11 @@ body {
     border: medium none;
     border-radius: 2px;
     color: #FFFFFF;
-    float: left;
+    float: right;
     height: 29px;
     margin-left: 0;
     margin-right: 10px;
-    margin-top: 8px;
+    margin-top: 5px;
 }
 
 #site-header #nav-ask-btn i {
@@ -346,14 +350,14 @@ body {
 .navbar-default ul.user-nav {
     border: medium none;
     box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
-    margin-top: 10px;
+    margin-top: 7px;
     padding: 5px;
 }
 
 .navbar-default a#profile-link {
     float: right;
     margin-right: 4px;
-    margin-top: 8px;
+    margin-top: 6px;
     padding: 0;
 }
 
@@ -3598,22 +3602,23 @@ input[type=checkbox].on-off-checkbox {
     color: #D6313A;
 }
 
-.navbar-default .navbar-nav.category-nav .category-toggle {
-    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
-    border: 1px solid rgba(0, 0, 0, 0.1);
+#site-header .category-nav .category-toggle {
+    background: none repeat scroll 0 0 #E45840;
+    border: medium none;
     border-radius: 3px;
-    font-size: 12px;
+    color: #FFFFFF;
+    font-size: 16px;
     font-weight: bold;
     margin-right: 10px;
-    margin-top: 8px;
-    padding: 4px 8px;
+    margin-top: 2px;
+    padding: 5px 10px;
 }
 
-.navbar-default .navbar-nav.category-nav .category-toggle:before {
-    margin-right: 5px;
+#site-header .category-nav .category-toggle:before {
+
 }
 
-.navbar-default .navbar-nav.category-nav .category-list-drop {
+#site-header .category-nav .category-list-drop {
     border: medium none;
     box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
     margin-top: 10px;
@@ -3621,19 +3626,19 @@ input[type=checkbox].on-off-checkbox {
     padding: 5px;
 }
 
-.navbar-default .navbar-nav.category-nav .category-list-drop li {
+#site-header .category-nav .category-list-drop li {
     float: left;
     width: 50%;
 }
 
-.navbar-default .navbar-nav.category-nav .category-list-drop li a {
+#site-header .category-nav  .category-list-drop li a {
     color: #999999;
     font-size: 12px;
     padding: 6px 10px;
     white-space: normal;
 }
 
-.navbar-default .navbar-nav.category-nav .category-list-drop li a span {
+#site-header .category-nav  .category-list-drop li a span {
     border-radius: 4px 4px 4px 4px;
     color: #FFFFFF;
     display: block;
@@ -4510,14 +4515,17 @@ input[type=checkbox].on-off-checkbox {
 }
 
 #nav-top #site-header .qa-nav-main .qa-nav-main-list li a {
-    font-size: 13px;
+    font-family: 'News Cycle',arial;
+    font-size: 16px;
     font-weight: 600;
+    padding: 2px 5px;
 }
 #nav-top #site-header .qa-nav-main .qa-nav-main-list li a:hover , #nav-top #site-header .qa-nav-main .qa-nav-main-list li a.qa-nav-main-selected {
    background:#fafafa;
    color:#333;
 }
 #nav-top #site-header .qa-nav-main .qa-nav-main-list li a:before{
+    font-size: 14px;
     margin-right: 7px;
 }
 #nav-top.qa-template-admin .qa-nav-sub {

@@ -108,7 +108,8 @@ class qa_html_theme extends qa_html_theme_base
 			$css = qa_opt('cs_custom_css');
 			$this->output('<style>' . $css . '</style>');
 		}
-		/* $this->output('<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" rel="stylesheet" type="text/css">');
+		$this->output('<link href="http://fonts.googleapis.com/css?family=News+Cycle:400,700" rel="stylesheet" type="text/css">');
+		/* 
         $googlefonts = json_decode(qa_opt('typo_googlefonts'), true);
         if (isset($googlefonts) && !empty($googlefonts))
             foreach ($googlefonts as $font_name) {
@@ -180,20 +181,29 @@ class qa_html_theme extends qa_html_theme_base
     {
         $this->cs_position('Top');
         
-        $this->output('<header id="site-header" class="clearfix">', '<div class="navbar-default" role="navigation">');
-        $this->output('<a href="#" class="slide-mobile-menu icon-list"></a>');
-        $this->logo();
+        $this->output('<header id="site-header" class="clearfix">');
         
-        if (qa_opt('cs_enable_ask_button')){
+		$this->output('<div id="header-top" class="clearfix">');
+		$this->output('<div class="container">');
+		$this->logo();
+		$this->search();
+		
+		if (qa_opt('cs_enable_ask_button')){
 			$this->output('<a id="nav-ask-btn" href="' . qa_path_html('ask') . '" class="btn btn-sm">' . qa_lang_html('cleanstrap/ask_question') . '</a>');
 			$this->output('<a id="nav-ask-btn" href="' . qa_path_html('ask') . '" class="btn btn-sm header-ask-button icon-question-sign"></a>');
 		}
+					
+		$this->output('</div>');
+		$this->output('</div>');
+
+		$this->output('<div class="navbar-default container" role="navigation"><nav class="pull-left clearfix">');
+        $this->output('<a href="#" class="slide-mobile-menu icon-list"></a>');
         if ( (qa_opt('cs_enable_category_nav')) && (qa_using_categories()) )
 			$this->cat_drop_nav();			
 		$this->head_nav();
-		
-        $this->user_drop_nav();
-        $this->search();
+		$this->output('</nav>');		
+			
+        $this->user_drop_nav();        
         $this->output('</div>', '</header>');
     }
     function head_nav(){
@@ -226,13 +236,9 @@ class qa_html_theme extends qa_html_theme_base
 ?>
 			<ul class="nav navbar-nav category-nav pull-left">
 				<li class="dropdown pull-left">
-					<a data-toggle="dropdown" href="#" class="category-toggle icon-folder-close"><?php
-        echo qa_lang_html('cleanstrap/categories');
-?></a>
+					<a data-toggle="dropdown" href="#" class="category-toggle icon-folder-close" title="<?php echo qa_lang_html('cleanstrap/categories'); ?>"></a>
 					<ul class="category-list-drop dropdown-menu">
-						<?php
-        $this->cs_full_categories_list();
-?>
+						<?php $this->cs_full_categories_list(); ?>
 					</ul>
 				</li>
 			</ul>
@@ -251,7 +257,7 @@ class qa_html_theme extends qa_html_theme_base
             echo qa_path_html('user/' . qa_get_logged_in_handle());
 ?>" class="avatar">
 							<?php
-            $LoggedinUserAvatar = cs_get_avatar(qa_get_logged_in_handle(), 30, false);
+            $LoggedinUserAvatar = cs_get_avatar(qa_get_logged_in_handle(), 28, false);
             if (!empty($LoggedinUserAvatar))
                 echo '<img src="' . $LoggedinUserAvatar . '" />'; // in case there is no Avatar image and theme doesn't use a default avatar
             else
@@ -553,10 +559,11 @@ class qa_html_theme extends qa_html_theme_base
             $cats          = cs_get_cache_select_selectspec(qa_db_category_nav_selectspec($categoryslugs, false, false, true));
             $navigation    = qa_category_navigation($cats);
         }
-        if (count($navigation) > 1) { // if there are any categories (except 'all categories' navigation item)
+       // if (count($navigation) > 1) { // if there are any categories (except 'all categories' navigation item)
             //$this->output( '<div class="qa-nav-cat">');
             //$this->output( '<ul class="qa-nav-cat-list">');
             $index = 0;
+			$navigation['all']['url'] = qa_path_html('categories');
             foreach ($navigation as $key => $navlink) {
                 $this->set_context('nav_key', $key);
                 $this->set_context('nav_index', $index++);
@@ -566,7 +573,7 @@ class qa_html_theme extends qa_html_theme_base
             $this->clear_context('nav_index');
             
             //$this->output('</ul></div>');
-        }
+       // }
         unset($navigation);
     }
     
@@ -594,7 +601,7 @@ class qa_html_theme extends qa_html_theme_base
 	   if ($this->template == 'admin' && qa_opt('cs_nav_position') == 'top')
             $this->nav('sub');
 			
-        $this->output('<div class="clearfix qa-main' . (@$this->content['hidden'] ? ' qa-main-hidden' : '') . '">');
+        $this->output('<div class="clearfix qa-main container' . (@$this->content['hidden'] ? ' qa-main-hidden' : '') . '">');
         $col_width = ($this->cs_position_active('Right') && $this->template != 'question');
         
         $this->output('<div class="col-sm-' . ($col_width ? '8' : '12') . ' list-c">');

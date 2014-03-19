@@ -129,7 +129,7 @@
 	.category-nav,.btn-sm{
 		display:none;
 	}
-	.navbar-default > .btn.header-ask-button{
+	.btn.header-ask-button{
 		display:inline-block;
 	}
 	

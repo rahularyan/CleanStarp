@@ -667,12 +667,10 @@ class qa_html_theme extends qa_html_theme_base
             if ($this->template != 'admin')
                 $this->nav('sub');
             $this->main_parts($content);
-            
-            if ($this->template != 'question')
-                $this->page_links();
-            
             $this->suggest_next();
         }
+		if ($this->template != 'question')
+            $this->page_links();
         $this->cs_position('Content Bottom');
         
         $this->output('</div>');
@@ -739,7 +737,7 @@ class qa_html_theme extends qa_html_theme_base
         $this->cs_position('Content Top');
 		
 		$this->output('<h2 class="question-title">');
-		$this->output($content['q_view']['raw']['title']);
+		$this->output( htmlspecialchars ($content['q_view']['raw']['title']));
 		$this->favorite();		
 		$this->output('</h2>'); 
 		$this->output('<div class="question-meta">');
@@ -1111,7 +1109,7 @@ class qa_html_theme extends qa_html_theme_base
 				<p class="asker-point">' . implode(' ', $q_view['who']['points']) . ' <span class="title">' . $q_view['who']['level'] . '</span></p>
 			</div>');
         // this will prevent showing extra sections while Question Edit, close or other action forms
-        if (strpos($this->content['title'], $q_view['raw']['title'])) {
+       // if (strpos($this->content['title'], $q_view['raw']['title'])) {
             $this->output(base64_decode(qa_opt('cs_ads_below_question_title')));
             
             $this->output('<div class="qa-q-view-main">');
@@ -1154,7 +1152,7 @@ class qa_html_theme extends qa_html_theme_base
             $this->output('</div>');
             $this->output('</div>');
             $this->output('</div>');
-        }
+        //}
     }
 	function q_view_follows($q_view)
 	{
@@ -1434,6 +1432,17 @@ class qa_html_theme extends qa_html_theme_base
         $this->output('<div class="user-cols content-sidebar">');
         $this->cs_user_nav($handle);
         $this->output('<div class="user-cols-right">');
+		
+		if (qa_get_logged_in_level() >= QA_USER_LEVEL_ADMIN) {
+			$form = @$this->content['form_profile'];
+			if(isset($form)){
+				$this->output('<form class="user-buttons" '.$form['tags'].'>');
+				foreach($form['buttons'] as $btn)
+					$this->output('<button ' . $btn['tags'] . ' class="btn btn-xs btn-success" type="submit">' . $btn['label'] . '</button>');
+				$this->output('</form>');
+			}
+        }
+		
         if (isset($about) && strlen($about))
             $this->output('<div class="about-me widget">', '<h3 class="widget-title">' . qa_lang_html('cleanstrap/about_me') . '</h3>', $about, '</div>');
         $this->cs_user_activity_count($handle);
@@ -1460,11 +1469,7 @@ class qa_html_theme extends qa_html_theme_base
 				');
         
         $this->output('</div>');
-        if (qa_get_logged_in_level() >= QA_USER_LEVEL_ADMIN) {
-            $this->output('<a id="edit-user" class="btn btn-xs btn-success edit-profile" href="' . qa_path_absolute('user/' . $handle, array(
-                'state' => 'edit'
-            )) . '">' . qa_lang_html('cleanstrap/edit_user') . '</a>');
-        }
+        
         $this->nav('sub');
 		$this->favorite();
         $this->output('</div>');
@@ -1511,7 +1516,8 @@ class qa_html_theme extends qa_html_theme_base
         $this->output('<div class="qa-a-form"' . (isset($a_form['id']) ? (' id="' . $a_form['id'] . '"') : '') . '>');
         
         if (isset($a_form)) {
-			$this->output('<div class="big-s-avatar avatar">' . cs_get_avatar(qa_get_logged_in_handle(), 40) . '</div>');        
+		//	$this->output('<div class="big-s-avatar avatar">' . cs_get_avatar(qa_get_logged_in_handle(), 40) . '</div>');
+			$this->output('<div class="your-answer-label">' . $a_form['title'] . '</div>');        
 			$this->output('<div class="q-cont-right">');
           //  $this->output('<h3 class="your-answer">' . $a_form['title'] . '</h3>');
 

@@ -231,8 +231,8 @@
 		padding: 10px;
 	}
 	.question-title {
-		font-size: 20px;
-		line-height: 25px;
+		font-size: 16px;
+		line-height: 24px;
 	}
 	.question-head .question-meta > * {
 		font-size: 10px;
@@ -258,6 +258,28 @@
 	}
 	.qa-part-q-list .ans-count{
 		display:none;
+	}
+	.big-s-avatar {
+		display: block;
+		float: none;
+	}
+	.big-s-avatar .qa-voting-net {
+		display: inline-block;
+		margin: 0;
+	}
+	.big-s-avatar .qa-voting-net > *{
+		display:inline
+	}
+	.big-s-avatar .qa-voting-net > a, .big-s-avatar .qa-voting-net > span {
+		display: inline-block;
+		min-width: 30px;
+	}
+	.post-button .btn {
+		display: inline-block;
+		float: none !important;
+		margin: 0 0 10px;
+		padding: 2px 8px;
+		text-align: left;
 	}
 }
 

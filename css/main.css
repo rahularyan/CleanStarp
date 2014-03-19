@@ -1200,7 +1200,9 @@ a.feed-link {
     margin: 5px 0;
 }
 .question-main .question-meta {
+    border-bottom: 1px solid #F9F9F9;
     margin-bottom: 30px;
+    padding-bottom: 15px;
 }
 #a_list .answer-selected .q-cont-right {
     
@@ -1208,9 +1210,8 @@ a.feed-link {
 .question-main .question-meta > *:before{
 	margin-right: 10px;
 }
-.q-view-body > .no-overflow{
-    border-top: 1px solid #EEEEEE;
-    padding: 10px 0;
+.q-view-body > .no-overflow {
+    padding: 0 0 10px;
 }
 .user-info{
 
@@ -1803,6 +1804,12 @@ table.page-users-list {
     margin-right: 10px;
 }
 
+.question-list .question-item .big-ans-count.icon-comments {
+    background: none repeat scroll 0 0 #777777;
+    border-radius: 50%;
+    font-size: 23px;
+    line-height: 43px;
+}
 .question-list .question-item .big-ans-count {
     border-radius: 2px;
     color: #FFFFFF;
@@ -2161,10 +2168,9 @@ input.qa-form-wide-number{
 }
 
 .answer-form {
-    background: none repeat scroll 0 0 #FBFBFB;
     margin-bottom: 20px;
     margin-top: 15px;
-    padding: 15px;
+    padding: 15px 0;
 }
 
 .qa-suggest-next {
@@ -3140,11 +3146,11 @@ input[type=checkbox].on-off-checkbox {
     
 }
 .user-cols-right .about-me {
-    background: #FFFFFF;
+    background: none repeat scroll 0 0 #FFFFFF;
     border-radius: 4px;
     font-size: 15px;
     margin-bottom: 15px;
-    padding: 15px;
+    margin-top: 15px;
 }
 .user-cols-right .about-me h3{
 
@@ -4008,17 +4014,13 @@ input[type=checkbox].on-off-checkbox {
 }
 .user-activities .type{
     color: #B3B3B3;
-    display: table-cell;
     font-size: 20px;
     margin-right: 5px;
     text-align: center;
     width: 26px;
-	vertical-align: top;
 }
 .user-activities .what{
-    color: #777777;
-    display: table-cell;
-	vertical-align: top;
+
 }
 .user-activities .what-task{
     color: #777777;
@@ -4029,17 +4031,13 @@ input[type=checkbox].on-off-checkbox {
 }
 
 .user-activities .list-right{
-    display: table;
-    width: 100%;
+
 }
 .user-activities .when{
     color: #AAAAAA;
-    float: right;
     font-size: 13px;
     font-style: italic;
     font-weight: 300;
-    text-align: right;
-    width: 80px;
 }
 
 .users-post-widget .question-item .list-right h5{
@@ -4547,4 +4545,21 @@ input[type=checkbox].on-off-checkbox {
 }
 .dropdown-menu li.user-nav-admin a,.dropdown-menu li.user-nav-widgets a, .dropdown-menu li.user-nav-themeoptions a {
 	font-weight:bold;
+}
+.q-view-body {
+    min-height: 115px;
+}
+
+.user-buttons .btn{
+    background: none repeat scroll 0 0 #888888;
+    border-radius: 1px;
+    margin-right: 9px;
+    padding: 3px 15px;
+}
+
+.your-answer-label{
+    border-top: 1px solid #EEEEEE;
+    font-size: 20px;
+    margin-bottom: 10px;
+    padding-top: 15px;
 }

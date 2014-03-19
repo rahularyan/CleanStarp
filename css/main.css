@@ -3140,11 +3140,11 @@ input[type=checkbox].on-off-checkbox {
     
 }
 .user-cols-right .about-me {
-    background: #FFFFFF;
+    background: none repeat scroll 0 0 #FFFFFF;
     border-radius: 4px;
     font-size: 15px;
     margin-bottom: 15px;
-    padding: 15px;
+    margin-top: 15px;
 }
 .user-cols-right .about-me h3{
 

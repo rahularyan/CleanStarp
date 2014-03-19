@@ -4008,17 +4008,13 @@ input[type=checkbox].on-off-checkbox {
 }
 .user-activities .type{
     color: #B3B3B3;
-    display: table-cell;
     font-size: 20px;
     margin-right: 5px;
     text-align: center;
     width: 26px;
-	vertical-align: top;
 }
 .user-activities .what{
-    color: #777777;
-    display: table-cell;
-	vertical-align: top;
+
 }
 .user-activities .what-task{
     color: #777777;
@@ -4029,17 +4025,13 @@ input[type=checkbox].on-off-checkbox {
 }
 
 .user-activities .list-right{
-    display: table;
-    width: 100%;
+
 }
 .user-activities .when{
     color: #AAAAAA;
-    float: right;
     font-size: 13px;
     font-style: italic;
     font-weight: 300;
-    text-align: right;
-    width: 80px;
 }
 
 .users-post-widget .question-item .list-right h5{

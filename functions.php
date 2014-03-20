@@ -566,13 +566,12 @@ function cs_get_cache_select_selectspec($selectspec){
 	$hash = md5(json_encode($selectspec));
 	if (isset($cache[$hash])){
 		if ( ((int)$cache[$hash]['age'] + $age) > time()) {
-			$result = $cache[$hash];
-			unset($result['age']);
+			$result = $cache[$hash]['result'];
 			return $result;
 		}
 	}
 	$result = qa_db_select_with_pending($selectspec);
-	$cache[$hash] =  $result;
+	$cache[$hash]['result'] =  $result;
 	$cache[$hash]['age'] = time();
 	$cache['changed'] = true;
 	return $result ;	
@@ -586,13 +585,12 @@ function cs_get_cache($query,$age = 10){
 	$hash = md5($query);
 	if (isset($cache[$hash])){
 		if ( ((int)$cache[$hash]['age'] + $age) > time()) {
-			$result = $cache[$hash];
-			unset($result['age']);
+			$result = $cache[$hash]['result'];
 			return $result;
 		}
 	}
 	$result = qa_db_read_all_assoc( qa_db_query_raw($query) );
-	$cache[$hash] =  $result;
+	$cache[$hash]['result'] =  $result;
 	$cache[$hash]['age'] = time();
 	$cache['changed'] = true;
 	return $result ;	

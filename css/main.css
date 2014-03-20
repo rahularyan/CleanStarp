@@ -670,7 +670,7 @@ body {
     padding: 0;
 }
 
-.left-sidebar .qa-nav-main-list .qa-nav-main-item .qa-nav-main-link, .left-sidebar .qa-nav-sub-list .qa-nav-sub-item .qa-nav-sub-link {
+.left-sidebar .qa-nav-main-list .qa-nav-main-item .qa-nav-main-link,.left-sidebar .qa-nav-main-list .qa-nav-main-item-opp  .qa-nav-main-link, .left-sidebar .qa-nav-sub-list .qa-nav-sub-item .qa-nav-sub-link {
     border-bottom: 1px solid rgba(0, 0, 0, 0.02);
     color: #969696;
     display: block;
@@ -679,7 +679,8 @@ body {
     padding: 6px;
 }
 
-.left-sidebar .qa-nav-main-list .qa-nav-main-item .qa-nav-main-link:before {
+.left-sidebar .qa-nav-main-list .qa-nav-main-item .qa-nav-main-link:before ,
+.left-sidebar .qa-nav-main-list .qa-nav-main-item-opp  .qa-nav-main-link:before {
     border-right: 1px solid rgba(0, 0, 0, 0.03);
     display: inline-block;
     font-size: 14px;
@@ -690,7 +691,17 @@ body {
     vertical-align: baseline;
     width: 40px;
 }
-
+.qa-nav-main-item-opp  .qa-nav-main-link:before {
+   content: "\e614";
+}
+.qa-nav-main-item-opp  .qa-nav-main-link:before {
+    font-family: 'ra';
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    line-height: 1;
+    text-transform: none;
+}
 
 .qa-main {
     background: #FFFFFF;

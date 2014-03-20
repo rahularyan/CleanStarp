@@ -1439,7 +1439,7 @@ class qa_html_theme extends qa_html_theme_base
     {
         $handle = $this->content['raw']['account']['handle'];
         $userid = $this->content['raw']['account']['userid'];
-        $about  = cs_user_profile($handle, 'about');
+         $about  = cs_name($handle);
         
         $this->output('<div class="user-cols content-sidebar">');
         $this->cs_user_nav($handle);

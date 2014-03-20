@@ -79,7 +79,7 @@
 				foreach($users as $u){
 					$handle = qa_post_userid_to_handle($u->ID);
 					$output .= '<li class="user">';
-					$output .= '<div class="avatar" data-handle="'.$handle.'" data-id="'. qa_handle_to_userid($handle).'"><img src="'.cs_get_avatar($u['handle'], $size, false).'" /></div>';
+					$output .= '<div class="avatar" data-handle="'.$handle.'" data-id="'. qa_handle_to_userid($handle).'"><img src="'.cs_get_avatar($handle, $size, false).'" /></div>';
 					$output .= '</li>';
 				}
 				

@@ -75,7 +75,11 @@
 		// output the list of selected post type
 		function carousel_item($type, $limit, $col_item = 1){
 			require_once QA_INCLUDE_DIR.'qa-app-posts.php';
-			$post = qa_db_query_sub('SELECT * FROM ^postmetas, ^posts INNER JOIN ^users ON ^posts.userid=^users.userid WHERE ^posts.type=$ and ( ^postmetas.postid = ^posts.postid and ^postmetas.title = "featured_question" ) ORDER BY ^posts.created DESC LIMIT #', $type, $limit);	
+			if (defined('QA_FINAL_WORDPRESS_INTEGRATE_PATH')){
+				$post = qa_db_query_sub('SELECT * FROM ^postmetas, ^posts WHERE ^posts.type=$ and ( ^postmetas.postid = ^posts.postid and ^postmetas.title = "featured_question" ) ORDER BY ^posts.created DESC LIMIT #', $type, $limit);
+				global $wpdb;
+			}else
+				$post = qa_db_query_sub('SELECT * FROM ^postmetas, ^posts INNER JOIN ^users ON ^posts.userid=^users.userid WHERE ^posts.type=$ and ( ^postmetas.postid = ^posts.postid and ^postmetas.title = "featured_question" ) ORDER BY ^posts.created DESC LIMIT #', $type, $limit);
 			$output ='<div class="item"><div class="row">';
 			$i = 1;
 			while($p = mysql_fetch_array($post)){
@@ -86,8 +90,13 @@
 				}elseif('C'){
 					$what = qa_lang('cleanstrap/commented');
 				}
-				
-				$handle = $p['handle'];
+				if (defined('QA_FINAL_WORDPRESS_INTEGRATE_PATH'))
+					$handle = qa_db_read_one_value(qa_db_query_sub(
+						'SELECT user_nicename FROM '.$wpdb->base_prefix.'users WHERE ID=$',
+						$p['postid']
+					));
+				else
+					$handle = $p['handle'];
 				
 				if($type=='Q'){
 					$link_header = '<a href="'. qa_q_path_html($p['postid'], $p['title']) .'" title="'. $p['title'] .'">';

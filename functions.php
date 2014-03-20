@@ -59,17 +59,21 @@ function widget_opt_delete($id ){
 function cs_user_data($handle){
 	$userid = qa_handle_to_userid($handle);
 	$identifier=QA_FINAL_EXTERNAL_USERS ? $userid : $handle;
+	$user = array();
 	if(defined('QA_WORDPRESS_INTEGRATE_PATH')){
+		$u_rank = cs_get_cache_select_selectspec(qa_db_user_rank_selectspec($userid,true));
+		$u_points = cs_get_cache_select_selectspec(qa_db_user_points_selectspec($userid,true));
 		
-		$u=cs_get_cache_select_selectspec( 
-			qa_db_user_rank_selectspec($handle),
-			qa_db_user_points_selectspec($identifier)
-		);
-		$user = array();
-		$user[]['points'] = $u[1]['points'];
-		unset($u[1]['points']);
-		$user[] = 0;
-		$user[] = $u[1];
+		$userinfo = array();
+		$user_info = get_userdata( $userid );
+		$userinfo['userid'] = $userid;
+		$userinfo['handle'] = $handle;
+		$userinfo['email'] = $user_info->user_email;
+		
+		$user[0] = $userinfo;
+		$user[1]['rank'] = $u_rank;
+		$user[2] = $u_points;
+		$user = ($user[0]+ $user[1]+ $user[2]);
 	}else{
 		$user[0] = cs_get_cache_select_selectspec( qa_db_user_account_selectspec($userid, true) );
 		$user[1]['rank'] = cs_get_cache_select_selectspec( qa_db_user_rank_selectspec($handle) );
@@ -236,7 +240,12 @@ function cs_user_badge($handle) {
 	}
 }
 function cs_name($handle){
-	return strlen(cs_user_profile($handle, 'name')) ? cs_user_profile($handle, 'name') : $handle;
+	if(defined('QA_WORDPRESS_INTEGRATE_PATH')){
+		$userdata = cs_user_profile($handle, 'name');
+		$name = $userdata['nickname'][0];
+	}else
+		$name = cs_user_profile($handle, 'name');
+	return strlen($name) ? $name : $handle;
 }
 
 
@@ -669,4 +678,26 @@ function stripslashes2($string) {
 	str_replace('\\', '', $string);
     return $string;
 }
-
+if (!function_exists('qa_user_level_string')) {
+	function qa_user_level_string($level)
+	{
+		if (qa_to_override(__FUNCTION__)) { $args=func_get_args(); return qa_call_override(__FUNCTION__, $args); }
+	
+		if ($level>=QA_USER_LEVEL_SUPER)
+			$string='users/level_super';
+		elseif ($level>=QA_USER_LEVEL_ADMIN)
+			$string='users/level_admin';
+		elseif ($level>=QA_USER_LEVEL_MODERATOR)
+			$string='users/level_moderator';
+		elseif ($level>=QA_USER_LEVEL_EDITOR)
+			$string='users/level_editor';
+		elseif ($level>=QA_USER_LEVEL_EXPERT)
+			$string='users/level_expert';
+		elseif ($level>=QA_USER_LEVEL_APPROVED)
+			$string='users/approved_user';
+		else
+			$string='users/registered_user';
+		
+		return qa_lang($string);
+	}
+}

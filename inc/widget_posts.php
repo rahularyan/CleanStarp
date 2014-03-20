@@ -71,7 +71,11 @@ class cs_widget_posts
     function cs_post_list($type, $limit, $return = false)
     {
 
-        $posts = cs_get_cache('SELECT ^posts.* , ^users.* FROM ^posts, ^users WHERE ^posts.userid=^users.userid AND ^posts.type=$ ORDER BY ^posts.created DESC LIMIT #',60, $type, $limit);
+        if(defined('QA_WORDPRESS_INTEGRATE_PATH')){
+			global $wpdb;
+			$posts = cs_get_cache('SELECT ^posts.* , '.$wpdb->base_prefix.'users.* FROM ^posts, '.$wpdb->base_prefix.'users WHERE ^posts.userid='.$wpdb->base_prefix.'users.ID AND ^posts.type=$ ORDER BY ^posts.created DESC LIMIT #',60, $type, $limit);
+		}else
+			$posts = cs_get_cache('SELECT ^posts.* , ^users.* FROM ^posts, ^users WHERE ^posts.userid=^users.userid AND ^posts.type=$ ORDER BY ^posts.created DESC LIMIT #',60, $type, $limit);
         
         $output = '<ul class="posts-list">';
         foreach($posts as $p) {
@@ -83,9 +87,11 @@ class cs_widget_posts
             } elseif ('C') {
                 $what = qa_lang_html('cleanstrap/commented');
             }
-
-            $handle = $p['handle'];
-
+			if(defined('QA_WORDPRESS_INTEGRATE_PATH'))
+				$handle = $p['display_name'];
+			else
+				$handle = $p['handle'];
+			
 			$timeCode = qa_when_to_html(  strtotime( $p['created'] ) ,7);
 			$when = @$timeCode['prefix'] . @$timeCode['data'] . @$timeCode['suffix'];
 

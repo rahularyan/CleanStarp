@@ -2467,11 +2467,11 @@ input[type=checkbox].on-off-checkbox {
 .on-off-checkbox-container label {
     cursor: pointer;
     display: block;
-    height: 22px;
+    height: 24px;
     left: 0;
     position: absolute;
     top: 0;
-    width: 34px;
+    width: 35px;
     z-index: 1;
     -webkit-transition: all .4s ease;
     -moz-transition: all .4s ease;
@@ -2485,21 +2485,21 @@ input[type=checkbox].on-off-checkbox {
 }
 /* Radio Box in theme options */
 
-.theme-options input[type=radio] {
+.theme-option-radio[type="radio"] {
     display: none;
     margin: 10px;
 }
 
-.theme-options input[type=radio] + label {
+.theme-option-radio[type=radio] + label {
     background-color: #E7E7E7;
     border-color: #DDDDDD;
     display: inline-block;
     font-size: 12px;
     margin: -2px;
-    padding: 0 6px;
+    padding: 4px 10px;
 }
 
-.theme-options input[type=radio]:checked + label {
+.theme-option-radio[type=radio]:checked + label {
     color: #FFFFFF;
 }
 

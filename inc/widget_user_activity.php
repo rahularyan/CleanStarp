@@ -124,7 +124,13 @@
 		function output_widget($region, $place, $themeobject, $template, $request, $qa_content)
 		{
 			$widget_opt = @$themeobject->current_widget['param']['options'];
-			$handle = $qa_content['raw']['account']['handle'];
+			if(defined('QA_WORDPRESS_INTEGRATE_PATH')){
+				$userid = $qa_content['raw']['userid'];
+				$user_info = get_userdata( $userid );
+				$handle = $user_info->user_login;
+			}else
+				$handle = $qa_content['raw']['account']['handle'];
+				
 			
 			if(@$themeobject->current_widget['param']['locations']['show_title'])
 				$themeobject->output('<h3 class="widget-title">'.qa_lang_sub('cleanstrap/x_activities', $handle).'</h3>');

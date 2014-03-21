@@ -1437,10 +1437,17 @@ class qa_html_theme extends qa_html_theme_base
     
     function profile_page()
     {
-        $handle = $this->content['raw']['account']['handle'];
-        $userid = $this->content['raw']['account']['userid'];
-        $about  = cs_user_profile($handle, 'about');
-        
+		if(defined('QA_WORDPRESS_INTEGRATE_PATH')){
+			$userid = $this->content['raw']['userid'];
+			$user_date =  get_userdata( $userid );
+			$handle =  $user_date->user_login;
+			$about  = cs_name($handle);
+		}else{
+			$handle = $this->content['raw']['account']['handle'];
+			$userid = $this->content['raw']['account']['userid'];
+			$about  = cs_name($handle);
+		}
+ 
         $this->output('<div class="user-cols content-sidebar">');
         $this->cs_user_nav($handle);
         $this->output('<div class="user-cols-right">');

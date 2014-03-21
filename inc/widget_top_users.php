@@ -71,8 +71,11 @@
 		}
 		/* top users widget */
 		function cs_top_users($limit = 5, $size){
-
-			$users = cs_get_cache('SELECT * FROM ^users JOIN ^userpoints ON ^users.userid=^userpoints.userid ORDER BY ^userpoints.points DESC LIMIT #',7200, $limit);
+			if (defined('QA_FINAL_WORDPRESS_INTEGRATE_PATH')){
+				global $wpdb;
+				$users = cs_get_cache('SELECT * FROM '.$wpdb->base_prefix.'users JOIN ^userpoints ON '.$wpdb->base_prefix.'users.ID=^userpoints.userid ORDER BY ^userpoints.points DESC LIMIT #',7200, $limit);
+			}else
+				$users = cs_get_cache('SELECT * FROM ^users JOIN ^userpoints ON ^users.userid=^userpoints.userid ORDER BY ^userpoints.points DESC LIMIT #',7200, $limit);
 			
 			$output = '<ul class="top-users-list clearfix">';
 

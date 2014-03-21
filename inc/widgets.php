@@ -216,7 +216,7 @@ class qa_html_theme_layer extends qa_html_theme_base {
 				if($options){
 					foreach($options as $k => $opt){
 						if(isset($fields['fields'][$k])){
-							$fields['fields'][$k]['value'] = $opt;
+							$fields['fields'][$k]['value'] = utf8_decode(urldecode($opt));
 						}
 					}
 				}

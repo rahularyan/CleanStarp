@@ -10,29 +10,6 @@
 	}
 	$cs_error ='';
 
-	function get_base_url()
-    {
-        /* First we need to get the protocol the website is using */
-        $protocol = strtolower(substr($_SERVER["SERVER_PROTOCOL"], 0, 5)) == 'https' ? 'https://' : 'http://';
-
-        /* returns /myproject/index.php */
-		if(qa_opt('neat_urls') == 0 || strpos($_SERVER['PHP_SELF'],'/index.php/') !== false):
-			$path = strstr($_SERVER['PHP_SELF'], '/index', true);
-			$directory = $path;
-		else:
-			$path = $_SERVER['PHP_SELF'];
-			$path_parts = pathinfo($path);
-			$directory = $path_parts['dirname'];
-			$directory = ($directory == "/") ? "" : $directory;
-		endif;       
-			
-			$directory = ($directory == "\\") ? "" : $directory;
-			
-        /* Returns localhost OR mysite.com */
-        $host = $_SERVER['HTTP_HOST'];
-
-        return $protocol . $host . $directory;
-    }
 	
 	define('Q_THEME_DIR', dirname( __FILE__ ));
 	define('Q_THEME_URL', get_base_url().'/qa-theme/'.qa_get_site_theme());
@@ -105,7 +82,7 @@
 
 			}
 			
-			qa_register_layer('/inc/options.php', 'Theme Options', Q_THEME_DIR , Q_THEME_URL );	
+			//qa_register_layer('/inc/options.php', 'Theme Options', Q_THEME_DIR , Q_THEME_URL );	
 			qa_register_layer('/inc/widgets.php', 'Theme Widgets', Q_THEME_DIR , Q_THEME_URL );
 		}		
 		

@@ -394,7 +394,7 @@ function cs_save_widget($elm){
 			locations[$(this).attr('name')] = $(this).is(':checked') ? true : false;
 		});
 		$(this).find('.widget-option input, .widget-option select, .widget-option textarea').each(function(){
-			options[$(this).attr('name')] = $(this).val();
+			options[$(this).attr('name')] = encodeURIComponent($(this).val());
 		});
 		
 		widget[order]['locations'] = locations;

@@ -87,15 +87,14 @@
 				qa_opt('cs_installed', true); // update db, so that this code should not execute every time
 
 			}
-			
-			//qa_register_layer('/inc/options.php', 'Theme Options', Q_THEME_DIR , Q_THEME_URL );	
-			qa_register_layer('/inc/widgets.php', 'Theme Widgets', Q_THEME_DIR , Q_THEME_URL );
+
+			//qa_register_layer('/inc/widgets.php', 'Theme Widgets', Q_THEME_DIR , Q_THEME_URL );
 		}		
 		
 		
 		qa_register_module('widget', '/inc/widget_ask.php', 'cs_ask_widget', 'CS Ajax Ask', Q_THEME_DIR, Q_THEME_URL);
 		qa_register_module('widget', '/inc/widget_tags.php', 'cs_tags_widget', 'CS Tags', Q_THEME_DIR, Q_THEME_URL);
-		qa_register_module('widget', '/inc/widget_ticker.php', 'cs_ticker_widget', 'CS Ticker', Q_THEME_DIR, Q_THEME_URL);
+		
 		qa_register_module('widget', '/inc/widget_top_users.php', 'cs_top_users_widget', 'CS Top Contributors', Q_THEME_DIR, Q_THEME_URL);
 		qa_register_module('widget', '/inc/widget_activity.php', 'cs_activity_widget', 'CS Site Activity', Q_THEME_DIR, Q_THEME_URL);
 		qa_register_module('widget', '/inc/widget_question_activity.php', 'cs_question_activity_widget', 'CS Question Activity', Q_THEME_DIR, Q_THEME_URL);

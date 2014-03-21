@@ -278,7 +278,7 @@ class qa_html_theme extends qa_html_theme_base
 			$this->content['navigation']['user']['all_questions'] = array('label' => qa_lang('cleanstrap/all_questions'), 'url' => qa_path_html('user/'.qa_get_logged_in_handle().'/questions'), 'icon' =>'icon-question');
 			$this->content['navigation']['user']['all_answers'] = array('label' => qa_lang('cleanstrap/all_answers'), 'url' => qa_path_html('user/'.qa_get_logged_in_handle().'/answers'), 'icon' =>'icon-answer');
 			
-			$user_menu = array_merge(array_flip(array('admin', 'widgets', 'themeoptions', 'profile')), $this->content['navigation']['user']);
+			$user_menu = array_merge(array_flip(array('admin', 'themewidgets', 'themeoptions', 'profile')), $this->content['navigation']['user']);
 
             foreach ($user_menu as $k => $a) {
                 if (isset($a['url']) && $k != 'logout') {

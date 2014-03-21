@@ -69,7 +69,7 @@
 			$widget_opt = $themeobject->current_widget['param']['options'];
 			
 			$themeobject->output('<div class="ra-new-users-widget">');
-			$themeobject->output(@$widget_opt['cs_t_text']);
+			$themeobject->output(@utf8_decode(urldecode($widget_opt['cs_t_text'])));
 			$themeobject->output('</div>');
 		}
 	

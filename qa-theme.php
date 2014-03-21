@@ -96,7 +96,7 @@
 		qa_register_module('widget', '/inc/widget_tags.php', 'cs_tags_widget', 'CS Tags', Q_THEME_DIR, Q_THEME_URL);
 		
 		qa_register_module('widget', '/inc/widget_top_users.php', 'cs_top_users_widget', 'CS Top Contributors', Q_THEME_DIR, Q_THEME_URL);
-		qa_register_module('widget', '/inc/widget_activity.php', 'cs_activity_widget', 'CS Site Activity', Q_THEME_DIR, Q_THEME_URL);
+		
 		qa_register_module('widget', '/inc/widget_question_activity.php', 'cs_question_activity_widget', 'CS Question Activity', Q_THEME_DIR, Q_THEME_URL);
 		qa_register_module('widget', '/inc/widget_featured_questions.php', 'cs_featured_questions_widget', 'CS Featured Questions', Q_THEME_DIR, Q_THEME_URL);
 		qa_register_module('widget', '/inc/widget_site_status.php', 'cs_site_status_widget', 'CS Site Status', Q_THEME_DIR, Q_THEME_URL);

@@ -87,34 +87,12 @@
 				qa_opt('cs_installed', true); // update db, so that this code should not execute every time
 
 			}
-			
-			//qa_register_layer('/inc/options.php', 'Theme Options', Q_THEME_DIR , Q_THEME_URL );	
-			qa_register_layer('/inc/widgets.php', 'Theme Widgets', Q_THEME_DIR , Q_THEME_URL );
+
+			//qa_register_layer('/inc/widgets.php', 'Theme Widgets', Q_THEME_DIR , Q_THEME_URL );
 		}		
 		
+	
 		
-		qa_register_module('widget', '/inc/widget_ask.php', 'cs_ask_widget', 'CS Ajax Ask', Q_THEME_DIR, Q_THEME_URL);
-		qa_register_module('widget', '/inc/widget_tags.php', 'cs_tags_widget', 'CS Tags', Q_THEME_DIR, Q_THEME_URL);
-		qa_register_module('widget', '/inc/widget_ticker.php', 'cs_ticker_widget', 'CS Ticker', Q_THEME_DIR, Q_THEME_URL);
-		qa_register_module('widget', '/inc/widget_top_users.php', 'cs_top_users_widget', 'CS Top Contributors', Q_THEME_DIR, Q_THEME_URL);
-		qa_register_module('widget', '/inc/widget_activity.php', 'cs_activity_widget', 'CS Site Activity', Q_THEME_DIR, Q_THEME_URL);
-		qa_register_module('widget', '/inc/widget_question_activity.php', 'cs_question_activity_widget', 'CS Question Activity', Q_THEME_DIR, Q_THEME_URL);
-		qa_register_module('widget', '/inc/widget_featured_questions.php', 'cs_featured_questions_widget', 'CS Featured Questions', Q_THEME_DIR, Q_THEME_URL);
-		qa_register_module('widget', '/inc/widget_site_status.php', 'cs_site_status_widget', 'CS Site Status', Q_THEME_DIR, Q_THEME_URL);
-		//qa_register_module('widget', '/inc/widget_twitter.php', 'cs_twitter_widget', 'CS Twitter Widget', Q_THEME_DIR, Q_THEME_URL);
-		//qa_register_module('widget', '/inc/widget_feed.php', 'cs_feed_widget', 'CS Feed Widget', Q_THEME_DIR, Q_THEME_URL);
-		qa_register_module('widget', '/inc/widget_new_users.php', 'cs_new_users_widget', 'CS New Users', Q_THEME_DIR, Q_THEME_URL);
-		qa_register_module('widget', '/inc/widget_related_questions.php', 'cs_related_questions', 'CS Related Questions', Q_THEME_DIR, Q_THEME_URL);
-		qa_register_module('widget', '/inc/widget_text.php', 'cs_widget_text', 'CS Text Widget', Q_THEME_DIR, Q_THEME_URL);
-		qa_register_module('widget', '/inc/widget_posts.php', 'cs_widget_posts', 'CS Posts', Q_THEME_DIR, Q_THEME_URL);
 		
-		qa_register_module('widget', '/inc/widget_user_activity.php', 'cs_user_activity_widget', 'CS User Activity', Q_THEME_DIR, Q_THEME_URL);
 		
-		qa_register_module('widget', '/inc/widget_user_posts.php', 'cs_user_posts_widget', 'CS User Posts', Q_THEME_DIR, Q_THEME_URL);
-		
-		qa_register_module('widget', '/inc/widget_current_category.php', 'cs_current_category_widget', 'CS Current Cat', Q_THEME_DIR, Q_THEME_URL);
-		
-		//enable category widget only if category is active in q2a
-		if ( qa_using_categories() )
-			qa_register_module('widget', '/inc/widget_categories.php', 'widget_categories', 'CS Categories', Q_THEME_DIR, Q_THEME_URL);			
 	}

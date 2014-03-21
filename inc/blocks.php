@@ -278,7 +278,7 @@ class qa_html_theme extends qa_html_theme_base
 			$this->content['navigation']['user']['all_questions'] = array('label' => qa_lang('cleanstrap/all_questions'), 'url' => qa_path_html('user/'.qa_get_logged_in_handle().'/questions'), 'icon' =>'icon-question');
 			$this->content['navigation']['user']['all_answers'] = array('label' => qa_lang('cleanstrap/all_answers'), 'url' => qa_path_html('user/'.qa_get_logged_in_handle().'/answers'), 'icon' =>'icon-answer');
 			
-			$user_menu = array_merge(array_flip(array('admin', 'widgets', 'themeoptions', 'profile')), $this->content['navigation']['user']);
+			$user_menu = array_merge(array_flip(array('admin', 'themewidgets', 'themeoptions', 'profile')), $this->content['navigation']['user']);
 
             foreach ($user_menu as $k => $a) {
                 if (isset($a['url']) && $k != 'logout') {
@@ -1903,6 +1903,11 @@ class qa_html_theme extends qa_html_theme_base
             foreach ($widgets as $w) {
                 
                 if (($w['position'] == $position) && isset($w['param']['locations'][$this->template]) && (bool) $w['param']['locations'][$this->template]) {
+					$new_opt = array();
+					foreach($w['param']['options'] as $k => $d){
+						$new_opt[$k] = utf8_decode(urldecode($d));
+					}
+					$w['param']['options'] = $new_opt;
                     $this->current_widget = $w;
                     $this->cs_get_widget($w['name'], @$w['param']['locations']['show_title'], $position);
                 }

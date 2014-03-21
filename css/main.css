@@ -2169,13 +2169,7 @@ input.qa-form-wide-number{
     background: #f7f7f7;
 }
 
-.qa-main .qa-part-custom, .qa-main .qa-part-custom2 {
-    background: #FFFFFF;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-    padding: 15px;
-    border-radius: 4px;
-}
+
 .question-sidebar{
 
 }

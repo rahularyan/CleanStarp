@@ -92,7 +92,7 @@
 		}		
 		
 		
-		qa_register_module('widget', '/inc/widget_ask.php', 'cs_ask_widget', 'CS Ajax Ask', Q_THEME_DIR, Q_THEME_URL);
+		
 		qa_register_module('widget', '/inc/widget_tags.php', 'cs_tags_widget', 'CS Tags', Q_THEME_DIR, Q_THEME_URL);
 		
 		qa_register_module('widget', '/inc/widget_top_users.php', 'cs_top_users_widget', 'CS Top Contributors', Q_THEME_DIR, Q_THEME_URL);

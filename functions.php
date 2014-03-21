@@ -615,8 +615,9 @@ function cs_ajax_user_popover(){
 		
 		if(defined('QA_WORDPRESS_INTEGRATE_PATH')){
 			$userid = qa_handle_to_userid($handle);
-			$cover = get_user_meta( $userid, 'cover' );
-			$cover = $cover[0];
+			//$cover = get_user_meta( $userid, 'cover' );
+			//$cover = $cover[0];
+			$data = cs_user_data($handle);
 		}else{
 			$data = cs_user_data($handle);
 		}

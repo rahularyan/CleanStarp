@@ -1903,6 +1903,11 @@ class qa_html_theme extends qa_html_theme_base
             foreach ($widgets as $w) {
                 
                 if (($w['position'] == $position) && isset($w['param']['locations'][$this->template]) && (bool) $w['param']['locations'][$this->template]) {
+					$new_opt = array();
+					foreach($w['param']['options'] as $k => $d){
+						$new_opt[$k] = utf8_decode(urldecode($d));
+					}
+					$w['param']['options'] = $new_opt;
                     $this->current_widget = $w;
                     $this->cs_get_widget($w['name'], @$w['param']['locations']['show_title'], $position);
                 }

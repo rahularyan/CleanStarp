@@ -79,8 +79,12 @@
 		function cs_user_post_list($handle, $type, $limit){
 			$userid = qa_handle_to_userid($handle);
 			require_once QA_INCLUDE_DIR.'qa-app-posts.php';
-			$post = cs_get_cache('SELECT * FROM ^posts INNER JOIN ^users ON ^posts.userid=^users.userid WHERE ^posts.type=$ and ^posts.userid=# ORDER BY ^posts.created DESC LIMIT #', 10 ,$type, $userid, $limit);	
-			
+			if(defined('QA_WORDPRESS_INTEGRATE_PATH')){
+				global $wpdb;
+				$post = cs_get_cache('SELECT * FROM ^posts INNER JOIN '.$wpdb->base_prefix.'users ON ^posts.userid='.$wpdb->base_prefix.'users.ID WHERE ^posts.type=$ and ^posts.userid=# ORDER BY ^posts.created DESC LIMIT #', 10 ,$type, $userid, $limit);
+			}else
+				$post = cs_get_cache('SELECT * FROM ^posts INNER JOIN ^users ON ^posts.userid=^users.userid WHERE ^posts.type=$ and ^posts.userid=# ORDER BY ^posts.created DESC LIMIT #', 10 ,$type, $userid, $limit);	
+
 			$output = '<ul class="question-list users-post-widget post-type-'.$type.'">';
 			
 			if(count($post) > 0){
@@ -136,8 +140,13 @@
 		function output_widget($region, $place, $themeobject, $template, $request, $qa_content)
 		{
 			$widget_opt = @$themeobject->current_widget['param']['options'];
-			$handle = $qa_content['raw']['account']['handle'];
-			
+			if(defined('QA_WORDPRESS_INTEGRATE_PATH')){
+				$userid = $qa_content['raw']['userid'];
+				$user_info = get_userdata( $userid );
+				$handle = $user_info->user_login;
+				
+			}else
+				$handle = $qa_content['raw']['account']['handle'];
 			if($widget_opt['cs_up_type'] == 'Q')
 				$type_title = 'questions';
 			elseif($widget_opt['cs_up_type'] == 'A')
@@ -150,7 +159,7 @@
 			
 			if(@$themeobject->current_widget['param']['locations']['show_title'])
 				$themeobject->output('<h3 class="widget-title user-post-title">'.cs_name($handle).'\'s '.$type_title.@$type_link.'</h3>');
-				
+
 			$themeobject->output('<div class="ra-ua-widget">');
 			$themeobject->output($this->cs_user_post_list($handle, @$widget_opt['cs_up_type'],  (int)$widget_opt['cs_up_count']));
 			$themeobject->output('</div>');

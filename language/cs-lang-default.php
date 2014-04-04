@@ -77,6 +77,10 @@
 		'featured_image' => 'Featured image',
 		'admin' => 'Admin',
 		'theme_options' => 'Theme options',
+		'x_views' => '^ Views',
+		'title_placeholder' => 'Your question in one sentence',
+		'content_placeholder' => 'Clearly describe your question',
+		'tags_placeholder' => 'Tags separated by comma',
 	);
 	
 

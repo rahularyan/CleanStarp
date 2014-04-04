@@ -15,13 +15,9 @@
 	if (!defined('CS_CONTROL_DIR'))
 		qa_fatal_error('CS Control plugin is not installed !  please make sure you have installed CS Control plugin. Contact us from http://rahularyan.com/support');
 	
-	
-	
 	define('Q_THEME_DIR', dirname( __FILE__ ));
 	define('Q_THEME_URL', get_base_url().'/qa-theme/'.qa_get_site_theme());
-	
-	qa_register_layer('/featured.php', 'Featured', Q_THEME_DIR , Q_THEME_URL );
-	
+
 	include_once Q_THEME_DIR.'/functions.php';
 	include_once Q_THEME_DIR.'/inc/blocks.php';
 	
@@ -47,7 +43,6 @@
 					array(
 						'Top' => 'Before navbar', 
 						'Header' => 'After navbar', 
-						'Header left' => 'Left side of header', 
 						'Header Right' => 'Right side of header', 
 						'Left' => 'Right side below menu', 
 						'Content Top' => 'Before questions list', 
@@ -88,7 +83,6 @@
 
 			}
 
-			//qa_register_layer('/inc/widgets.php', 'Theme Widgets', Q_THEME_DIR , Q_THEME_URL );
 		}		
 		
 	

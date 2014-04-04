@@ -403,6 +403,7 @@ function cs_save_widget($elm){
 	});
 
 	 $.ajax({
+		type:'post',
 		url : theme_url+'/inc/ajax.php',
 		data: {
 			position: $elm.data('name'),
@@ -563,6 +564,9 @@ function cs_check_site_status_size(){
 	if($('.site-status-inner .bar-float').width() < 160)
 		$('.site-status-inner > *').css({'float': 'none', 'width':'100%'});
 }
+jQuery.fn.redraw = function() {
+    return this.hide(0, function(){jQuery(this).show()});
+}; 
 $(document).ready(function(){
 
 	var win_height = $(window).height();
@@ -688,5 +692,7 @@ $(document).ready(function(){
 			$('.tc_body').fadeIn(100);
 		}
 	});
+	
+	jQuery('body').redraw();
 	
 });

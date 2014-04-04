@@ -1,17 +1,16 @@
 a, .widget .ra-ticker-widget .widget-title a, .qa-q-view-tag-list li a:hover{
-	color:#e45840;
+
 }
 a:hover{
 	color:#7AAA40;
 }
 
 .btn{
-    background: #222222;
+    background: #FD6040;
     color: #FFFFFF;
 	border:none;
 }
 .btn:hover{
-    background: #d6313a;
     color: #FFFFFF;
 }
 .question-list .question-item .big-ans-count.icon-chat{
@@ -61,7 +60,7 @@ a:hover{
 	border-color:#e45840;
 }
 #nav-top #site-header .qa-nav-main .qa-nav-main-list li a{
-	color:#333;
+	color: #FFFFFF;
 }
 .ra-ask-widget .input-group-btn button, .carousel-control.left, .carousel-control.right, .ajax-file-upload-bar {
     background: none repeat scroll 0 0 #d6313a;

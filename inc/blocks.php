@@ -713,8 +713,14 @@ class qa_html_theme extends qa_html_theme_base
     
     function home($content)
     {
+		if($this->cs_position_active('Home Slide')){
+			$this->output('<div class="home-slider-outer"><div class="container">');
+			$this->cs_position('Home Slide');
+			$this->output('</div></div>');
+		}
+			
         $this->output('<div class="home-left-inner container">');
-        $this->cs_position('Home Slide');
+        
         $this->output('<div class="row home-pos-one">');
         $this->output('<div class="col-md-8 home-left">');
         

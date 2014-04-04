@@ -5040,3 +5040,9 @@ input[type=checkbox].on-off-checkbox {
 .ra-ask-content {
 
 }
+
+
+.home-slider-outer{
+    border-bottom: 1px solid #F8F8F8;
+    margin-bottom: 30px;
+}

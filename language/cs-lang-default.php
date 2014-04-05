@@ -81,6 +81,9 @@
 		'title_placeholder' => 'Your question in one sentence',
 		'content_placeholder' => 'Clearly describe your question',
 		'tags_placeholder' => 'Tags separated by comma',
+		'your_name' => 'Your name to display',
+		'your_email' => 'Your name to email',
+		'login' => 'Login',
 	);
 	
 

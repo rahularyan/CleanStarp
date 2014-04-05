@@ -2331,9 +2331,11 @@ input.qa-form-wide-number {
     padding: 9px;
 }
 
+#site-header .navbar-default .login-register:before {
+    margin-right: 6px;
+}
 #site-header .navbar-default .login-register {
-    -moz-border-radius: 2px;
-    -webkit-border-radius: 2px;
+    background: none repeat scroll 0 0 #333333;
     border-radius: 2px;
     float: right;
     margin: 0 0 0 8px;
@@ -2787,7 +2789,7 @@ input[type=checkbox].on-off-checkbox {
 .header-position-c {
     background: url("../images/community.jpg") repeat-x scroll center bottom rgba(0, 0, 0, 0);
     border-bottom: 1px solid #EEEEEE;
-    margin-bottom: 32px;
+    margin-bottom: 30px;
     padding: 50px 0 25px;
 }
 
@@ -3783,10 +3785,12 @@ input[type=checkbox].on-off-checkbox {
 }
 
 #home-slide-position {
-    background: none;
-    padding: 0;
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+    padding: 30px 0;
 }
-
+#home-slide-position .widget{
+	margin:0;
+}
 .carousel-control.left, .carousel-control.right {
     background: #FFF;
     color: #FFF;
@@ -4782,7 +4786,7 @@ input[type=checkbox].on-off-checkbox {
 }
 
 #nav-top #site-header .qa-nav-main .qa-nav-main-list li a {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: bold;
     line-height: 30px;
     padding: 2px 5px;
@@ -5030,7 +5034,8 @@ input[type=checkbox].on-off-checkbox {
 }
 .cs-ask-widget-form {
     background: none repeat scroll 0 0 rgba(255, 255, 255, 0.6);
-    margin-top: 15px;
+    border: 2px solid #EEEEEE;
+    border-radius: 5px;
     padding: 15px;
 }
 .ra-ask-title {
@@ -5040,9 +5045,28 @@ input[type=checkbox].on-off-checkbox {
 .ra-ask-content {
 
 }
+.cs-ask-widget-form .checkbox-inline{
+	padding:0;
+}
+.cs-ask-widget-form .checkbox-inline input{
+    margin-left: 0;
+    margin-right: 10px;
+}
+.cs-ask-widget-form .checkbox-inline {
+    margin-bottom: 15px;
+}
 
 
 .home-slider-outer{
     border-bottom: 1px solid #F8F8F8;
     margin-bottom: 30px;
+}
+
+.ra-featured-widget .title{
+    color: #444444;
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+    height: 54px;
+    margin-top: 8px;
 }

@@ -693,6 +693,10 @@ $(document).ready(function(){
 		}
 	});
 	
-	jQuery('body').redraw();
+	$('body').redraw();
+	
+	$('.cs_ask_form #notify').click(function(){
+		$(this).closest('.form-group').next().toggle();
+	});
 	
 });

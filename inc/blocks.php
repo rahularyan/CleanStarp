@@ -305,9 +305,9 @@ class qa_html_theme extends qa_html_theme_base
 			<?php
         } else {
 ?>				
-				<a class="btn login-register icon-login"  href="#" data-toggle="modal" data-target="#login-modal" title="<?php
-            echo qa_lang_html('cleanstrap/login_register');
-?>"></a>
+				<a class="btn login-register icon-login"  href="#" data-toggle="modal" data-target="#login-modal" title="<?php echo qa_lang_html('cleanstrap/login_register'); ?>"><?php echo qa_lang_html('cleanstrap/login'); ?></a>
+				
+				<a class="btn login-register icon-login"  href="#" data-toggle="modal" data-target="#login-modal" title="<?php echo qa_lang_html('cleanstrap/register_on_site'); ?>"><?php echo qa_lang_html('cleanstrap/register'); ?></a>
 
 				
 				<!-- Modal -->

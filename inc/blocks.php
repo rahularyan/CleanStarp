@@ -607,12 +607,8 @@ class qa_html_theme extends qa_html_theme_base
 			
         $this->output('<div class="clearfix qa-main ' . (@$this->content['hidden'] ? ' qa-main-hidden' : '') . '">');
         $col_width = ($this->cs_position_active('Right') && $this->template != 'question');
-        
-        $this->output('<div class="' . ($col_width ? 'col-sm-8' : '') . ' list-c">');
-        
-		$this->cs_page_title();
-        
-        if ($this->cs_position_active('Header') || $this->cs_position_active('Header Right')) {
+       
+	   if ($this->cs_position_active('Header') || $this->cs_position_active('Header Right')) {
             $this->output('<div class="header-position-c">');
 				$this->output('<div class="container">');
 				$this->output('<div class="row">');
@@ -632,7 +628,13 @@ class qa_html_theme extends qa_html_theme_base
             $this->output('</div>');
         }
 		
-		if ($this->template != 'question')
+        $this->output('<div class="container">');
+        $this->output('<div class="row">');
+        $this->output('<div class="' . ($col_width ? 'col-sm-8' : '') . ' list-c">');
+        
+		$this->cs_page_title();
+        
+        if ($this->template != 'question')
 			$this->cs_position('Content Top');
         
         if (isset($this->content['error']))
@@ -686,6 +688,8 @@ class qa_html_theme extends qa_html_theme_base
         if ($col_width) {
             $this->sidepanel();
         }
+        $this->output('</div>');
+        $this->output('</div>');
         $this->output('</div>');
         $this->cs_position('Content Bottom');
         $this->footer();

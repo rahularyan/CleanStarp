@@ -181,7 +181,7 @@ class qa_html_theme extends qa_html_theme_base
 		$this->logo();
 		//$this->get_social_links();		
 		//$this->search();		
-		
+		$this->user_drop_nav();
 					
 		$this->output('</div>');
 		$this->output('</div>');
@@ -196,8 +196,7 @@ class qa_html_theme extends qa_html_theme_base
 			
 		$this->head_nav();
 		
-		$this->output('</nav>');
-		$this->user_drop_nav(); 		
+		$this->output('</nav>');		 		
 		$this->nav_ask_btn();	
                
         $this->output('</div>');
@@ -305,10 +304,9 @@ class qa_html_theme extends qa_html_theme_base
 			<?php
         } else {
 ?>				
-				<a class="btn login-register icon-login"  href="#" data-toggle="modal" data-target="#login-modal" title="<?php echo qa_lang_html('cleanstrap/login_register'); ?>"><?php echo qa_lang_html('cleanstrap/login'); ?></a>
+				<a class="btn login-register icon-key"  href="#" data-toggle="modal" data-target="#login-modal" title="<?php echo qa_lang_html('cleanstrap/login_register'); ?>"><?php echo qa_lang_html('cleanstrap/login'); ?></a>
 				
-				<a class="btn login-register icon-login"  href="#" data-toggle="modal" data-target="#login-modal" title="<?php echo qa_lang_html('cleanstrap/register_on_site'); ?>"><?php echo qa_lang_html('cleanstrap/register'); ?></a>
-
+				<a class="btn login-register icon-login"  href="<?php echo qa_path_html('register'); ?>" title="<?php echo qa_lang_html('cleanstrap/register_on_site'); ?>"><?php echo qa_lang_html('cleanstrap/register'); ?></a>
 				
 				<!-- Modal -->
 				<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

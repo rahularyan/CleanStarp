@@ -84,6 +84,7 @@
 		'your_name' => 'Your name to display',
 		'your_email' => 'Your name to email',
 		'login' => 'Login',
+		'register' => 'Register',
 	);
 	
 

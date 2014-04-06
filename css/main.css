@@ -2331,14 +2331,16 @@ input.qa-form-wide-number {
     padding: 9px;
 }
 
-#site-header .navbar-default .login-register:before {
+#site-header .login-register:before {
     margin-right: 6px;
 }
-#site-header .navbar-default .login-register {
-    background: none repeat scroll 0 0 #333333;
+#site-header .login-register {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.4);
     border-radius: 2px;
     float: right;
-    margin: 0 0 0 8px;
+    font-size: 12px;
+    margin: 7px 0 0 8px;
+    padding: 3px 8px;
 }
 
 #site-header .navbar-default .login-register i {
@@ -5053,7 +5055,8 @@ input[type=checkbox].on-off-checkbox {
     margin-right: 10px;
 }
 .cs-ask-widget-form .checkbox-inline {
-    margin-bottom: 15px;
+    margin-bottom: 0;
+    margin-left: 5px;
 }
 
 

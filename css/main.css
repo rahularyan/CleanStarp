@@ -3166,25 +3166,25 @@ input[type=checkbox].on-off-checkbox {
     margin-bottom: 0;
     text-align: center;
 }
-.qa-template-register .page-title {
+.qa-template-register .page-title, .qa-template-login .page-title {
     color: #222;
     font-size: 22px;
     font-weight: normal;
     margin-bottom: 20px;
     text-align: center;
 }
-.qa-template-register .qa-part-form {
+.qa-template-register .qa-part-form, .qa-template-login .qa-part-form {
     border: 1px solid #EEEEEE;
     border-radius: 3px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.06);
     padding: 20px;
 }
-.qa-template-register .qa-part-custom h1 {
+.qa-template-register .qa-part-custom h1, .qa-template-login .qa-part-custom h1 {
     color: #222;
     font-size: 22px;
     text-align: center;
 }
-.qa-template-register .qa-part-custom {
+.qa-template-register .qa-part-custom, .qa-template-login .qa-part-custom {
     margin-bottom: 25px;
     text-align: center;
 }

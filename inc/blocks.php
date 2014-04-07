@@ -254,7 +254,7 @@ class qa_html_theme extends qa_html_theme_base
     {
         ob_start();
         if (qa_is_logged_in()) {
-            
+            $this->cs_notification_btn();
 ?>
 				<ul class="nav navbar-nav navbar-avatar pull-right">
 					<li class="dropdown pull-right" id="menuLogin">
@@ -416,6 +416,9 @@ class qa_html_theme extends qa_html_theme_base
         $this->output(ob_get_clean());
         
     }
+	function cs_notification_btn(){
+	
+	}
     function search()
     {
         $search = $this->content['search'];

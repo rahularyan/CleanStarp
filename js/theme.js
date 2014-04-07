@@ -321,7 +321,7 @@ function cs_widgets(){
 		
 		var id = $(this).closest('.draggable-widget').data('id');
 		$.ajax({
-			url : theme_url+'/inc/ajax.php',
+			url : ajax_url,
 			data: {
 				id: id,
 				action: 'delete_widget',
@@ -404,7 +404,7 @@ function cs_save_widget($elm){
 
 	 $.ajax({
 		type:'post',
-		url : theme_url+'/inc/ajax.php',
+		url : ajax_url,
 		data: {
 			position: $elm.data('name'),
 			widget_names: JSON.stringify(widget),

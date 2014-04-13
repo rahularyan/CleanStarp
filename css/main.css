@@ -75,7 +75,7 @@ textarea{
 }
 
 #site-header {
-    background: #fd6040;
+    background: #ff7022;
     border-bottom: medium none;
     -moz-box-shadow: none;
     -webkit-box-shadow: none;
@@ -86,7 +86,7 @@ textarea{
 }
 
 #site-header #header-top {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    background:#49535e;
     margin: 0;
     padding: 10px 0;
 }

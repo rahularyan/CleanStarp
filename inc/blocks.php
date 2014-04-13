@@ -67,8 +67,6 @@ class qa_html_theme extends qa_html_theme_base
     {
         if (isset($_REQUEST['cs_ajax_html'])) {
             return;
-        } else {
-            qa_html_theme_base::finish();
         }
     }
     function head_css()

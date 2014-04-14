@@ -21,11 +21,7 @@
 	include_once Q_THEME_DIR.'/functions.php';
 	include_once Q_THEME_DIR.'/inc/blocks.php';
 	
-	//require_once QA_INCLUDE_DIR.'qa-db-cache.php';
-	//cs_get_site_cache();	
 
-	
-	qa_register_phrases(Q_THEME_DIR . '/language/cs-lang-*.php', 'cleanstrap');
 
 	if(isset($_REQUEST['cs_ajax'])){	
 		if(isset($_REQUEST['cs_ajax'])){

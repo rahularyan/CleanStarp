@@ -183,9 +183,12 @@ class qa_html_theme extends qa_html_theme_base
 					
 		$this->output('</div>');
 		$this->output('</div>');
-		$this->output('<div class="navbar-default" role="navigation">');
-		
-		$this->output('<div class="container">');
+
+		$this->output('</header>');
+    }
+	function main_nav_menu(){
+		$this->output('<div class="navbar-default container" role="navigation">');
+
 		$this->output('<nav class="pull-left clearfix">');
         $this->output('<a href="#" class="slide-mobile-menu icon-list"></a>');
         
@@ -198,11 +201,7 @@ class qa_html_theme extends qa_html_theme_base
 		$this->nav_ask_btn();	
                
         $this->output('</div>');
-        $this->output('</div>');
-
-		$this->output('</header>');
-    }
-	
+	}
 	function nav_ask_btn(){
 		if (qa_opt('cs_enable_ask_button')){
 			$this->output('<a id="nav-ask-btn" href="' . qa_path_html('ask') . '" class="btn btn-sm">' . qa_lang_html('cleanstrap/ask_question') . '</a>');
@@ -239,10 +238,8 @@ class qa_html_theme extends qa_html_theme_base
 ?>
 			<ul class="nav navbar-nav category-nav pull-left">
 				<li class="dropdown pull-left">
-					<a data-toggle="dropdown" href="#" class="category-toggle icon-folder-close" title="<?php echo qa_lang_html('cleanstrap/categories'); ?>"></a>
-					<ul class="category-list-drop dropdown-menu">
-						<?php $this->cs_full_categories_list(); ?>
-					</ul>
+					<a data-toggle="dropdown" href="#" class="category-toggle icon-folder-close" title="<?php echo qa_lang_html('cleanstrap/categories'); ?>"></a>					
+						<?php $this->cs_full_categories_list(); ?>					
 				</li>
 			</ul>
 			<?php
@@ -564,21 +561,33 @@ class qa_html_theme extends qa_html_theme_base
             $cats          = cs_get_cache_select_selectspec(qa_db_category_nav_selectspec($categoryslugs, false, false, true));
             $navigation    = qa_category_navigation($cats);
         }
-       // if (count($navigation) > 1) { // if there are any categories (except 'all categories' navigation item)
-            //$this->output( '<div class="qa-nav-cat">');
-            //$this->output( '<ul class="qa-nav-cat-list">');
-            $index = 0;
-			$navigation['all']['url'] = qa_path_html('categories');
-            foreach ($navigation as $key => $navlink) {
-                $this->set_context('nav_key', $key);
-                $this->set_context('nav_index', $index++);
-                $this->cs_full_categories_list_item($key, $navlink, '', $level, $show_sub);
-            }
-            $this->clear_context('nav_key');
-            $this->clear_context('nav_index');
-            
-            //$this->output('</ul></div>');
-       // }
+
+		$this->output('<div class="dropdown-menu">');
+		$this->output('<a class="all-cat" href="'.qa_path_html('categories').'">'.qa_lang('cleanstrap/all_categories').'</a>');
+		$this->output('<div class="category-list">');
+		$this->output('<div class="category-list-drop"><ul>');
+		$index = 0;
+		
+		unset($navigation['all']);
+		$row = ceil(count($navigation)/2);
+		$col = 1;
+		
+		foreach ($navigation as $key => $navlink) {
+			$this->set_context('nav_key', $key);
+			$this->set_context('nav_index', $index++);
+			$this->cs_full_categories_list_item($key, $navlink, '', $level, $show_sub);
+			
+			if($row == $col)
+				$this->output('</ul></div><div class="category-list-drop"><ul>');
+			$col++;
+		}
+		$this->clear_context('nav_key');
+		$this->clear_context('nav_index');
+		
+		$this->output('</div>');
+		$this->output('</div>');
+		$this->output('</div>');
+
         unset($navigation);
     }
     
@@ -606,13 +615,13 @@ class qa_html_theme extends qa_html_theme_base
 	   if ($this->template == 'admin' && qa_opt('cs_nav_position') == 'top')
             $this->nav('sub');
 			
-        $this->output('<div class="clearfix qa-main ' . (@$this->content['hidden'] ? ' qa-main-hidden' : '') . '">');
+        $this->output('<div class="clearfix qa-main container ' . (@$this->content['hidden'] ? ' qa-main-hidden' : '') . '">');
         $col_width = ($this->cs_position_active('Right') && $this->template != 'question');
        
+	   $this->main_nav_menu();
+	   
 	   if ($this->cs_position_active('Header') || $this->cs_position_active('Header Right')) {
-            $this->output('<div class="header-position-c">');
-				$this->output('<div class="container">');
-				$this->output('<div class="row">');
+            $this->output('<div class="header-position-c container">');	
 				if ($this->cs_position_active('Header')){
 					$this->output('<div class="col-md-6">');
 					$this->cs_position('Header');
@@ -623,9 +632,6 @@ class qa_html_theme extends qa_html_theme_base
 					$this->cs_position('Header Right');
 					$this->output('</div>');
 				}
-				$this->output('</div>');
-				$this->output('</div>');
-
             $this->output('</div>');
         }
 		

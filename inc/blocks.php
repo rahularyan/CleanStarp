@@ -159,8 +159,11 @@ class qa_html_theme extends qa_html_theme_base
 		
 		if(qa_opt('cs_nav_position') == 'left')
 			$this->left_sidebar();
-			
-        $this->main();
+		
+		if($this->request=='cs-install')
+			$this->install_page();
+		else
+			$this->main();
 
         $this->output('</div>');
         
@@ -249,7 +252,7 @@ class qa_html_theme extends qa_html_theme_base
     {
         ob_start();
         if (qa_is_logged_in()) {
-            $this->cs_notification_btn();
+            
 ?>
 				<ul class="nav navbar-nav navbar-avatar pull-right">
 					<li class="dropdown pull-right" id="menuLogin">
@@ -297,6 +300,7 @@ class qa_html_theme extends qa_html_theme_base
 				</ul>
 			
 			<?php
+			$this->cs_notification_btn();
         } else {
 ?>				
 				<a class="btn login-register icon-key"  href="#" data-toggle="modal" data-target="#login-modal" title="<?php echo qa_lang_html('cleanstrap/login_register'); ?>"><?php echo qa_lang_html('cleanstrap/login'); ?></a>

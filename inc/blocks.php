@@ -181,7 +181,7 @@ class qa_html_theme extends qa_html_theme_base
 		$this->output('<div class="container">');
 		$this->logo();
 		//$this->get_social_links();		
-		//$this->search();		
+		$this->search();		
 		$this->user_drop_nav();
 					
 		$this->output('</div>');
@@ -422,7 +422,7 @@ class qa_html_theme extends qa_html_theme_base
     {
         $search = $this->content['search'];
         
-        $this->output('<form ' . $search['form_tags'] . ' class="navbar-form navbar-right form-search" role="search" >', @$search['form_extra']);
+        $this->output('<form ' . $search['form_tags'] . ' class="navbar-form navbar-left form-search" role="search" >', @$search['form_extra']);
         
         $this->search_field($search);
         $this->search_button($search);
@@ -431,12 +431,12 @@ class qa_html_theme extends qa_html_theme_base
     }
     function search_field($search)
     {
-        $this->output('<span class="icon-search"></span>', '<input type="text" ' . $search['field_tags'] . ' value="' . @$search['value'] . '" class="form-control search-query" placeholder="' . qa_lang_html('cleanstrap/search') . '" autocomplete="off" />', '');
+        $this->output('<input type="text" ' . $search['field_tags'] . ' value="' . @$search['value'] . '" class="form-control search-query" placeholder="' . qa_lang_html('cleanstrap/search') . '" autocomplete="off" />', '');
     }
     
     function search_button($search)
     {
-        $this->output('<input type="submit" value="' . $search['button_label'] . '" class="btn btn-default"/>');
+        $this->output('<button type="submit" value="' . $search['button_label'] . '" class="icon-search btn btn-default"></button>');
     }
     
     function sidepanel()

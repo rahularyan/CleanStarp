@@ -68,6 +68,7 @@ textarea{
 
 #site-header .container {
     background: none;
+    padding: 0;
 }
 
 .navbar-default {
@@ -154,7 +155,7 @@ textarea{
 
 #site-header .navbar-form {
     margin: 0;
-    padding: 7px;
+    padding: 0;
     position: relative;
 }
 
@@ -163,27 +164,19 @@ textarea{
     padding: 0;
 }
 
-#site-header .icon-search {
-    display: block;
-    font-size: 15px;
-    left: 18px;
-    position: absolute;
-    top: 12px;
+#site-header .btn.icon-search {
+    background: none repeat scroll 0 0 #333333;
+    padding: 7px 15px;
 }
 
 .navbar-form .form-control {
-    background: none repeat scroll 0 0 #FFF;
-    border: 1px solid #DDD;
-    -moz-border-radius: 2px;
-    -webkit-border-radius: 2px;
-    border-radius: 2px;
-    -moz-box-shadow: none;
-    -webkit-box-shadow: none;
-    box-shadow: none;
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #2D3135;
+    border-radius: 3px;
     display: inline-block;
     font-weight: 300;
-    padding: 2px 15px 2px 40px;
-    width: 280px;
+    padding: 2px 10px;
+    width: 300px;
 }
 
 .qa-nav-main {

@@ -145,9 +145,9 @@ function cs_favorite_click()
 				if (lines[0]=='1'){
 					
 					elem.parent().empty().html(lines.slice(1).join("\n"));
-					$('.fav-btn').tooltip({placement:'bottom'});
+					$('.fav-btn').tooltip({placement:'top'});
 				}else if (lines[0]=='0') {
-					alert(lines[1]);
+					//alert(lines[1]);
 					//cs_remove_process(elem);
 				} else
 					qa_ajax_error();

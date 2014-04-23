@@ -90,7 +90,7 @@ class qa_html_theme extends qa_html_theme_base
         if (qa_opt('cs_enable_gzip')) //Gzip
             $this->output('<LINK REL="stylesheet" TYPE="text/css" HREF="' . Q_THEME_URL . '/inc/gzip.php' . '"/>');
         else {
-            $this->output('<link rel="stylesheet" type="text/css" href="' . Q_THEME_URL . '/css/font.css"/>');
+            $this->output('<link rel="stylesheet" type="text/css" href="http://i.icomoon.io/public/temp/d5b9a10d70/UntitledProject2/style.css"/>');
             $this->output('<link rel="stylesheet" type="text/css" href="' . Q_THEME_URL . '/css/bootstrap.css"/>');
             $this->output('<link rel="stylesheet" type="text/css" href="' . Q_THEME_URL . '/css/main.css"/>');
             $this->output('<link rel="stylesheet" type="text/css" href="' . Q_THEME_URL . '/css/wide.css"/>');
@@ -154,8 +154,8 @@ class qa_html_theme extends qa_html_theme_base
         $this->body_prefix();
         $this->notices();
         $this->header();
-
-        $this->output('<div id="site-body">');
+		$this->main_top($this->content);
+        $this->output('<div class="clearfix qa-main container ' . (@$this->content['hidden'] ? ' qa-main-hidden' : '') . '">');
 		
 		if(qa_opt('cs_nav_position') == 'left')
 			$this->left_sidebar();
@@ -167,6 +167,8 @@ class qa_html_theme extends qa_html_theme_base
 
         $this->output('</div>');
         
+		$this->footer();
+		 
         $this->body_suffix();
         if ((qa_opt('cs_enble_back_to_top')) && (qa_opt('cs_back_to_top_location') == 'right'))
             $this->output('<a id="back-to-top" class="back-to-top-right icon-angle-up t-bg" href="#"></a>');
@@ -442,7 +444,7 @@ class qa_html_theme extends qa_html_theme_base
     function sidepanel()
     {
         if ($this->cs_position_active('Right')) {
-            $this->output('<div class="col-sm-4 side-c">');
+            $this->output('<div class="side-c">');
             $this->output('<div class="qa-sidepanel">');
             $this->cs_position('Right');
             $this->output('</div>', '');
@@ -614,43 +616,19 @@ class qa_html_theme extends qa_html_theme_base
     
     function main()
     {
-        $content = $this->content;
-       
-	   if ($this->template == 'admin' && qa_opt('cs_nav_position') == 'top')
-            $this->nav('sub');
-			
-        $this->output('<div class="clearfix qa-main container ' . (@$this->content['hidden'] ? ' qa-main-hidden' : '') . '">');
-        $col_width = ($this->cs_position_active('Right') && $this->template != 'question');
-       
-	   $this->main_nav_menu();
-	   
-	   if ($this->cs_position_active('Header') || $this->cs_position_active('Header Right')) {
-            $this->output('<div class="header-position-c container">');	
-				if ($this->cs_position_active('Header')){
-					$this->output('<div class="col-md-6">');
-					$this->cs_position('Header');
-					$this->output('</div>');
-				}
-				if ($this->cs_position_active('Header Right')){
-					$this->output('<div class="col-md-6">');
-					$this->cs_position('Header Right');
-					$this->output('</div>');
-				}
-            $this->output('</div>');
-        }
-		
+       $content = $this->content;
+		/* $col_width = ($this->cs_position_active('Right') && $this->template != 'question');
         $this->output('<div class="container">');
         $this->output('<div class="row">');
-        $this->output('<div class="' . ($col_width ? 'col-sm-8' : '') . ' list-c">');
+        $this->output('<div class="' . ($col_width ? 'col-sm-8' : '') . ' list-c">'); */
         
-		$this->cs_page_title();
+		
         
-        if ($this->template != 'question')
-			$this->cs_position('Content Top');
-        
-        if (isset($this->content['error']))
-            $this->error(@$this->content['error']);
-        if ($this->template == 'user' && !(isset($_REQUEST['state']) && $_REQUEST['state'] == 'edit')) {
+		/* if ($this->template == 'user' && !(isset($_REQUEST['state']) && $_REQUEST['state'] == 'edit')) {
+            $this->profile_page();
+        } */
+		
+		/* if ($this->template == 'user' && !(isset($_REQUEST['state']) && $_REQUEST['state'] == 'edit')) {
             $this->profile_page();
         } elseif (strlen(qa_request(1)) == 0) {
             $this->home($content);
@@ -689,8 +667,38 @@ class qa_html_theme extends qa_html_theme_base
                 $this->nav('sub');
             $this->main_parts($content);
             $this->suggest_next();
-        }
-		if ($this->template != 'question')
+        } */
+		//print_r($this->template);
+		switch($this->template){
+			case 'qa':
+				$this->home($content);				
+				break;
+			
+			case 'user':
+				$this->user_template($content);				
+				break;
+			
+			case 'question':
+				$this->question_view($content);
+				break;
+				
+			case 'user-wall':
+				$handle = qa_request_part(1);
+				$this->output('<section id="content" class="content-sidebar user-cols">');
+				$this->cs_user_nav($handle);
+				$this->output('<div class="messages">');
+				$this->message_list_and_form($this->content['message_list']);
+				$this->output('</div></section>');
+				
+				break;
+				
+			default:				
+				$this->default_template($content);
+				break;
+				
+		}
+		
+		/* if ($this->template != 'question')
             $this->page_links();
         $this->cs_position('Content Bottom');
         
@@ -700,12 +708,53 @@ class qa_html_theme extends qa_html_theme_base
             $this->sidepanel();
         }
         $this->output('</div>');
-        $this->output('</div>');
-        $this->output('</div>');
-        $this->cs_position('Content Bottom');
-        $this->footer();
-
+        $this->output('</div>'); */
+      
     }
+	function main_top($content){
+		$this->main_nav_menu();
+		
+		
+	
+		if ($this->cs_position_active('Header') || $this->cs_position_active('Header Right')) {
+			$this->output('<div class="header-position-c container">');	
+				if ($this->cs_position_active('Header')){
+					$this->output('<div class="col-md-6">');
+					$this->cs_position('Header');
+					$this->output('</div>');
+				}
+				if ($this->cs_position_active('Header Right')){
+					$this->output('<div class="col-md-6">');
+					$this->cs_position('Header Right');
+					$this->output('</div>');
+				}
+			$this->output('</div>');
+		}
+	}
+	
+	function default_template($content){
+		$this->output('<div class="lr-table"><div class="left-content">');			
+			if ($this->template != 'admin')
+				$this->nav('sub');			
+			
+			$this->cs_page_title();
+
+			if ($this->template != 'question')
+				$this->cs_position('Content Top');
+
+			if (isset($this->content['error']))
+				$this->error(@$this->content['error']);
+			
+			$this->main_parts($content);
+			$this->cs_position('Content Bottom');
+			$this->suggest_next();		
+		$this->output('</div>');
+		
+		$this->sidepanel();	
+		$this->output('</div>');		
+		
+	}
+	
 	function cs_page_title(){
 		if ($this->template != 'user-answers' && $this->template != 'user-questions' && $this->template != 'user-activity' && $this->template != 'user-wall' && $this->template != 'question' && $this->template != 'user' && (!strlen(qa_request(1)) == 0) && (!empty($this->content['title']))) {
             $this->output('<h1 class="page-title">', $this->content['title']);
@@ -772,6 +821,88 @@ class qa_html_theme extends qa_html_theme_base
         $this->output('</div>');
     }
     
+	function user_template($content){
+		if(defined('QA_WORDPRESS_INTEGRATE_PATH')){
+			$userid = $this->content['raw']['userid'];
+			$user_date =  get_userdata( $userid );
+			$handle =  $user_date->user_login;
+			$about  = cs_name($handle);
+		}else{
+			$handle = $this->content['raw']['account']['handle'];
+			$userid = $this->content['raw']['account']['userid'];
+			$about  = cs_name($handle);
+		}
+		
+
+		$this->content['user'] = cs_user_data($handle);
+		
+		$this->output('<div class="lr-table">');
+			$this->cs_user_nav($handle);
+			$this->output('<div class="left-content">');						
+				$this->profile_page_head($handle);
+				$this->profile_page($handle);	
+			$this->output('</div>');		
+			$this->sidepanel();	
+		$this->output('</div>');
+	}
+	function profile_page_head($handle){
+		$user = $this->content['user'];
+        $this->output('<div class="user-cols content-sidebar">');
+
+		$this->output('<div class="user-cover"><img src="'.Q_THEME_URL.'/images/cover.png" /></div>');
+		
+		$this->output('<div class="user-details clearfix">');		
+			$this->output('<div class="user-name">');		
+				$this->output('<span>'.$handle.'</span>');
+				$this->output('<small class="block">' . qa_user_level_string($user['level']) . '</small>');
+			$this->output('</div>');
+		
+			$this->favorite();
+		
+		$this->output('</div>');
+		$this->output('</div>');
+	}
+	function profile_page($handle)
+    {
+		$user = $this->content['user'];
+		
+		if (qa_get_logged_in_level() >= QA_USER_LEVEL_ADMIN) {
+			$form = @$this->content['form_profile'];
+			if(isset($form)){
+				$this->output('<form class="user-buttons" '.$form['tags'].'>');
+				foreach($form['buttons'] as $btn)
+					$this->output('<button ' . $btn['tags'] . ' class="btn btn-xs btn-success" type="submit">' . $btn['label'] . '</button>');
+				$this->output('</form>');
+			}
+        }
+		
+        /* if (isset($about) && strlen($about))
+            $this->output('<div class="about-me widget">', '<h3 class="widget-title">' . qa_lang_html('cleanstrap/about_me') . '</h3>', $about, '</div>');
+        $this->cs_user_activity_count($handle);
+        $this->cs_user_qa($handle); */
+        
+    }
+    
+    function cs_user_nav($handle)
+    {
+        $sub = $this->content['navigation']['sub'];
+		
+		$sub['profile']['icon'] = 'icon-vcard';
+		$sub['account']['icon'] = 'icon-cog';
+		$sub['favorites']['icon'] = 'icon-heart';
+		$sub['wall']['icon'] = 'icon-pin';
+		$sub['activity']['icon'] = 'icon-time';
+		$sub['answers']['icon'] = 'icon-answer-letter';
+		$sub['questions']['icon'] = 'icon-question-letter';
+		
+		$this->content['navigation']['sub'] = $sub;
+		
+        $this->output('	<div class="user-left">'); 
+		//$this->output('<div class="user-thumb">' . cs_get_avatar($handle, 150) . '</div>');
+        $this->nav('sub');		
+        $this->output('</div>');
+    }
+	
     function question_view($content)
     {
 		$q_view = $content['q_view'];
@@ -857,14 +988,13 @@ class qa_html_theme extends qa_html_theme_base
             'avatarheight' => $q_item['raw']['avatarheight']
         );
 
-        $avatar_size = ((bool) qa_opt('cs_enable_clean_qlist') ? 20 : 40);
+        $avatar_size =  40;
         $timeCode    = $q_item['when'];
         $when        = @$timeCode['prefix'] . @$timeCode['data'] . @$timeCode['suffix'];
         
        // if (isset($q_item['avatar'])) {
             $this->output('<div class="asker-avatar">');
             $this->output(cs_get_post_avatar($avatar_arg, $q_item['raw']['userid'], $avatar_size, true));		
-            $this->output('<span class="q-net-votes icon-thumbs-up2">'.$q_item['raw']['netvotes'].'</span>');
             $this->output('</div>');
        // }
         $this->output('<div class="qa-q-item-main">');
@@ -872,16 +1002,16 @@ class qa_html_theme extends qa_html_theme_base
 			//$this->output('<div class="counts">' . $q_item['raw']['acount'] . '<span>'.qa_lang('cleanstrap/ans') . '</span></div>');
 		//}
         $this->output('<div class="q-item-head">');
-        if ((bool) qa_opt('cs_enable_clean_qlist')) {
+        /* if ((bool) qa_opt('cs_enable_clean_qlist')) {
             $this->output('<div class="count-time"><span class="time">' . $when . '</span>');
 			$this->output('<span class="ans-count total-' . $q_item['raw']['acount'] . '">' . $q_item['raw']['acount'] . '</span></div>');
             
             $this->output('<span class="status-c">' . cs_post_status($q_item) . '</span>');
-        }
+        } */
        // $this->output('<div class="qa-user-info"><a class="user-handle" href="'.qa_path_html('user/'.$q_item['raw']['handle']).'">' . $q_item['raw']['handle'] . '</a> '.$q_item['raw']['points'].' Points</div>');
         $this->q_item_title($q_item);
 		$this->q_item_content($q_item);
-        if (!(bool) qa_opt('cs_enable_clean_qlist')) {
+        /* if (!(bool) qa_opt('cs_enable_clean_qlist')) {
             $this->output('<ul class="list-meta clearfix">');
 			$this->output('<li class="q-status">');
             $this->output(cs_post_status($q_item));
@@ -890,7 +1020,7 @@ class qa_html_theme extends qa_html_theme_base
 			$this->post_meta_what($q_item, '');
 			$this->post_meta_when($q_item, '');
 			$this->output('</li>');
-			$this->output('<li class="ql-ans-count">'.qa_lang_sub('cleanstrap/x_views',  $q_item['raw']['views']).'</li>');
+			$this->output('<li class="ql-ans-count">'.qa_lang_sub('cleanstrap/x_views',  ).'</li>');
 			$this->output('<li class="ql-ans-count">'.qa_lang_sub('cleanstrap/x_answers', $q_item['raw']['acount']).'</li>');
           // $this->post_meta($q_item, 'qa-q-item');
 			//qa_html_theme_base::view_count($q_item);
@@ -901,8 +1031,8 @@ class qa_html_theme extends qa_html_theme_base
 				$this->output('</li>');
             }
             $this->output('</ul>');
-        }
-		
+        } */
+		$this->q_item_main_stats($q_item);
         $this->output('</div>');
         
         $this->q_item_buttons($q_item);
@@ -914,6 +1044,16 @@ class qa_html_theme extends qa_html_theme_base
     {
     }
     
+	function q_item_main_stats($q_item){
+		$this->output(
+			'<div class="q-item-status">',
+				'<span class="icon-thumb-up">'.$q_item['raw']['netvotes'].'</span>',
+				'<span class="icon-answer">'.$q_item['raw']['acount'].'</span>',
+				'<span class="icon-eye-open">'.$q_item['raw']['views'].'</span>',				
+			'</div>'
+		);
+	}
+	
     function footer()
     {
         $this->output('<footer id="site-footer" class="clearfix">');
@@ -1102,10 +1242,10 @@ class qa_html_theme extends qa_html_theme_base
         $vote_text = ($post['raw']['netvotes'] > 1 || $post['raw']['netvotes'] < (-1)) ? qa_lang('cleanstrap/votes') : qa_lang('cleanstrap/vote');
         
         if (isset($post['vote_up_tags']))
-            $this->output('<a ' . @$up_tags . ' href="#" data-code="' . $code . '" class=" icon-thumbs-up2 enabled vote-up ' . $state . '"></a>');
+            $this->output('<a ' . @$up_tags . ' href="#" data-code="' . $code . '" class=" icon-thumb-up enabled vote-up ' . $state . '"></a>');
         $this->output('<span class="count">' . $post['raw']['netvotes'] . '</span>');
         if (isset($post['vote_down_tags']))
-            $this->output('<a ' . @$down_tags . ' href="#" data-code="' . $code . '" class=" icon-thumbs-down2 enabled vote-down ' . $state . '"></a>');
+            $this->output('<a ' . @$down_tags . ' href="#" data-code="' . $code . '" class=" icon-thumb-down enabled vote-down ' . $state . '"></a>');
         
     }
     
@@ -1474,66 +1614,8 @@ class qa_html_theme extends qa_html_theme_base
             $this->output('</div>');
     }
     
-    function profile_page()
-    {
-		if(defined('QA_WORDPRESS_INTEGRATE_PATH')){
-			$userid = $this->content['raw']['userid'];
-			$user_date =  get_userdata( $userid );
-			$handle =  $user_date->user_login;
-			$about  = cs_name($handle);
-		}else{
-			$handle = $this->content['raw']['account']['handle'];
-			$userid = $this->content['raw']['account']['userid'];
-			$about  = cs_name($handle);
-		}
- 
-        $this->output('<div class="user-cols content-sidebar">');
-        $this->cs_user_nav($handle);
-        $this->output('<div class="user-cols-right">');
-		
-		if (qa_get_logged_in_level() >= QA_USER_LEVEL_ADMIN) {
-			$form = @$this->content['form_profile'];
-			if(isset($form)){
-				$this->output('<form class="user-buttons" '.$form['tags'].'>');
-				foreach($form['buttons'] as $btn)
-					$this->output('<button ' . $btn['tags'] . ' class="btn btn-xs btn-success" type="submit">' . $btn['label'] . '</button>');
-				$this->output('</form>');
-			}
-        }
-		
-        if (isset($about) && strlen($about))
-            $this->output('<div class="about-me widget">', '<h3 class="widget-title">' . qa_lang_html('cleanstrap/about_me') . '</h3>', $about, '</div>');
-        $this->cs_user_activity_count($handle);
-        $this->cs_user_qa($handle);
-        $this->output('</div>');
-        $this->output('</div>');
-        
-    }
     
-    function cs_user_nav($handle)
-    {
-        $user = cs_user_data($handle);
-        
-        $this->output('			
-			<div class="user-header">
-				<div class="user-header-inner clearfix">
-			  <div class="user-thumb">
-				' . cs_get_avatar($handle, 150) . '
-			  </div>
-			  <div class="user-name-detail">
-				<h3>' . cs_name($handle) . '<small class="block m-t-mini">' . qa_user_level_string($user['level']) . '</small>
-				</h3>
-				
-				');
-        
-        $this->output('</div>');
-        
-        $this->nav('sub');
-		$this->favorite();
-        $this->output('</div>');
-        $this->output('</div>');
-    }
-    
+
     
     function cs_user_activity_count($handle)
     {
@@ -1604,20 +1686,33 @@ class qa_html_theme extends qa_html_theme_base
     }
     function favorite_inner_html($favorite)
     {
-        $this->favorite_button(@$favorite['favorite_add_tags'], 'icon-heart,' . @$favorite['form_hidden']['code'] . ',');
-        $this->favorite_button(@$favorite['favorite_remove_tags'], 'icon-heart active remove,' . @$favorite['form_hidden']['code'] . ',');
+		$type 		= qa_post_text('entitytype');
+		
+		$icon_add	= 'icon-heart';
+		$icon_remove	= 'icon-heart';
+		
+		if($type == 'U' || $this->template == 'user'){
+			$icon_add	= 'icon-plus';
+			$icon_remove	= 'icon-cross';
+
+			$title = isset($favorite['favorite_add_tags']) ? qa_lang('cleanstrap/follow') : qa_lang('cleanstrap/unfollow');
+		}
+		
+        $this->favorite_button(@$favorite['favorite_add_tags'], $icon_add.',' . @$favorite['form_hidden']['code'] . ',', $title);
+        $this->favorite_button(@$favorite['favorite_remove_tags'], $icon_remove.' active remove,' . @$favorite['form_hidden']['code'] . ',', $title);
     }
-    function favorite_button($tags, $class)
+    function favorite_button($tags, $class, $title = '')
     {
-        
-        if (isset($tags)) {
-            if ($this->template == 'user')
-                $text = isset($favorite['favorite_add_tags']) ? qa_lang('cleanstrap/follow') : qa_lang('cleanstrap/unfollow');
+
+        if (isset($tags)) {            
+
             $code_icon = explode(',', $class);
+
+			
             $data      = str_replace('name', 'data-id', @$tags);
             $data      = str_replace('onclick="return qa_favorite_click(this);"', '', @$data);
             
-            $this->output('<a href="#" ' . @$favorite['favorite_tags'] . ' ' . $data . ' data-code="' . $code_icon[1] . '" class="fav-btn ' . $code_icon[0] . '"><span>' . @$code_icon[2] . '</span></a>');
+            $this->output('<a href="#" ' . @$favorite['favorite_tags'] . ' ' . $data . ' data-code="' . $code_icon[1] . '" class="fav-btn ' . $code_icon[0] . '"><span>' . @$code_icon[2] . '</span>'.$title.'</a>');
         }
     }
     
@@ -2038,7 +2133,7 @@ class qa_html_theme extends qa_html_theme_base
                     }
                 }
             }
-            $this->output('<div class="qa-q-list' . ($this->list_vote_disabled($q_list['qs']) ? ' qa-q-list-vote-disabled' : '') . ((bool) qa_opt('cs_enable_clean_qlist') ? ' clean' : '') . '">', '');
+            $this->output('<div class="qa-q-list' . ($this->list_vote_disabled($q_list['qs']) ? ' qa-q-list-vote-disabled' : '') . '">', '');
             $this->q_list_items($q_list['qs']);
             $this->output('</div> <!-- END qa-q-list -->', '');
         } else

@@ -53,7 +53,8 @@
 						'Home 3 Center' => 'Home position 3',
 						'Home Right' => 'Home right side',						
 						'Question Right' => 'Right side of question',
-						'User Content' => 'On user page'
+						'User Content' => 'On user page',
+						'User Right' => 'Right side of user page'
 					)
 				);
 				reset_theme_options();

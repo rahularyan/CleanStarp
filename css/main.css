@@ -5232,3 +5232,6 @@ th .description {
 .q-item-status > span:last-child {
     margin-right: 0;
 }
+.q-item-status > span:before {
+    margin-right: 3px;
+}

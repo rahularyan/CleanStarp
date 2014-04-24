@@ -24,15 +24,15 @@ class qa_html_theme extends qa_html_theme_base
 
 
             $this->output('<!DOCTYPE html>');
-            $this->content['navigation']['main']['questions']['icon']    = 'icon-question-sign';
-            $this->content['navigation']['main']['unanswered']['icon']   = 'icon-sad';
+            $this->content['navigation']['main']['questions']['icon']    = 'icon-question';
+            $this->content['navigation']['main']['unanswered']['icon']   = 'icon-warning';
             $this->content['navigation']['main']['hot']['icon']          = 'icon-fire';
-            $this->content['navigation']['main']['tag']['icon']          = 'icon-tags2';
-            $this->content['navigation']['main']['categories']['icon']   = 'icon-folder-close';
-            $this->content['navigation']['main']['user']['icon']         = 'icon-users';
+            $this->content['navigation']['main']['tag']['icon']          = 'icon-tags';
+            $this->content['navigation']['main']['categories']['icon']   = 'icon-folder';
+            $this->content['navigation']['main']['user']['icon']         = 'icon-group';
             $this->content['navigation']['main']['widgets']['icon']      = 'icon-puzzle';
-            $this->content['navigation']['main']['admin']['icon']        = 'icon-wrench';
-            $this->content['navigation']['main']['themeoptions']['icon'] = 'icon-wrench';
+            $this->content['navigation']['main']['admin']['icon']        = 'icon-spanner';
+            $this->content['navigation']['main']['themeoptions']['icon'] = 'icon-spanner';
             
             unset($this->content['navigation']['main']['ask']);
             unset($this->content['navigation']['main']['admin']);
@@ -90,7 +90,7 @@ class qa_html_theme extends qa_html_theme_base
         if (qa_opt('cs_enable_gzip')) //Gzip
             $this->output('<LINK REL="stylesheet" TYPE="text/css" HREF="' . Q_THEME_URL . '/inc/gzip.php' . '"/>');
         else {
-            $this->output('<link rel="stylesheet" type="text/css" href="http://i.icomoon.io/public/temp/d5b9a10d70/UntitledProject2/style.css"/>');
+            $this->output('<link rel="stylesheet" type="text/css" href="http://i.icomoon.io/public/temp/1bb6479368/CleanstrapNew/style.css"/>');
             $this->output('<link rel="stylesheet" type="text/css" href="' . Q_THEME_URL . '/css/bootstrap.css"/>');
             $this->output('<link rel="stylesheet" type="text/css" href="' . Q_THEME_URL . '/css/main.css"/>');
             $this->output('<link rel="stylesheet" type="text/css" href="' . Q_THEME_URL . '/css/wide.css"/>');
@@ -171,7 +171,7 @@ class qa_html_theme extends qa_html_theme_base
 		 
         $this->body_suffix();
         if ((qa_opt('cs_enble_back_to_top')) && (qa_opt('cs_back_to_top_location') == 'right'))
-            $this->output('<a id="back-to-top" class="back-to-top-right icon-angle-up t-bg" href="#"></a>');
+            $this->output('<a id="back-to-top" class="back-to-top-right icon-arrow-up-thick t-bg" href="#"></a>');
     }
     function header()
     {
@@ -195,7 +195,7 @@ class qa_html_theme extends qa_html_theme_base
 		$this->output('<div class="navbar-default container" role="navigation">');
 
 		$this->output('<nav class="pull-left clearfix">');
-        $this->output('<a href="#" class="slide-mobile-menu icon-list"></a>');
+        $this->output('<a href="#" class="slide-mobile-menu icon-th-menu"></a>');
         
 		if ( (qa_opt('cs_enable_category_nav')) && (qa_using_categories()) )
 			$this->cat_drop_nav();	
@@ -210,7 +210,7 @@ class qa_html_theme extends qa_html_theme_base
 	function nav_ask_btn(){
 		if (qa_opt('cs_enable_ask_button')){
 			$this->output('<a id="nav-ask-btn" href="' . qa_path_html('ask') . '" class="btn btn-sm">' . qa_lang_html('cleanstrap/ask_question') . '</a>');
-			$this->output('<a id="nav-ask-btn" href="' . qa_path_html('ask') . '" class="btn btn-sm header-ask-button icon-question-sign"></a>');
+			$this->output('<a id="nav-ask-btn" href="' . qa_path_html('ask') . '" class="btn btn-sm header-ask-button icon-question"></a>');
 		}
 	}
     function head_nav(){
@@ -243,7 +243,7 @@ class qa_html_theme extends qa_html_theme_base
 ?>
 			<ul class="nav navbar-nav category-nav pull-left">
 				<li class="dropdown pull-left">
-					<a data-toggle="dropdown" href="#" class="category-toggle icon-folder-close" title="<?php echo qa_lang_html('cleanstrap/categories'); ?>"></a>					
+					<a data-toggle="dropdown" href="#" class="category-toggle icon-folder" title="<?php echo qa_lang_html('cleanstrap/categories'); ?>"></a>					
 						<?php $this->cs_full_categories_list(); ?>					
 				</li>
 			</ul>
@@ -273,13 +273,13 @@ class qa_html_theme extends qa_html_theme_base
 							
 							<?php
 			if(qa_get_logged_in_level() >= QA_USER_LEVEL_ADMIN)	
-				$this->content['navigation']['user']['admin'] = array('label' => qa_lang_html('cleanstrap/admin'), 'url' => qa_path_html('admin'), 'icon'=> 'icon-wrench');
-			$this->content['navigation']['user']['profile'] = array('label' => qa_lang_html('cleanstrap/profile'), 'url' => qa_path_html('user/' . qa_get_logged_in_handle()), 'icon'=> 'icon-vcard');
-			$this->content['navigation']['user']['updates']['icon'] = 'icon-signal';
+				$this->content['navigation']['user']['admin'] = array('label' => qa_lang_html('cleanstrap/admin'), 'url' => qa_path_html('admin'), 'icon'=> 'icon-spanner');
+			$this->content['navigation']['user']['profile'] = array('label' => qa_lang_html('cleanstrap/profile'), 'url' => qa_path_html('user/' . qa_get_logged_in_handle()), 'icon'=> 'icon-user');
+			$this->content['navigation']['user']['updates']['icon'] = 'icon-rss';
 			$this->content['navigation']['user']['account'] = array('label' => qa_lang('cleanstrap/account'), 'url' => qa_path_html('account'), 'icon' => 'icon-cog');
 			$this->content['navigation']['user']['favorites'] = array('label' => qa_lang('cleanstrap/favorites'), 'url' => qa_path_html('favorites'), 'icon' =>'icon-heart');
-			$this->content['navigation']['user']['wall'] = array('label' => qa_lang('cleanstrap/wall'), 'url' => qa_path_html('user/'.qa_get_logged_in_handle().'/wall'), 'icon' =>'icon-edit');
-			$this->content['navigation']['user']['recent_activity'] = array('label' => qa_lang('cleanstrap/recent_activity'), 'url' => qa_path_html('user/'.qa_get_logged_in_handle().'/activity'), 'icon' =>'icon-time');
+			$this->content['navigation']['user']['wall'] = array('label' => qa_lang('cleanstrap/wall'), 'url' => qa_path_html('user/'.qa_get_logged_in_handle().'/wall'), 'icon' =>'icon-pin');
+			$this->content['navigation']['user']['recent_activity'] = array('label' => qa_lang('cleanstrap/recent_activity'), 'url' => qa_path_html('user/'.qa_get_logged_in_handle().'/activity'), 'icon' =>'icon-world');
 			$this->content['navigation']['user']['all_questions'] = array('label' => qa_lang('cleanstrap/all_questions'), 'url' => qa_path_html('user/'.qa_get_logged_in_handle().'/questions'), 'icon' =>'icon-question');
 			$this->content['navigation']['user']['all_answers'] = array('label' => qa_lang('cleanstrap/all_answers'), 'url' => qa_path_html('user/'.qa_get_logged_in_handle().'/answers'), 'icon' =>'icon-answer');
 			
@@ -294,7 +294,7 @@ class qa_html_theme extends qa_html_theme_base
 			
            // if (isset($this->content['navigation']['user']['logout']['url'])) {
                 $link = qa_opt('site_url') . "logout";
-                echo "<li><a class='icon-switch' href = '$link'> " . qa_lang_html('cleanstrap/logout') . " </a></li>";
+                echo "<li><a class='icon-power' href = '$link'> " . qa_lang_html('cleanstrap/logout') . " </a></li>";
            // }
 ?>
 						</ul>
@@ -307,7 +307,7 @@ class qa_html_theme extends qa_html_theme_base
 ?>				
 				<a class="btn login-register icon-key"  href="#" data-toggle="modal" data-target="#login-modal" title="<?php echo qa_lang_html('cleanstrap/login_register'); ?>"><?php echo qa_lang_html('cleanstrap/login'); ?></a>
 				
-				<a class="btn login-register icon-login"  href="<?php echo qa_path_html('register'); ?>" title="<?php echo qa_lang_html('cleanstrap/register_on_site'); ?>"><?php echo qa_lang_html('cleanstrap/register'); ?></a>
+				<a class="btn login-register icon-user-add"  href="<?php echo qa_path_html('register'); ?>" title="<?php echo qa_lang_html('cleanstrap/register_on_site'); ?>"><?php echo qa_lang_html('cleanstrap/register'); ?></a>
 				
 				<!-- Modal -->
 				<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -349,7 +349,7 @@ class qa_html_theme extends qa_html_theme_base
             echo $this->content['navigation']['user']['login']['url'];
 ?>" method="post">
 							<div class="input-group">
-							  <span class="input-group-addon"><i class="icon-user"></i></span>
+							  <span class="input-group-addon"><i class="icon-at"></i></span>
 							  <input type="text" class="form-control" id="qa-userid" name="emailhandle" placeholder="<?php
             echo trim(qa_lang_html('users/email_handle_label'), ':');
 ?>" />
@@ -391,7 +391,7 @@ class qa_html_theme extends qa_html_theme_base
 ?>" />
 								</div>
 								<div class="input-group">
-									<span class="input-group-addon"><i class="icon-envelope"></i></span>
+									<span class="input-group-addon"><i class="icon-at"></i></span>
 									<input type="text" id="email" class="form-control" name="email" 	placeholder="<?php
             echo trim(qa_lang_html('users/email_label'), ':');
 ?>">
@@ -514,7 +514,7 @@ class qa_html_theme extends qa_html_theme_base
 					<li class="points"><?php
         echo qa_get_logged_in_points();
 ?></li>
-					<li><a class="icon-profile" href="<?php
+					<li><a class="icon-user" href="<?php
         echo qa_path_html('user/' . qa_get_logged_in_handle());
 ?>"><?php
         qa_lang('Profile');
@@ -528,7 +528,7 @@ class qa_html_theme extends qa_html_theme_base
         }
         if (!isset($this->content['navigation']['user']['logout']['url'])) {
             $link = qa_opt('site_url') . "logout";
-            echo "<li><a class='icon-switch' href = '$link'> " . qa_lang_html('cleanstrap/logout') . " </a></li>";
+            echo "<li><a class='icon-power' href = '$link'> " . qa_lang_html('cleanstrap/logout') . " </a></li>";
         }
 ?>
 				</ul>
@@ -550,7 +550,7 @@ class qa_html_theme extends qa_html_theme_base
         
         
         if ((qa_opt('cs_enble_back_to_top')) && (qa_opt('cs_back_to_top_location') == 'nav'))
-            $this->output('<a id="back-to-top" class="back-to-top-nav icon-angle-up t-bg" href="#"></a>');
+            $this->output('<a id="back-to-top" class="back-to-top-nav icon-arrow-up-thick t-bg" href="#"></a>');
         
         $this->output('</div>');
         $this->output('</div>');
@@ -887,13 +887,13 @@ class qa_html_theme extends qa_html_theme_base
     {
         $sub = $this->content['navigation']['sub'];
 		
-		$sub['profile']['icon'] = 'icon-vcard';
-		$sub['account']['icon'] = 'icon-cog';
-		$sub['favorites']['icon'] = 'icon-heart';
-		$sub['wall']['icon'] = 'icon-pin';
-		$sub['activity']['icon'] = 'icon-time';
-		$sub['answers']['icon'] = 'icon-answer-letter';
-		$sub['questions']['icon'] = 'icon-question-letter';
+		$sub['profile']['icon'] 		= 'icon-user';
+		$sub['account']['icon'] 		= 'icon-cog';
+		$sub['favorites']['icon'] 		= 'icon-heart';
+		$sub['wall']['icon'] 			= 'icon-pin';
+		$sub['activity']['icon'] 		= 'icon-chart-bar';
+		$sub['answers']['icon'] 		= 'icon-answer';
+		$sub['questions']['icon'] 		= 'icon-question';
 		
 		$this->content['navigation']['sub'] = $sub;
 		
@@ -917,8 +917,8 @@ class qa_html_theme extends qa_html_theme_base
 		
 		$this->output(cs_post_status($q_view), (is_featured($q_view['raw']['postid']) ? '<span class="featured-sticker icon-star">' . qa_lang_html('cleanstrap/featured') . '</span>' : ''), 
 			'<span class="q-view-a-count">'.$q_view['raw']['acount'].' Answers</span>',
-				'<span class="icon-eye-open q-view-v-count">' . $q_view['raw']['views'] . ' ' . qa_lang_html('cleanstrap/views') . '</span>
-			<a class="cat-in icon-folder-close" href="' . cs_cat_path($q_view['raw']['categorybackpath']) . '">' . $q_view['raw']['categoryname'] . '</a>');
+				'<span class="icon-eye q-view-v-count">' . $q_view['raw']['views'] . ' ' . qa_lang_html('cleanstrap/views') . '</span>
+			<a class="cat-in icon-folder" href="' . cs_cat_path($q_view['raw']['categorybackpath']) . '">' . $q_view['raw']['categoryname'] . '</a>');
 			
 		$this->output('</div>');
 		
@@ -1049,7 +1049,7 @@ class qa_html_theme extends qa_html_theme_base
 			'<div class="q-item-status">',
 				'<span class="icon-thumb-up">'.$q_item['raw']['netvotes'].'</span>',
 				'<span class="icon-answer">'.$q_item['raw']['acount'].'</span>',
-				'<span class="icon-eye-open">'.$q_item['raw']['views'].'</span>',				
+				'<span class="icon-eye">'.$q_item['raw']['views'].'</span>',				
 			'</div>'
 		);
 	}
@@ -1349,7 +1349,7 @@ class qa_html_theme extends qa_html_theme_base
 	{
 		if (!empty($q_view['follows']))
 			$this->output(
-				'<div class="qa-q-view-follows icon-question-sign">',
+				'<div class="qa-q-view-follows icon-flow-children">',
 				$q_view['follows']['label'],
 				'<a href="'.$q_view['follows']['url'].'" class="qa-q-view-follows-link">'.$q_view['follows']['title'].'</a>',
 				'</div>'
@@ -1362,7 +1362,7 @@ class qa_html_theme extends qa_html_theme_base
 			$haslink=isset($q_view['closed']['url']);
 			
 			$this->output(
-				'<div class="qa-q-view-closed icon-cross">',
+				'<div class="qa-q-view-closed icon-times">',
 				$q_view['closed']['label'],
 				($haslink ? ('<a href="'.$q_view['closed']['url'].'"') : '<span').' class="qa-q-view-closed-content">',
 				$q_view['closed']['content'],
@@ -1400,13 +1400,13 @@ class qa_html_theme extends qa_html_theme_base
             if ($k == 'close')
                 $btn['class'] = 'icon-cancel';
             if ($k == 'hide')
-                $btn['class'] = 'icon-eye-open';
+                $btn['class'] = 'icon-hide';
             if ($k == 'answer')
                 $btn['class'] = 'icon-answer';
             if ($k == 'comment')
-                $btn['class'] = 'icon-chat';
+                $btn['class'] = 'icon-comment';
             if ($k == 'follow')
-                $btn['class'] = 'icon-add-answer';
+                $btn['class'] = 'icon-answer';
             
             $this->output('<button ' . $btn['tags'] . ' class="btn ' . @$btn['class'] . '" title="' . $btn['popup'] . '" type="submit">' . $btn['label'] . '</button>');
         }
@@ -1437,7 +1437,7 @@ class qa_html_theme extends qa_html_theme_base
 		{
 			if (!empty($c_list)) {
 				$this->output('', '<div class="'.$class.'-c-list"'.(@$c_list['hidden'] ? ' style="display:none;"' : '').' '.@$c_list['tags'].'>');
-				$this->output('<div class="comment-count icon-comments">'.count($c_list['cs']).'</div>');
+				$this->output('<div class="comment-count icon-comment">'.count($c_list['cs']).'</div>');
 				$this->output('<div class="comment-items">');
 				$this->c_list_items($c_list['cs']);
 				$this->output('</div>');
@@ -1487,11 +1487,11 @@ class qa_html_theme extends qa_html_theme_base
             if ($k == 'unflag')
                 $btn['class'] = 'icon-flag';
             if ($k == 'hide')
-                $btn['class'] = 'icon-cancel';
+                $btn['class'] = 'icon-hide';
             if ($k == 'reshow')
-                $btn['class'] = 'icon-eye-open';
+                $btn['class'] = 'icon-eye';
             if ($k == 'comment')
-                $btn['class'] = 'icon-answers';
+                $btn['class'] = 'icon-answer';
             
             $this->output('<button ' . $btn['tags'] . ' class="btn ' . @$btn['class'] . '" title="' . @$btn['popup'] . '" type="submit">' . @$btn['label'] . '</button>');
         }
@@ -1692,8 +1692,8 @@ class qa_html_theme extends qa_html_theme_base
 		$icon_remove	= 'icon-heart';
 		
 		if($type == 'U' || $this->template == 'user'){
-			$icon_add	= 'icon-plus';
-			$icon_remove	= 'icon-cross';
+			$icon_add	= 'icon-user-add';
+			$icon_remove	= 'icon-user-delete';
 
 			$title = isset($favorite['favorite_add_tags']) ? qa_lang('cleanstrap/follow') : qa_lang('cleanstrap/unfollow');
 		}
@@ -1791,7 +1791,7 @@ class qa_html_theme extends qa_html_theme_base
                 } else
                 $this->output('
 							<div class="no-items">
-								<h3 class="icon-sad">' . qa_lang_html('cleanstrap/no_users') . '</h3>
+								<h3 class="icon-warning">' . qa_lang_html('cleanstrap/no_users') . '</h3>
 								<p>' . qa_lang_html('cleanstrap/edit_user_detail') . '</p>
 							</div>');
             
@@ -1827,7 +1827,7 @@ class qa_html_theme extends qa_html_theme_base
             } else
                 $this->output('
 					<div class="no-items">
-					<h3 class="icon-sad">' . qa_lang('cleanstrap/no_tags') . '</h3>
+					<h3 class="icon-warning">' . qa_lang('cleanstrap/no_tags') . '</h3>
 					<p>' . qa_lang('cleanstrap/no_results_detail') . '</p>
 					</div>');
             
@@ -1859,7 +1859,7 @@ class qa_html_theme extends qa_html_theme_base
             } else
                 $this->output('
 						<div class="no-items">
-							<h3 class="icon-sad">' . qa_lang_html('cleanstrap/no_results') . '</h3>
+							<h3 class="icon-warning">' . qa_lang_html('cleanstrap/no_results') . '</h3>
 							<p>' . qa_lang_html('cleanstrap/no_results_detail') . '</p>
 						</div>');
         }
@@ -2012,7 +2012,7 @@ class qa_html_theme extends qa_html_theme_base
         $this->output('<div class="qa-a-selection">');
         
         if (isset($post['select_tags']))
-            $this->cs_hover_button($post, 'select_tags', qa_lang('cleanstrap/select_answer'), 'icon-checkmark3 qa-a-select');
+            $this->cs_hover_button($post, 'select_tags', qa_lang('cleanstrap/select_answer'), 'icon-input-checked qa-a-select');
         elseif (isset($post['unselect_tags']))
             $this->post_hover_button($post, 'unselect_tags', @$post['select_text'], 'qa-a-unselect');
         elseif ($post['selected'])
@@ -2139,7 +2139,7 @@ class qa_html_theme extends qa_html_theme_base
         } else
             $this->output('
 					<div class="no-items">
-						<h3 class="icon-sad">' . qa_lang_html('cleanstrap/no_users') . '</h3>
+						<h3 class="icon-warning">' . qa_lang_html('cleanstrap/no_users') . '</h3>
 						<p>' . qa_lang_html('cleanstrap/no_results_detail') . '.</p>
 					</div>');
     }

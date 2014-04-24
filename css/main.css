@@ -15,6 +15,7 @@ a:hover {
     text-decoration: none;
 }
 
+
 a:focus {
     outline: medium none;
     outline-offset: 0;

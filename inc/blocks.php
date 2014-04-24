@@ -1045,11 +1045,17 @@ class qa_html_theme extends qa_html_theme_base
     }
     
 	function q_item_main_stats($q_item){
-		$this->output(
-			'<div class="q-item-status">',
-				'<span class="icon-thumb-up">'.$q_item['raw']['netvotes'].'</span>',
-				'<span class="icon-answer">'.$q_item['raw']['acount'].'</span>',
-				'<span class="icon-eye">'.$q_item['raw']['views'].'</span>',				
+		$this->output(			
+			'<div class="q-item-footer clearfix">',
+				'<div class="q-item-buttons pull-left">',
+					'<a class="answer-this icon-answer" href="">Answer</a>',
+					'<a class="answer-this" href="">Answer</a>',
+				'</div>',
+				'<div class="q-item-status">',
+					'<span class="icon-thumb-up">'.$q_item['raw']['netvotes'].'</span>',
+					'<span class="icon-answer">'.$q_item['raw']['acount'].'</span>',
+					'<span class="icon-eye">'.$q_item['raw']['views'].'</span>',				
+				'</div>',
 			'</div>'
 		);
 	}

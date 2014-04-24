@@ -3,6 +3,7 @@ html body {
     color: #54656F;
     font-size: 14px;
     line-height: 26px;
+	font-family: 'open sans',arial;
 }
 
 *, *:before, *:after {
@@ -609,9 +610,7 @@ textarea{
 }
 
 .qa-q-list .qa-q-list-item .asker-avatar img {
-    -moz-border-radius: 2px;
-    -webkit-border-radius: 2px;
-    border-radius: 2px;
+    border-radius: 50%;
     margin-top: 4px;
 }
 
@@ -628,9 +627,9 @@ textarea{
 }
 
 .qa-q-list .qa-q-list-item .qa-q-item-title {
-    font-family: 'open sans',arial;
-    font-size: 17px;
-    font-weight: 400;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 2px;
 }
 
 .qa-q-list .qa-q-list-item .qa-q-item-stats {
@@ -674,7 +673,7 @@ textarea{
 }
 
 .qa-q-item-content {
-    color: #777777;
+    color: #898989;
 }
 
 .qa-q-item-tags ul {
@@ -5223,15 +5222,35 @@ th .description {
 .user-details .fav-btn.active{
 	background:#3ac0f8;
 }
+.q-item-footer {
+    margin-top: 7px;
+}
 .q-item-status {
     color: #B3B3B3;
+    float: right;
 }
 .q-item-status > span {
-    margin-right: 10px;
+    padding:0 10px;
+	border-right:solid 1px #ddd;
 }
 .q-item-status > span:last-child {
+    border: medium none;
     margin-right: 0;
 }
 .q-item-status > span:before {
     margin-right: 3px;
+}
+.q-item-buttons > a{
+    background: none repeat scroll 0 0 #EFEFF2;
+    border-radius: 5px;
+    color: #505054;
+    font-size: 11px;
+    font-weight: 600;
+    margin-right: 6px;
+    padding: 4px 10px;
+}
+.q-item-buttons > a:before{
+    font-size: 13px;
+    margin-right: 3px;
+    vertical-align: text-top;	
 }

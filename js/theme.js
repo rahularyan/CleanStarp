@@ -126,7 +126,7 @@ function cs_ajax_loading($elm){
 	});
 }
 function cs_toggle_editor(){	
-	$( '#q_doanswer' ).on('click', function(event) {
+	$( '#q_doanswer, #focus_doanswer' ).not('.disabled').on('click', function(event) {
 		event.preventDefault();
 		$('html, body').animate({
 			scrollTop: $('#anew').offset().top
@@ -665,7 +665,7 @@ $(document).ready(function(){
 	$('#featured-slider').carousel({
 		interval: 10000
 	})
-	$('.voting a, .fav-btn ').tooltip({placement:'top'});
+	$('.voting a, .fav-btn, #focus_doanswer ').tooltip({placement:'top'});
 	
 	$(window).resize(function(){
 		$('.left-sidebar').removeAttr('style');

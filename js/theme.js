@@ -126,7 +126,7 @@ function cs_ajax_loading($elm){
 	});
 }
 function cs_toggle_editor(){	
-	$( '#q_doanswer' ).on('click', function(event) {
+	$( '#q_doanswer, #focus_doanswer' ).not('.disabled').on('click', function(event) {
 		event.preventDefault();
 		$('html, body').animate({
 			scrollTop: $('#anew').offset().top
@@ -145,9 +145,9 @@ function cs_favorite_click()
 				if (lines[0]=='1'){
 					
 					elem.parent().empty().html(lines.slice(1).join("\n"));
-					$('.fav-btn').tooltip({placement:'bottom'});
+					$('.fav-btn').tooltip({placement:'top'});
 				}else if (lines[0]=='0') {
-					alert(lines[1]);
+					//alert(lines[1]);
 					//cs_remove_process(elem);
 				} else
 					qa_ajax_error();
@@ -321,7 +321,7 @@ function cs_widgets(){
 		
 		var id = $(this).closest('.draggable-widget').data('id');
 		$.ajax({
-			url : theme_url+'/inc/ajax.php',
+			url : ajax_url,
 			data: {
 				id: id,
 				action: 'delete_widget',
@@ -403,7 +403,8 @@ function cs_save_widget($elm){
 	});
 
 	 $.ajax({
-		url : theme_url+'/inc/ajax.php',
+		type:'post',
+		url : ajax_url,
 		data: {
 			position: $elm.data('name'),
 			widget_names: JSON.stringify(widget),
@@ -563,6 +564,9 @@ function cs_check_site_status_size(){
 	if($('.site-status-inner .bar-float').width() < 160)
 		$('.site-status-inner > *').css({'float': 'none', 'width':'100%'});
 }
+jQuery.fn.redraw = function() {
+    return this.hide(0, function(){jQuery(this).show()});
+}; 
 $(document).ready(function(){
 
 	var win_height = $(window).height();
@@ -661,7 +665,7 @@ $(document).ready(function(){
 	$('#featured-slider').carousel({
 		interval: 10000
 	})
-	$('.voting a, .fav-btn ').tooltip({placement:'top'});
+	$('.voting a, .fav-btn, #focus_doanswer ').tooltip({placement:'top'});
 	
 	$(window).resize(function(){
 		$('.left-sidebar').removeAttr('style');
@@ -687,6 +691,22 @@ $(document).ready(function(){
 		afterModalClose: function(){
 			$('.tc_body').fadeIn(100);
 		}
+	});
+	
+	$('body').redraw();
+	
+	$('.cs_ask_form #notify').click(function(){
+		$(this).closest('.form-group').next().toggle();
+	});
+	
+	// ADD SLIDEDOWN ANIMATION TO DROPDOWN //
+	$('.dropdown').on('show.bs.dropdown', function(e){
+		$(this).find('.dropdown-menu').first().stop(true, true).slideDown();
+	});
+
+	// ADD SLIDEUP ANIMATION TO DROPDOWN //
+	$('.dropdown').on('hide.bs.dropdown', function(e){
+		$(this).find('.dropdown-menu').first().stop(true, true).slideUp();
 	});
 	
 });

@@ -8,3 +8,47 @@
 	Theme License: GPL 2.0
 	Theme Update Check URI: 
 */
+.home-intro h1{
+    color: #333333;
+    font-size: 33px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    margin-top: 0;
+}
+.home-intro .desc {
+    font-size: 19px;
+    line-height: 30px;
+}
+.home-intro .intro-icon {
+    margin-top: 30px;
+}
+.home-intro  .intro-icon > *:before{
+    background: none repeat scroll 0 0 #EEEEEE;
+    border-radius: 50%;
+    color: #FFFFFF;
+    display: table;
+    font-size: 75px;
+    margin: 0 auto;
+    padding: 15px;
+    text-align: center;
+}
+
+.home-intro  .intro-icon > *{
+
+}
+.home-intro  .intro-icon > * span{
+    display: block;
+    font-size: 15px;
+    line-height: 20px;
+    margin-top: 10px;
+    text-align: center;
+}
+.home-intro  .intro-icon .icon-question:before{
+	background:#ff971d;
+}
+.home-intro  .intro-icon .icon-answer:before{
+	background:#6cb939;
+}
+.home-intro  .intro-icon .icon-thumbs-up2:before{
+	background:#5ac3ff;
+}

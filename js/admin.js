@@ -39,10 +39,6 @@ $(document).ready(function(){
 	
 	// Typography
 
-	$(".font-family").chosen({width: "370px",allow_single_deselect: true ,no_results_text: "There is no font with this name!"});
-	$(".font-style").chosen({width: "200px",allow_single_deselect: true});
-	$(".font-family-backup").chosen({width: "260px",allow_single_deselect: true});
-
 	$.each( $( ".font-family" ), function( index, elem ){
 		demo = $(elem).parent().find('.font-demo');
 		var font=demo.parent().children('#typo_family').val();

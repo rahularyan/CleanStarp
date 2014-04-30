@@ -77,8 +77,8 @@ a:hover{
 	background:#e6a629;
 	color:#fff;
 }
-.qa-a-selection input.qa-a-unselect-button, .qa-a-selection .qa-a-selected{
-	background:#00ccff;
+.qa-a-selection .qa-a-unselect-button, .qa-a-selection .qa-a-selected{
+	background:#59c15c;
 }
 #a_list .q-cont-right{
 	border-color:#70bc55;

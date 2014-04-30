@@ -1,8 +1,8 @@
 html body {
-    background: url("../images/bg.jpg") repeat scroll 0 0 rgba(0, 0, 0, 0);
-    color: #54656F;
+    background: url("../images/patterns/light_grey.png") repeat scroll 0 0 rgba(0, 0, 0, 0);
+    color: #40515B;
     font-size: 14px;
-	line-height:1.8;
+    line-height: 1.8;
 }
 
 *, *:before, *:after {
@@ -21,7 +21,7 @@ a:focus {
     text-decoration: none;
 }
 
-.ff1{
+.ff1, .qa-c-item-meta{
 	font-family: 'Varela Round',arial;
 }
 [class^="icon-"]:before, [class*=" icon-"]:before {
@@ -37,7 +37,9 @@ a:focus {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
-
+label{
+	font-weight:normal;
+}
 .form-control, textarea, input[type="text"], input[type="password"], select {
     background-color: #FFFFFF;
     background-image: none;
@@ -93,7 +95,9 @@ textarea{
 
 .navbar-default {
     background: none repeat scroll 0 0 #262629;
+    border-radius: 4px 4px 0 0;
     margin-top: 25px;
+    overflow: hidden;
     padding: 0;
 }
 
@@ -105,9 +109,9 @@ textarea{
 }
 
 #site-header #header-top {
-    background: none repeat scroll 0 0 #49535E;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+    background-image: linear-gradient(#FFFFFF, #E4E4E4);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+    box-shadow: none;
     margin: 0;
     padding: 10px 0;
 }
@@ -184,7 +188,6 @@ textarea{
 }
 
 #site-header .btn.icon-search {
-    background: none repeat scroll 0 0 #333333;
     padding: 7px 15px;
 }
 #header-top .user-nav.dropdown-menu {
@@ -195,7 +198,7 @@ textarea{
 }
 .navbar-form .form-control {
     background: none repeat scroll 0 0 #FFFFFF;
-    border: 1px solid #2D3135;
+    border: 1px solid #d0d0d0;
     border-radius: 3px;
     display: inline-block;
     font-weight: 300;
@@ -604,7 +607,7 @@ textarea{
 
 /* questions list */
 .qa-q-list .qa-q-list-item {
-    border-bottom: 1px solid #F8F8F8;
+    border-bottom: 1px solid #EBEBEB;
     display: table;
     padding: 15px 10px;
     width: 100%;
@@ -780,6 +783,12 @@ textarea{
 
 .qa-main {
     background: none repeat scroll 0 0 #FFFFFF;
+    border-color: transparent #DDDDDD #DDDDDD;
+    border-image: none;
+    border-radius: 0 0 10px 10px;
+    border-right: 1px solid #DDDDDD;
+    border-style: none solid solid;
+    border-width: medium 1px 1px;
     margin-bottom: 35px;
     padding: 0;
 }
@@ -1276,7 +1285,6 @@ a.feed-link {
 }
 
 .question-title {
-    background: none repeat scroll 0 0 #FAFAFA;
     border-bottom: 1px solid #EFEFEF;
     color: #333333;
     font-family: 'Varela Round',arial;
@@ -1284,7 +1292,7 @@ a.feed-link {
     font-weight: bold;
     line-height: 35px;
     margin: 0 0 20px;
-    padding: 30px 0;
+    padding: 25px 0;
     text-align: center;
 }
 
@@ -1443,7 +1451,6 @@ a.feed-link {
 }
 
 .qa-q-view-c-list {
-    border-top: 1px solid #EEE;
     padding: 0;
 }
 
@@ -1452,9 +1459,10 @@ a.feed-link {
 }
 
 .qa-c-list-item {
+    background: none repeat scroll 0 0 #FFFFFF;
     border-top: 1px solid #F7F7F7;
     margin-bottom: 0;
-    padding: 10px;
+    padding: 10px 0;
     position: relative;
 }
 
@@ -1471,7 +1479,7 @@ a.feed-link {
 }
 
 .qa-c-list-item .asker-avatar {
-    margin-top: 10px;
+    margin-top: 5px;
 }
 
 .qa-c-wrap {
@@ -1485,9 +1493,9 @@ a.feed-link {
 }
 
 .qa-c-item-meta {
-    color: #777777;
+    color: #565656;
     display: block;
-    font-size: 12px;
+    font-size: 14px;
 }
 
 .qa-q-view-tag-list {
@@ -1510,37 +1518,26 @@ a.feed-link {
 
 
 .answers-label {
-    color: #333;
-    font-size: 24px;
+    color: #333333;
+    font-size: 18px;
+    font-weight: bold;
     line-height: 40px;
-    margin-bottom: 25px;
+    margin-bottom: 0;
     padding: 1px;
 }
 
 .answers-label.icon-answer:before {
-    background: none repeat scroll 0 0 #444;
-    -moz-border-radius: 50%;
-    -webkit-border-radius: 50%;
-    border-radius: 50%;
-    -moz-box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
-    -webkit-box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
-    color: #AAA;
-    font-size: 18px;
     margin-right: 10px;
-    padding: 5px;
-    position: relative;
+
 }
 
 .answers-label:before {
-    font-size: 20px;
-    margin-right: 10px;
-    vertical-align: middle;
+
 }
 
 .qa-a-list .qa-a-list-item {
     background: none repeat scroll 0 0 #FFFFFF;
-    border-top: 1px solid #C1C1C1;
+    border-top: 2px dotted #EDEDED;
     margin-bottom: 20px;
     padding-top: 15px;
 }
@@ -1567,13 +1564,19 @@ a.feed-link {
 .a-item-inner-wrap {
     overflow: hidden;
 }
-
+.qa-a-item-main-head {
+    border-radius: 4px;
+    padding: 0 10px;
+}
+.qa-a-item-main-head  p{
+	margin:0;
+}
 .qa-a-item-main {
-
+    border-radius: 5px;
 }
 
 .answer-selected .qa-a-item-main {
-    border-top: 3px solid #0CF;
+	background: none repeat scroll 0 0 #F8FFFA;
 }
 
 .qa-a-item-c-list {
@@ -1584,7 +1587,9 @@ a.feed-link {
     font-weight: 600;
     margin-bottom: 10px;
 }
-
+.a-item-wrap {
+    padding: 15px;
+}
 .qa-q-view-buttons, .qa-a-item-buttons, .qa-c-item-buttons {
     margin-top: 10px;
 }
@@ -2399,7 +2404,6 @@ input.qa-form-wide-number {
     -webkit-border-radius: 2px;
     border-radius: 2px;
     color: #FFF;
-    margin-right: 10px;
     margin-top: 8px;
     padding: 0 6px;
 }
@@ -2407,7 +2411,13 @@ input.qa-form-wide-number {
 .qa-a-selection .qa-a-select-button:before {
     margin-right: 5px;
 }
-
+.qa-a-selection .qa-a-unselect-button {
+    border: medium none;
+    border-radius: 2px;
+    color: #FFFFFF;
+    margin-top: 8px;
+    padding: 0 6px;
+}
 .qa-a-selection input.qa-a-unselect-button, .qa-a-selection .qa-a-selected {
     border: medium none;
     color: #FFF;
@@ -3881,13 +3891,11 @@ th .description {
 }
 
 .modal-backdrop {
-    background-color: #FFF;
+
 }
 
 .modal-backdrop.in {
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
-    filter: alpha(opacity=100);
-    opacity: 1;
+
 }
 
 #login-modal .modal-content {
@@ -4384,7 +4392,8 @@ th .description {
 }
 
 .qa-form-tall-data .cke_1 .cke_top {
-    background: none;
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+    box-shadow: none;
 }
 
 .qa-form-tall-data .cke_chrome {
@@ -4714,6 +4723,7 @@ th .description {
 
 .qa-q-view-follows, .qa-q-view-closed {
     border-radius: 3px;
+    margin-bottom: 20px;
     margin-top: 20px;
 }
 
@@ -4732,9 +4742,9 @@ th .description {
 }
 .qa-q-view-follows > strong, .qa-q-view-closed > strong{
     border: 1px solid #EEEEEE;
+    border-radius: 0 3px 3px 0;
     color: #777777;
-    display: table;
-    font-size: 13px;
+    display: block;
     font-weight: normal;
     overflow: hidden;
     padding: 6px 10px;
@@ -4848,7 +4858,6 @@ th .description {
 }
 
 .q-view-body {
-    border-bottom: 1px solid #EEEEEE;
     min-height: 115px;
 }
 
@@ -5256,7 +5265,7 @@ th .description {
 .q-item-status > span:before {
     margin-right: 3px;
 }
-.q-item-buttons > a{
+.q-item-buttons a{
     background: none repeat scroll 0 0 #EFEFF2;
     border-radius: 3px;
     color: #505054;
@@ -5288,13 +5297,16 @@ th .description {
 }
 
 .q-item-buttons > .fav-parent a {
-    color: #505054;
+    color: #FFFFFF;
     display: block;
+    font-size: 11px;
+    font-weight: bold;
     margin: 0;
     padding: 2px 6px;
+    text-transform: lowercase;
 }
 .q-item-buttons > .fav-parent a:before{
-	margin:0;
+	margin:4px;
 }
 .q-item-buttons > .fav-parent span{
 	display:none;
@@ -5357,6 +5369,14 @@ th .description {
 .asker {
     font-family: 'Varela Round',arial;
     font-size: 17px;
+    margin: 0;
+}
+.asker-point {
+    color: #777777;
+    display: block;
+    font-size: 13px;
+    font-style: italic;
+    margin-bottom: 10px;
 }
 .question-meta {
     list-style: none outside none;
@@ -5402,4 +5422,36 @@ th .description {
 }
 .big-btns .fav-parent .fav-btn{
 	margin-left:2px;
+}
+.answer-f-wrap {
+    background: none repeat scroll 0 0 #F8F8F8;
+    border-radius: 7px;
+    padding: 10px;
+}
+.cke_inner {
+    background: none;
+}
+.answer-f-wrap .qa-form-tall-data .cke_chrome {
+    border: medium none;
+    box-shadow: none;
+}
+.answer-f-wrap .qa-form-tall-data .cke_inner{
+	background:none;
+}
+.answer-f-wrap .qa-form-tall-data .cke_top {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border: medium none;
+    box-shadow: none;
+    padding: 0;
+}
+.answer-f-wrap .qa-form-tall-data .cke_toolgroup {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+.answer-f-wrap .qa-form-tall-data .cke_reset {
+    border-radius: 5px;
+    margin: 5px 0 0;
+}
+.qa-form-tall-label {
+    padding-bottom: 10px;
+    padding-top: 15px;
 }

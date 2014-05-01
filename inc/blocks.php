@@ -73,7 +73,7 @@ class qa_html_theme extends qa_html_theme_base
     {
 		
 		if (qa_opt('cs_enable_gzip')) //Gzip
-            $this->output('<style>'.cs_combine_assets($this->content['css_src']).'</style>');
+            $this->output('<link href="'. Q_THEME_URL . '/css/css_cache.css" rel="stylesheet" type="text/css">');
 		else
 			qa_html_theme_base::head_css();
 			
@@ -139,11 +139,11 @@ class qa_html_theme extends qa_html_theme_base
 		
 		
 		$this->output('<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>');
-		//$this->output('<script src="'.Q_THEME_URL . '/js/bootstrap.js"></script>');
         $this->output('<script> theme_url = "' . Q_THEME_URL . '";</script>');
 		
+
 		if (qa_opt('cs_enable_gzip')) //Gzip
-            $this->output('<script type="text/javascript">'.cs_combine_js($this->content['script_src']).'</script>');
+            $this->output('<script type="text/javascript" src="'.Q_THEME_URL.'/js/script_cache.js"></script>');
 		else{
 			if (isset($this->content['script_src']))
 				foreach ($this->content['script_src'] as $script_src)
@@ -2256,6 +2256,39 @@ class qa_html_theme extends qa_html_theme_base
 		$this->waiting_template();
 		$this->output('</div>');
 	}
+	
+	function cs_ajax_build_assets_cache()
+    {
+		if (qa_get_logged_in_level() > QA_USER_LEVEL_ADMIN){
+			$css_file = CS_THEME_DIR.'/css/css_cache.css';
+			$handle = fopen($css_file, 'w') or die('Cannot open file:  '.$css_file);
+			$data = cs_combine_assets($this->content['css_src']);
+			fwrite($handle, $data);
+			
+			$script_file = CS_THEME_DIR.'/js/script_cache.js';
+			$handle = fopen($script_file, 'w') or die('Cannot open file:  '.$script_file);
+			$data = cs_combine_assets($this->content['script_src'], false);
+			fwrite($handle, $data);
+			
+			qa_opt('cs_enable_gzip', 1);
+			
+			echo 'Disable Compression';
+		}
+		
+        die();
+    }	
+	
+	function cs_ajax_destroy_assets_cache()
+    {
+		if (qa_get_logged_in_level() > QA_USER_LEVEL_ADMIN){
+			
+			qa_opt('cs_enable_gzip', 0);
+			
+			echo 'Enable Compression';
+		}
+		
+        die();
+    }
 	
 	
     

@@ -71,7 +71,12 @@ class qa_html_theme extends qa_html_theme_base
     }
     function head_css()
     {
-        qa_html_theme_base::head_css();
+		
+		if (qa_opt('cs_enable_gzip')) //Gzip
+            $this->output('<style>'.cs_combine_assets($this->content['css_src']).'</style>');
+		else
+			qa_html_theme_base::head_css();
+			
         $this->output('<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 			<meta http-equiv="X-UA-Compatible" content="IE=edge"> ');
 		$fav = qa_opt('cs_favicon_url');
@@ -87,21 +92,14 @@ class qa_html_theme extends qa_html_theme_base
 				<![endif]-->
 			');
         
-        if (qa_opt('cs_enable_gzip')) //Gzip
-            $this->output('<LINK REL="stylesheet" TYPE="text/css" HREF="' . Q_THEME_URL . '/inc/gzip.php' . '"/>');
-        else {
-            $this->output('<link rel="stylesheet" type="text/css" href="http://i.icomoon.io/public/temp/e44daa8d54/CleanstrapNew/style.css"/>');
-            $this->output('<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/css/bootstrap.min.css"/>');
-            $this->output('<link rel="stylesheet" type="text/css" href="' . Q_THEME_URL . '/css/main.css"/>');
-            $this->output('<link rel="stylesheet" type="text/css" href="' . Q_THEME_URL . '/css/wide.css"/>');
-            $this->output('<link rel="stylesheet" type="text/css" href="' . Q_THEME_URL . '/css/responsive.css"/>');
-            $this->output('<link rel="stylesheet" type="text/css" href="' . Q_THEME_URL . '/css/theme-green.css"/>');
-			
-            $this->output('<link href="http://fonts.googleapis.com/css?family=Varela+Round|Open+Sans" rel="stylesheet" type="text/css">');
+        
+       
+           $this->output('<link rel="stylesheet" type="text/css" href="http://i.icomoon.io/public/temp/e44daa8d54/CleanstrapNew/style.css"/>');
+		  
+		   $this->output('<link href="http://fonts.googleapis.com/css?family=Varela+Round|Open+Sans" rel="stylesheet" type="text/css">');
             
-        }
-		if (qa_opt('cs_styling_rtl'))
-			$this->output('<link rel="stylesheet" type="text/css" href="' . Q_THEME_URL . '/css/rtl.css"/>');
+        
+		
 		if (qa_opt('cs_custom_style_created')){
 			$this->output('<link rel="stylesheet" type="text/css" href="' . Q_THEME_URL . '/css/dynamic.css"/>');
 		}else{
@@ -137,22 +135,23 @@ class qa_html_theme extends qa_html_theme_base
     }
     function head_script()
     {
-		// unset old jQuery
-		if(($key = array_search('<script src="../qa-content/jquery-1.7.2.min.js" type="text/javascript"></script>', $this->content['script'])) !== false) {
-			unset($this->content['script'][$key]);
-		}
-	
+		qa_html_theme_base::head_script();
+		
+		
 		$this->output('<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>');
+		//$this->output('<script src="'.Q_THEME_URL . '/js/bootstrap.js"></script>');
         $this->output('<script> theme_url = "' . Q_THEME_URL . '";</script>');
-        qa_html_theme_base::head_script();
-        
-        $this->output('<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/js/bootstrap.min.js"></script>');
-        
-        $this->output('<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-sparklines/2.1.2/jquery.sparkline.min.js"></script>');
-        
-        $this->output('<script type="text/javascript" src="' . Q_THEME_URL . '/js/jquery-ui.min.js"></script>');
-
-         $this->output('<script type="text/javascript" src="' . Q_THEME_URL . '/js/theme.js"></script>');
+		
+		if (qa_opt('cs_enable_gzip')) //Gzip
+            $this->output('<script type="text/javascript">'.cs_combine_js($this->content['script_src']).'</script>');
+		else{
+			if (isset($this->content['script_src']))
+				foreach ($this->content['script_src'] as $script_src)
+					$this->output('<script type="text/javascript" src="'.$script_src.'"></script>');
+		}
+			
+ 
+		
 		
 		//register a hook
 		cs_event_hook('head_script', $this);
@@ -224,7 +223,7 @@ class qa_html_theme extends qa_html_theme_base
 		}
 	}
     function head_nav(){
-		if(qa_opt('cs_nav_position') == 'top'){
+		if ($this->template != 'admin'){
 			$this->nav('main');
 		}
 	}
@@ -627,58 +626,7 @@ class qa_html_theme extends qa_html_theme_base
     function main()
     {
        $content = $this->content;
-		/* $col_width = ($this->cs_position_active('Right') && $this->template != 'question');
-        $this->output('<div class="container">');
-        $this->output('<div class="row">');
-        $this->output('<div class="' . ($col_width ? 'col-sm-8' : '') . ' list-c">'); */
-        
 		
-        
-		/* if ($this->template == 'user' && !(isset($_REQUEST['state']) && $_REQUEST['state'] == 'edit')) {
-            $this->profile_page();
-        } */
-		
-		/* if ($this->template == 'user' && !(isset($_REQUEST['state']) && $_REQUEST['state'] == 'edit')) {
-            $this->profile_page();
-        } elseif (strlen(qa_request(1)) == 0) {
-            $this->home($content);
-        } elseif ($this->template == 'question') {
-            $this->question_view($content);
-        } elseif ($this->template == 'user-wall') {
-            $handle = qa_request_part(1);
-            $this->output('<section id="content" class="content-sidebar user-cols">');
-            $this->cs_user_nav($handle);
-            $this->output('<div class="messages">');
-            $this->message_list_and_form($this->content['message_list']);
-            $this->output('</div></section>');
-        } elseif ($this->template == 'user' && (isset($_REQUEST['state']) && $_REQUEST['state'] == 'edit')) {
-            $handle = qa_request_part(1);
-            if (!strlen($handle)) {
-                $handle = qa_get_logged_in_handle();
-            }
-            
-            $this->output('<section id="content" class="content-sidebar user-cols">');
-            $this->cs_user_nav($handle);
-            $this->main_parts($content);
-            $this->output('</section>');
-        } elseif ($this->template == 'account' || $this->template == 'favorites' || $this->template == 'user-activity' || $this->template == 'user-questions' || $this->template == 'user-answers') {
-            $handle = qa_request_part(1);
-            if (!strlen($handle)) {
-                $handle = qa_get_logged_in_handle();
-            }
-            
-            $this->output('<section id="content" class="content-sidebar user-cols">');
-            $this->cs_user_nav($handle);
-            $this->main_parts($content);
-            $this->output('</section>');
-        } else {
-            
-            if ($this->template != 'admin')
-                $this->nav('sub');
-            $this->main_parts($content);
-            $this->suggest_next();
-        } */
-		//print_r($this->template);
 		switch($this->template){
 			case 'qa':
 				$this->home($content);				
@@ -701,6 +649,11 @@ class qa_html_theme extends qa_html_theme_base
 				$this->output('</div></section>');
 				
 				break;
+			
+			case 'admin':
+				$this->admin_template($content);
+				
+				break;
 				
 			default:				
 				$this->default_template($content);
@@ -721,9 +674,9 @@ class qa_html_theme extends qa_html_theme_base
       
     }
 	function main_top($content){
-		$this->main_nav_menu();
 		
-		
+		if($this->template != 'admin')
+			$this->main_nav_menu();		
 	
 		if ($this->cs_position_active('Header') || $this->cs_position_active('Header Right')) {
 			$this->output('<div class="header-position-c container">');	
@@ -743,7 +696,6 @@ class qa_html_theme extends qa_html_theme_base
 	
 	function default_template($content){
 		$this->output('<div class="lr-table"><div class="left-content">');			
-			if ($this->template != 'admin')
 				$this->nav('sub');			
 			
 			$this->cs_page_title();
@@ -763,6 +715,30 @@ class qa_html_theme extends qa_html_theme_base
 		$this->output('</div>');
 		
 		$this->sidepanel();	
+		$this->output('</div>');		
+		
+	}	
+	
+	function admin_template($content){
+		$this->output('<div class="lr-table">');
+		
+		$this->output('<div class="left-side">');
+		$this->nav('sub');
+		$this->output('</div>');
+		
+		$this->output('<div class="left-content">');			
+			$this->cs_page_title();
+
+			if ($this->template != 'question')
+				$this->cs_position('Content Top');
+
+			if (isset($this->content['error']))
+				$this->error(@$this->content['error']);
+			
+			$this->main_parts($content);
+			$this->cs_position('Content Bottom');
+			
+		$this->output('</div>');
 		$this->output('</div>');		
 		
 	}

@@ -1,4 +1,4 @@
-// Tab for option page
+
 function cs_question_meta(){
 	$('#set_featured').click(function(e){
 		e.preventDefault();
@@ -212,45 +212,6 @@ function cs_sparkline(elm){
 	generateSparkline(false);
 
   }
- /*  
-function cs_load_items(){
-	var winwidth 	= $(window).width(),
-		contwidth 	= $('#site-body').width(),
-		ajaxblockwidth 	= winwidth - contwidth;
-
-	if(winwidth > 1170 && ajaxblockwidth > 250){
-		$.ajax({
-            data: {
-				cs_ajax: true,
-				cs_ajax_html: true,
-				height: $('#site-body').height(),
-                action: 'get_ajax_block',
-            },
-            dataType: 'html',
-            context: this,
-            success: function (response) {
-				$('#ajax-item #ajax-blocks').css('width', (winwidth - contwidth)- 30 );
-				$(response).appendTo('#ajax-item #ajax-blocks');
-				cs_sparkline('.pieact');
-            },
-        });
-		
-	}
-
-} */
-/* function cs_ajax_item_resize(){
-	var winwidth 	= $(window).width(),
-		contwidth 	= $('#site-body').width(),
-		ajaxblockwidth 	= winwidth - contwidth;
-
-	if(winwidth > 1170 && ajaxblockwidth > 250){	
-		$('#ajax-item #ajax-blocks').css('width', (winwidth - contwidth)- 30 );		
-	}else{
-		$('#ajax-item #ajax-blocks').hide();
-	}
-
-} */
-
 function cs_slide_menu(){
 	$('.slide-mobile-menu').toggle(
 		function() {
@@ -482,6 +443,40 @@ function cs_load_login_register(){
 		});
 	});
 }
+function cs_create_cache(){
+	$('body').delegate('#cache_assets', 'click', function(e){
+		e.preventDefault();
+		if(!$(this).is('.active')){
+			$.ajax({
+				data: {
+					cs_ajax: true,
+					cs_ajax_html: true,
+					action: 'build_assets_cache',
+				},
+				context:this,
+				dataType: 'html',
+				success: function (response) {
+					$(this).addClass('active btn-danger');
+					$(this).text(response);
+				},
+			});
+		}else{
+			$.ajax({
+				data: {
+					cs_ajax: true,
+					cs_ajax_html: true,
+					action: 'destroy_assets_cache',
+				},
+				context:this,
+				dataType: 'html',
+				success: function (response) {
+					$(this).removeClass('active btn-danger');
+					$(this).text(response);
+				},
+			});
+		}
+	});
+}
 function cs_save_image(image){
 	$.ajax({
 		data: {
@@ -572,6 +567,8 @@ $(document).ready(function(){
 	cs_load_login_register();
 	cs_user_popover();
 	cs_check_site_status_size();
+	cs_create_cache();
+	
 	if ($('.ra-ask-widget').length>0)
 		cs_ask_box_autocomplete();
 	
@@ -648,7 +645,7 @@ $(document).ready(function(){
 	});
 	$('#featured-slider').carousel({
 		interval: 10000
-	})
+	});
 	$('.voting a, .fav-btn, #focus_doanswer ').tooltip({placement:'top'});
 	
 	$(window).resize(function(){
@@ -659,16 +656,16 @@ $(document).ready(function(){
 	});
 	if($('.qa-template-featured').length > 0)
 	$(".tips").tip_cards({
-		entrance: "top", // This option let you determine the direction of the fly in entrance animation when all the cards appears. Available options are "bottom", "left", "right", and "top". The default value is "bottom".
-		column: 4, // The plugin also let you define how the card will be displayed and aligned. You can set the column of cards here. The default value is 4. 
-		margin: "1%", // You can define the margins between each cards here. Percentage is currently support at this point. The default is "1%".
-		selector: "> li", // You can define a custom selector if you do not want to use ul and li tags. This option accepts the normal CSS selector. The default value is "> li" 
-		hoverTilt: "right", // Define the tilt direction when cards are hovered here. Available options are "right", "left", "up", and "down". The default value is "right".
-		triggerSelector: "> li .open-tip", // You can also define a custom selector for the trigger button here. The default value is "> li a" which will use the link inside a list as a trigger to activate the card. 
-		cardFlyDirection: "all", // You can define the card fly animation when the modal appears here. Available options are "all", "top", "bottom", "left", and "right". The default value is "all" which will have the cards fly in from all direction and stack up under the opened modal
-		closeButton: "Close", // You can define the content of the close button here. Change this to false to prevent the plugin from automatically generating the close button. The default string is "X".
-		flipButton: "Flip", // You can define the content of the flip button here. Change this to false to prevent the plugin from automatically generating the flip button. The default string is "Flip".
-		navigation: true, // Set this to true to allow users to navigate from one card to another when modal is opened. Change it to false to disable it. The default value is true.
+		entrance: "top", 
+		column: 4, 
+		margin: "1%", 
+		selector: "> li", 
+		hoverTilt: "right", 
+		triggerSelector: "> li .open-tip", 
+		cardFlyDirection: "all", 
+		closeButton: "Close", 
+		flipButton: "Flip", 
+		navigation: true, 
 		beforeOpen: function(){
 			$('.tc_body').fadeOut(100);
 		}, 

@@ -1,3 +1,9 @@
+function cs_animate_button(elm){
+	$(elm).addClass('.btn-loading.active');
+}
+function cs_remove_animate_button(elm){
+	$(elm).removeClass('.btn-loading.active');
+}
 
 function cs_question_meta(){
 	$('#set_featured').click(function(e){
